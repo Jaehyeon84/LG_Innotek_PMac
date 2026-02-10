@@ -130,27 +130,10 @@ open plc 2
 	else if(gWs_CldIn_CoverFB==cBwd)						pUmem_Sta_Ws_Cover = 1;		// Cover Open
 	else													pUmem_Sta_Ws_Cover = 0;		// Cover Unknown
 
-//	if(gWs_CoverOpn_Ena == 1)								gWs_CoverMoving_Sta = 1;	// Cover Open
-//	else if(gWs_CoverCls_Ena == 2)							gWs_CoverMoving_Sta = 2;	// Cover Close
-
 	//20260201 KJH -
 	//X, Y축이 움직이면서 Theta 축 동작시 Inpos 늦게 켜지는 현상 관련 동작 완료 확인 관련 Status.
 	if(Motor[nwX].InPos == 1 && Motor[nwY].InPos == 1 && pUmem_Sta_CmdPos(nwC) == gWs_ThTargetPos_Old)	gIsWStationReady = 1;
 	else	gIsWStationReady = 0;
-
-//	if(cWs_Cover_MoveAng < 0)
-//	{
-//		if(Motor[nwC].InPos == 1 && (pUmem_Sta_ActPos(nwC) % 360000) == (360000 + cWs_Cover_MoveAng))		gIsWsCoverComplete = 1;
-//		else	gIsWsCoverComplete = 0;
-//	}
-//	else
-//	{
-//		if(Motor[nwC].InPos == 1 && (pUmem_Sta_ActPos(nwC) % 360000) == cWs_Cover_MoveAng)		gIsWsCoverComplete = 1;
-//		else	gIsWsCoverComplete = 0;
-//	}
-
-//	if(Motor[nwC].InPos == 1 && gWs_ThPos_Old == pUmem_Sta_ActPos(nwC))		gIsWsCoverComplete = 1;
-//	else	gIsWsCoverComplete = 0;
 
 	//20260201 KJH -
 	//Cover Open/Close 동작 완료 여부 확인을 위한 Status
@@ -237,27 +220,10 @@ open plc 2
 	else if(gVs_CldIn_CoverFB==cBwd)						pUmem_Sta_Vs_Cover = 1;		// Cover Open
 	else													pUmem_Sta_Vs_Cover = 0;		// Cover Unknown
 
-//	if(gVs_CoverOpn_Ena == 1)								gVs_CoverMoving_Sta = 1;	// Cover Open
-//	else if(gVs_CoverCls_Ena == 2)							gVs_CoverMoving_Sta = 2;	// Cover Close
-
 	//20260201 KJH -
 	//X, Y축이 움직이면서 Theta 축 동작시 Inpos 늦게 켜지는 현상 관련 동작 완료 확인 관련 Status.
 	if(Motor[nvX].InPos == 1 && Motor[nvY].InPos == 1 && pUmem_Sta_CmdPos(nvC) == gVs_ThTargetPos_Old)	gIsVStationReady = 1;
 	else	gIsVStationReady = 0;
-
-//	if(cVs_Cover_MoveAng < 0)
-//	{
-//		if(Motor[nvC].InPos == 1 && (pUmem_Sta_ActPos(nvC) % 360000) == (360000 + cVs_Cover_MoveAng))		gIsVsCoverComplete = 1;
-//		else	gIsVsCoverComplete = 0;
-//	}	
-//	else
-//	{
-//		if(Motor[nvC].InPos == 1 && (pUmem_Sta_ActPos(nvC) % 360000) == cVs_Cover_MoveAng)		gIsVsCoverComplete = 1;
-//		else	gIsVsCoverComplete = 0;
-//	}
-
-//	if(Motor[nvC].InPos == 1 && gVs_ThPos_Old == pUmem_Sta_ActPos(nvC))		gIsVsCoverComplete = 1;
-//	else	gIsVsCoverComplete = 0;
 
 	//20260201 KJH -
 	//Cover Open/Close 동작 완료 여부 확인을 위한 Status

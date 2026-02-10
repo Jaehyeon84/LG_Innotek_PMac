@@ -1,8 +1,8 @@
 //######################################################################################################
 // Header 00 : System Setup
 //######################################################################################################
-//#define CE				0
-#define TG					1
+#define CE					0
+//#define TG					1
 
 //#define MACHINE_TYPE		0		// MACHINE_TYPE = 0 : Simmulation Mode
 #define MACHINE_TYPE		1		// MACHINE_TYPE = 1 : Actual Machine

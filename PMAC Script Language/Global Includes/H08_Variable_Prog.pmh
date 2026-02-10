@@ -1259,7 +1259,7 @@ global gVs_TgtMov_PosC = 0;
 // PLC 24 : Cover
 //-----------------------------------------------------------------------------------------------------//
 #define cWs_Cover_MoveAng	0
-#define cVs_Cover_MoveAng	-90000
+#define cVs_Cover_MoveAng	0
 
 global gWs_CoverOpn_TgtAng = 0;
 

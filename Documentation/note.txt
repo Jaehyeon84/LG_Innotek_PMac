@@ -1,119 +1,75 @@
+
+
 시퀀스 진행중이 아닐때 리퀘스트 시그널 끄기
+
 시퀀스 루프에 스캐너 관련 조건 추가할것 (pUmem_Sta_Sc_AmpEna 등)
 시퀀스 루프 오토 모드에서만 동작 하도록 설정
-비젼 알람 : Low
+
 디폴트 종료 상태 알수 있도록 수정
-로드 완료 되었는데 뚜껑 안닫혔을때 재시도?
+
 비젼스테이징 혹은 용접스테이지의 상태가 부여되지 않은 상태에서 충돌 가능성
 원점 잡을때 모든시퀀스(특히 자동시퀀스 종료)
 스캐너 엔코더 커맨드 스케일 정확히 확인
-비젼 얼라인시 증분량 부호 확인
 나중에 런모드 주석 풀어줄 것
 
-스캐너 홈오프셋 부호 비교
+센서 딜레이 추가할것
+일시정지시 하던일 마저하기(용접, 비젼검사등)
 
-오토 시작시 남아있는 제품 처리 결정되지 않음
-원점 완료 후 전동 실린더 백워드 위치로 변경 (Home->Bwd)
+원점 검색시 발생된 알람은 원점 검색루틴으로 복귀
+루프에러등 정의 안된 에러상태 업데이트
 
-
-제품 로딩 시퀀스 수정
-0	->		1		->		1		->		2		->		2		->		0		->		0
-0	->		0		->		1		->		1		->		2		->		2		->		0
-		로드 대기	->	얼라인 요청	->	얼라인 완료	->	로딩 완료	->	Req Clear	->	Rsp Clear
-
-
-pUmem_Cmd_Ws_LdVelX = 1200000
-pUmem_Cmd_Ws_LdVelY = 1200000
-pUmem_Cmd_Ws_RdVelX = 1200000
-pUmem_Cmd_Ws_RdVelY = 1200000
-pUmem_Cmd_Ws_WdVelX = 1200000
-pUmem_Cmd_Ws_WdVelY = 1200000
-pUmem_Cmd_Ws_WtVelX = 1200000
-pUmem_Cmd_Ws_WtVelY = 1200000
-pUmem_Cmd_Ws_UdVelX = 1200000
-pUmem_Cmd_Ws_UdVelY = 1200000
-pUmem_Cmd_Ws_RjVelX = 1200000
-pUmem_Cmd_Ws_RjVelY = 1200000
-
+위치값 업데이트 SeqEna와 모터 지령위치 조합으로 변경할 것 (아진 연동 테스트 후 변경)
+스테이지 위치값은 위조건, 제품 위치는 제품 상태와 조합하여 없으면 Idl 처리할것
+!!! TestShot 변경된 상태임
+주의할것
 //---------------------------------------------------------------------------//
 UI
-LogAlarm.json
-ko.json
-en.json
-인터락 알람에 포함시키기
-
 용접중, 검사중 : 모션도는 시간
 제품 상태 : 안함/용접/검사
+
+CE1 X,Y 바뀜
+	case PartType::PT_CORE_SCANNER_A:
+	case PartType::PT_CORE_SCANNER_B:
+	case PartType::PT_CORE_SCANNER_C:
+		AddMotor(CMotor(5, _T("X"), _T("mm"), 1000));
+		AddMotor(CMotor(4, _T("Y"), _T("mm"), 1000));
 
 로딩 시			: PTD_No	=> PC->PMAC
 언로딩/배출시		: PMC->PC	=> PC에 알려줌
 
 
+All HomeStart Response 가 Status = -1,2 되더라도 Clear 되지 않음.
+All HomeAbort 명령시 HomeStart 클리어 되지 않음.
+리드시 포지션 프로그램->머신으로
+JogAbs/Inc 단순 1/0으로 변경?
+Home Offset Param 디폴트로 복구하면 안됨
+인스펙션 Y축 홈오프셋 저장안됨
 Cpart.cpp
 case PartType::PT_CORE_WELDING_A:
 GetMotor(0)->AddParameter 모터
 AddParameter
 
-
-//-----------------------------------------------//
-// CE1 HomePos
-//-----------------------------------------------//
+gVs_Unload_Sta=0
+gVs_Sta_Pdt=0
 //A
-pUmem_Cmd_HomeOffset(nwX)=-7492000
-pUmem_Cmd_HomeOffset(nwY)=-1720000
-pUmem_Cmd_HomeOffset(nwC)=166000
+pUmem_Cmd_HomeOffset(nwX)=-7519898
+pUmem_Cmd_HomeOffset(nwY)=-1717590
+pUmem_Cmd_HomeOffset(nwC)=165364
 pUmem_Cmd_HomeOffset(nwZ)=0
-pUmem_Cmd_HomeOffset(nvX)=-6000000
-pUmem_Cmd_HomeOffset(nvY)=-8670000
-pUmem_Cmd_HomeOffset(nvC)=12000
 
+pUmem_Cmd_HomeOffset(nvX)=-5996780
+pUmem_Cmd_HomeOffset(nvY)=-8669230
+pUmem_Cmd_HomeOffset(nvC)=-77126
 //B
-pUmem_Cmd_HomeOffset(nwX)=-7260000
-pUmem_Cmd_HomeOffset(nwY)=-500000
-pUmem_Cmd_HomeOffset(nwC)=11000
-pUmem_Cmd_HomeOffset(nvX)=-5740000
-pUmem_Cmd_HomeOffset(nvY)=-6225000
-pUmem_Cmd_HomeOffset(nvC)=186000
-
-
-//-----------------------------------------------//
-// Tangerine HomePos
-//-----------------------------------------------//
-//A
-pUmem_Cmd_HomeOffset(nwX)=-4388000
-pUmem_Cmd_HomeOffset(nwY)=-356000
-pUmem_Cmd_HomeOffset(nwC)=12000
+pUmem_Cmd_HomeOffset(nwX)=-7289714
+pUmem_Cmd_HomeOffset(nwY)=-494399
+pUmem_Cmd_HomeOffset(nwC)=12124
 pUmem_Cmd_HomeOffset(nwZ)=0
-pUmem_Cmd_HomeOffset(nvX)=-3300000
-pUmem_Cmd_HomeOffset(nvY)=-8116000
-pUmem_Cmd_HomeOffset(nvC)=-75000
 
-//B
-pUmem_Cmd_HomeOffset(nwX)=//-7260000
-pUmem_Cmd_HomeOffset(nwY)=//-500000
-pUmem_Cmd_HomeOffset(nwC)=//11000
-pUmem_Cmd_HomeOffset(nvX)=//-5740000
-pUmem_Cmd_HomeOffset(nvY)=//-6225000
-pUmem_Cmd_HomeOffset(nvC)//=186000
+pUmem_Cmd_HomeOffset(nvX)=-5770307
+pUmem_Cmd_HomeOffset(nvY)=-6201766
+pUmem_Cmd_HomeOffset(nvC)=95858
 
-Motor[09].pEnc = EncTable[09].a
-Motor[10].pEnc = EncTable[10].a
-Motor[11].pEnc = EncTable[11].a
-Motor[13].pEnc = EncTable[13].a
-Motor[14].pEnc = EncTable[14].a
-Motor[15].pEnc = EncTable[15].a
-Motor[17].pEnc = EncTable[17].a
-
-Motor[09].pEnc2 = EncTable[09].a
-Motor[10].pEnc2 = EncTable[10].a
-Motor[11].pEnc2 = EncTable[11].a
-Motor[13].pEnc2 = EncTable[13].a
-Motor[14].pEnc2 = EncTable[14].a
-Motor[15].pEnc2 = EncTable[15].a
-Motor[17].pEnc2 = EncTable[17].a
-
-pUmem_Cmd_Ws_2dVisionCkRsp	주소 바꿔놓음
-pUmem_Cmd_Vs_3DVisionStRsp	주소 바꿔놓음
 
 //--------------------------------------------------------//
 용접 중간에 정지시 배출 처리
@@ -176,41 +132,11 @@ pUmem_Cmd_Vs_3DVisionStRsp	주소 바꿔놓음
 		2. VS 시작
 		3. WS 시작
 
-//-----------------------------------------------//
-	용접 스테이지 시퀀스 정리
-		1. 로딩
-		2. 비젼
-		3. 용접
-		4. 대기
-		5. 언로딩
-		!!! 언로딩 완료 후 다시 로딩으로 이송
-		!!! 1 Cycle 명령시 대기 위치로 이동 후 종료
-		!!! 로딩과 대기는 위치값은 거의 동일하나 유닛 시퀀스상
-			단순 이동과 모션 실행의 차이가 있어 편의상 나눔
-
-//-----------------------------------------------//
-	비젼 스테이지 시퀀스 정리
-		1. 로딩
-		2. 비젼
-		3. 용접
-		4. 대기
-		5. 언로딩
-		!!! 언로딩 완료 후 다시 로딩으로 이송
-		!!! 1 Cycle 명령시 대기 위치로 이동 후 종료
-		!!! 로딩과 대기는 위치값은 거의 동일하나 유닛 시퀀스상
-			단순 이동과 모션 실행의 차이가 있어 편의상 나눔
 
 //-----------------------------------------------//
 	스테이지 위치 정리
 	!!! 전원 투입 후 스테이지 위치 지정되지 않음.
-		1. 대기
-		2. 로딩
-		3. 준비
-		4. 비젼
-		5. 언로딩
-		!!! 언로딩 완료 후 다시 대기위치로 이송
-		!!! 준비와 비젼의 위치값은 동일하나 용접시퀀스와 유닛 시퀀스
-			맟주기 위해 삽입(실제 이송은 거의 없음)
+
 
 
 //--------------------------------------------------//
@@ -272,6 +198,18 @@ pUmem_Cmd_Vs_3DVisionStRsp	주소 바꿔놓음
 		Encoder	: ABS 23Bit
 
 
+//--------------------------------------------------//
+// Move Ready Pos Sequence
+//--------------------------------------------------//
+	1. Move Jog	X,Y		: X,Y를 충돌하지 않는 안전한 지점으로 이동
+	2. Move Jog C		: X,Y가 안전하게 떨어진 상태에서 회전
+
+//--------------------------------------------------//
+// Move Start Pos Sequence
+//--------------------------------------------------//
+	1. Move Jog	 C		: 조그로 먼저 이동하여 X,Y 함께 움직이는거 방지 (C축의 기구좌표와 프로그램 좌표는 같다)
+	2. Move Prog X,Y	: 모션의 첫번째 위치로 이동해야 하므로 MDI로 이동
+
 
 //--------------------------------------------------//
 // M-Code Description
@@ -309,16 +247,6 @@ M40 비젼 트리거 온
 
 M41 비젼 트리거 오프
 
-M50 테스트 레이져 온
-	M50 		// 딜레이 없이 온
-	M50 P# 		// 딜레이 후 온 (M50 P50 : 레이져 키고 50ms 대기)
-	M50 G1 P# 	// 가이드 온
-	M50 G0 P# 	// 레이져 온
-
-M51 테스트 레이져 오프
-	M51 		// 딜레이 없이 오프
-	M51 P# 		// 딜레이 후 오프 (M51 P50 : 50ms 대기 후 레이져 오프)
-
 M100 레이져 출력모드
 	 M100 A0	// 출력 전압 고정
 	 M100 A1	// 출력 전압 가변
@@ -350,12 +278,74 @@ M140 PFM Control
 	 M140 O# P# // O : OnTime [ms], P : Period [um]
 	 ex) M140 O2 P500 // Ontime 2[ms], Period 500[um]
 
+Motor[09].pEnc = EncTable[09].a
+Motor[10].pEnc = EncTable[10].a
+Motor[11].pEnc = EncTable[11].a
+Motor[13].pEnc = EncTable[13].a
+Motor[14].pEnc = EncTable[14].a
+Motor[15].pEnc = EncTable[15].a
+Motor[17].pEnc = EncTable[17].a
+
+Motor[09].pEnc2 = EncTable[09].a
+Motor[10].pEnc2 = EncTable[10].a
+Motor[11].pEnc2 = EncTable[11].a
+Motor[13].pEnc2 = EncTable[13].a
+Motor[14].pEnc2 = EncTable[14].a
+Motor[15].pEnc2 = EncTable[15].a
+Motor[17].pEnc2 = EncTable[17].a
+
+Motor[09].HomeOffset=-7492000
+Motor[10].HomeOffset=-1720000
+Motor[11].HomeOffset=166000
+Motor[17].HomeOffset=0
+Motor[13].HomeOffset=-6000000
+Motor[14].HomeOffset=-8670000
+Motor[15].HomeOffset=12000
+
+// CE1 JOG X,Y 반대
+//Y선 포커스 X 위치: 6709, (Y:1875)
 
 
 
+	Motor[5].pDac =Sys.Udata[0].a;
+	Motor[5].pDac =Sys.Udata[0].a;
 
+	Gate3[1].SerialEncCtrl=$8E800//$9E800//$8E800;
+	Gate3[1].Chan[0].Dac[0]=-2063532032 ;
+	Gate3[1].Chan[1].Dac[0]=-2063532032 ;
+	call Timer.msec(500)
 
+	//역순으로 원복 진행
+	Gate3[1].Chan[0].Dac[0]=0;
+	Gate3[1].Chan[1].Dac[0]=0;
+	Motor[sx_num].pDac=Gate3[1].Chan[0].Dac[0].a
+	Motor[sy_num].pDac=Gate3[1].Chan[1].Dac[0].a
+	Gate3[1].SerialEncCtrl=$82800// $92800  또는 $82800
+	call Timer.msec(500)
 
+	Ldata.motor = sx_num
+	Kill
+	Ldata.motor = sy_num
+	Kill
 
+	call Timer.msec(100)
 
+	EncTable[sx_num].ScaleFactor=0 // 엔코더 값 털기 위해서 0으로 설정
+	EncTable[sy_num].ScaleFactor=0
+	Motor[sx_num].HomePos=0
+	Motor[sy_num].HomePos=0
+	Motor[sx_num].Pos=0
+	Motor[sy_num].Pos=0
 
+	call Timer.msec(100)
+
+	EncTable[sx_num].ScaleFactor=1 // 기존 설정값 원복
+	EncTable[sy_num].ScaleFactor=1
+
+	home_cx = pUmem_Cmd_HomeOffset(sx_num)/1000;
+	home_cy = pUmem_Cmd_HomeOffset(sy_num)/1000;
+	home_mx = atand(home_cx/(gKin_Len1+sqrt(pow(gKin_Len2,2)+pow(home_cy,2))))/gKin_GalvoSfX;
+	home_my = atand(home_cy/gKin_Len2)/(-gKin_GalvoSfY);
+
+	Motor[sx_num].HomeOffset = home_mx;
+	Motor[sy_num].HomeOffset = home_my;

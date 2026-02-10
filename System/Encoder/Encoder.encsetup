@@ -85,52 +85,14 @@
       <Index1>0</Index1>
       <Index2>0</Index2>
       <Index3>0</Index3>
-      <Index4>1</Index4>
-      <Index5>255</Index5>
-      <Index6>0</Index6>
-      <MaxDelta>0</MaxDelta>
-      <PEnc>Motor[4].IqCmd.a</PEnc>
-      <PEnc1>Sys.pushm</PEnc1>
-      <PrevDelta>0</PrevDelta>
-      <ScaleFactor>1.52587890625E-05</ScaleFactor>
-      <SinBias>0</SinBias>
-      <TanHalfPhi>0</TanHalfPhi>
-      <Type>11</Type>
-    </EncoderDataStructure>
-    <EncoderDataStructure>
-      <CosBias>0</CosBias>
-      <CoverSerror>0</CoverSerror>
-      <EncBias>0</EncBias>
-      <Index1>8</Index1>
-      <Index2>8</Index2>
-      <Index3>0</Index3>
       <Index4>0</Index4>
       <Index5>0</Index5>
       <Index6>0</Index6>
       <MaxDelta>0</MaxDelta>
-      <PEnc>CK3WGC[1].Chan[0].SerialEncDataA.a</PEnc>
+      <PEnc>CK3WAX[0].Chan[3].ServoCapt.a</PEnc>
       <PEnc1>Sys.pushm</PEnc1>
       <PrevDelta>0</PrevDelta>
-      <ScaleFactor>1</ScaleFactor>
-      <SinBias>0</SinBias>
-      <TanHalfPhi>0</TanHalfPhi>
-      <Type>1</Type>
-    </EncoderDataStructure>
-    <EncoderDataStructure>
-      <CosBias>0</CosBias>
-      <CoverSerror>0</CoverSerror>
-      <EncBias>0</EncBias>
-      <Index1>8</Index1>
-      <Index2>8</Index2>
-      <Index3>0</Index3>
-      <Index4>0</Index4>
-      <Index5>0</Index5>
-      <Index6>0</Index6>
-      <MaxDelta>0</MaxDelta>
-      <PEnc>CK3WGC[1].Chan[1].SerialEncDataA.a</PEnc>
-      <PEnc1>Sys.pushm</PEnc1>
-      <PrevDelta>0</PrevDelta>
-      <ScaleFactor>1</ScaleFactor>
+      <ScaleFactor>0.00390625</ScaleFactor>
       <SinBias>0</SinBias>
       <TanHalfPhi>0</TanHalfPhi>
       <Type>1</Type>
@@ -142,17 +104,17 @@
       <Index1>0</Index1>
       <Index2>0</Index2>
       <Index3>0</Index3>
-      <Index4>1</Index4>
-      <Index5>255</Index5>
-      <Index6>1</Index6>
+      <Index4>0</Index4>
+      <Index5>0</Index5>
+      <Index6>0</Index6>
       <MaxDelta>0</MaxDelta>
-      <PEnc>Sys.pushm+$1f40</PEnc>
+      <PEnc>CK3WGC[1].Chan[0].ServoCapt.a</PEnc>
       <PEnc1>Sys.pushm</PEnc1>
       <PrevDelta>0</PrevDelta>
-      <ScaleFactor>1.52587890625E-05</ScaleFactor>
+      <ScaleFactor>0.00390625</ScaleFactor>
       <SinBias>0</SinBias>
-      <TanHalfPhi>1</TanHalfPhi>
-      <Type>11</Type>
+      <TanHalfPhi>0</TanHalfPhi>
+      <Type>1</Type>
     </EncoderDataStructure>
     <EncoderDataStructure>
       <CosBias>0</CosBias>
@@ -161,17 +123,55 @@
       <Index1>0</Index1>
       <Index2>0</Index2>
       <Index3>0</Index3>
-      <Index4>1</Index4>
-      <Index5>255</Index5>
-      <Index6>1</Index6>
+      <Index4>0</Index4>
+      <Index5>0</Index5>
+      <Index6>0</Index6>
       <MaxDelta>0</MaxDelta>
-      <PEnc>Sys.pushm+$1f48</PEnc>
+      <PEnc>CK3WGC[1].Chan[1].ServoCapt.a</PEnc>
       <PEnc1>Sys.pushm</PEnc1>
       <PrevDelta>0</PrevDelta>
-      <ScaleFactor>1.52587890625E-05</ScaleFactor>
+      <ScaleFactor>0.00390625</ScaleFactor>
       <SinBias>0</SinBias>
-      <TanHalfPhi>1</TanHalfPhi>
-      <Type>11</Type>
+      <TanHalfPhi>0</TanHalfPhi>
+      <Type>1</Type>
+    </EncoderDataStructure>
+    <EncoderDataStructure>
+      <CosBias>0</CosBias>
+      <CoverSerror>0</CoverSerror>
+      <EncBias>0</EncBias>
+      <Index1>0</Index1>
+      <Index2>0</Index2>
+      <Index3>0</Index3>
+      <Index4>0</Index4>
+      <Index5>0</Index5>
+      <Index6>0</Index6>
+      <MaxDelta>0</MaxDelta>
+      <PEnc>CK3WGC[1].Chan[2].ServoCapt.a</PEnc>
+      <PEnc1>Sys.pushm</PEnc1>
+      <PrevDelta>0</PrevDelta>
+      <ScaleFactor>0.00390625</ScaleFactor>
+      <SinBias>0</SinBias>
+      <TanHalfPhi>0</TanHalfPhi>
+      <Type>1</Type>
+    </EncoderDataStructure>
+    <EncoderDataStructure>
+      <CosBias>0</CosBias>
+      <CoverSerror>0</CoverSerror>
+      <EncBias>0</EncBias>
+      <Index1>0</Index1>
+      <Index2>0</Index2>
+      <Index3>0</Index3>
+      <Index4>0</Index4>
+      <Index5>0</Index5>
+      <Index6>0</Index6>
+      <MaxDelta>0</MaxDelta>
+      <PEnc>CK3WGC[1].Chan[3].ServoCapt.a</PEnc>
+      <PEnc1>Sys.pushm</PEnc1>
+      <PrevDelta>0</PrevDelta>
+      <ScaleFactor>0.00390625</ScaleFactor>
+      <SinBias>0</SinBias>
+      <TanHalfPhi>0</TanHalfPhi>
+      <Type>1</Type>
     </EncoderDataStructure>
     <EncoderDataStructure>
       <CosBias>0</CosBias>
@@ -241,10 +241,10 @@
       <Index5>0</Index5>
       <Index6>0</Index6>
       <MaxDelta>0</MaxDelta>
-      <PEnc>Sys.pushm</PEnc>
+      <PEnc>Slave_1008_MCDLN35BL_6064_0_Positionactualvalue.a</PEnc>
       <PEnc1>Sys.pushm</PEnc1>
       <PrevDelta>0</PrevDelta>
-      <ScaleFactor>0</ScaleFactor>
+      <ScaleFactor>1</ScaleFactor>
       <SinBias>0</SinBias>
       <TanHalfPhi>0</TanHalfPhi>
       <Type>1</Type>
@@ -299,44 +299,6 @@
       <Index6>0</Index6>
       <MaxDelta>0</MaxDelta>
       <PEnc>Slave_1005_MBDLN25BE_6064_0_Positionactualvalue.a</PEnc>
-      <PEnc1>Sys.pushm</PEnc1>
-      <PrevDelta>0</PrevDelta>
-      <ScaleFactor>1</ScaleFactor>
-      <SinBias>0</SinBias>
-      <TanHalfPhi>0</TanHalfPhi>
-      <Type>1</Type>
-    </EncoderDataStructure>
-    <EncoderDataStructure>
-      <CosBias>0</CosBias>
-      <CoverSerror>0</CoverSerror>
-      <EncBias>0</EncBias>
-      <Index1>0</Index1>
-      <Index2>0</Index2>
-      <Index3>0</Index3>
-      <Index4>0</Index4>
-      <Index5>0</Index5>
-      <Index6>0</Index6>
-      <MaxDelta>0</MaxDelta>
-      <PEnc>Sys.pushm</PEnc>
-      <PEnc1>Sys.pushm</PEnc1>
-      <PrevDelta>0</PrevDelta>
-      <ScaleFactor>0</ScaleFactor>
-      <SinBias>0</SinBias>
-      <TanHalfPhi>0</TanHalfPhi>
-      <Type>1</Type>
-    </EncoderDataStructure>
-    <EncoderDataStructure>
-      <CosBias>0</CosBias>
-      <CoverSerror>0</CoverSerror>
-      <EncBias>0</EncBias>
-      <Index1>0</Index1>
-      <Index2>0</Index2>
-      <Index3>0</Index3>
-      <Index4>0</Index4>
-      <Index5>0</Index5>
-      <Index6>0</Index6>
-      <MaxDelta>0</MaxDelta>
-      <PEnc>ECAT[0].IO[4137].Data.a</PEnc>
       <PEnc1>Sys.pushm</PEnc1>
       <PrevDelta>0</PrevDelta>
       <ScaleFactor>1</ScaleFactor>

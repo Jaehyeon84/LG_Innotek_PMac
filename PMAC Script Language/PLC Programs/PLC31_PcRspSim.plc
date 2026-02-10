@@ -1,0 +1,180 @@
+//######################################################################################################
+// PLC 31 : PC Response Simulation
+//######################################################################################################
+
+
+global gRspSim_PdtNo = 0;
+
+global gRspSim_LdAlignX = 0;
+global gRspSim_LdAlignY = 0;
+global gRspSim_LdAlignC = 0;
+
+global gRspSim_LdDirRep = 0;
+global gRspSim_2dVsnRsp = 0;
+global gRspSim_3dVsnRsp = 0;
+
+global gRspSim_LdDirJug = 0;
+global gRspSim_2dVsnJug = 0;
+global gRspSim_3dVsnJug = 0;
+
+global gRspSim_LdDirRat = 0.5;
+global gRspSim_2dVsnRat = 0.5;
+global gRspSim_3dVsnRat = 0.5;
+
+open plc 31
+
+//////////////////////////////////////////////////////////////////
+//  PC Response Simulation
+/////////////////////////////////////////////////////////////////
+
+	//------------------------------------------------------------------//
+	//	Align, Judge Ramdom Generate
+	//------------------------------------------------------------------//
+	gRspSim_LdAlignX = randx(4000)-2000;
+	gRspSim_LdAlignY = randx(4000)-2000;
+	gRspSim_LdAlignC = randx(4000)-2000;
+
+	gRspSim_LdDirRep = randx(1);
+	gRspSim_2dVsnRsp = randx(1);
+	gRspSim_3dVsnRsp = randx(1);
+
+	//------------------------------------------------------------------//
+	//	Ws Response
+	//------------------------------------------------------------------//
+	if(pUmem_Sta_Ws_2ndTransLdReq==2 && pUmem_Cmd_Ws_2ndTransLdRsp==0)
+	{
+		call Timer.msec(500);
+		if(gRspSim_LdDirRep>gRspSim_LdDirRat)	gRspSim_LdDirJug = cLdDir_Wd;
+		else									gRspSim_LdDirJug = cLdDir_Rj;
+
+		gRspSim_PdtNo++;
+		pUmem_Cmd_Ws_2ndTransPdtNo = gRspSim_PdtNo;
+		pUmem_Cmd_Ws_2ndTransPdtDir = gRspSim_LdDirJug;
+		pUmem_Cmd_Ws_2ndTransLdAlignX = gRspSim_LdAlignX;
+		pUmem_Cmd_Ws_2ndTransLdAlignY = gRspSim_LdAlignY;
+		pUmem_Cmd_Ws_2ndTransLdAlignC = gRspSim_LdAlignC;
+		pUmem_Cmd_Ws_2ndTransLdRsp = 1;
+	}
+	else if(pUmem_Sta_Ws_2ndTransLdReq==3)
+	{
+		call Timer.msec(500);
+		
+		pUmem_Cmd_Ws_2ndTransLdRsp = 2;
+	}
+	else if(pUmem_Sta_Ws_2ndTransLdReq==0)
+	{
+		pUmem_Cmd_Ws_2ndTransLdRsp = 0;
+	}
+	//------------------------------------------------------------------//
+	if(pUmem_Sta_Ws_LwmStartReq==1)
+	{
+		pUmem_Cmd_Ws_LwmStartRsp = 1;
+		call Timer.msec(500);
+		
+		pUmem_Cmd_Ws_LwmStartRsp = 2;
+	}
+	else if(pUmem_Sta_Ws_LwmStartReq==0)
+	{
+		pUmem_Cmd_Ws_LwmStartRsp = 0;
+	}
+	//------------------------------------------------------------------//
+	if(pUmem_Sta_Ws_2dVisionCkReq==1)
+	{
+		pUmem_Cmd_Ws_2dVisionCkRsp = 1;
+		call Timer.msec(500);
+		
+		if(gRspSim_2dVsnRsp>gRspSim_2dVsnRat)	gRspSim_2dVsnJug = cPcRep_Ok;
+		else									gRspSim_2dVsnJug = cPcRep_Ng;
+		pUmem_Cmd_Ws_2dVisionCkRsp = gRspSim_2dVsnJug;
+	}
+	else if(pUmem_Sta_Ws_2dVisionCkReq==0)
+	{
+		pUmem_Cmd_Ws_2dVisionCkRsp = 0;
+	}
+	//------------------------------------------------------------------//
+	if(pUmem_Sta_Ws_1stTransRjReq==2)
+	{
+		pUmem_Cmd_Ws_1stTransRjRsp = 1;
+		call Timer.msec(500);
+		pUmem_Cmd_Ws_1stTransRjRsp = 2;
+	}
+	else if(pUmem_Sta_Ws_1stTransRjReq==0)
+	{
+		pUmem_Cmd_Ws_1stTransRjRsp = 0;
+	}
+
+	//------------------------------------------------------------------//
+	// Vs Response
+	//------------------------------------------------------------------//
+	if(pUmem_Sta_Vs_3DVisionStReq==1)
+	{
+		pUmem_Cmd_Vs_3DVisionStRsp = 1;
+		call Timer.msec(100);
+		pUmem_Cmd_Vs_3DVisionStRsp = 2;
+	}
+	else if(pUmem_Sta_Vs_3DVisionStReq==0)
+	{
+		pUmem_Cmd_Vs_3DVisionStRsp = 0;
+	}
+	//------------------------------------------------------------------//
+	if(pUmem_Sta_Vs_3DVisionEdReq==1)
+	{
+		pUmem_Cmd_Vs_3DVisionEdRsp = 1;
+		call Timer.msec(200);
+
+		if(gRspSim_3dVsnRsp>gRspSim_3dVsnRat)	gRspSim_3dVsnJug = cPcRep_Ok;
+		else									gRspSim_3dVsnJug = cPcRep_Ng;
+		pUmem_Cmd_Vs_3DVisionEdRsp = gRspSim_3dVsnJug;
+	}
+	else if(pUmem_Sta_Vs_3DVisionEdReq==0)
+	{
+		pUmem_Cmd_Vs_3DVisionEdRsp = 0;
+	}
+	//------------------------------------------------------------------//
+	if(pUmem_Sta_Vs_3rdTransUdReq==2)
+	{
+		pUmem_Cmd_Vs_3rdTransUdRsp = 1;
+		call Timer.msec(500);
+		pUmem_Cmd_Vs_3rdTransUdRsp = 2;
+	}
+	else if(pUmem_Sta_Vs_3rdTransUdReq==0)
+	{
+		pUmem_Cmd_Vs_3rdTransUdRsp = 0;
+	}
+	//------------------------------------------------------------------//
+	if(pUmem_Sta_Vs_3rdTransRjReq==2)
+	{
+		pUmem_Cmd_Vs_3rdTransRjRsp = 1;
+		call Timer.msec(500);
+		pUmem_Cmd_Vs_3rdTransRjRsp = 2;
+	}
+	else if(pUmem_Sta_Vs_3rdTransRjReq==0)
+	{
+		pUmem_Cmd_Vs_3rdTransRjRsp = 0;
+	}
+
+//////////////////////////////////////////////////////////////////
+//  Simulation Mode Use
+/////////////////////////////////////////////////////////////////
+	if(gMach_Type==0)
+	{
+		pUmem_Di10_WsLtFixUp		= pUmem_Do10_WsTbFixUp;
+		pUmem_Di11_WsVsLtStrCls		= pUmem_Do1C_WsVsStrCls;
+		pUmem_Di12_WsLtFixDn		= pUmem_Do12_WsTbFixDn;
+		pUmem_Di13_WsVsLtStrOpn		= pUmem_Do1E_WsVsStrOpn;
+		pUmem_Di14_WsRtFixUp		= pUmem_Do10_WsTbFixUp;
+		pUmem_Di15_WsVsRtStrCls		= pUmem_Do1C_WsVsStrCls;
+		pUmem_Di16_WsRtFixDn		= pUmem_Do12_WsTbFixDn;
+		pUmem_Di17_WsVsRtStrOpn		= pUmem_Do1E_WsVsStrOpn;
+		pUmem_Di18_WsTempBwd		= pUmem_Do11_WsTempBwd;
+		pUmem_Di19_TrPickUp			= pUmem_Do18_TrPickUp;
+		pUmem_Di1A_WsTempFwd		= pUmem_Do13_WsTempFwd;
+		pUmem_Di1B_TrPickDn			= pUmem_Do1A_TrPickDn;
+		pUmem_Di1D_TrGripCls		= pUmem_Do14_TrGripCls;
+		pUmem_Di1F_TrGripOpn		= pUmem_Do16_TrGripOpn;
+		pUmem_Di20_VsTbFixBwd		= pUmem_Do15_VsTbFixBwd;
+		pUmem_Di22_VsTbFixFwd		= pUmem_Do17_VsTbFixFwd;
+		pUmem_Di24_VsTbFixUp		= pUmem_Do19_VsTbFixUp;
+		pUmem_Di26_VsTbFixDn		= pUmem_Do1B_VsTbFixDn;
+	}
+close

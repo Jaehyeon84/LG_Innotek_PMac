@@ -29,10 +29,8 @@ open subprog spReadWsThPos(inc_idx, inc_pos, &out_pos)
 		lWsout_pos += 360000;
 
 	//gWs_ThPos_Old = Motor[inc_idx].ProgJogPos;
-	//Motor[inc_idx].ProgJogPos = pUmem_Sta_CmdPos(inc_idx) + lWsout_pos;
-	Motor[inc_idx].ProgJogPos = lWsout_pos;
-	//out_pos = pUmem_Sta_CmdPos(inc_idx) + lWsout_pos;
-	out_pos = inc_pos;
+	Motor[inc_idx].ProgJogPos = pUmem_Sta_CmdPos(inc_idx) + lWsout_pos;
+	out_pos = pUmem_Sta_CmdPos(inc_idx) + lWsout_pos;
 
 close
 
@@ -63,9 +61,7 @@ open subprog spReadVsThPos(inc_idx, inc_pos, &out_pos)
 		lVsout_pos += 360000;
 
 	//gVs_ThPos_Old = Motor[inc_idx].ProgJogPos;
-	//Motor[inc_idx].ProgJogPos = pUmem_Sta_CmdPos(inc_idx) + lVsout_pos;
-	Motor[inc_idx].ProgJogPos = lVsout_pos;
-	//out_pos = pUmem_Sta_CmdPos(inc_idx) + lVsout_pos;
-	out_pos = inc_pos;
+	Motor[inc_idx].ProgJogPos = pUmem_Sta_CmdPos(inc_idx) + lVsout_pos;
+	out_pos = pUmem_Sta_CmdPos(inc_idx) + lVsout_pos;
 
 close

@@ -137,7 +137,7 @@
       <IndexDemuxEna>0</IndexDemuxEna>
       <IndexGateState>0</IndexGateState>
       <OutFlagD>0</OutFlagD>
-      <OutputMode>15</OutputMode>
+      <OutputMode>0</OutputMode>
       <OutputPol>0</OutputPol>
       <PackInData>2</PackInData>
       <PackOutData>1</PackOutData>
@@ -164,7 +164,7 @@
       <CaptFlagSel>0</CaptFlagSel>
       <EncCtrl>8</EncCtrl>
       <Equ1Ena>0</Equ1Ena>
-      <EquOutMask>8</EquOutMask>
+      <EquOutMask>0</EquOutMask>
       <EquOutPol>0</EquOutPol>
       <FlagFilt2Ena>0</FlagFilt2Ena>
       <GatedIndexSel>0</GatedIndexSel>
@@ -185,8 +185,8 @@
       <SerialEncCmd>$0</SerialEncCmd>
       <SerialEncEna>0</SerialEncEna>
       <TimerMode>0</TimerMode>
-      <CompA>0</CompA>
-      <CompB>0</CompB>
+      <CompA>375136240</CompA>
+      <CompB>375156720</CompB>
     </Gate3ChannelDataStructure>
   </Channels>
   <Ck3WGcData SelectedFrequency="0" BurstContinuousType="Burst" ServoPhaseType="Servo" DutyCycle="0" Delay="0" DelayUnit="0" Pulses="0" />

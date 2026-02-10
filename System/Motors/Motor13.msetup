@@ -74,19 +74,19 @@
     <AmpEnableBit>0</AmpEnableBit>
     <AmpFaultBit>3</AmpFaultBit>
     <BrakeOutBit>9</BrakeOutBit>
-    <CaptFlagBit>1</CaptFlagBit>
+    <CaptFlagBit>19</CaptFlagBit>
     <EncLossBit>0</EncLossBit>
-    <LimitBits>21</LimitBits>
+    <LimitBits>25</LimitBits>
     <MotorNodeOffset>0</MotorNodeOffset>
-    <pAbsPos>ECAT[0].IO[4164].Data.a</pAbsPos>
+    <pAbsPos>0</pAbsPos>
     <pAmpEnable>Slave_1008_MCDLN35BL_6040_0_Controlword.a</pAmpEnable>
     <pAmpFault>Slave_1008_MCDLN35BL_6041_0_Statusword.a</pAmpFault>
     <pBrakeOut>0</pBrakeOut>
-    <pCaptFlag>ECAT[0].IO[4167].Data.a</pCaptFlag>
-    <pCaptPos>ECAT[0].IO[4168].Data.a</pCaptPos>
+    <pCaptFlag>Sys.pushm</pCaptFlag>
+    <pCaptPos>Sys.pushm</pCaptPos>
     <pDac>Slave_1008_MCDLN35BL_607A_0_Targetposition.a</pDac>
-    <pEnc>EncTable[13].a</pEnc>
-    <pEnc2>EncTable[13].a</pEnc2>
+    <pEnc>EncTable[12].a</pEnc>
+    <pEnc2>EncTable[12].a</pEnc2>
     <pEncCtrl>Sys.pushm</pEncCtrl>
     <pEncLoss>0</pEncLoss>
     <pEncStatus>Sys.pushm</pEncStatus>
@@ -96,16 +96,16 @@
     <pCascadeCmd>0</pCascadeCmd>
   </Addressing>
   <BasicMotion>
-    <CaptControl>$1000020</CaptControl>
+    <CaptControl>$13000000</CaptControl>
     <CaptPosLeftShift>0</CaptPosLeftShift>
     <CaptPosRightShift>0</CaptPosRightShift>
     <CaptPosRound>0</CaptPosRound>
     <HomeOffset>0</HomeOffset>
     <HomeVel>10</HomeVel>
     <JogOffset>0</JogOffset>
-    <JogSpeed>10</JogSpeed>
-    <JogTa>100</JogTa>
-    <JogTs>50</JogTs>
+    <JogSpeed>32</JogSpeed>
+    <JogTa>-10</JogTa>
+    <JogTs>-50</JogTs>
     <ProgJogPos>0</ProgJogPos>
     <ServoCaptTimeOffset>0</ServoCaptTimeOffset>
   </BasicMotion>
@@ -154,8 +154,8 @@
     <ExtraMotors>0</ExtraMotors>
   </Functionality>
   <General>
-    <AbsPosFormat>$1002000</AbsPosFormat>
-    <AbsPosSF>0.05</AbsPosSF>
+    <AbsPosFormat>$0</AbsPosFormat>
+    <AbsPosSF>0</AbsPosSF>
     <BlHysteresis>0</BlHysteresis>
     <BlSize>0</BlSize>
     <BlSlewRate>0</BlSlewRate>
@@ -165,7 +165,7 @@
     <DacBias>0</DacBias>
     <EncType>0</EncType>
     <GantrySlewRate>0</GantrySlewRate>
-    <InPosBand>10</InPosBand>
+    <InPosBand>0</InPosBand>
     <InPosTime>0</InPosTime>
     <MasterMaxAccel>0</MasterMaxAccel>
     <MasterMaxSpeed>0</MasterMaxSpeed>
@@ -189,19 +189,19 @@
     <BrakeOnDelay>0</BrakeOnDelay>
     <EncLossLevel>0</EncLossLevel>
     <EncLossLimit>5</EncLossLimit>
-    <FatalFeLimit>50000</FatalFeLimit>
+    <FatalFeLimit>2000</FatalFeLimit>
     <FaultMode>0</FaultMode>
     <I2TSet>0</I2TSet>
     <I2TTrip>0</I2TTrip>
-    <InvAmax>0.1</InvAmax>
-    <InvDmax>0.1</InvDmax>
-    <InvJmax>0</InvJmax>
+    <InvAmax>10</InvAmax>
+    <InvDmax>10</InvDmax>
+    <InvJmax>50</InvJmax>
     <MaxDac>28000</MaxDac>
     <MaxPos>0</MaxPos>
-    <MaxSpeed>1000</MaxSpeed>
+    <MaxSpeed>32</MaxSpeed>
     <MinPos>0</MinPos>
     <SoftLimitOffset>0</SoftLimitOffset>
-    <WarnFeLimit>40000</WarnFeLimit>
+    <WarnFeLimit>1000</WarnFeLimit>
   </SafetyLimit>
   <Servo>
     <DacShift>0</DacShift>
@@ -276,8 +276,8 @@
   <ScaleFactor>
     <CountsPerUserUnit>0</CountsPerUserUnit>
     <MasterPosSf>1</MasterPosSf>
-    <Pos2Sf>0.05</Pos2Sf>
-    <PosSf>0.05</PosSf>
+    <Pos2Sf>1</Pos2Sf>
+    <PosSf>1</PosSf>
     <PosUnit>0</PosUnit>
     <ResolutionExpression />
   </ScaleFactor>

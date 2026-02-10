@@ -1,12 +1,20 @@
-open prog 31
-	abs
-	linear
-	f(gVs_RefVel) ta(0.1) ts(0)
-	frax(c, x, y)
+open prog 5
+//	abs
+//	linear
+//	call spSetWsLaserParam()
 
-	//Move to start pos. And Speed ///////////////////////
-//	gVs_RefVel=20
-	f(gVs_RefVel) // Pos-init speed
-	x10.500		y18.580		c(0.002) // start pos
-	dwell 0
+//	frax(c,x,y)
+//	f(gWs_RefVel) ta(0.1) ts(0)
+//	N0001	x-20	y0	c(0)	 //	0
+//	dwell 0
+//	M10 P100		// Laser On
+//sg
+//	frax(x,y)
+//	N0001	x40		y0	c(0)	 //	0
+//	dwell 0
+
+//	f(gWs_RefVel/2)
+//	N0001	x-20	y0	c(0)	 //	0
+//	M11
+//eg
 close

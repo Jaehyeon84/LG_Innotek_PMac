@@ -2,9 +2,9 @@ global Len_X = 10;
 global Len_Y = 10;
 global Len_R = 5;
 
+p100 = 5;
 
 open prog 1
-	p100 = 5;
 	abs
 	f(P100) ta(100) ts(20)
 	

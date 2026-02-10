@@ -1,0 +1,117 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\test_ppmac\\source\\pmacdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|solutionrelative:test_ppmac\\source\\pmacdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|c:\\users\\toy16\\desktop\\axbis\\ce1\\ppmac\\test_ui\\test_ppmac\\source\\pmactask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|solutionrelative:test_ppmac\\source\\pmactask.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\test_ppmac\\library\\powerpmac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|solutionrelative:test_ppmac\\library\\powerpmac.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\test_ppmac\\library\\opk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|solutionrelative:test_ppmac\\library\\opk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\test_ppmac\\form\\pmactest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|solutionrelative:test_ppmac\\form\\pmactest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\test_ppmac\\form\\pmactest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{65A2F0F1-2DB1-467D-976A-A6F4E732CAF6}|Test_PPMAC\\Test_PPMAC.csproj|solutionrelative:test_ppmac\\form\\pmactest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 357,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PowerPmac.cs",
+              "DocumentMoniker": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\Test_PPMAC\\Library\\PowerPmac.cs",
+              "RelativeDocumentMoniker": "Test_PPMAC\\Library\\PowerPmac.cs",
+              "ToolTip": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\Test_PPMAC\\Library\\PowerPmac.cs",
+              "RelativeToolTip": "Test_PPMAC\\Library\\PowerPmac.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-29T06:49:50.099Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PmacTest.cs [\uB514\uC790\uC778]",
+              "DocumentMoniker": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\Test_PPMAC\\Form\\PmacTest.cs",
+              "RelativeDocumentMoniker": "Test_PPMAC\\Form\\PmacTest.cs",
+              "ToolTip": "C:\\Users\\toy16\\Desktop\\AXBIS\\Test_UI\\Test_PPMAC\\Form\\PmacTest.cs [\uB514\uC790\uC778]*",
+              "RelativeToolTip": "..\\..\\..\\Test_UI\\Test_PPMAC\\Form\\PmacTest.cs [\uB514\uC790\uC778]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-26T00:24:32.284Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PmacData.cs",
+              "DocumentMoniker": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\Test_PPMAC\\Source\\PmacData.cs",
+              "RelativeDocumentMoniker": "Test_PPMAC\\Source\\PmacData.cs",
+              "ToolTip": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\Test_PPMAC\\Source\\PmacData.cs",
+              "RelativeToolTip": "Test_PPMAC\\Source\\PmacData.cs",
+              "ViewState": "AgIAAN4AAAAAAAAAAAAuwPQAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-27T09:23:53.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PmacTask.cs",
+              "DocumentMoniker": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\Test_PPMAC\\Source\\PmacTask.cs",
+              "RelativeDocumentMoniker": "Test_PPMAC\\Source\\PmacTask.cs",
+              "ToolTip": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\Test_PPMAC\\Source\\PmacTask.cs",
+              "RelativeToolTip": "Test_PPMAC\\Source\\PmacTask.cs",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAuwKsAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-21T02:34:44.34Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PmacTest.cs",
+              "DocumentMoniker": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\Test_PPMAC\\Form\\PmacTest.cs",
+              "RelativeDocumentMoniker": "Test_PPMAC\\Form\\PmacTest.cs",
+              "ToolTip": "C:\\Users\\toy16\\Desktop\\AXBIS\\Test_UI\\Test_PPMAC\\Form\\PmacTest.cs*",
+              "RelativeToolTip": "..\\..\\..\\Test_UI\\Test_PPMAC\\Form\\PmacTest.cs*",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-21T02:23:18.259Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "opk.cs",
+              "DocumentMoniker": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\Test_PPMAC\\Library\\opk.cs",
+              "RelativeDocumentMoniker": "Test_PPMAC\\Library\\opk.cs",
+              "ToolTip": "C:\\Users\\toy16\\Desktop\\AXBIS\\CE1\\PPMAC\\Test_UI\\Test_PPMAC\\Library\\opk.cs",
+              "RelativeToolTip": "Test_PPMAC\\Library\\opk.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-15T01:38:48.452Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

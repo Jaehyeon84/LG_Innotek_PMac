@@ -28,9 +28,9 @@ gKin_RotOffset(nvY) = 0;
 
 #if MACHINE_TYPE==1
 	global gKin_Len1 = 35.53;					// distance between spot center on mirrors at neutral position (mm)
-	global gKin_Len2 = 530;						// distance from Y-mirror to XY-stage surface (mm)
-	global gKin_GalvoSfX = 18.33/exp2(19);			// ratio of XY2-100 command ¡¾32767 to Galvonameter deflection
-	global gKin_GalvoSfY = 19.89/exp2(19);			// ratio of XY2-100 command ¡¾32767 to Galvonameter deflection
+	global gKin_Len2 = 334;						// distance from Y-mirror to XY-stage surface (mm)
+	global gKin_GalvoSfX = 17.03/exp2(19);			// ratio of XY2-100 command ¡¾32767 to Galvonameter deflection
+	global gKin_GalvoSfY = -18.72/exp2(19);			// ratio of XY2-100 command ¡¾32767 to Galvonameter deflection
 #elif MACHINE_TYPE==2
 	global gKin_Len1 = 10.17;					// distance between spot center on mirrors at neutral position (mm)
 	global gKin_Len2 = 300;						// distance from Y-mirror to XY-stage surface (mm)

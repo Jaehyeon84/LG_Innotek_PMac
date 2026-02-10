@@ -141,44 +141,6 @@
           <DataType>INT</DataType>
         </PdoWatchEntry>
         <PdoWatchEntry>
-          <Request>Slave_1001_NX_ECC203_6080_3_Ch3AnalogInputValue</Request>
-          <Response />
-          <IsCommand>false</IsCommand>
-          <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
-          <FormatSettings>
-            <Type>None</Type>
-            <Scale>1</Scale>
-            <DecimalPlaces>3</DecimalPlaces>
-            <MaskString>0xFFFFFFFF</MaskString>
-            <BitCount>32</BitCount>
-            <StartingBitIndex>0</StartingBitIndex>
-            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
-          </FormatSettings>
-          <IsInput>true</IsInput>
-          <BitLength>16</BitLength>
-          <DataType>INT</DataType>
-        </PdoWatchEntry>
-        <PdoWatchEntry>
-          <Request>Slave_1001_NX_ECC203_6080_4_Ch4AnalogInputValue</Request>
-          <Response />
-          <IsCommand>false</IsCommand>
-          <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
-          <FormatSettings>
-            <Type>None</Type>
-            <Scale>1</Scale>
-            <DecimalPlaces>3</DecimalPlaces>
-            <MaskString>0xFFFFFFFF</MaskString>
-            <BitCount>32</BitCount>
-            <StartingBitIndex>0</StartingBitIndex>
-            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
-          </FormatSettings>
-          <IsInput>true</IsInput>
-          <BitLength>16</BitLength>
-          <DataType>INT</DataType>
-        </PdoWatchEntry>
-        <PdoWatchEntry>
           <Request>Slave_1001_NX_ECC203_60A1_1_Ch1MeasuredValueINT</Request>
           <Response />
           <IsCommand>false</IsCommand>

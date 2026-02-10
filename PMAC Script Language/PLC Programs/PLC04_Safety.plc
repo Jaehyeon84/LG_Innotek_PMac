@@ -3,7 +3,7 @@
 //######################################################################################################
 
 
-#define cDistX_Limit		-623000		// Ws-Vs Distance, Small -> Narrow
+#define cDistX_Limit		-1070000		// Ws-Vs Distance, Small -> Narrow
 
 
 open plc 4

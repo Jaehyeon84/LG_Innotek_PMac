@@ -1,0 +1,552 @@
+﻿using ONSYS;
+using static ONSYS.OPK;
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Data.SqlClient;
+
+namespace Test_PPMAC
+{
+
+    public class PmacTask
+    {
+        PmacTest _formMain;
+        private bool _bPmacConnectTaskEna = false;
+        private Task _taskPmacConnectLoop = null;
+
+        private bool _bPmacDataTaskEna = false;
+        private Task _taskPmacDataLoop = null;
+
+        private bool _bPmacPlotTaskEna = false;
+        private Task _taskPmacPlotLoop = null;
+
+        private Int32[] _nRecvMtrData = new Int32[2048];
+        private Int32[] _nSendMtrData = new Int32[2048];
+        private Int32[] _nRecvMcData = new Int32[2048];
+        private Int32[] _nSendMcData = new Int32[2048];
+        private Int32[] _nRecvIoData = new Int32[2048];
+        private Int32[] _nSendIoData = new Int32[2048];
+        
+        public PmacTask() 
+        { 
+            
+        }
+
+        public Int32 OPKGetResponse(String strCommand, out String strResponse)
+        {
+            Byte[] szCommand = new Byte[4096];
+            Byte[] szResponse = new Byte[4096];
+            Int32 nReturn;
+
+            szCommand = Encoding.UTF8.GetBytes(strCommand);
+            nReturn = OPKGetResponseA(PmacData.nPmacDeviceNo, szCommand, szResponse, 4096);
+            strResponse = Encoding.UTF8.GetString(szResponse).Trim('\0');
+
+            return nReturn;
+        }
+
+        public Int32 OPKScriptRun(String strScript, out String strResponse)
+        {
+            Byte[] szScript = new Byte[4096];
+            Byte[] szResponse = new Byte[4096];
+            Int32 nReturn;
+
+            szScript = Encoding.UTF8.GetBytes(strScript);
+            nReturn = OPKScriptRunA(PmacData.nPmacDeviceNo, szScript, szResponse, 4096);
+            strResponse = Encoding.UTF8.GetString(szResponse).Trim('\0');
+
+            return nReturn;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// Connection Task
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+        public void StartPmacConnectTask(PmacTest frm)
+        {
+            if (!_bPmacConnectTaskEna)
+            {
+                _taskPmacConnectLoop = new Task(() =>
+                {
+                    taskPmacConnectLoop(500);
+                });
+                _bPmacConnectTaskEna = true;
+                _taskPmacConnectLoop.Start();
+            }
+            _formMain = frm;
+        }
+
+        public void StopPmacConnectTask()
+        {
+            if (_bPmacConnectTaskEna)
+            {
+                PmacData.bPmacConnected = false;
+                _bPmacConnectTaskEna = false;
+                if(_taskPmacConnectLoop!=null)      _taskPmacConnectLoop.Wait(1000);
+            }
+        }
+
+        private void taskPmacConnectLoop(Int32 nIntervalmsec)     // Pmac Data Loop
+        {
+            Int32 nRet;
+
+            while (_bPmacConnectTaskEna)
+            {
+                OPKIsConnected(PmacData.nPmacDeviceNo, out nRet);
+                if (nRet ==1)   PmacData.bPmacConnected = true;
+                else            PmacData.bPmacConnected = false;
+
+                if (_formMain != null)
+                {
+                    _formMain.BeginInvoke(new MethodInvoker(delegate ()
+                    {
+                        if(PmacData.bPmacConnected==true)   _formMain.radioButtonHeartBit.Checked ^= true;
+                        else                                _formMain.radioButtonHeartBit.Checked = false;
+                    }));
+                }
+                Thread.Sleep(nIntervalmsec);
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// Data Task
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        public void StartPmacDataTask()
+        {
+            if (!_bPmacDataTaskEna)
+            {
+                _taskPmacDataLoop = new Task(() =>
+                {
+                    taskPmacDataLoop(100);
+                });
+                _bPmacDataTaskEna = true;
+                _taskPmacDataLoop.Start();
+            }
+        }
+
+        public void StopPmacDataTask()
+        {
+            if (_bPmacDataTaskEna)
+            {
+                _bPmacDataTaskEna = false;
+                if(_taskPmacDataLoop!=null) _taskPmacDataLoop.Wait(1000);
+            }
+        }
+        void ByteArrayToInt32(byte[] byteArray, Int32[] intArray, int length, int opt)
+        {
+            byte[] slice = new byte[4];
+            int idx, offset;
+
+            for (idx = 0; idx < length; idx++)
+            {
+                offset = idx * 4;
+                Array.Copy(byteArray, offset, slice, 0, 4);
+                if (opt == 1)
+                {
+                    Array.Reverse(slice, 0, slice.Length);
+                }
+                intArray[idx] = BitConverter.ToInt32(slice, 0);
+            }
+        }
+
+        private void taskPmacDataLoop(Int32 nIntervalmsec)     // Pmac Data Loop
+        {
+            Int32 nRet;
+            int nCpuType = PmacData.nPmacDeviceType;
+            byte[] readbyte = new byte[4096];
+            while (_bPmacDataTaskEna)
+            {
+                nRet = OPKGetUserBufferInteger(PmacData.nPmacDeviceNo, PmacData.nRecvMtrDataStartAdd / 4, PmacData.nRecvMtrDataNum, _nRecvMtrData);
+                nRet = OPKGetUserBufferInteger(PmacData.nPmacDeviceNo, PmacData.nSendMtrDataStartAdd / 4, PmacData.nSendMtrDataNum, _nSendMtrData);
+                nRet = OPKGetUserBufferInteger(PmacData.nPmacDeviceNo, PmacData.nRecvMcDataStartAdd / 4, PmacData.nRecvMcDataNum, _nRecvMcData);
+                nRet = OPKGetUserBufferInteger(PmacData.nPmacDeviceNo, PmacData.nSendMcDataStartAdd / 4, PmacData.nSendMcDataNum, _nSendMcData);
+                nRet = OPKGetUserBufferInteger(PmacData.nPmacDeviceNo, PmacData.nRecvIoDataStartAdd / 4, PmacData.nRecvIoDataNum, _nRecvIoData);
+                nRet = OPKGetUserBufferInteger(PmacData.nPmacDeviceNo, PmacData.nSendIoDataStartAdd / 4, PmacData.nSendIoDataNum, _nSendIoData);
+
+                UpdateMtrStatus();
+                UpdateMcStatus();
+                UpdateIoStatus();
+
+                _formMain.BeginInvoke(new MethodInvoker(delegate () // 한곳에서 몰아서 호출해야 함. 여러군데서 하면 행온됨.
+                {
+                    _formMain.UpdateMtrStatus();
+                    _formMain.UpdateMcStatus();
+                    _formMain.UpdateIoStatus();
+                    _formMain.UpdateMtrCommand();
+                }));
+                Thread.Sleep(nIntervalmsec);
+            }
+        }
+
+        public void UpdateMtrStatus()
+        {
+            for (int i = 0; i < PmacData.nMtrNum; i++)
+            {
+                PmacData.sMotor[i + 1].nStaCmdPos       = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrCmdPos];
+                PmacData.sMotor[i + 1].nStaActPos       = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrActPos];
+                PmacData.sMotor[i + 1].nStaVelocity     = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrVelocity];
+                PmacData.sMotor[i + 1].nStaLoad         = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrLoad];
+                PmacData.sMotor[i + 1].nStaAmpEna       = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrAmpEna];
+                PmacData.sMotor[i + 1].nStaCloseLoop    = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrCloseLoop];
+                PmacData.sMotor[i + 1].nStaInPos        = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrInPos];
+                PmacData.sMotor[i + 1].nStaHomeFin      = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrHomeFin];
+                PmacData.sMotor[i + 1].nStaHomeIng      = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrHomeIng];
+                PmacData.sMotor[i + 1].nStaLimitMinus   = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrLimitMinus];
+                PmacData.sMotor[i + 1].nStaLimitPlus    = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrLimitPlus];
+                PmacData.sMotor[i + 1].nStaFollowingErr = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrFollowingErr];
+                PmacData.sMotor[i + 1].nStaAmpFault     = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrAmpFault];
+                PmacData.sMotor[i + 1].nStaEncLoss      = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrEncLoss];
+                PmacData.sMotor[i + 1].nStaI2tErr       = _nRecvMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxStaMtrI2tErr];
+                PmacData.sMotor[i + 1].nPosErr          = PmacData.sMotor[i + 1].nStaCmdPos - PmacData.sMotor[i + 1].nStaActPos;
+
+                PmacData.sMotor[i + 1].nCmdServoOn      = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrServoOn];
+                PmacData.sMotor[i + 1].nCmdServoOff     = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrServoOff];
+                PmacData.sMotor[i + 1].nCmdHomeStart    = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrHomeStart];
+                PmacData.sMotor[i + 1].nCmdHomeStop     = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrHomeStop];
+                PmacData.sMotor[i + 1].nCmdHomeOffset   = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrHomeOffset];
+                PmacData.sMotor[i + 1].nCmdJogStop      = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrJogStop];
+                PmacData.sMotor[i + 1].nCmdJogContPlus  = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrJogContPlus];
+                PmacData.sMotor[i + 1].nCmdJogContMinus = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrJogContMinus];
+                PmacData.sMotor[i + 1].nCmdJogAbsMove   = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrJogAbsMove];
+                PmacData.sMotor[i + 1].nCmdJogIncMove   = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrJogIncMove];
+                PmacData.sMotor[i + 1].nCmdJogAbsPos    = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrJogAbsPos];
+                PmacData.sMotor[i + 1].nCmdJogIncDist   = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrJogIncDist];
+                PmacData.sMotor[i + 1].nCmdJogSpeed     = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrJogSpeed];
+                PmacData.sMotor[i + 1].nCmdJogTa        = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrJogTa];
+                PmacData.sMotor[i + 1].nCmdJogTs        = _nSendMtrData[PmacData.uMtrDataOffset * i + PmacData.uIdxCmdMtrJogTs];
+            }
+        }
+
+        public void UpdateMcStatus()
+        {
+            PmacData.sMachine.nStaAmpEna = _nRecvMcData[PmacData.nIdxStaMcAmpEna];
+            PmacData.sMachine.nStaInPos = _nRecvMcData[PmacData.nIdxStaMcInPos];
+            PmacData.sMachine.nStaHomeFin = _nRecvMcData[PmacData.nIdxStaMcHomeFin];
+            PmacData.sMachine.nStaHomeIng = _nRecvMcData[PmacData.nIdxStaMcHomeIng];
+            PmacData.sMachine.nStaProgRun = _nRecvMcData[PmacData.nIdxStaMcProgRun];
+            PmacData.sMachine.nStaError = _nRecvMcData[PmacData.nIdxStaMcError];
+            PmacData.sMachine.nStaErrCode = _nRecvMcData[PmacData.nIdxStaMcErrCode];
+
+            PmacData.sMachine.nCmdServoOn = _nSendMcData[PmacData.nIdxCmdMcServoOn];
+            PmacData.sMachine.nCmdServoOff = _nSendMcData[PmacData.nIdxCmdMcServoOff];
+            PmacData.sMachine.nCmdHomeStart = _nSendMcData[PmacData.nIdxCmdMcHomeStart];
+            PmacData.sMachine.nCmdHomeStop = _nSendMcData[PmacData.nIdxCmdMcHomeStop];
+            PmacData.sMachine.nCmdProgStart = _nSendMcData[PmacData.nIdxCmdMcProgStart];
+            PmacData.sMachine.nCmdProgAbort = _nSendMcData[PmacData.nIdxCmdMcProgAbort];
+            PmacData.sMachine.nCmdProgHold = _nSendMcData[PmacData.nIdxCmdMcProgHold];
+            PmacData.sMachine.nCmdProgNum = _nSendMcData[PmacData.nIdxCmdMcProgNum];
+        }
+
+        public void UpdateIoStatus()
+        {
+            int i,j = 0;
+            int nMemIdx = 0;
+
+            for (i = 0; i < PmacData.nRecvIoDataNum; i++)
+            {
+                PmacData.nDioIn[i] = _nRecvIoData[i];
+            }
+
+            for (i = 0; i < PmacData.nSendIoDataNum; i++)
+            {
+                PmacData.nDioOut[i] = _nSendIoData[i];
+            }
+
+            for (i = 0; i < PmacData.nDinNum; i++)
+            {
+                if (j >= 16)
+                {
+                    j = 0;
+                    nMemIdx++;
+                }
+                PmacData.bDioIn[i] = Convert.ToBoolean((_nRecvIoData[nMemIdx] >> j) & 0x01);
+                j++;
+            }
+
+            j = 0;
+            nMemIdx = 0;
+            for (i = 0; i < PmacData.nDoutNum; i++)
+            {
+                if (j >= 16)
+                {
+                    j = 0;
+                    nMemIdx++;
+                }
+                PmacData.bDioOut[i] = Convert.ToBoolean((_nSendIoData[nMemIdx] >> j) & 0x01);
+                j++;
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// Plot Task
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+        public void StartPmacPlotTask()
+        {
+            if(_bPmacPlotTaskEna)
+            {
+                StopPmacPlotTask();
+            }
+            while (_bPmacPlotTaskEna) ;
+
+            _taskPmacPlotLoop = new Task(() =>
+            {
+                taskPmacPlotLoop(PmacData.nPlotBgSamplePrd);
+            });
+            _bPmacPlotTaskEna = true;
+            _taskPmacPlotLoop.Start();
+            PmacData.nPlotGatherStatus = 0;
+            PmacData.nPlotGatherProgress = true;
+        }
+
+        public void StopPmacPlotTask()
+        {
+            if (_bPmacPlotTaskEna)
+            {
+                _bPmacPlotTaskEna = false;
+                if (_taskPmacPlotLoop != null) _taskPmacPlotLoop.Wait(1000);
+            }
+            PmacData.nPlotGatherProgress = false;
+        }
+
+        private void PmacDataParse(Int32 samples, Int32 items)
+        {
+            int i, j, k;
+            string strCmd;
+            string strRet;
+            string[] strParse;
+            double dParseData;
+            Int32 nRet;
+            Int32 nParseNum = 40;       // 더블형 20글자이상 * 최대 아이템 4개 => 80 글자이상 이므로 한번에 읽는 갯수가 40개를 넘지 않도록 (80*n<4096)
+
+            strParse = new string[nParseNum * items];
+            PmacData.dPlotFgData = new double[4, samples + nParseNum];
+
+            for (i = 0; i < (samples / nParseNum + 1); i++)     // 한번에 읽는 갯수 + 1을 해야 나머지 값만큼 누락이 없다.
+            {
+                strCmd = String.Format("Gather.Ddata[{0}],{1}", (i * nParseNum * items * 2), (items * nParseNum));
+                nRet = OPKScriptRun(strCmd, out strRet);
+                strParse = strRet.Split(',');
+                k = 0;
+                for (j = 0; j < nParseNum; j++)
+                {
+                    if (PmacData.bPlotEna[0])
+                    {
+                        dParseData = Convert.ToDouble(strParse[k++]);
+                        if (PmacData.nPlotIdx[0] == (Int32)PmacData.ePlotDataType.CmdPos)   PmacData.dPlotFgData[0, (i * nParseNum + j)] = (dParseData - PmacData.dPlotFgHomePos[0]) / 1000;
+                        if (PmacData.nPlotIdx[0] == (Int32)PmacData.ePlotDataType.ActPos)   PmacData.dPlotFgData[0, (i * nParseNum + j)] = (dParseData - PmacData.dPlotFgHomePos[0]) / 1000;
+                        if (PmacData.nPlotIdx[0] == (Int32)PmacData.ePlotDataType.PosErr)   PmacData.dPlotFgData[0, (i * nParseNum + j)] = dParseData;
+                        if (PmacData.nPlotIdx[0] == (Int32)PmacData.ePlotDataType.Velocity) PmacData.dPlotFgData[0, (i * nParseNum + j)] = dParseData / (16*PmacData.dPmacDeviceFrq);
+                        if (PmacData.nPlotIdx[0] == (Int32)PmacData.ePlotDataType.Load)     PmacData.dPlotFgData[0, (i * nParseNum + j)] = dParseData / PmacData.dPlotFgMaxDac[0] * 1000;
+                    }
+                    if (PmacData.bPlotEna[1])
+                    {
+                        dParseData = Convert.ToDouble(strParse[k++]);
+                        if (PmacData.nPlotIdx[1] == (Int32)PmacData.ePlotDataType.CmdPos)   PmacData.dPlotFgData[1, (i * nParseNum + j)] = (dParseData - PmacData.dPlotFgHomePos[1]) / 1000;
+                        if (PmacData.nPlotIdx[1] == (Int32)PmacData.ePlotDataType.ActPos)   PmacData.dPlotFgData[1, (i * nParseNum + j)] = (dParseData - PmacData.dPlotFgHomePos[1]) / 1000;
+                        if (PmacData.nPlotIdx[1] == (Int32)PmacData.ePlotDataType.PosErr)   PmacData.dPlotFgData[1, (i * nParseNum + j)] = dParseData;
+                        if (PmacData.nPlotIdx[1] == (Int32)PmacData.ePlotDataType.Velocity) PmacData.dPlotFgData[1, (i * nParseNum + j)] = dParseData / (16 * PmacData.dPmacDeviceFrq);
+                        if (PmacData.nPlotIdx[1] == (Int32)PmacData.ePlotDataType.Load)     PmacData.dPlotFgData[1, (i * nParseNum + j)] = dParseData / PmacData.dPlotFgMaxDac[1] * 1000;
+
+                    }
+                    if (PmacData.bPlotEna[2])
+                    {
+                        dParseData = Convert.ToDouble(strParse[k++]);
+                        if (PmacData.nPlotIdx[2] == (Int32)PmacData.ePlotDataType.CmdPos)   PmacData.dPlotFgData[2, (i * nParseNum + j)] = (dParseData - PmacData.dPlotFgHomePos[2]) / 1000;
+                        if (PmacData.nPlotIdx[2] == (Int32)PmacData.ePlotDataType.ActPos)   PmacData.dPlotFgData[2, (i * nParseNum + j)] = (dParseData - PmacData.dPlotFgHomePos[2]) / 1000;
+                        if (PmacData.nPlotIdx[2] == (Int32)PmacData.ePlotDataType.PosErr)   PmacData.dPlotFgData[2, (i * nParseNum + j)] = dParseData;
+                        if (PmacData.nPlotIdx[2] == (Int32)PmacData.ePlotDataType.Velocity) PmacData.dPlotFgData[2, (i * nParseNum + j)] = dParseData / (16 * PmacData.dPmacDeviceFrq);
+                        if (PmacData.nPlotIdx[2] == (Int32)PmacData.ePlotDataType.Load)     PmacData.dPlotFgData[2, (i * nParseNum + j)] = dParseData / PmacData.dPlotFgMaxDac[2] * 1000;
+
+                    }
+                    if (PmacData.bPlotEna[3])
+                    {
+                        dParseData = Convert.ToDouble(strParse[k++]);
+                        if (PmacData.nPlotIdx[3] == (Int32)PmacData.ePlotDataType.CmdPos)   PmacData.dPlotFgData[3, (i * nParseNum + j)] = (dParseData - PmacData.dPlotFgHomePos[3]) / 1000;
+                        if (PmacData.nPlotIdx[3] == (Int32)PmacData.ePlotDataType.ActPos)   PmacData.dPlotFgData[3, (i * nParseNum + j)] = (dParseData - PmacData.dPlotFgHomePos[3]) / 1000;
+                        if (PmacData.nPlotIdx[3] == (Int32)PmacData.ePlotDataType.PosErr)   PmacData.dPlotFgData[3, (i * nParseNum + j)] = dParseData;
+                        if (PmacData.nPlotIdx[3] == (Int32)PmacData.ePlotDataType.Velocity) PmacData.dPlotFgData[3, (i * nParseNum + j)] = dParseData / (16 * PmacData.dPmacDeviceFrq);
+                        if (PmacData.nPlotIdx[3] == (Int32)PmacData.ePlotDataType.Load)     PmacData.dPlotFgData[3, (i * nParseNum + j)] = dParseData / PmacData.dPlotFgMaxDac[3] * 1000;
+
+                    }
+                }
+            }
+        }
+        private void taskPmacPlotLoop(Int32 nIntervalmsec)     // Pmac Data Loop
+        {
+            int i, j=0;
+            Int32 nRet;
+            Int32 nItems = 0;
+            Int32 nPeriod = 0;
+            Int32 nMaxSamples = 0;
+
+            string strCmd;
+            string strRet;
+            string strRet2;
+
+            if (PmacData.nPlotMode == 1)
+            {
+                strCmd = "Sys.ServoPeriod";
+                nRet = OPKGetResponse(strCmd, out strRet);
+                if (nRet == Convert.ToInt32(OPK_REURN_CODE.ORC_Ok)) PmacData.dPmacDeviceFrq = Convert.ToDouble(strRet);
+                else
+                {
+                    MessageBox.Show("PMAC 연결을 확인하세요.");
+                    return;
+                }
+
+                j = 0;
+                for (i = 0; i < 4; i++)
+                {
+                    if (PmacData.bPlotEna[i])
+                    {
+                        strCmd = String.Format("Motor[{0}].HomePos", PmacData.nPlotMtr[i]);
+                        nRet = OPKGetResponse(strCmd, out strRet);
+                        PmacData.dPlotFgHomePos[i] = Convert.ToDouble(strRet);
+
+                        strCmd = String.Format("Motor[{0}].MaxDac", PmacData.nPlotMtr[i]);
+                        nRet = OPKGetResponse(strCmd, out strRet);
+                        PmacData.dPlotFgMaxDac[i] = Convert.ToDouble(strRet);
+
+                        switch (PmacData.nPlotIdx[i])
+                        {
+                            case (Int32)PmacData.ePlotDataType.CmdPos:
+                                strCmd = String.Format("Gather.Addr[{0}]=Motor[{1}].DesPos.a\n",j, PmacData.nPlotMtr[i]);
+                                strCmd += String.Format("Gather.Type[{0}]=5", j);
+                                break;
+                            case (Int32)PmacData.ePlotDataType.ActPos:
+                                strCmd = String.Format("Gather.Addr[{0}]=Motor[{1}].ActPos.a\n", j, PmacData.nPlotMtr[i]);
+                                strCmd += String.Format("Gather.Type[{0}]=5", j);
+                                break;
+                            case (Int32)PmacData.ePlotDataType.PosErr:
+                                strCmd = String.Format("Gather.Addr[{0}]=Motor[{1}].PosError.a\n", j, PmacData.nPlotMtr[i]);
+                                strCmd += String.Format("Gather.Type[{0}]=5", j);
+                                break;
+                            case (Int32)PmacData.ePlotDataType.Velocity:
+                                strCmd = String.Format("Gather.Addr[{0}]=Motor[{1}].FltrVel.a\n", j, PmacData.nPlotMtr[i]);
+                                strCmd += String.Format("Gather.Type[{0}]=5", j);
+                                break;
+                            case (Int32)PmacData.ePlotDataType.Load:
+                                strCmd = String.Format("Gather.Addr[{0}]=Motor[{1}].ServoOut.a\n", j, PmacData.nPlotMtr[i]);
+                                strCmd += String.Format("Gather.Type[{0}]=5", j);
+                                break;
+                            default:
+                                strCmd = "";
+                                break;
+                        }
+                        j++;
+                        nRet = OPKGetResponse(strCmd, out strRet);
+                    }
+                }
+
+                if (j > 0)
+                {
+                    nItems = j;
+                    nPeriod = PmacData.nPlotFgSamplePrd;
+                    nMaxSamples = Convert.ToInt32(PmacData.nPlotTimeLen / (PmacData.nPlotFgSamplePrd * PmacData.dPmacDeviceFrq));
+                    PmacData.nPlotSampleMax = nMaxSamples;
+
+                    strCmd = String.Format("Gather.Items={0}\n", nItems);
+                    strCmd += String.Format("Gather.Period={0}\n", nPeriod);
+                    strCmd += String.Format("Gather.MaxSamples={0}", nMaxSamples);
+                    nRet = OPKGetResponse(strCmd, out strRet);
+                    Thread.Sleep(100);
+
+
+                    strCmd = "echo 1 ";
+                    strCmd += "Gather.Enable=2";
+                    nRet = OPKGetResponse(strCmd, out strRet);
+                    Thread.Sleep(100);
+                    PmacData.nPlotGatherStatus = 1;
+
+                    strRet = "-1";
+                    PmacData.nPlotSampleCur = 0;
+                    while (_bPmacPlotTaskEna && strRet!="0\r\n")
+                    {
+                        strCmd = "Gather.Enable";
+                        nRet = OPKGetResponse(strCmd, out strRet);
+                        strCmd = "Gather.Samples";
+                        nRet = OPKGetResponse(strCmd, out strRet2);
+                        PmacData.nPlotSampleCur = Convert.ToInt32(strRet2);
+                        if (_formMain != null)
+                        {
+                            _formMain.BeginInvoke(new MethodInvoker(delegate ()
+                            {
+                                _formMain.UpdatePlotFgGather();
+                            }));
+                        }
+                        Thread.Sleep(50);
+                    }
+
+                    strCmd = "Gather.Samples";
+                    nRet = OPKGetResponse(strCmd, out strRet);
+
+                    if (Convert.ToInt32(strRet) == nMaxSamples)
+                    {
+                        PmacDataParse(nMaxSamples, nItems);
+
+                        if (_formMain != null)
+                        {
+                            _formMain.BeginInvoke(new MethodInvoker(delegate ()
+                            {
+                                _formMain.UpdatePlot();
+                            }));
+                        }
+                        PmacData.nPlotGatherStatus = 2;
+                    }
+                    else
+                    {
+                        MessageBox.Show("데이터 획득 실패. PMAC 메모리를 확인하세요.");
+                        PmacData.nPlotGatherStatus = 3;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("데이터가 설정되지 않았습니다.");
+                    return;
+                }
+                System.Diagnostics.Debug.WriteLine("Fin");
+            }
+            else
+            {
+                while (_bPmacPlotTaskEna)
+                {
+                    for (i = 0; i < 4; i++)
+                    {
+                        if (PmacData.bPlotEna[i])
+                        {
+                            switch (PmacData.nPlotIdx[i])
+                            {
+                                case 1:
+                                    PmacData.dPlotBgData[i] = Convert.ToDouble(PmacData.sMotor[PmacData.nPlotMtr[i]].nStaCmdPos) / 1000;
+                                    break;
+                                case 2:
+                                    PmacData.dPlotBgData[i] = Convert.ToDouble(PmacData.sMotor[PmacData.nPlotMtr[i]].nStaActPos) / 1000;
+                                    break;
+                                case 3:
+                                    PmacData.dPlotBgData[i] = Convert.ToDouble(PmacData.sMotor[PmacData.nPlotMtr[i]].nPosErr);
+                                    break;
+                                case 4:
+                                    PmacData.dPlotBgData[i] = Convert.ToDouble(PmacData.sMotor[PmacData.nPlotMtr[i]].nStaVelocity) / 1000;
+                                    break;
+                                case 5:
+                                    PmacData.dPlotBgData[i] = Convert.ToDouble(PmacData.sMotor[PmacData.nPlotMtr[i]].nStaLoad);
+                                    break;
+                            }
+                        }
+                    }
+                    if (_formMain != null)
+                    {
+                        _formMain.BeginInvoke(new MethodInvoker(delegate ()
+                        {
+                            _formMain.UpdatePlot();
+                        }));
+                        Thread.Sleep(nIntervalmsec);
+                    }
+                }
+            }
+        }
+    }
+}

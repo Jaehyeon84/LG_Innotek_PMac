@@ -134,13 +134,13 @@ open plc 25
 					gVs_PostVisionED_Tmr = Sys.Time + cSeq_VsnTimeOut;
 					gVs_PostVisionED_Seq = 2;
 				}
-//				else if(Sys.Time > gVs_PostVisionED_Tmr)
-//				{
-//					gVs_PostVisionED_Err = cErrCode_Vs3DVnStReadyRsp;
-//					gVs_PostVisionED_Sta = cSeqSta_Err;
-//					gVs_PostVisionED_Seq = 0;
-//					gVs_PostVisionED_Ena = 0;
-//				}
+				else if(Sys.Time > gVs_PostVisionED_Tmr)
+				{
+					gVs_PostVisionED_Err = cErrCode_Vs3DVnStReadyRsp;
+					gVs_PostVisionED_Sta = cSeqSta_Err;
+					gVs_PostVisionED_Seq = 0;
+					gVs_PostVisionED_Ena = 0;
+				}
 			break;
 			case 2:
 				gVs_PostVisionED_Buf = gVs_PostVisionED_Seq;

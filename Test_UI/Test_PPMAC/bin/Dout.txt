@@ -1,0 +1,16 @@
+LaserGate
+EsldFwd
+EsldBwd
+EsldSetup
+EsldHold
+EsldDrive
+EsldReset
+EsldSvon
+TBD
+TBD
+TBD
+TBD
+TBD
+TBD
+TBD
+TBD
