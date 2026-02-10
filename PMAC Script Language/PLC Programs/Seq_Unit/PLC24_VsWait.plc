@@ -1,0 +1,177 @@
+
+
+open plc 24
+	local ret = -1;
+
+	if(gVs_Wait_Start==1)
+	{
+		gVs_Wait_Start = 0;
+		gVs_Wait_Seq = 1;
+		gVs_Wait_Ena = 1;
+	}
+
+	if(gVs_Wait_Abort==1)
+	{
+		gVs_Wait_Abort = 0;
+		gVs_Wait_Seq = 0;
+		gVs_Wait_Ena = 0;
+	}
+
+	if(gVs_Wait_Ena==1)
+	{
+		switch(gVs_Wait_Seq)
+		{
+		//------------------------------------------------//
+		// Wait
+		//------------------------------------------------//
+		case 1:	// Ethercat Check
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				gVs_Wait_TimeBuf = Sys.Time;
+
+				if(gEcatCom_Sta(0)==cEcatComSta_Ok)
+				{
+					gVs_Wait_Sta = cVsSta_Ing;
+					gVs_Wait_Seq = 2;
+				}
+				else
+				{
+					gVs_Wait_Sta = cVsSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_Wait_Seq = 3;
+				}
+				else
+				{
+					gVs_Wait_Sta = cVsSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_Wait_Seq = 4;
+				}
+				else
+				{
+					gVs_Wait_Sta = cVsSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				if(Coord[3].InPos==1)
+				{
+					gVs_Wait_Seq = 5;
+				}
+				else
+				{
+					gVs_Wait_Sta = cVsSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+
+			case 5:	// Detect
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				if(gRunMode==cRunMode_DryRun)
+				{
+					gVs_Wait_Seq = 10;
+				}
+				else if(pUmem_Di2C_VsTbUndet==cDet_On)
+				{
+					gVs_Wait_Seq = 10;
+				}
+				else
+				{
+					gVs_Wait_Sta = cVsSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 10:
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				call spSetVsWtParam(&ret);
+				if(ret==0)
+				{
+					Motor[nvX].JogSpeed = gVs_Wait_VelX;
+					Motor[nvY].JogSpeed = gVs_Wait_VelY;
+					Motor[nvC].JogSpeed = gVs_Wait_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_Wait_PosX;
+					Motor[nvY].ProgJogPos = gVs_Wait_PosY;
+					Motor[nvY].ProgJogPos = gVs_Wait_PosC;
+
+					jog nvX=*
+					jog nvY=*
+					jog nvC=*
+
+					gVs_Wait_Tmr = Sys.Time + 0.1;
+					gVs_Wait_Seq = 11;
+				}
+				else
+				{
+					gVs_Wait_Sta = cVsSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+
+			case 11:
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				if(Sys.time > gVs_Wait_Tmr)
+				{
+					gVs_Wait_Tmr = Sys.Time + cVs_MtrTimeOut;
+					gVs_Wait_Seq = 12;
+				}
+			break;
+
+			case 12:
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				if(Coord[3].InPos==1)
+				{
+					gVs_Wait_Seq = 90;
+				}
+				else if(Sys.time > gVs_Wait_Tmr)
+				{
+					gVs_Wait_Sta = cVsSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				gVs_Wait_Time = Sys.Time - gVs_Wait_TimeBuf;
+				gVs_Wait_Sta = cVsSta_Fin;
+				gVs_Wait_Seq = 0;
+				gVs_Wait_Ena = 0;
+			break;
+
+			default:
+				gVs_Wait_Sta = cVsSta_Err;
+				gVs_Wait_Seq = 0;
+				gVs_Wait_Ena = 0;				
+			break;
+		}
+	}
+close
+
+

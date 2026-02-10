@@ -1,0 +1,506 @@
+//######################################################################################################
+// Header 04 : Setup EtherCat
+//######################################################################################################
+
+
+ECAT[0].RTStateCheck = 1;				// EtherCat Connection/Status Check Enable
+ECAT[0].RTStateCheckCount = 9;			// EtherCat Connection/Status Check Period
+ECAT[0].ServoExtension = rint(1/Sys.ServoPeriod/2-1);	// EtherCat Servo Period
+ECAT[0].AllowInputsOnWkcErr = 1;		// When EtherCat Disconnection, Allow Digital Input
+ECAT[0].DCMaxAdjust = 4000;				// For Decrease Jitter, Increase ECAT[x].DCMaxAdjust
+
+Motor[nwX].EcatAmpFaultLimit = 40000;	// Increase Fault Wait Time. For Motor Phasing
+Motor[nwY].EcatAmpFaultLimit = 40000;
+Motor[nwC].EcatAmpFaultLimit = 40000;
+Motor[nvX].EcatAmpFaultLimit = 40000;
+Motor[nvY].EcatAmpFaultLimit = 40000;
+Motor[nvC].EcatAmpFaultLimit = 40000;
+Motor[nwZ].EcatAmpFaultLimit = 40000;
+
+#if MACHINE_TYPE==1
+	Slave_1002_MADLN15BL_6060_0_Modesofoperation = 8;		// Set CSP Mode (6060 = 8)
+	Slave_1003_MADLN15BL_6060_0_Modesofoperation = 8;
+	Slave_1004_MCDLN35BL_6060_0_Modesofoperation = 8;
+	Slave_1005_MBDLN25BE_6060_0_Modesofoperation = 8;
+	Slave_1006_MADLN15BL_6060_0_Modesofoperation = 8;
+	Slave_1007_MADLN15BL_6060_0_Modesofoperation = 8;
+	Slave_1008_MCDLN35BL_6060_0_Modesofoperation = 8;
+	//------------------------------------------------------------------------------------------------//
+	// E-Cylynder PDOs
+	//------------------------------------------------------------------------------------------------//
+	ptr pEcat_EcldrDi_Out0	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.00
+	ptr pEcat_EcldrDi_Out1	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.01
+	ptr pEcat_EcldrDi_Out2	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.02
+	ptr pEcat_EcldrDi_Out3	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.03
+	ptr pEcat_EcldrDi_Out4	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.04
+	ptr pEcat_EcldrDi_Out5	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.05
+	ptr pEcat_EcldrDi_Busy	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.08
+	ptr pEcat_EcldrDi_Svre	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.09
+	ptr pEcat_EcldrDi_Seton	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.10
+	ptr pEcat_EcldrDi_Inp	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.11
+	ptr pEcat_EcldrDi_Area	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.12
+	ptr pEcat_EcldrDi_Warea	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.13
+	ptr pEcat_EcldrDi_Estop	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.14
+	ptr pEcat_EcldrDi_Alarm	->Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport.15
+
+	ptr pEcat_EcldrDo_In0	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.00
+	ptr pEcat_EcldrDo_In1	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.01
+	ptr pEcat_EcldrDo_In2	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.02
+	ptr pEcat_EcldrDo_In3	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.03
+	ptr pEcat_EcldrDo_In4	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.04
+	ptr pEcat_EcldrDo_In5	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.05
+	ptr pEcat_EcldrDo_Hold	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.08
+	ptr pEcat_EcldrDo_Svon	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.09
+	ptr pEcat_EcldrDo_Drive	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.10
+	ptr pEcat_EcldrDo_Reset	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.11
+	ptr pEcat_EcldrDo_Setup	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.12
+	ptr pEcat_EcldrDo_JogM	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.13
+	ptr pEcat_EcldrDo_JogP	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.14
+	ptr pEcat_EcldrDo_Flgth	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.15
+
+	ptr pEcat_EcldrJog_Flg	->Slave_1009_JXCE1_7011_0_Controllingofthenumericaldataflag
+	ptr pEcat_EcldrJog_Std	->Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated.0.5
+	ptr pEcat_EcldrJog_Trg	->Slave_1009_JXCE1_7012_0_Startflag
+	ptr pEcat_EcldrJog_Mod	->Slave_1009_JXCE1_7020_0_OperationMethod
+	ptr pEcat_EcldrJog_Vel	->Slave_1009_JXCE1_7021_0_Speed
+	ptr pEcat_EcldrJog_Pos	->Slave_1009_JXCE1_7022_0_Targetposition
+	ptr pEcat_EcldrJog_Acc	->Slave_1009_JXCE1_7023_0_Acceleration
+	ptr pEcat_EcldrJog_Dec	->Slave_1009_JXCE1_7024_0_Deceleration
+	ptr pEcat_EcldrJog_InP	->Slave_1009_JXCE1_702B_0_Positioningwidth
+
+	ptr pEcat_Ecldr_CmdPos	->Slave_1009_JXCE1_6023_0_Targetposition
+	ptr pEcat_Ecldr_ActPos	->Slave_1009_JXCE1_6020_0_Currentposition
+
+	//------------------------------------------------------------------------------------------------//
+	// Dummy Variable for I/O Communication
+	//------------------------------------------------------------------------------------------------//
+	ptr pEcat_Di_Md01(16)->*
+		pEcat_Di_Md01(00)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.00
+		pEcat_Di_Md01(01)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.01
+		pEcat_Di_Md01(02)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.02
+		pEcat_Di_Md01(03)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.03
+		pEcat_Di_Md01(04)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.04
+		pEcat_Di_Md01(05)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.05
+		pEcat_Di_Md01(06)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.06
+		pEcat_Di_Md01(07)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.07
+		pEcat_Di_Md01(08)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.08
+		pEcat_Di_Md01(09)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.09
+		pEcat_Di_Md01(10)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.10
+		pEcat_Di_Md01(11)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.11
+		pEcat_Di_Md01(12)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.12
+		pEcat_Di_Md01(13)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.13
+		pEcat_Di_Md01(14)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.14
+		pEcat_Di_Md01(15)->Slave_1001_NX_ECC203_6002_1_InputBit16bits.15
+
+	ptr pEcat_Di_Md02(16)->*
+		pEcat_Di_Md02(00)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.00
+		pEcat_Di_Md02(01)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.01
+		pEcat_Di_Md02(02)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.02
+		pEcat_Di_Md02(03)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.03
+		pEcat_Di_Md02(04)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.04
+		pEcat_Di_Md02(05)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.05
+		pEcat_Di_Md02(06)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.06
+		pEcat_Di_Md02(07)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.07
+		pEcat_Di_Md02(08)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.08
+		pEcat_Di_Md02(09)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.09
+		pEcat_Di_Md02(10)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.10
+		pEcat_Di_Md02(11)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.11
+		pEcat_Di_Md02(12)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.12
+		pEcat_Di_Md02(13)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.13
+		pEcat_Di_Md02(14)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.14
+		pEcat_Di_Md02(15)->Slave_1001_NX_ECC203_6022_1_InputBit16bits.15
+
+	ptr pEcat_Do_Md01(16)->*
+		pEcat_Do_Md01(00)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.00
+		pEcat_Do_Md01(01)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.01
+		pEcat_Do_Md01(02)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.02
+		pEcat_Do_Md01(03)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.03
+		pEcat_Do_Md01(04)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.04
+		pEcat_Do_Md01(05)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.05
+		pEcat_Do_Md01(06)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.06
+		pEcat_Do_Md01(07)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.07
+		pEcat_Do_Md01(08)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.08
+		pEcat_Do_Md01(09)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.09
+		pEcat_Do_Md01(10)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.10
+		pEcat_Do_Md01(11)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.11
+		pEcat_Do_Md01(12)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.12
+		pEcat_Do_Md01(13)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.13
+		pEcat_Do_Md01(14)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.14
+		pEcat_Do_Md01(15)->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.15
+
+	ptr pEcat_Do_Md02(16)->*
+		pEcat_Do_Md02(00)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.00
+		pEcat_Do_Md02(01)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.01
+		pEcat_Do_Md02(02)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.02
+		pEcat_Do_Md02(03)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.03
+		pEcat_Do_Md02(04)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.04
+		pEcat_Do_Md02(05)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.05
+		pEcat_Do_Md02(06)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.06
+		pEcat_Do_Md02(07)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.07
+		pEcat_Do_Md02(08)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.08
+		pEcat_Do_Md02(09)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.09
+		pEcat_Do_Md02(10)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.10
+		pEcat_Do_Md02(11)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.11
+		pEcat_Do_Md02(12)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.12
+		pEcat_Do_Md02(13)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.13
+		pEcat_Do_Md02(14)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.14
+		pEcat_Do_Md02(15)->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.15
+
+	//------------------------------------------------------------------------------------------------//
+	// Ethercat Digital Input (ID5342)
+	//------------------------------------------------------------------------------------------------//	
+	ptr	pEcat_Di10_WsLtFixUp			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.00
+	ptr	pEcat_Di11_WsVsLtStrCls			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.01
+	ptr	pEcat_Di12_WsLtFixDn			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.02
+	ptr	pEcat_Di13_WsVsLtStrOpn			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.03
+	ptr	pEcat_Di14_WsRtFixUp			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.04
+	ptr	pEcat_Di15_WsVsRtStrCls			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.05
+	ptr	pEcat_Di16_WsRtFixDn			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.06
+	ptr	pEcat_Di17_WsVsRtStrOpn			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.07
+	ptr	pEcat_Di18_WsTempBwd			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.08
+	ptr	pEcat_Di19_TrPickUp				->Slave_1001_NX_ECC203_6002_1_InputBit16bits.09
+	ptr	pEcat_Di1A_WsTempFwd			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.10
+	ptr	pEcat_Di1B_TrPickDn				->Slave_1001_NX_ECC203_6002_1_InputBit16bits.11
+	ptr	pEcat_Di1C_WsTbDet				->Slave_1001_NX_ECC203_6002_1_InputBit16bits.12
+	ptr	pEcat_Di1D_TrGripCls			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.13
+	ptr	pEcat_Di1E						->Slave_1001_NX_ECC203_6002_1_InputBit16bits.14
+	ptr	pEcat_Di1F_TrGripOpn			->Slave_1001_NX_ECC203_6002_1_InputBit16bits.15
+	
+	ptr	pEcat_Di20_VsTbFixBwd			->Slave_1001_NX_ECC203_6022_1_InputBit16bits.00
+	ptr	pEcat_Di21_WsAirCurtain			->Slave_1001_NX_ECC203_6022_1_InputBit16bits.01
+	ptr	pEcat_Di22_VsTbFixFwd			->Slave_1001_NX_ECC203_6022_1_InputBit16bits.02
+	ptr	pEcat_Di23_WsN2Blow				->Slave_1001_NX_ECC203_6022_1_InputBit16bits.03
+	ptr	pEcat_Di24_VsTbFixUp			->Slave_1001_NX_ECC203_6022_1_InputBit16bits.04
+	ptr	pEcat_Di25						->Slave_1001_NX_ECC203_6022_1_InputBit16bits.05
+	ptr	pEcat_Di26_VsTbFixDn			->Slave_1001_NX_ECC203_6022_1_InputBit16bits.06
+	ptr	pEcat_Di27						->Slave_1001_NX_ECC203_6022_1_InputBit16bits.07
+	ptr	pEcat_Di28						->Slave_1001_NX_ECC203_6022_1_InputBit16bits.08
+	ptr	pEcat_Di29						->Slave_1001_NX_ECC203_6022_1_InputBit16bits.09
+	ptr	pEcat_Di2A						->Slave_1001_NX_ECC203_6022_1_InputBit16bits.10
+	ptr	pEcat_Di2B						->Slave_1001_NX_ECC203_6022_1_InputBit16bits.11
+	ptr	pEcat_Di2C_VsTbDet				->Slave_1001_NX_ECC203_6022_1_InputBit16bits.12
+	ptr	pEcat_Di2D						->Slave_1001_NX_ECC203_6022_1_InputBit16bits.13
+	ptr	pEcat_Di2E						->Slave_1001_NX_ECC203_6022_1_InputBit16bits.14
+	ptr	pEcat_Di2F						->Slave_1001_NX_ECC203_6022_1_InputBit16bits.15
+
+	//------------------------------------------------------------------------------------------------//
+	// Ethercat Digital Output (OD5121)
+	//------------------------------------------------------------------------------------------------//
+	ptr	pEcat_Do10_WsTbFixUp			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.00
+	ptr	pEcat_Do11_WsTempBwd			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.01
+	ptr	pEcat_Do12_WsTbFixDn			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.02
+	ptr	pEcat_Do13_WsTempFwd			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.03
+	ptr	pEcat_Do14_TrGripCls			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.04
+	ptr	pEcat_Do15_VsTbFixBwd			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.05
+	ptr	pEcat_Do16_TrGripOpn			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.06
+	ptr	pEcat_Do17_VsTbFixFwd			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.07
+	ptr	pEcat_Do18_TrPickUp				->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.08
+	ptr	pEcat_Do19_VsTbFixUp			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.09
+	ptr	pEcat_Do1A_TrPickDn				->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.10
+	ptr	pEcat_Do1B_VsTbFixDn			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.11
+	ptr	pEcat_Do1C_WsVsStrCls			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.12
+	ptr	pEcat_Do1D_WsCoolAir			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.13
+	ptr	pEcat_Do1E_WsVsStrOpn			->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.14
+	ptr	pEcat_Do1F						->Slave_1001_NX_ECC203_7042_1_OutputBit16bits.15
+
+	ptr	pEcat_Do20_WsTbVacm				->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.00
+	ptr	pEcat_Do21_WsAirCurtain			->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.01
+	ptr	pEcat_Do22_WsTbBlow				->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.02
+	ptr	pEcat_Do23_WsN2Blow				->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.03
+	ptr	pEcat_Do24						->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.04
+	ptr	pEcat_Do25_WsTbVacmBlowEna		->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.05
+	ptr	pEcat_Do26						->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.06
+	ptr	pEcat_Do27						->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.07
+	ptr	pEcat_Do28						->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.08
+	ptr	pEcat_Do29						->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.09
+	ptr	pEcat_Do2A						->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.10
+	ptr	pEcat_Do2B						->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.11
+	ptr	pEcat_Di2C_VsTbDetect			->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.12
+	ptr	pEcat_Do2D						->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.13
+	ptr	pEcat_Do2E						->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.14
+	ptr	pEcat_Do2F						->Slave_1001_NX_ECC203_7062_1_OutputBit16bits.15
+
+	//------------------------------------------------------------------------------------------------//
+	// Ethercat Analog Input (AD2608)
+	//------------------------------------------------------------------------------------------------//
+	ptr pEcat_Ai00_WsLoadCell		->Slave_1001_NX_ECC203_6080_1_Ch1AnalogInputValue
+	ptr pBuf_Ai00_WsLoadCell		->*i.16
+	global gAi00_WsLoadCell;
+
+	ptr pEcat_Ai01				->Slave_1001_NX_ECC203_6080_2_Ch2AnalogInputValue
+	ptr pEcat_Ai02_WsCorePower		->Slave_1001_NX_ECC203_6080_3_Ch3AnalogInputValue
+	ptr pEcat_Ai03_WsRingPower		->Slave_1001_NX_ECC203_6080_4_Ch4AnalogInputValue
+
+	//------------------------------------------------------------------------------------------------//
+	// Ethercat Temperature Input (TS2101)
+	//------------------------------------------------------------------------------------------------//
+	ptr pEcat_Ti00_Ws_TempSen1		->Slave_1001_NX_ECC203_60A1_1_Ch1MeasuredValueINT
+	ptr pEcat_Ti01_Ws_TempSen2		->Slave_1001_NX_ECC203_60A1_2_Ch2MeasuredValueINT
+	ptr pBuf_Ti00_Ws_TempSen1		->*i.16
+	ptr pBuf_Ti01_Ws_TempSen2		->*i.16
+	global gTi00_Ws_TempSen1;
+	global gTi01_Ws_TempSen2;	
+	
+	//------------------------------------------------------------------------------------------------//
+	// for Motor Arrays
+	//------------------------------------------------------------------------------------------------//
+	ptr pEcat_CmdPos(32)->*					// 607A Cmd Pos
+		pEcat_CmdPos(nwX)->Slave_1004_MCDLN35BL_607A_0_Targetposition;
+		pEcat_CmdPos(nwY)->Slave_1002_MADLN15BL_607A_0_Targetposition;
+		pEcat_CmdPos(nwC)->Slave_1003_MADLN15BL_607A_0_Targetposition;
+		pEcat_CmdPos(nvX)->Slave_1008_MCDLN35BL_607A_0_Targetposition;
+		pEcat_CmdPos(nvY)->Slave_1006_MADLN15BL_607A_0_Targetposition;
+		pEcat_CmdPos(nvC)->Slave_1007_MADLN15BL_607A_0_Targetposition;
+		pEcat_CmdPos(nwZ)->Slave_1005_MBDLN25BE_607A_0_Targetposition;
+
+	ptr pEcat_ActErr(32)->*					// 60F4 Pos Err Act Value
+		pEcat_ActErr(nwX)->Slave_1004_MCDLN35BL_6077_0_Torqueactualvalue;
+		pEcat_ActErr(nwY)->Slave_1002_MADLN15BL_6077_0_Torqueactualvalue;
+		pEcat_ActErr(nwC)->Slave_1003_MADLN15BL_6077_0_Torqueactualvalue;
+		pEcat_ActErr(nvX)->Slave_1008_MCDLN35BL_6077_0_Torqueactualvalue;
+		pEcat_ActErr(nvY)->Slave_1006_MADLN15BL_6077_0_Torqueactualvalue;
+		pEcat_ActErr(nvC)->Slave_1007_MADLN15BL_6077_0_Torqueactualvalue;
+		pEcat_ActErr(nwZ)->Slave_1005_MBDLN25BE_6077_0_Torqueactualvalue;
+
+	ptr pEcat_ActTrq(32)->*					// 6077 Act Torque
+		pEcat_ActTrq(nwX)->Slave_1004_MCDLN35BL_6077_0_Torqueactualvalue;
+		pEcat_ActTrq(nwY)->Slave_1002_MADLN15BL_6077_0_Torqueactualvalue;
+		pEcat_ActTrq(nwC)->Slave_1003_MADLN15BL_6077_0_Torqueactualvalue;
+		pEcat_ActTrq(nvX)->Slave_1008_MCDLN35BL_6077_0_Torqueactualvalue;
+		pEcat_ActTrq(nvY)->Slave_1006_MADLN15BL_6077_0_Torqueactualvalue;
+		pEcat_ActTrq(nvC)->Slave_1007_MADLN15BL_6077_0_Torqueactualvalue;
+		pEcat_ActTrq(nwZ)->Slave_1005_MBDLN25BE_6077_0_Torqueactualvalue;
+
+	ptr pBuf_ActTrq(32)->*					// 6077 Act Torque, For Convert Type
+		pBuf_ActTrq(nwX)->*i.16;
+		pBuf_ActTrq(nwY)->*i.16;
+		pBuf_ActTrq(nwC)->*i.16;
+		pBuf_ActTrq(nvX)->*i.16;
+		pBuf_ActTrq(nvY)->*i.16;
+		pBuf_ActTrq(nvC)->*i.16;
+		pBuf_ActTrq(nwZ)->*i.16;
+
+	ptr pEcat_AlarmReset(32)->*				// Alarm Reset : 6040 Bit.7
+		pEcat_AlarmReset(nwX)->Slave_1004_MCDLN35BL_6040_0_Controlword.7
+		pEcat_AlarmReset(nwY)->Slave_1002_MADLN15BL_6040_0_Controlword.7
+		pEcat_AlarmReset(nwC)->Slave_1003_MADLN15BL_6040_0_Controlword.7
+		pEcat_AlarmReset(nvX)->Slave_1008_MCDLN35BL_6040_0_Controlword.7
+		pEcat_AlarmReset(nvY)->Slave_1006_MADLN15BL_6040_0_Controlword.7
+		pEcat_AlarmReset(nvC)->Slave_1007_MADLN15BL_6040_0_Controlword.7
+		pEcat_AlarmReset(nwZ)->Slave_1005_MBDLN25BE_6040_0_Controlword.7
+
+#else
+	ptr pEcat_EcldrJog_Flg	->*
+	ptr pEcat_EcldrJog_Std	->*
+	ptr pEcat_EcldrJog_Trg	->*
+	ptr pEcat_EcldrJog_Mod	->*
+	ptr pEcat_EcldrJog_Vel	->*
+	ptr pEcat_EcldrJog_Pos	->*
+	ptr pEcat_EcldrJog_Acc	->*
+	ptr pEcat_EcldrJog_Dec	->*
+	ptr pEcat_EcldrJog_InP	->*
+
+	ptr pEcat_Ecldr_CmdPos	->*
+	ptr pEcat_Ecldr_ActPos	->*
+		//------------------------------------------------------------------------------------------------//
+	ptr pEcat_Di_Md01(16)->*
+		pEcat_Di_Md01(00)->*
+		pEcat_Di_Md01(01)->*
+		pEcat_Di_Md01(02)->*
+		pEcat_Di_Md01(03)->*
+		pEcat_Di_Md01(04)->*
+		pEcat_Di_Md01(05)->*
+		pEcat_Di_Md01(06)->*
+		pEcat_Di_Md01(07)->*
+		pEcat_Di_Md01(08)->*
+		pEcat_Di_Md01(09)->*
+		pEcat_Di_Md01(10)->*
+		pEcat_Di_Md01(11)->*
+		pEcat_Di_Md01(12)->*
+		pEcat_Di_Md01(13)->*
+		pEcat_Di_Md01(14)->*
+		pEcat_Di_Md01(15)->*
+
+	ptr pEcat_Di_Md02(16)->*
+		pEcat_Di_Md02(00)->*
+		pEcat_Di_Md02(01)->*
+		pEcat_Di_Md02(02)->*
+		pEcat_Di_Md02(03)->*
+		pEcat_Di_Md02(04)->*
+		pEcat_Di_Md02(05)->*
+		pEcat_Di_Md02(06)->*
+		pEcat_Di_Md02(07)->*
+		pEcat_Di_Md02(08)->*
+		pEcat_Di_Md02(09)->*
+		pEcat_Di_Md02(10)->*
+		pEcat_Di_Md02(11)->*
+		pEcat_Di_Md02(12)->*
+		pEcat_Di_Md02(13)->*
+		pEcat_Di_Md02(14)->*
+		pEcat_Di_Md02(15)->*
+
+	ptr pEcat_Do_Md01(16)->*
+		pEcat_Do_Md01(00)->*
+		pEcat_Do_Md01(01)->*
+		pEcat_Do_Md01(02)->*
+		pEcat_Do_Md01(03)->*
+		pEcat_Do_Md01(04)->*
+		pEcat_Do_Md01(05)->*
+		pEcat_Do_Md01(06)->*
+		pEcat_Do_Md01(07)->*
+		pEcat_Do_Md01(08)->*
+		pEcat_Do_Md01(09)->*
+		pEcat_Do_Md01(10)->*
+		pEcat_Do_Md01(11)->*
+		pEcat_Do_Md01(12)->*
+		pEcat_Do_Md01(13)->*
+		pEcat_Do_Md01(14)->*
+		pEcat_Do_Md01(15)->*
+
+	ptr pEcat_Do_Md02(16)->*
+		pEcat_Do_Md02(00)->*
+		pEcat_Do_Md02(01)->*
+		pEcat_Do_Md02(02)->*
+		pEcat_Do_Md02(03)->*
+		pEcat_Do_Md02(04)->*
+		pEcat_Do_Md02(05)->*
+		pEcat_Do_Md02(06)->*
+		pEcat_Do_Md02(07)->*
+		pEcat_Do_Md02(08)->*
+		pEcat_Do_Md02(09)->*
+		pEcat_Do_Md02(10)->*
+		pEcat_Do_Md02(11)->*
+		pEcat_Do_Md02(12)->*
+		pEcat_Do_Md02(13)->*
+		pEcat_Do_Md02(14)->*
+		pEcat_Do_Md02(15)->*
+
+	ptr pEcat_EcldrDi_Out0	->*
+	ptr pEcat_EcldrDi_Out1	->*
+	ptr pEcat_EcldrDi_Out2	->*
+	ptr pEcat_EcldrDi_Out3	->*
+	ptr pEcat_EcldrDi_Out4	->*
+	ptr pEcat_EcldrDi_Out5	->*
+	ptr pEcat_EcldrDi_Busy	->*
+	ptr pEcat_EcldrDi_Svre	->*
+	ptr pEcat_EcldrDi_Seton	->*
+	ptr pEcat_EcldrDi_Inp	->*
+	ptr pEcat_EcldrDi_Area	->*
+	ptr pEcat_EcldrDi_Warea	->*
+	ptr pEcat_EcldrDi_Estop	->*
+	ptr pEcat_EcldrDi_Alarm	->*
+
+	ptr pEcat_EcldrDo_In0	->*
+	ptr pEcat_EcldrDo_In1	->*
+	ptr pEcat_EcldrDo_In2	->*
+	ptr pEcat_EcldrDo_In3	->*
+	ptr pEcat_EcldrDo_In4	->*
+	ptr pEcat_EcldrDo_In5	->*
+	ptr pEcat_EcldrDo_Hold	->*
+	ptr pEcat_EcldrDo_Svon	->*
+	ptr pEcat_EcldrDo_Drive	->*
+	ptr pEcat_EcldrDo_Reset	->*
+	ptr pEcat_EcldrDo_Setup	->*
+	ptr pEcat_EcldrDo_JogM	->*
+	ptr pEcat_EcldrDo_JogP	->*
+	ptr pEcat_EcldrDo_Flgth	->*
+
+	ptr pEcat_Di10					->*
+	ptr pEcat_Di11					->*
+	ptr pEcat_Di12					->*
+	ptr pEcat_Di13					->*
+	ptr pEcat_Di14					->*
+	ptr pEcat_Di15					->*
+	ptr pEcat_Di16_WdAirCurtain		->*
+	ptr pEcat_Di17_WdN2Blow			->*
+	ptr pEcat_Di18_WdTbFixLtUp		->*
+	ptr pEcat_Di19_WdTbFixLtDn		->*
+	ptr pEcat_Di1A_WdTbFixRtUp		->*
+	ptr pEcat_Di1B_WdTbFixRtDn		->*
+	ptr pEcat_Di1C_VsFixLtUp		->*
+	ptr pEcat_Di1D_VsFixLtDn		->*
+	ptr pEcat_Di1E_VsFixRtUp		->*
+	ptr pEcat_Di1F_VsFixRtDn		->*
+
+	ptr pEcat_Di20_TrPickUp			->*
+	ptr pEcat_Di21_TrPickDn			->*
+	ptr pEcat_Di22_TrGripCls		->*
+	ptr pEcat_Di23_TrGripOpn		->*
+	ptr pEcat_Di24					->*
+	ptr pEcat_Di25					->*
+	ptr pEcat_Di26					->*
+	ptr pEcat_Di27					->*
+	ptr pEcat_Di28					->*
+	ptr pEcat_Di29					->*
+	ptr pEcat_Di2A					->*
+	ptr pEcat_Di2B					->*
+	ptr pEcat_Di2C_WdVsStrCls		->*
+	ptr pEcat_Di2D_WdVsStrOpn		->*
+	ptr pEcat_Di2E_WdTempBwd		->*
+	ptr pEcat_Di2F_WdTempFwd		->*
+
+	ptr pEcat_Do10					->*
+	ptr pEcat_Do11					->*
+	ptr pEcat_Do12					->*
+	ptr pEcat_Do13					->*
+	ptr pEcat_Do14_WdCoolAirOff		->*
+	ptr pEcat_Do15_WdCoolAirOn		->*
+	ptr pEcat_Do16_WdAirCurtain		->*
+	ptr pEcat_Do17_WdN2Blow			->*
+	ptr pEcat_Do18_WdTbFixLtUp		->*
+	ptr pEcat_Do19_WdTbFixLtDn		->*
+	ptr pEcat_Do1A_WdTbFixRtUp		->*
+	ptr pEcat_Do1B_WdTbFixRtDn		->*
+	ptr pEcat_Do1C_VsFixLtUp		->*
+	ptr pEcat_Do1D_VsFixLtDn		->*
+	ptr pEcat_Do1E_VsFixRtUp		->*
+	ptr pEcat_Do1F_VsFixRtDn		->*
+
+	ptr pEcat_Do20_TrPickUp			->*
+	ptr pEcat_Do21_TrPickDn			->*
+	ptr pEcat_Do22_TrGripCls		->*
+	ptr pEcat_Do23_TrGripOpn		->*
+	ptr pEcat_Do24					->*
+	ptr pEcat_Do25_WsTbVacmValve	->*
+	ptr pEcat_Do26					->*
+	ptr pEcat_Do27					->*
+	ptr pEcat_Do28					->*
+	ptr pEcat_Do29					->*
+	ptr pEcat_Do2A					->*
+	ptr pEcat_Do2B					->*
+	ptr pEcat_Do2C_WdVsStrCls		->*
+	ptr pEcat_Do2D_WdVsStrOpn		->*
+	ptr pEcat_Do2E_WdTempBwd		->*
+	ptr pEcat_Do2F_WdTempFwd		->*
+
+	ptr pEcat_Ai00_WsLoadCell		->*
+	ptr pBuf_Ai00_WsLoadCell		->*i.16
+	global gAi00_WsLoadCell;
+
+	ptr pEcat_Ai01					->*
+	
+	ptr pEcat_Ti00_Ws_TempSen1		->*
+	ptr pEcat_Ti01_Ws_TempSen2		->*
+	ptr pBuf_Ti00_Ws_TempSen1		->*i.16
+	ptr pBuf_Ti01_Ws_TempSen2		->*i.16
+	global gTi00_Ws_TempSen1;
+	global gTi01_Ws_TempSen2;
+	
+	
+	ptr pEcat_Ti01					->Slave_1001_NX_ECC203_60A1_2_Ch2MeasuredValueINT
+
+	ptr pEcat_ActTrq(32)->*					// 6077 Act Torque
+
+
+	ptr pBuf_ActTrq(32)->*					// 6077 Act Torque
+		pBuf_ActTrq(nwX)->*i.16;
+		pBuf_ActTrq(nwY)->*i.16;
+		pBuf_ActTrq(nwC)->*i.16;
+		pBuf_ActTrq(nvX)->*i.16;
+		pBuf_ActTrq(nvY)->*i.16;
+		pBuf_ActTrq(nvC)->*i.16;
+		pBuf_ActTrq(nwZ)->*i.16;
+
+	ptr pEcat_AlarmReset(32)->*
+#endif
+

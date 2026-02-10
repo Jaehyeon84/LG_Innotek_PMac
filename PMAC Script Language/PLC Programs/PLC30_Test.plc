@@ -1,0 +1,100 @@
+//######################################################################################################
+// PLC 30 : For Test Functions
+//######################################################################################################
+
+
+open plc 30
+	if(P123==1)				// Parameter Init
+	{
+		call spSetDefaultParam()
+	}
+	else if(P123==2)				// Scanner Init
+	{
+		call spInitScanner(nsX,nsY)
+	}
+	else if(P123==3)		// Vision Trigger Enable
+	{
+		call spSetEquOut(2, 1)
+		Motor[nvS].MasterCtrl = 1
+	}
+	else if(P123==4)		// Vision Trigger Disable
+	{
+		Gate3[0].Chan[3].EquOutMask = 0;
+		Motor[nvS].MasterCtrl=0;
+	}
+	else if(P123==5)		// Ecdr Move
+	{
+		pEcat_EcldrJog_Trg = 0;
+		call Timer.msec(500);
+
+		pEcat_EcldrJog_Std = 1;
+		pEcat_EcldrJog_Flg = $81F0;
+		call Timer.msec(500);
+
+		pEcat_EcldrJog_Mod = 1;
+		pEcat_EcldrJog_Vel = 10;
+		pEcat_EcldrJog_Pos = P500;
+		pEcat_EcldrJog_Acc = pEcat_EcldrJog_Vel*10;
+		pEcat_EcldrJog_Dec = pEcat_EcldrJog_Acc;
+		pEcat_EcldrJog_InP = 50;
+		call Timer.msec(500);
+
+		pEcat_EcldrJog_Trg = 1;
+		call Timer.msec(500);
+		pEcat_EcldrJog_Trg = 0;
+	}
+	else if(P123==6)
+	{
+		pUmem_Cmd_Ws_LdVelX = gTest_Vel
+		pUmem_Cmd_Ws_LdVelY = gTest_Vel
+		pUmem_Cmd_Ws_LdVelC = 720000
+
+		pUmem_Cmd_Ws_RdVelX = gTest_Vel
+		pUmem_Cmd_Ws_RdVelY = gTest_Vel
+		pUmem_Cmd_Ws_RdVelC = 720000
+
+		pUmem_Cmd_Ws_WdVelX = gTest_Vel
+		pUmem_Cmd_Ws_WdVelY = gTest_Vel
+		pUmem_Cmd_Ws_WdVelC = 720000
+
+		pUmem_Cmd_Ws_WtVelX = gTest_Vel
+		pUmem_Cmd_Ws_WtVelY = gTest_Vel
+		pUmem_Cmd_Ws_WtVelC = 720000
+
+		pUmem_Cmd_Ws_UdVelX = gTest_Vel
+		pUmem_Cmd_Ws_UdVelY = gTest_Vel
+		pUmem_Cmd_Ws_UdVelC = 720000
+
+		pUmem_Cmd_Ws_RjVelX = gTest_Vel
+		pUmem_Cmd_Ws_RjVelY = gTest_Vel
+		pUmem_Cmd_Ws_RjVelC = 720000
+
+		pUmem_Cmd_Vs_LdVelX = gTest_Vel
+		pUmem_Cmd_Vs_LdVelY = gTest_Vel
+		pUmem_Cmd_Vs_LdVelC = 720000
+
+		pUmem_Cmd_Vs_RdVelX = gTest_Vel
+		pUmem_Cmd_Vs_RdVelY = gTest_Vel
+		pUmem_Cmd_Vs_RdVelC = 720000
+
+		pUmem_Cmd_Vs_VnVelX = gTest_Vel
+		pUmem_Cmd_Vs_VnVelY = gTest_Vel
+		pUmem_Cmd_Vs_VnVelC = 720000
+
+		pUmem_Cmd_Vs_WtVelX = gTest_Vel
+		pUmem_Cmd_Vs_WtVelY = gTest_Vel
+		pUmem_Cmd_Vs_WtVelC = 720000
+
+		pUmem_Cmd_Vs_UdVelX = gTest_Vel
+		pUmem_Cmd_Vs_UdVelY = gTest_Vel
+		pUmem_Cmd_Vs_UdVelC = 720000
+
+		pUmem_Cmd_Vs_RjVelX = gTest_Vel
+		pUmem_Cmd_Vs_RjVelY = gTest_Vel
+		pUmem_Cmd_Vs_RjVelC = 720000
+
+	}
+
+	disable plc 30
+close
+

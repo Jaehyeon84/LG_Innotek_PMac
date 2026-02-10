@@ -1,0 +1,1031 @@
+//######################################################################################################
+// PLC 03 : Command PLC : PC -> PPMAC
+//######################################################################################################
+
+
+open plc 3
+	local cmd_idx = 0;
+	local cod_idx = 0;
+
+	gCmd_Idx++;									// Polling Motor Index
+	if(gCmd_Idx > cMtrNum)	gCmd_Idx = cMtrLow;
+
+	cmd_idx = gCmd_Idx;							// Copy Globlal Variable to Local Variable (Because Array Index Can't used Double(global) Type)
+	cod_idx = Motor[cmd_idx].Coord;
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Motor Command
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//--------------------------------------------------------------------------------------------//
+	// Home Command (to PLC10_Home)
+	//--------------------------------------------------------------------------------------------//
+	gMt_HomeStart_Cur(cmd_idx) = pUmem_Cmd_HomeStart(cmd_idx);
+	if(gMt_HomeStart_Cur(cmd_idx) != gMt_HomeStart_Old(cmd_idx))
+	{
+		gMt_HomeStart_Old(cmd_idx) = gMt_HomeStart_Cur(cmd_idx);
+		if(gMt_HomeStart_Cur(cmd_idx) == 1)
+		{
+			gMt_Home_Start(cmd_idx) = 1;
+			pUmem_Cmd_HomeStart(cmd_idx) = 0;
+		}
+	}
+
+	gMt_HomeAbort_Cur(cmd_idx) = pUmem_Cmd_HomeAbort(cmd_idx);
+	if(gMt_HomeAbort_Cur(cmd_idx) != gMt_HomeAbort_Old(cmd_idx))
+	{
+		gMt_HomeAbort_Old(cmd_idx) = gMt_HomeAbort_Cur(cmd_idx);		
+		if(gMt_HomeAbort_Cur(cmd_idx) == 1)
+		{
+			gMt_Home_Abort(cmd_idx) = 1;
+			pUmem_Cmd_HomeAbort(cmd_idx) = 0;
+		}
+	}
+
+	//--------------------------------------------------------------------------------------------//
+	// Servo On/Off 
+	//--------------------------------------------------------------------------------------------//
+	gMt_ServoOn_Cur(cmd_idx) = pUmem_Cmd_ServoOn(cmd_idx);
+	if(gMt_ServoOn_Cur(cmd_idx) != gMt_ServoOn_Old(cmd_idx))
+	{
+		gMt_ServoOn_Old(cmd_idx) = gMt_ServoOn_Cur(cmd_idx);
+		if(gMt_ServoOn_Cur(cmd_idx) == 1)
+		{
+			gMt_ServoOn_Ena(cmd_idx) = 1;						// Motor Servo On
+			pUmem_Cmd_ServoOn(cmd_idx) = 0;
+		}
+	}
+
+	gMt_ServoOff_Cur(cmd_idx) = pUmem_Cmd_ServoOff(cmd_idx);
+	if(gMt_ServoOff_Cur(cmd_idx) != gMt_ServoOff_Old(cmd_idx))
+	{
+		gMt_ServoOff_Old(cmd_idx) = gMt_ServoOff_Cur(cmd_idx);		
+		if(gMt_ServoOff_Cur(cmd_idx) == 1)
+		{
+			gMt_ServoOff_Ena(cmd_idx) = 1;						// Motor Servo Off
+			pUmem_Cmd_ServoOff(cmd_idx) = 0;
+		}
+	}
+
+	//--------------------------------------------------------------------------------------------//
+	// Jog Command (to PLC11_Jog)
+	//--------------------------------------------------------------------------------------------//
+	if(coord[cod_idx].ProgActive!=1)
+	{
+		gMt_Jog_Stop_Cur(cmd_idx) = pUmem_Cmd_JogStop(cmd_idx);
+		if(gMt_Jog_Stop_Cur(cmd_idx) != gMt_Jog_Stop_Old(cmd_idx))
+		{
+			gMt_Jog_Stop_Old(cmd_idx) = gMt_Jog_Stop_Cur(cmd_idx);
+			if(gMt_Jog_Stop_Cur(cmd_idx) == 1)
+			{
+				gJog_Stop_Ena(cmd_idx) = 1;				// Stop Jog Move
+				pUmem_Cmd_JogStop(cmd_idx) = 0;
+			}
+		}
+
+		gMt_Jog_ContPlus_Cur(cmd_idx) = pUmem_Cmd_JogContPlus(cmd_idx);
+		if(gMt_Jog_ContPlus_Cur(cmd_idx) != gMt_Jog_ContPlus_Old(cmd_idx))
+		{
+			gMt_Jog_ContPlus_Old(cmd_idx) = gMt_Jog_ContPlus_Cur(cmd_idx);
+			if(gMt_Jog_ContPlus_Cur(cmd_idx) == 1)
+			{
+				gJog_ContPlus_Ena(cmd_idx) = 1;				// Jog Move Start Positive Direction
+			}
+			else
+			{
+				gJog_Stop_Ena(cmd_idx) = 1;					// Stop Jog Move When Falling Edge of Jog Plus Command
+			}
+		}
+
+		gMt_Jog_ContMinus_Cur(cmd_idx) = pUmem_Cmd_JogContMinus(cmd_idx);
+		if(gMt_Jog_ContMinus_Cur(cmd_idx) != gMt_Jog_ContMinus_Old(cmd_idx))
+		{
+			gMt_Jog_ContMinus_Old(cmd_idx) = gMt_Jog_ContMinus_Cur(cmd_idx);
+			if(gMt_Jog_ContMinus_Cur(cmd_idx) == 1)
+			{
+				gJog_ContMinus_Ena(cmd_idx) = 1;			// Jog Move Start Negative Direction
+			}
+			else
+			{
+				gJog_Stop_Ena(cmd_idx) = 1;					// Stop Jog Move When Falling Edge of Jog Minus Command
+			}
+		}
+
+		gMt_Jog_AbsMove_Cur(cmd_idx) = pUmem_Cmd_JogAbsMove(cmd_idx);
+		if(gMt_Jog_AbsMove_Cur(cmd_idx) != gMt_Jog_AbsMove_Old(cmd_idx))
+		{
+			gMt_Jog_AbsMove_Old(cmd_idx) = gMt_Jog_AbsMove_Cur(cmd_idx);
+			if(gMt_Jog_AbsMove_Cur(cmd_idx) == 1)
+			{
+				gJog_AbsMove_Ena(cmd_idx) = 1;			// Start Motor Absolute Move
+				pUmem_Cmd_JogAbsMove(cmd_idx) = 0;
+			}
+		}
+
+		gMt_Jog_IncMove_Cur(cmd_idx) = pUmem_Cmd_JogIncMove(cmd_idx);
+		if(gMt_Jog_IncMove_Cur(cmd_idx) != gMt_Jog_IncMove_Old(cmd_idx))
+		{
+			gMt_Jog_IncMove_Old(cmd_idx) = gMt_Jog_IncMove_Cur(cmd_idx);
+			if(gMt_Jog_IncMove_Cur(cmd_idx) == 1)
+			{
+				gJog_IncMove_Ena(cmd_idx) = 1;			// Start Motor Incremental Move
+				pUmem_Cmd_JogIncMove(cmd_idx) = 0;
+			}
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Machine Command
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	gMc_ServoOn_Cur = pUmem_Cmd_Mc_ServoOn;
+	if(gMc_ServoOn_Cur != gMc_ServoOn_Old)
+	{
+		gMc_ServoOn_Old = gMc_ServoOn_Cur;
+		if(gMc_ServoOn_Cur == 1)
+		{
+			gMc_ServoOn_Ena = 1;
+			pUmem_Cmd_Mc_ServoOn = 0;
+		}
+	}
+
+	gMc_ServoOff_Cur = pUmem_Cmd_Mc_ServoOff;
+	if(gMc_ServoOff_Cur != gMc_ServoOff_Old)
+	{
+		gMc_ServoOff_Old = gMc_ServoOff_Cur;
+		if(gMc_ServoOff_Cur == 1)
+		{
+			gMc_ServoOff_Ena = 1;
+			pUmem_Cmd_Mc_ServoOff = 0;
+		}
+	}
+
+	gMc_HomeStart_Cur = pUmem_Cmd_Mc_HomeStart;
+	if(gMc_HomeStart_Cur != gMc_HomeStart_Old)
+	{
+		gMc_HomeStart_Old = gMc_HomeStart_Cur;
+		if(gMc_HomeStart_Cur == 1)
+		{
+			gMc_Home_Start = 1;
+			pUmem_Cmd_Mc_HomeStart = 0;
+		}
+	}
+//	else if(gMc_HomeStart_Cur==0 && gMc_HomeStart_Old==1)
+//	{
+//		gMc_HomeStart_Old = gMc_HomeStart_Cur;
+//		gMc_Home_Sta = cHomeSta_Idl;
+//	}
+
+	gMc_HomeAbort_Cur = pUmem_Cmd_Mc_HomeAbort;
+	if(gMc_HomeAbort_Cur != gMc_HomeAbort_Old)
+	{
+		gMc_HomeAbort_Old = gMc_HomeAbort_Cur;
+		if(gMc_HomeAbort_Cur == 1)
+		{
+			gMc_Home_Abort = 1;
+			pUmem_Cmd_Mc_HomeAbort = 0;
+		}
+	}
+
+	gMc_AlarmReset_Cur = pUmem_Cmd_Mc_AlarmReset;
+	if(gMc_AlarmReset_Cur != gMc_AlarmReset_Old)
+	{
+		gMc_AlarmReset_Old = gMc_AlarmReset_Cur;
+		if(gMc_AlarmReset_Cur == 1)
+		{
+			gMc_AlarmReset_Ena = 1;
+			pUmem_Cmd_Mc_AlarmReset = 0;
+		}
+	}
+
+//	if(gKey_RunMod != pUmem_Cmd_Mc_RunMode)
+//	{
+//		gKey_RunMod = pUmem_Cmd_Mc_RunMode;	//20251230 KJH - gKey_RunMod는 Switch 값을 전달 받는 값.
+//	}
+	gKey_RunMod = 1; // Test 시 임시
+
+	gMc_AutoStart_Cur = pUmem_Cmd_Mc_AutoStart;
+	if(gMc_AutoStart_Cur != gMc_AutoStart_Old)
+	{
+		gMc_AutoStart_Old = gMc_AutoStart_Cur;
+		if(gMc_AutoStart_Cur == 1)
+		{
+			gMc_AutoRun_Start = 1;
+			pUmem_Cmd_Mc_AutoStart = 0;
+		}
+	}
+
+	gMc_AutoAbort_Cur = pUmem_Cmd_Mc_AutoAbort;
+	if(gMc_AutoAbort_Cur != gMc_AutoAbort_Old)
+	{
+		gMc_AutoAbort_Old = gMc_AutoAbort_Cur;
+		if(gMc_AutoAbort_Cur == 1)
+		{
+			gMc_AutoRun_Abort = 1;
+			pUmem_Cmd_Mc_AutoAbort = 0;
+		}
+	}
+
+	gMc_AutoPause_Cur = pUmem_Cmd_Mc_AutoPause;
+	if(gMc_AutoPause_Cur != gMc_AutoPause_Old)
+	{
+		gMc_AutoPause_Old = gMc_AutoPause_Cur;
+		if(gMc_AutoPause_Cur == 1)
+		{
+			gMc_AutoRun_Pause = 1;
+			pUmem_Cmd_Mc_AutoPause = 0;
+		}
+	}
+
+	gMc_CycleStart_Cur = pUmem_Cmd_Mc_CycleStart;
+	if(gMc_CycleStart_Cur != gMc_CycleStart_Old)
+	{
+		gMc_CycleStart_Old = gMc_CycleStart_Cur;
+		if(gMc_CycleStart_Cur == 1)
+		{
+			gMc_Cycle_Start = 1;
+			pUmem_Cmd_Mc_CycleStart = 0;
+		}
+	}
+
+	gMc_StepStart_Cur = pUmem_Cmd_Mc_StepStart;
+	if(gMc_StepStart_Cur != gMc_StepStart_Old)
+	{
+		gMc_StepStart_Old = gMc_StepStart_Cur;
+		if(gMc_StepStart_Cur == 1)
+		{
+			gMc_Step_Start = 1;
+			pUmem_Cmd_Mc_StepStart = 0;
+		}
+	}
+
+	gMc_Fsave_Cur = pUmem_Cmd_Mc_Fsave;
+	if(gMc_Fsave_Cur != gMc_Fsave_Old)
+	{
+		gMc_Fsave_Old = gMc_Fsave_Cur;
+		if(gMc_Fsave_Cur == 1)
+		{
+			cmd"fsave"
+			pUmem_Cmd_Mc_Fsave = 0;
+		}		
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Welding Command
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	gWs_ServoOn_Cur = pUmem_Cmd_Ws_ServoOn;
+	if(gWs_ServoOn_Cur != gWs_ServoOn_Old)
+	{
+		gWs_ServoOn_Old = gWs_ServoOn_Cur;
+		if(gWs_ServoOn_Cur == 1)
+		{
+			gWs_ServoOn_Ena = 1;
+			pUmem_Cmd_Ws_ServoOn = 0;
+		}
+	}
+
+	gWs_ServoOff_Cur = pUmem_Cmd_Ws_ServoOff;
+	if(gWs_ServoOff_Cur != gWs_ServoOff_Old)
+	{
+		gWs_ServoOff_Old = gWs_ServoOff_Cur;
+		if(gWs_ServoOff_Cur == 1)
+		{
+			gWs_ServoOff_Ena = 1;
+			pUmem_Cmd_Ws_ServoOff = 0;
+		}
+	}
+
+	gWs_HomeStart_Cur = pUmem_Cmd_Ws_HomeStart;
+	if(gWs_HomeStart_Cur != gWs_HomeStart_Old)
+	{
+		gWs_HomeStart_Old = gWs_HomeStart_Cur;
+		if(gWs_HomeStart_Cur == 1)
+		{
+			gWs_Home_Start = 1;
+			 pUmem_Cmd_Ws_HomeStart = 0;
+		}
+//		else
+//		{
+//			gWs_Home_Start = cHomeSta_Idl;
+//		}
+	}
+
+	gWs_HomeAbort_Cur = pUmem_Cmd_Ws_HomeAbort;
+	if(gWs_HomeAbort_Cur != gWs_HomeAbort_Old)
+	{
+		gWs_HomeAbort_Old = gWs_HomeAbort_Cur;
+		if(gWs_HomeAbort_Cur == 1)
+		{
+			gWs_Home_Abort = 1;
+			pUmem_Cmd_Ws_HomeAbort = 0;
+		}
+	}
+
+	gWs_AlarmReset_Cur = pUmem_Cmd_Ws_AlarmReset;
+	if(gWs_AlarmReset_Cur != gWs_AlarmReset_Old)
+	{
+		gWs_AlarmReset_Old = gWs_AlarmReset_Cur;
+		if(gWs_AlarmReset_Cur == 1)
+		{
+			gWs_AlarmReset_Ena = 1;
+			pUmem_Cmd_Ws_AlarmReset = 0;
+		}
+	}
+
+	gWs_AlarmRetry_Cur = pUmem_Cmd_Ws_AlarmRetry;
+	if(gWs_AlarmRetry_Cur != gWs_AlarmRetry_Old)
+	{
+		gWs_AlarmRetry_Old = gWs_AlarmRetry_Cur;
+		if(gWs_AlarmRetry_Cur == 1)
+		{
+			gWs_AlarmRetry_Ena = 1;
+			pUmem_Cmd_Ws_AlarmRetry = 0;
+		}
+	}
+
+	gWs_AlarmAbort_Cur = pUmem_Cmd_Ws_AlarmAbort;
+	if(gWs_AlarmAbort_Cur != gWs_AlarmAbort_Old)
+	{
+		gWs_AlarmAbort_Old = gWs_AlarmAbort_Cur;
+		if(gWs_AlarmAbort_Cur == 1)
+		{
+			gWs_AlarmAbort_Ena = 1;
+			pUmem_Cmd_Ws_AlarmAbort = 0;
+		}
+	}
+
+	gWs_PowerCheck_Cur = pUmem_Cmd_Ws_TestShot;
+	if(gWs_PowerCheck_Cur != gWs_PowerCheck_Old)
+	{
+		gWs_PowerCheck_Old = gWs_PowerCheck_Cur;
+		if(gWs_PowerCheck_Cur == 1)
+		{
+			gWs_TestShot_Ena = 1;
+			pUmem_Cmd_Ws_TestShot = 0;
+		}
+	}
+
+	gWs_TestShot_Cur = pUmem_Cmd_Ws_TestShot;
+	if(gWs_TestShot_Cur != gWs_TestShot_Old)
+	{
+		gWs_TestShot_Old = gWs_TestShot_Cur;
+		if(gWs_TestShot_Cur == 1)
+		{
+			gWs_TestShot_Ena = 1;
+			pUmem_Cmd_Ws_TestShot = 0;
+		}
+	}
+
+	gWs_LaserEnableStart_Cur = pUmem_Cmd_Ws_LaserEnableStart;
+	if(gWs_LaserEnableStart_Cur != gWs_LaserEnableStart_Old)
+	{
+		gWs_LaserEnableStart_Old = gWs_LaserEnableStart_Cur;
+		if(gWs_LaserEnableStart_Cur == 1)
+		{
+			gWs_LaserEnable_Start = 1;
+			pUmem_Cmd_Ws_LaserEnableStart = 0;
+		}
+	}
+
+	gWs_LaserDisableStart_Cur = pUmem_Cmd_Ws_LaserDisableStart;
+	if(gWs_LaserDisableStart_Cur != gWs_LaserDisableStart_Old)
+	{
+		gWs_LaserDisableStart_Old = gWs_LaserDisableStart_Cur;
+		if(gWs_LaserDisableStart_Cur == 1)
+		{
+			gWs_LaserDisable_Start = 1;
+			pUmem_Cmd_Ws_LaserDisableStart = 0;
+		}
+	}
+
+	gWs_LaserTestCrossStart_Cur = pUmem_Cmd_Ws_LaserTestCrossStart;
+	if(gWs_LaserTestCrossStart_Cur != gWs_LaserTestCrossStart_Old)
+	{
+		gWs_LaserTestCrossStart_Old = gWs_LaserTestCrossStart_Cur;
+		if(gWs_LaserTestCrossStart_Cur == 1)
+		{
+			gWs_LaserTestCross_Start = 1;
+			pUmem_Cmd_Ws_LaserTestCrossStart = 0;
+		}
+	}
+
+	gWs_LaserTestCrossAbort_Cur = pUmem_Cmd_Ws_LaserTestCrossAbort;
+	if(gWs_LaserTestCrossAbort_Cur != gWs_LaserTestCrossAbort_Old)
+	{
+		gWs_LaserTestCrossAbort_Old = gWs_LaserTestCrossAbort_Cur;
+		if(gWs_LaserTestCrossAbort_Cur == 1)
+		{
+			gWs_LaserTestCross_Abort = 1;
+			 pUmem_Cmd_Ws_LaserTestCrossAbort = 0;
+		}
+	}
+
+	gWs_LaserTestLineStart_Cur = pUmem_Cmd_Ws_LaserTestLineStart;
+	if(gWs_LaserTestLineStart_Cur != gWs_LaserTestLineStart_Old)
+	{
+		gWs_LaserTestLineStart_Old = gWs_LaserTestLineStart_Cur;
+		if(gWs_LaserTestLineStart_Cur == 1)
+		{
+			gWs_LaserTestLine_Start = 1;
+			pUmem_Cmd_Ws_LaserTestLineStart = 0;
+		}
+	}
+
+	gWs_LaserTestLineAbort_Cur = pUmem_Cmd_Ws_LaserTestLineAbort;
+	if(gWs_LaserTestLineAbort_Cur != gWs_LaserTestLineAbort_Old)
+	{
+		gWs_LaserTestLineAbort_Old = gWs_LaserTestLineAbort_Cur;
+		if(gWs_LaserTestLineAbort_Cur == 1)
+		{
+			gWs_LaserTestLine_Abort = 1;
+			pUmem_Cmd_Ws_LaserTestLineAbort = 0;
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Vision Command
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	gVs_ServoOn_Cur = pUmem_Cmd_Vs_ServoOn;
+	if(gVs_ServoOn_Cur != gVs_ServoOn_Old)
+	{
+		gVs_ServoOn_Old = gVs_ServoOn_Cur;
+		if(gVs_ServoOn_Cur == 1)
+		{
+			gVs_ServoOn_Ena = 1;
+			pUmem_Cmd_Vs_ServoOn = 0;
+		}
+	}
+
+	gVs_ServoOff_Cur = pUmem_Cmd_Vs_ServoOff;
+	if(gVs_ServoOff_Cur != gVs_ServoOff_Old)
+	{
+		gVs_ServoOff_Old = gVs_ServoOff_Cur;
+		if(gVs_ServoOff_Cur == 1)
+		{
+			gVs_ServoOff_Ena = 1;
+			pUmem_Cmd_Vs_ServoOff = 0;
+		}
+	}
+
+	gVs_HomeStart_Cur = pUmem_Cmd_Vs_HomeStart;
+	if(gVs_HomeStart_Cur != gVs_HomeStart_Old)
+	{
+		gVs_HomeStart_Old = gVs_HomeStart_Cur;
+		if(gVs_HomeStart_Cur == 1)
+		{
+			gVs_Home_Start = 1;
+			pUmem_Cmd_Vs_HomeStart = 0;
+		}
+//		else
+//		{
+//			gVs_Home_Sta = cHomeSta_Idl;
+//		}
+	}
+
+	gVs_HomeAbort_Cur = pUmem_Cmd_Vs_HomeAbort;
+	if(gVs_HomeAbort_Cur != gVs_HomeAbort_Old)
+	{
+		gVs_HomeAbort_Old = gVs_HomeAbort_Cur;
+		if(gVs_HomeAbort_Cur == 1)
+		{
+			gVs_Home_Abort = 1;
+			pUmem_Cmd_Vs_HomeAbort = 0;
+		}
+	}
+
+	gVs_AlarmReset_Cur = pUmem_Cmd_Vs_AlarmReset;
+	if(gVs_AlarmReset_Cur != gVs_AlarmReset_Old)
+	{
+		gVs_AlarmReset_Old = gVs_AlarmReset_Cur;
+		if(gVs_AlarmReset_Cur == 1)
+		{
+			gVs_AlarmReset_Ena = 1;
+			pUmem_Cmd_Vs_AlarmReset = 0;
+		}
+	}
+
+	gVs_AlarmRetry_Cur = pUmem_Cmd_Vs_AlarmRetry;
+	if(gVs_AlarmRetry_Cur != gVs_AlarmRetry_Old)
+	{
+		gVs_AlarmRetry_Old = gVs_AlarmRetry_Cur;
+		if(gVs_AlarmRetry_Cur == 1)
+		{
+			gVs_AlarmRetry_Ena = 1;
+			pUmem_Cmd_Vs_AlarmRetry = 0;
+		}
+	}
+
+	gVs_AlarmAbort_Cur = pUmem_Cmd_Vs_AlarmAbort;
+	if(gVs_AlarmAbort_Cur != gVs_AlarmAbort_Old)
+	{
+		gVs_AlarmAbort_Old = gVs_AlarmAbort_Cur;
+		if(gVs_AlarmAbort_Cur == 1)
+		{
+			gVs_AlarmAbort_Ena = 1;
+			pUmem_Cmd_Vs_AlarmAbort = 0;
+		}
+	}
+
+	gVs_TestShot_Cur = pUmem_Cmd_Vs_TestShot;
+	if(gVs_TestShot_Cur != gVs_TestShot_Old)
+	{
+		gVs_TestShot_Old = gVs_TestShot_Cur;
+		if(gVs_TestShot_Cur == 1)
+		{
+			gVs_TestShot_Seq = 1;
+			gVs_TestShot_Ena = 1;
+			pUmem_Cmd_Vs_TestShot = 0;
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Scanner Command
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	gSc_ServoOn_Cur = pUmem_Cmd_Sc_ServoOn;
+	if(gSc_ServoOn_Cur != gSc_ServoOn_Old)
+	{
+		gSc_ServoOn_Old = gSc_ServoOn_Cur;
+		if(gSc_ServoOn_Cur == 1)
+		{
+			gSc_ServoOn_Ena = 1;
+			pUmem_Cmd_Sc_ServoOn = 0;
+		}
+	}
+
+	gSc_ServoOff_Cur = pUmem_Cmd_Sc_ServoOff;
+	if(gSc_ServoOff_Cur != gSc_ServoOff_Old)
+	{
+		gSc_ServoOff_Old = gSc_ServoOff_Cur;
+		if(gSc_ServoOff_Cur == 1)
+		{
+			gSc_ServoOff_Ena = 1;
+			pUmem_Cmd_Sc_ServoOff = 0;
+		}
+	}
+
+	gSc_HomeStart_Cur = pUmem_Cmd_Sc_HomeStart;
+	if(gSc_HomeStart_Cur != gSc_HomeStart_Old)
+	{
+		gSc_HomeStart_Old = gSc_HomeStart_Cur;
+		if(gSc_HomeStart_Cur == 1)
+		{
+			gSc_Home_Start = 1;
+			pUmem_Cmd_Sc_HomeStart = 0;
+		}
+//		else
+//		{
+//			gSc_Home_Sta = cHomeSta_Idl;
+//		}
+	}
+
+	gSc_HomeAbort_Cur = pUmem_Cmd_Sc_HomeAbort;
+	if(gSc_HomeAbort_Cur != gSc_HomeAbort_Old)
+	{
+		gSc_HomeAbort_Old = gSc_HomeAbort_Cur;
+		if(gSc_HomeAbort_Cur == 1)
+		{
+			gSc_Home_Abort = 1;
+			pUmem_Cmd_Sc_HomeAbort = 0;
+		}
+	}
+
+	gSc_AlarmReset_Cur = pUmem_Cmd_Sc_AlarmReset;
+	if(gSc_AlarmReset_Cur != gSc_AlarmReset_Old)
+	{
+		gSc_AlarmReset_Old = gSc_AlarmReset_Cur;
+		if(gSc_AlarmReset_Cur == 1)
+		{
+			gSc_AlarmReset_Ena = 1;
+			pUmem_Cmd_Sc_AlarmReset = 0;
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Sequence Unit Command
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	gWs_LdStart_Cur = pUmem_Cmd_Ws_LdStart;
+	if(gWs_LdStart_Cur != gWs_LdStart_Old)
+	{
+		gWs_LdStart_Old = gWs_LdStart_Cur;
+		if(gWs_LdStart_Cur == 1)
+		{
+			gWs_Load_Start = 1;
+			pUmem_Cmd_Ws_LdStart = 0;
+		}
+//		else
+//		{
+//			gWs_Load_Sta = cSeqSta_Idl;
+//		}
+	}
+
+	gWs_LdAbort_Cur = pUmem_Cmd_Ws_LdAbort;
+	if(gWs_LdAbort_Cur != gWs_LdAbort_Old)
+	{
+		gWs_LdAbort_Old = gWs_LdAbort_Cur;
+		if(gWs_LdAbort_Cur == 1)
+		{
+			gWs_Load_Abort = 1;
+			pUmem_Cmd_Ws_LdAbort = 0;
+		}
+	}
+
+	gWs_RdStart_Cur = pUmem_Cmd_Ws_RdStart;
+	if(gWs_RdStart_Cur != gWs_RdStart_Old)
+	{
+		gWs_RdStart_Old = gWs_RdStart_Cur;
+		if(gWs_RdStart_Cur == 1)
+		{
+			gWs_Ready_Start = 1;
+			pUmem_Cmd_Ws_RdStart = 0;
+		}
+//		else
+//		{
+//			gWs_Ready_Sta = cSeqSta_Idl;
+//		}
+	}
+
+	gWs_RdAbort_Cur = pUmem_Cmd_Ws_RdAbort;
+	if(gWs_RdAbort_Cur != gWs_RdAbort_Old)
+	{
+		gWs_RdAbort_Old = gWs_RdAbort_Cur;
+		if(gWs_RdAbort_Cur == 1)
+		{
+			gWs_Ready_Abort = 1;
+			pUmem_Cmd_Ws_RdAbort = 0;
+		}
+	}
+
+	gWs_WdStart_Cur = pUmem_Cmd_Ws_WdStart;
+	if(gWs_WdStart_Cur != gWs_WdStart_Old)
+	{
+		gWs_WdStart_Old = gWs_WdStart_Cur;
+		if(gWs_WdStart_Cur == 1)
+		{
+			gWs_Welding_Start = 1;
+			pUmem_Cmd_Ws_WdStart = 0;
+		}
+//		else
+//		{
+//			gWs_Welding_Sta = cSeqSta_Idl;
+//		}
+	}
+
+	gWs_WdAbort_Cur = pUmem_Cmd_Ws_WdAbort;
+	if(gWs_WdAbort_Cur != gWs_WdAbort_Old)
+	{
+		gWs_WdAbort_Old = gWs_WdAbort_Cur;
+		if(gWs_WdAbort_Cur == 1)
+		{
+			gWs_Welding_Abort = 1;
+			pUmem_Cmd_Ws_WdAbort = 0;
+		}
+	}
+
+	gWs_WtStart_Cur = pUmem_Cmd_Ws_WtStart;
+	if(gWs_WtStart_Cur != gWs_WtStart_Old)
+	{
+		gWs_WtStart_Old = gWs_WtStart_Cur;
+		if(gWs_WtStart_Cur == 1)
+		{
+			gWs_Wait_Start = 1;
+			pUmem_Cmd_Ws_WtStart = 0;
+		}
+	}
+
+	gWs_WtAbort_Cur = pUmem_Cmd_Ws_WtAbort;
+	if(gWs_WtAbort_Cur != gWs_WtAbort_Old)
+	{
+		gWs_WtAbort_Old = gWs_WtAbort_Cur;
+		if(gWs_WtAbort_Cur == 1)
+		{
+			gWs_Wait_Abort = 1;
+			pUmem_Cmd_Ws_WtAbort = 0;
+		}
+	}
+
+	gWs_UdStart_Cur = pUmem_Cmd_Ws_UdStart;
+	if(gWs_UdStart_Cur != gWs_UdStart_Old)
+	{
+		gWs_UdStart_Old = gWs_UdStart_Cur;
+		if(gWs_UdStart_Cur == 1)
+		{
+			gWs_Unload_Start = 1;
+			pUmem_Cmd_Ws_UdStart = 0;
+		}
+//		else
+//		{
+//			gWs_Unload_Sta = cSeqSta_Idl;
+//		}
+	}
+
+	gWs_UdAbort_Cur = pUmem_Cmd_Ws_UdAbort;
+	if(gWs_UdAbort_Cur != gWs_UdAbort_Old)
+	{
+		gWs_UdAbort_Old = gWs_UdAbort_Cur;
+		if(gWs_UdAbort_Cur == 1)
+		{
+			gWs_Unload_Abort = 1;
+			pUmem_Cmd_Ws_UdAbort = 0;
+		}
+
+	}
+
+	gWs_RjStart_Cur = pUmem_Cmd_Ws_RjStart;
+	if(gWs_RjStart_Cur != gWs_RjStart_Old)
+	{
+		gWs_RjStart_Old = gWs_RjStart_Cur;
+		if(gWs_RjStart_Cur == 1)
+		{
+			gWs_Reject_Start = 1;
+			pUmem_Cmd_Ws_RjStart = 0;
+		}
+//		else
+//		{
+//			gWs_Reject_Sta = cSeqSta_Idl;
+//		}
+	}
+
+	gWs_RjAbort_Cur = pUmem_Cmd_Ws_RjAbort;
+	if(gWs_RjAbort_Cur != gWs_RjAbort_Old)
+	{
+		gWs_RjAbort_Old = gWs_RjAbort_Cur;
+		if(gWs_RjAbort_Cur == 1)
+		{
+			gWs_Reject_Abort = 1;
+			pUmem_Cmd_Ws_RjAbort = 0;
+		}
+	}
+
+	//-------------------------------------------------------------------//
+
+	gVs_LdStart_Cur = pUmem_Cmd_Vs_LdStart;
+	if(gVs_LdStart_Cur != gVs_LdStart_Old)
+	{
+		gVs_LdStart_Old = gVs_LdStart_Cur;
+		if(gVs_LdStart_Cur == 1)
+		{
+			gVs_Load_Start = 1;
+			pUmem_Cmd_Vs_LdStart = 0;
+		}
+	}
+	
+	gVs_LdAbort_Cur = pUmem_Cmd_Vs_LdAbort;
+	if(gVs_LdAbort_Cur != gVs_LdAbort_Old)
+	{
+		gVs_LdAbort_Old = gVs_LdAbort_Cur;
+		if(gVs_LdAbort_Cur == 1)
+		{
+			gVs_Load_Abort = 1;
+			pUmem_Cmd_Vs_LdAbort = 0;
+		}
+	}
+
+	gVs_RdStart_Cur = pUmem_Cmd_Vs_RdStart;
+	if(gVs_RdStart_Cur != gVs_RdStart_Old)
+	{
+		gVs_RdStart_Old = gVs_RdStart_Cur;
+		if(gVs_RdStart_Cur == 1)
+		{
+			gVs_Ready_Start = 1;
+			pUmem_Cmd_Vs_RdStart = 0;
+		}
+//		else
+//		{
+//			gVs_Ready_Sta = cSeqSta_Idl;
+//		}
+	}
+
+	gVs_RdAbort_Cur = pUmem_Cmd_Vs_RdAbort;
+	if(gVs_RdAbort_Cur != gVs_RdAbort_Old)
+	{
+		gVs_RdAbort_Old = gVs_RdAbort_Cur;
+		if(gVs_RdAbort_Cur == 1)
+		{
+			gVs_Ready_Abort = 1;
+			pUmem_Cmd_Vs_RdAbort = 0;
+		}
+	}
+
+	gVs_VnStart_Cur = pUmem_Cmd_Vs_VnStart;
+	if(gVs_VnStart_Cur != gVs_VnStart_Old)
+	{
+		gVs_VnStart_Old = gVs_VnStart_Cur;
+		if(gVs_VnStart_Cur == 1)
+		{
+			gVs_Vision_Start = 1;
+			pUmem_Cmd_Vs_VnStart = 0;
+		}
+//		else
+//		{
+//			gVs_Vision_Sta = cSeqSta_Idl;
+//		}
+	}
+
+	gVs_VnAbort_Cur = pUmem_Cmd_Vs_VnAbort;
+	if(gVs_VnAbort_Cur != gVs_VnAbort_Old)
+	{
+		gVs_VnAbort_Old = gVs_VnAbort_Cur;
+		if(gVs_VnAbort_Cur == 1)
+		{
+			gVs_Vision_Abort = 1;
+			pUmem_Cmd_Vs_VnAbort = 0;
+		}
+	}
+
+	gVs_WtStart_Cur = pUmem_Cmd_Vs_WtStart;
+	if(gVs_WtStart_Cur != gVs_WtStart_Old)
+	{
+		gVs_WtStart_Old = gVs_WtStart_Cur;
+		if(gVs_WtStart_Cur == 1)
+		{
+			gVs_Wait_Start = 1;
+			pUmem_Cmd_Vs_WtStart = 0;
+		}
+//		else
+//		{
+//			gVs_Wait_Sta = cSeqSta_Idl;
+//		}
+	}
+
+	gVs_WtAbort_Cur = pUmem_Cmd_Vs_WtAbort;
+	if(gVs_WtAbort_Cur != gVs_WtAbort_Old)
+	{
+		gVs_WtAbort_Old = gVs_WtAbort_Cur;
+		if(gVs_WtAbort_Cur == 1)
+		{
+			gVs_Wait_Abort = 1;
+			pUmem_Cmd_Vs_WtAbort = 0;
+		}
+	}
+
+	gVs_UdStart_Cur = pUmem_Cmd_Vs_UdStart;
+	if(gVs_UdStart_Cur != gVs_UdStart_Old)
+	{
+		gVs_UdStart_Old = gVs_UdStart_Cur;
+		if(gVs_UdStart_Cur == 1)
+		{
+			gVs_Unload_Start = 1;
+			pUmem_Cmd_Vs_UdStart = 0;
+		}
+//		else
+//		{
+//			gVs_Unload_Sta = cSeqSta_Idl;
+//		}
+	}
+
+	gVs_UdAbort_Cur = pUmem_Cmd_Vs_UdAbort;
+	if(gVs_UdAbort_Cur != gVs_UdAbort_Old)
+	{
+		gVs_UdAbort_Old = gVs_UdAbort_Cur;
+		if(gVs_UdAbort_Cur == 1)
+		{
+			gVs_Unload_Abort = 1;
+			pUmem_Cmd_Vs_UdAbort = 0;
+		}
+	}
+
+	gVs_RjStart_Cur = pUmem_Cmd_Vs_RjStart;
+	if(gVs_RjStart_Cur != gVs_RjStart_Old)
+	{
+		gVs_RjStart_Old = gVs_RjStart_Cur;
+		if(gVs_RjStart_Cur == 1)
+		{
+			gVs_Reject_Start = 1;
+			pUmem_Cmd_Vs_RjStart = 0;
+		}
+//		else
+//		{
+//			gVs_Reject_Sta = cSeqSta_Idl;
+//		}
+	}
+
+	gVs_RjAbort_Cur = pUmem_Cmd_Vs_RjAbort;
+	if(gVs_RjAbort_Cur != gVs_RjAbort_Old)
+	{
+		gVs_RjAbort_Old = gVs_RjAbort_Cur;
+		if(gVs_RjAbort_Cur == 1)
+		{
+			gVs_Reject_Abort = 1;
+			pUmem_Cmd_Vs_RjAbort = 0;
+		}
+	}
+
+	//-------------------------------------------------------------------//
+	gWs_PdtStaChange_Cur = pUmem_Cmd_Ws_PdtStaChange;
+	if(gWs_PdtStaChange_Cur != gWs_PdtStaChange_Old || gWs_PdtStaChange_Cur == 0 && pUmem_Sta_Mc_ErasePdtFlgWs == 1)
+	{
+		gWs_PdtStaChange_Old = gWs_PdtStaChange_Cur;
+		if(gWs_PdtStaChange_Cur == 1)
+		{
+			//gWs_PdtStaChange_Ena = 1;
+
+			if(gWs_Loop_Ena==0)
+			{
+				if(gWs_Sta_Pdt==cPdtSta_Err)
+				{
+					//20260118 KJH - Welding Program에서 Grid Click 했을때만 지워 지도록 변경.
+					pUmem_Sta_Mc_ErasePdtFlgWs = 1;
+					pUmem_Sta_Mc_ErasePdtNoWs = gWs_PdtNo;
+
+					gWs_Sta_Pdt = cPdtSta_Blk;
+				}
+				else if(gWs_Sta_Pdt==cPdtSta_Blk)	gWs_Sta_Pdt = cPdtSta_Bwd;
+				else if(gWs_Sta_Pdt==cPdtSta_Bwd)	gWs_Sta_Pdt = cPdtSta_Awd;
+				else if(gWs_Sta_Pdt==cPdtSta_Awd)	gWs_Sta_Pdt = cPdtSta_Err;
+			}
+		}
+		else
+		{
+			pUmem_Sta_Mc_ErasePdtFlgWs = 0;
+		}
+
+		//20260206 KJH - Welding Program에서 Product Info 삭제후 pUmem_Cmd_Ws_PdtStaChange Flag Off 방식.
+		if(pUmem_Sta_Mc_ErasePdtFlgWs != 1)
+		{
+			pUmem_Cmd_Ws_PdtStaChange = 0;
+			gWs_PdtStaChange_Old = 0;
+		}
+	}
+
+	gVs_PdtStaChange_Cur = pUmem_Cmd_Vs_PdtStaChange;
+	if(gVs_PdtStaChange_Cur != gVs_PdtStaChange_Old || gVs_PdtStaChange_Cur == 0 && pUmem_Sta_Mc_ErasePdtFlgVs == 1)
+	{
+		gVs_PdtStaChange_Old = gVs_PdtStaChange_Cur;
+		if(gVs_PdtStaChange_Cur == 1)
+		{
+			//gVs_PdtStaChange_Ena = 1;
+			//pUmem_Cmd_Vs_PdtStaChange = 0;
+
+			if(gVs_Loop_Ena==0)
+			{
+				if(gVs_Sta_Pdt==cPdtSta_Err)
+				{
+					//20260118 KJH - Welding Program에서 Grid Click 했을때만 지워 지도록 변경.
+					pUmem_Sta_Mc_ErasePdtFlgVs = 1;
+					pUmem_Sta_Mc_ErasePdtNoVs = gVs_PdtNo;
+
+					gVs_Sta_Pdt = cPdtSta_Blk;
+				}
+				else if(gVs_Sta_Pdt==cPdtSta_Blk) gVs_Sta_Pdt = cPdtSta_Bwd;
+				else if(gVs_Sta_Pdt==cPdtSta_Bwd) gVs_Sta_Pdt = cPdtSta_Awd;
+				else if(gVs_Sta_Pdt==cPdtSta_Awd) gVs_Sta_Pdt = cPdtSta_Err;
+			}
+		}
+		else
+		{
+			pUmem_Sta_Mc_ErasePdtFlgVs = 0;
+		}
+
+		//20260206 KJH - Welding Program에서 Product Info 삭제후 pUmem_Cmd_Ws_PdtStaChange Flag Off 방식.
+		if(pUmem_Sta_Mc_ErasePdtFlgVs != 1)
+		{
+			pUmem_Cmd_Vs_PdtStaChange = 0;
+			gVs_PdtStaChange_Old = 0;
+		}
+	}
+
+	gTr_PdtStaChange_Cur = pUmem_Cmd_Tr_PdtStaChange;
+	if(gTr_PdtStaChange_Cur != gTr_PdtStaChange_Old || gTr_PdtStaChange_Cur == 0 && pUmem_Sta_Mc_ErasePdtFlgTr == 1)
+	{
+		gTr_PdtStaChange_Old = gTr_PdtStaChange_Cur;
+		if(gTr_PdtStaChange_Cur == 1)
+		{
+			//gTr_PdtStaChange_Ena = 1;
+			//pUmem_Cmd_Tr_PdtStaChange = 0;
+
+			if(gWs_Loop_Ena==0 && gVs_Loop_Ena==0)
+			{
+				if(gTr_Sta_Pdt==cPdtSta_Err)
+				{
+					//20260118 KJH - Welding Program에서 Grid Click 했을때만 지워 지도록 변경.
+					pUmem_Sta_Mc_ErasePdtFlgTr = 1;
+					pUmem_Sta_Mc_ErasePdtNoTr = gTr_PdtNo;
+
+					gTr_Sta_Pdt = cPdtSta_Blk;
+				}
+				else if(gTr_Sta_Pdt==cPdtSta_Blk) gTr_Sta_Pdt = cPdtSta_Awd;
+				else if(gTr_Sta_Pdt==cPdtSta_Awd) gTr_Sta_Pdt = cPdtSta_Err;
+
+			}
+		}
+		else
+		{
+			pUmem_Sta_Mc_ErasePdtFlgTr = 0;
+		}
+
+		//20260206 KJH - Welding Program에서 Product Info 삭제후 pUmem_Cmd_Ws_PdtStaChange Flag Off 방식.
+		if(pUmem_Sta_Mc_ErasePdtFlgTr != 1)
+		{
+			pUmem_Cmd_Tr_PdtStaChange = 0;
+			gTr_PdtStaChange_Old = 0;
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Etc Command
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	if(pUmem_Cmd_Ws_CldInposDelay>0)	gWs_CldInpos_Delay = pUmem_Cmd_Ws_CldInposDelay/1000
+	if(pUmem_Cmd_Vs_CldInposDelay>0)	gVs_CldInpos_Delay = pUmem_Cmd_Vs_CldInposDelay/1000
+close
+
+

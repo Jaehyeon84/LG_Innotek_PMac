@@ -1,0 +1,71 @@
+
+//global gWs_ThPos_Old = 0;
+//global gVs_ThPos_Old = 0;
+
+open subprog spReadWsThPos(inc_idx, inc_pos, &out_pos)
+
+	local lWsPosCBuf = 0;
+	local lWsTargetPos = 0;
+	local lWsout_pos = 0;
+
+	//20260126 KJH - 최단 거리 Open과 Close 하기 위함.
+	//lPosCBuf = pUmem_Sta_ActPos(inc_idx) % 360000;
+	//lWsPosCBuf = pUmem_Sta_CmdPos(inc_idx) % 360000;
+	lWsPosCBuf = pUmem_Sta_CmdPos(inc_idx);
+
+	if(lWsPosCBuf < 0)
+		lWsPosCBuf += 360000;
+
+	lWsTargetPos = inc_pos % 360000;
+
+	if(lWsTargetPos < 0)
+		lWsTargetPos += 360000;
+
+	lWsout_pos = lWsTargetPos - lWsPosCBuf;
+
+	if(lWsout_pos > 180000)
+		lWsout_pos -= 360000;
+	else if(lWsout_pos <= -180000)
+		lWsout_pos += 360000;
+
+	//gWs_ThPos_Old = Motor[inc_idx].ProgJogPos;
+	//Motor[inc_idx].ProgJogPos = pUmem_Sta_CmdPos(inc_idx) + lWsout_pos;
+	Motor[inc_idx].ProgJogPos = lWsout_pos;
+	//out_pos = pUmem_Sta_CmdPos(inc_idx) + lWsout_pos;
+	out_pos = inc_pos;
+
+close
+
+open subprog spReadVsThPos(inc_idx, inc_pos, &out_pos)
+
+	local lVsPosCBuf = 0;
+	local lVsTargetPos = 0;
+	local lVsout_pos = 0;
+
+	//20260126 KJH - 최단 거리 Open과 Close 하기 위함.
+	//lPosCBuf = pUmem_Sta_ActPos(inc_idx) % 360000;
+	//lVsPosCBuf = pUmem_Sta_CmdPos(inc_idx) % 360000;
+	lVsPosCBuf = pUmem_Sta_CmdPos(inc_idx);
+
+	if(lVsPosCBuf < 0)
+		lVsPosCBuf += 360000;
+
+	lVsTargetPos = inc_pos % 360000;
+
+	if(lVsTargetPos < 0)
+		lVsTargetPos += 360000;
+
+	lVsout_pos = lVsTargetPos - lVsPosCBuf;
+
+	if(lVsout_pos > 180000)
+		lVsout_pos -= 360000;
+	else if(lVsout_pos <= -180000)
+		lVsout_pos += 360000;
+
+	//gVs_ThPos_Old = Motor[inc_idx].ProgJogPos;
+	//Motor[inc_idx].ProgJogPos = pUmem_Sta_CmdPos(inc_idx) + lVsout_pos;
+	Motor[inc_idx].ProgJogPos = lVsout_pos;
+	//out_pos = pUmem_Sta_CmdPos(inc_idx) + lVsout_pos;
+	out_pos = inc_pos;
+
+close

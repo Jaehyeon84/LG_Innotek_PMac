@@ -1,0 +1,52 @@
+//######################################################################################################
+// Header 03 : Coordinate System Setup
+//######################################################################################################
+
+
+undefine all
+
+&1
+#9->I//1000X
+#10->I//1000Y
+#11->I//1000C
+
+&2
+#5->I
+#6->I
+
+&3
+#13->I//1000X
+#14->I//1000Y
+#15->I//1000C
+
+
+Coord[1].LHDistance=1024;		// Lookahead buffer distance
+Coord[1].AltFeedRate = 300;		// Non Feedrate Axis Max Velocity (for C Axis, When frax(x,y))
+Coord[1].SegMoveTime = 5;//10;
+
+Coord[1].Gprog = 1000;		// Gcode = SubProg 1000
+Coord[1].Mprog = 1001;		// Mcode = SubProg 1000
+Coord[1].Tprog = 1002;		// Tcode = SubProg 1000
+
+Coord[1].tpsize = Coord[1].LHDistance*2;
+Coord[1].tpcoords = $C4		//CXY
+
+//Coord[2].pDesTimeBase = EncTable[esM].DeltaPos.a
+Coord[2].pDesTimeBase = Coord[2].DesTimeBase.a;
+Coord[2].SegMoveTime = Sys.ServoPeriod*(Sys.RtIntPeriod+1);
+//Coord[2].SegMoveTime = Sys.ServoPeriod;
+Coord[2].TimeBaseSlew = -1		// Coord[i].TimeBaseSlew = -1 then Timebase Changed Imediatly
+
+Coord[3].LHDistance=1024;
+Coord[3].AltFeedRate = 300;
+Coord[3].SegMoveTime = 5;//10;
+
+Coord[3].Gprog = 1000;
+Coord[3].Mprog = 1001;
+Coord[3].Tprog = 1002;
+
+Coord[3].tpsize = Coord[3].LHDistance*2;
+Coord[3].tpcoords = $C4  //CXY
+
+Coord[1].PosRollover[2] = 360;	// Coord 1 C Axis Rollover Position;
+Coord[3].PosRollover[2] = 360;	// Coord 3 C Axis Rollover Position;

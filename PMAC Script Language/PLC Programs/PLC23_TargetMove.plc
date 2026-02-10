@@ -1,0 +1,331 @@
+//######################################################################################################
+// PLC 23 : Target Move
+//######################################################################################################
+
+
+open plc 23
+	local ret;
+
+////////////////////////////////////////////////////////////////////////
+// Welding Stage Target Move
+////////////////////////////////////////////////////////////////////////
+	if(gWs_TgtMov_Start==1)
+	{
+		gWs_TgtMov_Start = 0;
+		gWs_TgtMov_Seq = 1;
+		gWs_TgtMov_Ena = 1;
+	}
+
+	if(gWs_TgtMov_Abort==1)
+	{
+		gWs_TgtMov_Abort = 0;
+		abort 1
+		gWs_TgtMov_Seq = 0;
+		gWs_TgtMov_Ena = 0;
+	}
+
+	if(gWs_TgtMov_Ena==1)
+	{
+		switch(gWs_TgtMov_Seq)
+		{
+		//------------------------------------------------//
+		// Ready
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gWs_TgtMov_Buf = gWs_TgtMov_Seq;
+
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gWs_TgtMov_Sta = cMovSta_Ing;
+					gWs_TgtMov_Seq = 2;
+				}
+				else
+				{
+					gWs_TgtMov_Sta = cMovSta_Err;
+					gWs_TgtMov_Seq = 0;
+					gWs_TgtMov_Ena = 0;
+				}
+			break;
+			
+			case 2:	// Home Check
+				gWs_TgtMov_Buf = gWs_TgtMov_Seq;
+				if(Coord[1].HomeComplete==1)
+				{
+					gWs_TgtMov_Seq = 3;
+				}
+				else
+				{
+					gWs_TgtMov_Sta = cMovSta_Err;
+					gWs_TgtMov_Seq = 0;
+					gWs_TgtMov_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gWs_TgtMov_Buf = gWs_TgtMov_Seq;
+				if(Coord[1].AmpEna==1)
+				{
+					gWs_TgtMov_Tmr = Sys.Time + 2; 
+					gWs_TgtMov_Seq = 4;
+				}
+				else
+				{
+					gWs_TgtMov_Sta = cMovSta_Err;
+					gWs_TgtMov_Seq = 0;
+					gWs_TgtMov_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gWs_TgtMov_Buf = gWs_TgtMov_Seq;
+				if(Coord[1].InPos==1)
+				{
+					gWs_TgtMov_Seq = 20;
+				}
+				else if(Sys.Time > gWs_TgtMov_Tmr)
+				{
+					gWs_TgtMov_Sta = cMovSta_Err;
+					gWs_TgtMov_Seq = 0;
+					gWs_TgtMov_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 20:
+				gWs_TgtMov_Buf = gWs_TgtMov_Seq;
+				call spSetWsLdParam(&ret);
+				if(ret==0)
+				{
+					Motor[nwX].JogSpeed = gWs_TgtMov_VelX;
+					Motor[nwY].JogSpeed = gWs_TgtMov_VelY;
+					Motor[nwC].JogSpeed = gWs_TgtMov_VelC;
+
+					Motor[nwX].ProgJogPos = gWs_TgtMov_PosX;
+					Motor[nwY].ProgJogPos = gWs_TgtMov_PosY;
+					//Motor[nwC].ProgJogPos = gWs_TgtMov_PosC;
+					//20260127 KJH - Theta Coord 관련 작업.
+					gWs_ThTargetPos_Old = -1;
+					call spReadWsThPos(nwC, gWs_TgtMov_PosC, &gWs_ThTargetPos_Old);
+					//Motor[nwC].ProgJogPos = cWs_Cover_MoveAng;
+					//Motor[nwC].ProgJogPos = outc_pos;
+
+					jog nwX=*
+					jog nwY=*
+					//jog nwC=*
+					jog nwC:*
+
+					gWs_TgtMov_Tmr = Sys.Time + 0.1;
+					gWs_TgtMov_Seq = 21;
+				}
+				else
+				{
+					gWs_TgtMov_Sta = cMovSta_Err;
+					gWs_TgtMov_Seq = 0;
+					gWs_TgtMov_Ena = 0;
+				}
+			break;
+
+			case 21:
+				gWs_TgtMov_Buf = gWs_TgtMov_Seq;
+				if(Sys.time > gWs_TgtMov_Tmr)
+				{
+					gWs_TgtMov_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gWs_TgtMov_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gWs_TgtMov_Buf = gWs_TgtMov_Seq;
+				if(Coord[1].InPos==1)
+				{
+					gWs_TgtMov_Seq = 90;
+				}
+				else if(Sys.time > gWs_TgtMov_Tmr)
+				{
+					gWs_TgtMov_Sta = cMovSta_Err;
+					gWs_TgtMov_Seq = 0;
+					gWs_TgtMov_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gWs_TgtMov_Buf = gWs_TgtMov_Seq;
+				gWs_TgtMov_Sta = cMovSta_Fin;
+				gWs_TgtMov_Seq = 0;
+				gWs_TgtMov_Ena = 0;
+			break;
+
+			default:
+				gWs_TgtMov_Err = -1;
+				gWs_TgtMov_Sta = cMovSta_Err;
+				gWs_TgtMov_Seq = 0;
+				gWs_TgtMov_Ena = 0;				
+			break;
+
+		}
+	}
+
+////////////////////////////////////////////////////////////////////////
+// Vision Stage Target Move
+////////////////////////////////////////////////////////////////////////
+	if(gVs_TgtMov_Start==1)
+	{
+		gVs_TgtMov_Start = 0;
+		gVs_TgtMov_Seq = 1;
+		gVs_TgtMov_Ena = 1;
+	}
+
+	if(gVs_TgtMov_Abort==1)
+	{
+		gVs_TgtMov_Abort = 0;
+		abort 3
+		gVs_TgtMov_Seq = 0;
+		gVs_TgtMov_Ena = 0;
+	}
+
+	if(gVs_TgtMov_Ena==1)
+	{
+		switch(gVs_TgtMov_Seq)
+		{
+		//------------------------------------------------//
+		// Ready
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gVs_TgtMov_Buf = gVs_TgtMov_Seq;
+
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gVs_TgtMov_Sta = cMovSta_Ing;
+					gVs_TgtMov_Seq = 2;
+				}
+				else
+				{
+					gVs_TgtMov_Sta = cMovSta_Err;
+					gVs_TgtMov_Seq = 0;
+					gVs_TgtMov_Ena = 0;
+				}
+			break;
+			
+			case 2:	// Home Check
+				gVs_TgtMov_Buf = gVs_TgtMov_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_TgtMov_Seq = 3;
+				}
+				else
+				{
+					gVs_TgtMov_Sta = cMovSta_Err;
+					gVs_TgtMov_Seq = 0;
+					gVs_TgtMov_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_TgtMov_Buf = gVs_TgtMov_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_TgtMov_Tmr = Sys.Time + 2; 
+					gVs_TgtMov_Seq = 4;
+				}
+				else
+				{
+					gVs_TgtMov_Sta = cMovSta_Err;
+					gVs_TgtMov_Seq = 0;
+					gVs_TgtMov_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gVs_TgtMov_Buf = gVs_TgtMov_Seq;
+				if(Coord[3].InPos==1)
+				{
+					gVs_TgtMov_Seq = 20;
+				}
+				else if(Sys.Time > gVs_TgtMov_Tmr)
+				{
+					gVs_TgtMov_Sta = cMovSta_Err;
+					gVs_TgtMov_Seq = 0;
+					gVs_TgtMov_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 20:
+				gVs_TgtMov_Buf = gVs_TgtMov_Seq;
+				call spSetVsLdParam(&ret);
+				if(ret==0)
+				{
+					
+					Motor[nvX].JogSpeed = gVs_TgtMov_VelX;
+					Motor[nvY].JogSpeed = gVs_TgtMov_VelY;
+					Motor[nvC].JogSpeed = gVs_TgtMov_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_TgtMov_PosX;
+					Motor[nvY].ProgJogPos = gVs_TgtMov_PosY;
+					//Motor[nvC].ProgJogPos = gVs_TgtMov_PosC;
+					//20260127 KJH - Theta Coord 관련 작업.
+					gVs_ThTargetPos_Old = -1;
+					call spReadVsThPos(nvC, gVs_TgtMov_PosC, &gVs_ThTargetPos_Old);
+
+					jog nvX=*
+					jog nvY=*
+					//jog nvC=*
+					jog nvC:*
+
+					gVs_TgtMov_Tmr = Sys.Time + 0.1;
+					gVs_TgtMov_Seq = 21;
+				}
+				else
+				{
+					gVs_TgtMov_Sta = cMovSta_Err;
+					gVs_TgtMov_Seq = 0;
+					gVs_TgtMov_Ena = 0;
+				}
+			break;
+
+			case 21:
+				gVs_TgtMov_Buf = gVs_TgtMov_Seq;
+				if(Sys.time > gVs_TgtMov_Tmr)
+				{
+					gVs_TgtMov_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gVs_TgtMov_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_TgtMov_Buf = gVs_TgtMov_Seq;
+				if(Coord[3].InPos==1)
+				{
+					gVs_TgtMov_Seq = 90;
+				}
+				else if(Sys.time > gVs_TgtMov_Tmr)
+				{
+					gVs_TgtMov_Sta = cMovSta_Err;
+					gVs_TgtMov_Seq = 0;
+					gVs_TgtMov_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_TgtMov_Buf = gVs_TgtMov_Seq;
+				gVs_TgtMov_Sta = cMovSta_Fin;
+				gVs_TgtMov_Seq = 0;
+				gVs_TgtMov_Ena = 0;
+			break;
+
+			default:
+				gVs_TgtMov_Err = -1;
+				gVs_TgtMov_Sta = cMovSta_Err;
+				gVs_TgtMov_Seq = 0;
+				gVs_TgtMov_Ena = 0;				
+			break;
+
+		}
+	}
+close

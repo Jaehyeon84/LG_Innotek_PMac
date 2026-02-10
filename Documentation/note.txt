@@ -1,0 +1,361 @@
+시퀀스 진행중이 아닐때 리퀘스트 시그널 끄기
+시퀀스 루프에 스캐너 관련 조건 추가할것 (pUmem_Sta_Sc_AmpEna 등)
+시퀀스 루프 오토 모드에서만 동작 하도록 설정
+비젼 알람 : Low
+디폴트 종료 상태 알수 있도록 수정
+로드 완료 되었는데 뚜껑 안닫혔을때 재시도?
+비젼스테이징 혹은 용접스테이지의 상태가 부여되지 않은 상태에서 충돌 가능성
+원점 잡을때 모든시퀀스(특히 자동시퀀스 종료)
+스캐너 엔코더 커맨드 스케일 정확히 확인
+비젼 얼라인시 증분량 부호 확인
+나중에 런모드 주석 풀어줄 것
+
+스캐너 홈오프셋 부호 비교
+
+오토 시작시 남아있는 제품 처리 결정되지 않음
+원점 완료 후 전동 실린더 백워드 위치로 변경 (Home->Bwd)
+
+
+제품 로딩 시퀀스 수정
+0	->		1		->		1		->		2		->		2		->		0		->		0
+0	->		0		->		1		->		1		->		2		->		2		->		0
+		로드 대기	->	얼라인 요청	->	얼라인 완료	->	로딩 완료	->	Req Clear	->	Rsp Clear
+
+
+pUmem_Cmd_Ws_LdVelX = 1200000
+pUmem_Cmd_Ws_LdVelY = 1200000
+pUmem_Cmd_Ws_RdVelX = 1200000
+pUmem_Cmd_Ws_RdVelY = 1200000
+pUmem_Cmd_Ws_WdVelX = 1200000
+pUmem_Cmd_Ws_WdVelY = 1200000
+pUmem_Cmd_Ws_WtVelX = 1200000
+pUmem_Cmd_Ws_WtVelY = 1200000
+pUmem_Cmd_Ws_UdVelX = 1200000
+pUmem_Cmd_Ws_UdVelY = 1200000
+pUmem_Cmd_Ws_RjVelX = 1200000
+pUmem_Cmd_Ws_RjVelY = 1200000
+
+//---------------------------------------------------------------------------//
+UI
+LogAlarm.json
+ko.json
+en.json
+인터락 알람에 포함시키기
+
+용접중, 검사중 : 모션도는 시간
+제품 상태 : 안함/용접/검사
+
+로딩 시			: PTD_No	=> PC->PMAC
+언로딩/배출시		: PMC->PC	=> PC에 알려줌
+
+
+Cpart.cpp
+case PartType::PT_CORE_WELDING_A:
+GetMotor(0)->AddParameter 모터
+AddParameter
+
+
+//-----------------------------------------------//
+// CE1 HomePos
+//-----------------------------------------------//
+//A
+pUmem_Cmd_HomeOffset(nwX)=-7492000
+pUmem_Cmd_HomeOffset(nwY)=-1720000
+pUmem_Cmd_HomeOffset(nwC)=166000
+pUmem_Cmd_HomeOffset(nwZ)=0
+pUmem_Cmd_HomeOffset(nvX)=-6000000
+pUmem_Cmd_HomeOffset(nvY)=-8670000
+pUmem_Cmd_HomeOffset(nvC)=12000
+
+//B
+pUmem_Cmd_HomeOffset(nwX)=-7260000
+pUmem_Cmd_HomeOffset(nwY)=-500000
+pUmem_Cmd_HomeOffset(nwC)=11000
+pUmem_Cmd_HomeOffset(nvX)=-5740000
+pUmem_Cmd_HomeOffset(nvY)=-6225000
+pUmem_Cmd_HomeOffset(nvC)=186000
+
+
+//-----------------------------------------------//
+// Tangerine HomePos
+//-----------------------------------------------//
+//A
+pUmem_Cmd_HomeOffset(nwX)=-4388000
+pUmem_Cmd_HomeOffset(nwY)=-356000
+pUmem_Cmd_HomeOffset(nwC)=12000
+pUmem_Cmd_HomeOffset(nwZ)=0
+pUmem_Cmd_HomeOffset(nvX)=-3300000
+pUmem_Cmd_HomeOffset(nvY)=-8116000
+pUmem_Cmd_HomeOffset(nvC)=-75000
+
+//B
+pUmem_Cmd_HomeOffset(nwX)=//-7260000
+pUmem_Cmd_HomeOffset(nwY)=//-500000
+pUmem_Cmd_HomeOffset(nwC)=//11000
+pUmem_Cmd_HomeOffset(nvX)=//-5740000
+pUmem_Cmd_HomeOffset(nvY)=//-6225000
+pUmem_Cmd_HomeOffset(nvC)//=186000
+
+Motor[09].pEnc = EncTable[09].a
+Motor[10].pEnc = EncTable[10].a
+Motor[11].pEnc = EncTable[11].a
+Motor[13].pEnc = EncTable[13].a
+Motor[14].pEnc = EncTable[14].a
+Motor[15].pEnc = EncTable[15].a
+Motor[17].pEnc = EncTable[17].a
+
+Motor[09].pEnc2 = EncTable[09].a
+Motor[10].pEnc2 = EncTable[10].a
+Motor[11].pEnc2 = EncTable[11].a
+Motor[13].pEnc2 = EncTable[13].a
+Motor[14].pEnc2 = EncTable[14].a
+Motor[15].pEnc2 = EncTable[15].a
+Motor[17].pEnc2 = EncTable[17].a
+
+pUmem_Cmd_Ws_2dVisionCkRsp	주소 바꿔놓음
+pUmem_Cmd_Vs_3DVisionStRsp	주소 바꿔놓음
+
+//--------------------------------------------------------//
+용접 중간에 정지시 배출 처리
+용접 시퀀스상에 프로그램 실행 전이면 2D 검사부터 다시 시작
+
+재시작 조건 정리 (버퍼위치 재시작 방식을 제품 상태에 따라 분기가 어려움)
+	WS: BK:없음, BW:용접전, AW:용접후, ER:배출품
+	VS: BK:없음, BV:검사전, AV:검사후, ER:배출품
+	TR: BK:없음, EX:있음
+	!!! 각 상태는 유닛 시퀀스 단위로 쪼개기 불가능
+		Ex) 언로딩시 언로딩 완료되지 않은 시점(픽업 후, 커버 닫기전)에 제품 위치가 변경
+	!!! WS의 충돌가능 시퀀스는 Unloading, VS의 충돌가능 시퀀스는 Loading, Ready, Vision
+//-----------------------------------------------//
+	TR:BK(제품 없음)
+		- 그리퍼 오픈
+		- 피커 업
+
+	TR:EX(제품 있음)
+		- 그리퍼 클로즈
+		- 피커 업
+
+//-----------------------------------------------//
+	WS:BK(제품 없음)
+		- 로딩
+
+	WS:AW(용접전 제품)
+		- 레디(검사)
+
+	WS:BW(용접후 제품)
+		- 대기(언로딩시 충돌 우려 있으므로 먼저 대기위치로)
+		- 최적화시 VS 상태와 WS의 모터 현재 위치로 판단
+
+	WS:ER(배출 제품)
+		- 배출
+
+	BK -> BW : Place 후 제품 감지 완료시
+	BW -> AW : 용접 모션 완료 후
+	AW -> BK : Pick 후 제품 감지 완료시
+	ER : 2D 비젼 실패
+//-----------------------------------------------//	
+	VS:BK(제품 없음)
+		- 로딩전 대기(로딩시 출돌 우려 있으므로 대기 위치로 이동)
+
+	VS:BV(검사전 제품)
+		- 로딩후 대기(검사전 충돌 우려 있으므로 대기 위치로 이동)
+
+	VS:AV(검사후 제품)
+		- 언로딩 
+
+	VS:ER(배출 제품)
+		- 배출
+	BK -> BV : Place 후 제품 감지 완료시
+	BV -> AV : 비젼 모션 완료 후 3D 검사 성공
+	AV -> BK : Pick 후 제품 감지 완료시
+	ER : 3D 비젼 실패
+
+//-----------------------------------------------//
+	전체 시퀀스 시작 순서
+		1. TR 준비
+		2. VS 시작
+		3. WS 시작
+
+//-----------------------------------------------//
+	용접 스테이지 시퀀스 정리
+		1. 로딩
+		2. 비젼
+		3. 용접
+		4. 대기
+		5. 언로딩
+		!!! 언로딩 완료 후 다시 로딩으로 이송
+		!!! 1 Cycle 명령시 대기 위치로 이동 후 종료
+		!!! 로딩과 대기는 위치값은 거의 동일하나 유닛 시퀀스상
+			단순 이동과 모션 실행의 차이가 있어 편의상 나눔
+
+//-----------------------------------------------//
+	비젼 스테이지 시퀀스 정리
+		1. 로딩
+		2. 비젼
+		3. 용접
+		4. 대기
+		5. 언로딩
+		!!! 언로딩 완료 후 다시 로딩으로 이송
+		!!! 1 Cycle 명령시 대기 위치로 이동 후 종료
+		!!! 로딩과 대기는 위치값은 거의 동일하나 유닛 시퀀스상
+			단순 이동과 모션 실행의 차이가 있어 편의상 나눔
+
+//-----------------------------------------------//
+	스테이지 위치 정리
+	!!! 전원 투입 후 스테이지 위치 지정되지 않음.
+		1. 대기
+		2. 로딩
+		3. 준비
+		4. 비젼
+		5. 언로딩
+		!!! 언로딩 완료 후 다시 대기위치로 이송
+		!!! 준비와 비젼의 위치값은 동일하나 용접시퀀스와 유닛 시퀀스
+			맟주기 위해 삽입(실제 이송은 거의 없음)
+
+
+//--------------------------------------------------//
+// Coordinate System
+//--------------------------------------------------//
+&1
+	#09 : WD_X
+	#10 : WD_Y
+	#11 : WD_T	
+
+&2
+	#05 : SC_X
+	#06 : SC_X
+
+&3
+	#13 : VS_X
+	#14 : VS_Y
+	#15 : VS_T	
+
+&0 (좌표계 할당안함 : 모션구동 없음)
+	#17 : WD_Z
+
+//--------------------------------------------------//
+// Motor Specification
+//--------------------------------------------------//
+	#09 : Welding X
+		Amp		: MCDLN35BL
+		Motor	: Linear
+		Encoder	: ABS, 0.05[um]
+
+	#10: Welding Y
+		Amp		: MCDLN15BL
+		Motor	: Linear
+		Encoder	: ABS, 0.05[um]
+
+	#11 : Welding T
+		Amp		: MCDLN15BL
+		Motor	: DD
+		Encoder	: ABS, 24[Bit/Rev]
+
+	#13 : Vision X
+		Amp		: MCDLN35BL
+		Motor	: Linear
+		Encoder	: ABS, 0.05[um]
+
+	#14 : Vision Y
+		Amp		: MCDLN15BL
+		Motor	: Linear
+		Encoder	: ABS, 0.05[um]
+
+	#15 : Vision T
+		Amp		: MCDLN15BL
+		Motor	: DD
+		Encoder	: ABS, 24[Bit/Rev]
+
+	#17 : Welding Z (레이져 헤드 높이조정용)
+		Amp		: MBDLN15BE
+		Motor	: Rotary, 0.777[mm/Rec], 기어비 3:1
+		Encoder	: ABS 23Bit
+
+
+
+//--------------------------------------------------//
+// M-Code Description
+//--------------------------------------------------//
+M10 레이져 온
+	M10 		// 딜레이 없이 온
+	M10 P# 		// 딜레이 후 온 (M10 P50 : 레이져 키고 50ms 대기)
+
+M11 레이져 오프
+	M11 		// 딜레이 없이 오프
+	M11 P# 		// 딜레이 후 오프 (M11 P50 : 50ms 대기 후 레이져 오프)
+
+M12 코어 파워
+	M12 W# 		// W에 이정한 Watt로 파워 변경 (M12 W500 : 500W로 변경)
+
+M14 링 파워
+	M14 W# 		// W에 이정한 Watt로 파워 변경 (M12 W500 : 500W로 변경)
+
+M20 우블 온
+	 M20 A#		// 우블 가로비율 변경 (100% = 100)
+	 M20 B#		// 우블 세로비율 변경 (M15 A100 B50 -> 가로 100% :세로 50%)
+	 M20 D#		// 우블 간격 변경 (um)
+	 M20 L#		// 우블 길이 변경 (um)
+	 M20 T#		// 우블 모양 변경 (0:원, 1:눈사람, 2:나비, 3:라인)
+	Ex) M20 L500 T1	// 우블 길이 500um, 눈사람 모양
+		M20 L600 D150 T0	// 우블 길이 600um, 간격 150um, 원 모양
+
+M21 우블 오프
+	M21
+
+M40 비젼 트리거 온
+	 M40		// 비젼 트리거 온
+	 M40 D# P#	// 비젼 트리거 온, D:듀티(um), P:주기(um)
+	 Ex) M40 D50 P100	// 트리거 주기 100um, 50um On/50um Off
+
+M41 비젼 트리거 오프
+
+M50 테스트 레이져 온
+	M50 		// 딜레이 없이 온
+	M50 P# 		// 딜레이 후 온 (M50 P50 : 레이져 키고 50ms 대기)
+	M50 G1 P# 	// 가이드 온
+	M50 G0 P# 	// 레이져 온
+
+M51 테스트 레이져 오프
+	M51 		// 딜레이 없이 오프
+	M51 P# 		// 딜레이 후 오프 (M51 P50 : 50ms 대기 후 레이져 오프)
+
+M100 레이져 출력모드
+	 M100 A0	// 출력 전압 고정
+	 M100 A1	// 출력 전압 가변
+
+M101 Ref Velocity 설정
+	 M101 V60
+
+M110 Core Laser Condition
+	 M110 A# B# S# // A: MinPower, B : MaxPower, S:CorePowerScale
+	 ex) M110 A0 B2000 S200 // Min = 0[w] , Max = 2000[w], Ref = 200[w/v]
+
+M111 Ring Laser Condition
+	 M111 A# B# S# : A: MinPower, B : MaxPower, S:CorePowerScale
+	 ex) M111 A0 B2000 S200 // Min = 0[w] , Max = 2000[w], Ref = 200[w/v]
+
+M120 Core PFM Enable
+	 M120
+
+M121 Core PFM Disable
+	 M121
+
+M130 Ring PFM Enable
+	 M130
+
+M131 Ring PFM Disable
+	 M131
+
+M140 PFM Control
+	 M140 O# P# // O : OnTime [ms], P : Period [um]
+	 ex) M140 O2 P500 // Ontime 2[ms], Period 500[um]
+
+
+
+
+
+
+
+
+
+

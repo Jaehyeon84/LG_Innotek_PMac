@@ -1,0 +1,12 @@
+open prog 4
+	abs
+	linear
+	
+	F2000 Ta0 Ts0
+	while(P500==0)
+	{
+		x(P201) y(P202)
+		x(0) y(0)
+	}
+
+close

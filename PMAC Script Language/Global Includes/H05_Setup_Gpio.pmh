@@ -1,0 +1,124 @@
+//######################################################################################################
+// Header 05 : Setup General Purpose I/O (1515N Local I/O)
+//######################################################################################################
+
+
+#if MACHINE_TYPE==1
+	//------------------------------------------------------------------------------------------------//
+	// Dummy Variable for I/O Communication
+	//------------------------------------------------------------------------------------------------//
+	ptr pGpio_Di_Md00(16)->*
+		pGpio_Di_Md00(00)->CK3WAX[0].GpioData[0].00
+		pGpio_Di_Md00(01)->CK3WAX[0].GpioData[0].01
+		pGpio_Di_Md00(02)->CK3WAX[0].GpioData[0].02
+		pGpio_Di_Md00(03)->CK3WAX[0].GpioData[0].03
+		pGpio_Di_Md00(04)->CK3WAX[0].GpioData[0].04
+		pGpio_Di_Md00(05)->CK3WAX[0].GpioData[0].05
+		pGpio_Di_Md00(06)->CK3WAX[0].GpioData[0].06
+		pGpio_Di_Md00(07)->CK3WAX[0].GpioData[0].07
+		pGpio_Di_Md00(08)->CK3WAX[0].GpioData[0].08
+		pGpio_Di_Md00(09)->CK3WAX[0].GpioData[0].09
+		pGpio_Di_Md00(10)->CK3WAX[0].GpioData[0].10
+		pGpio_Di_Md00(11)->CK3WAX[0].GpioData[0].11
+		pGpio_Di_Md00(12)->CK3WAX[0].GpioData[0].12
+		pGpio_Di_Md00(13)->CK3WAX[0].GpioData[0].13
+		pGpio_Di_Md00(14)->CK3WAX[0].GpioData[0].14
+		pGpio_Di_Md00(15)->CK3WAX[0].GpioData[0].15
+
+	ptr pGpio_Do_Md00(16)->*
+		pGpio_Do_Md00(00)->CK3WAX[0].GpioData[0].16
+		pGpio_Do_Md00(01)->CK3WAX[0].GpioData[0].17
+		pGpio_Do_Md00(02)->CK3WAX[0].GpioData[0].18
+		pGpio_Do_Md00(03)->CK3WAX[0].GpioData[0].19
+		pGpio_Do_Md00(04)->CK3WAX[0].GpioData[0].20
+		pGpio_Do_Md00(05)->CK3WAX[0].GpioData[0].21
+		pGpio_Do_Md00(06)->CK3WAX[0].GpioData[0].22
+		pGpio_Do_Md00(07)->CK3WAX[0].GpioData[0].23
+		pGpio_Do_Md00(08)->CK3WAX[0].GpioData[0].24
+		pGpio_Do_Md00(09)->CK3WAX[0].GpioData[0].25
+		pGpio_Do_Md00(10)->CK3WAX[0].GpioData[0].26
+		pGpio_Do_Md00(11)->CK3WAX[0].GpioData[0].27
+		pGpio_Do_Md00(12)->CK3WAX[0].GpioData[0].28
+		pGpio_Do_Md00(13)->CK3WAX[0].GpioData[0].29
+		pGpio_Do_Md00(14)->CK3WAX[0].GpioData[0].30
+		pGpio_Do_Md00(15)->CK3WAX[0].GpioData[0].31
+
+	//------------------------------------------------------------------------------------------------//
+	// Local Digital Input
+	//------------------------------------------------------------------------------------------------//
+	ptr pGpio_Di00						->CK3WAX[0].GpioData[0].00
+	ptr pGpio_Di01_LaserReady			->CK3WAX[0].GpioData[0].01
+	ptr pGpio_Di02_LaserReqResp			->CK3WAX[0].GpioData[0].02
+	ptr pGpio_Di03_LaserPowerOn			->CK3WAX[0].GpioData[0].03
+	ptr pGpio_Di04_LaserProgRun			->CK3WAX[0].GpioData[0].04
+	ptr pGpio_Di05_LaserWarning			->CK3WAX[0].GpioData[0].05
+	ptr pGpio_Di06_LaserAbnormal		->CK3WAX[0].GpioData[0].06
+	ptr pGpio_Di07						->CK3WAX[0].GpioData[0].07
+	ptr pGpio_Di08						->CK3WAX[0].GpioData[0].08
+	ptr pGpio_Di09						->CK3WAX[0].GpioData[0].09
+	ptr pGpio_Di0A						->CK3WAX[0].GpioData[0].10
+	ptr pGpio_Di0B						->CK3WAX[0].GpioData[0].11
+	ptr pGpio_Di0C						->CK3WAX[0].GpioData[0].12
+	ptr pGpio_Di0D						->CK3WAX[0].GpioData[0].13
+	ptr pGpio_Di0E						->CK3WAX[0].GpioData[0].14
+	ptr pGpio_Di0F						->CK3WAX[0].GpioData[0].15
+
+	//------------------------------------------------------------------------------------------------//
+	// Local Digital Output
+	//------------------------------------------------------------------------------------------------//
+	ptr pGpio_Do00_LaserEmission		->CK3WAX[0].GpioData[0].16
+	ptr pGpio_Do01_LaserReset			->CK3WAX[0].GpioData[0].17
+	ptr pGpio_Do02_LaserRequest			->CK3WAX[0].GpioData[0].18
+	ptr pGpio_Do03_LaserPowerOn			->CK3WAX[0].GpioData[0].19
+	ptr pGpio_Do04_LaserAdInEna			->CK3WAX[0].GpioData[0].20
+	ptr pGpio_Do05_LaserGuideEna		->CK3WAX[0].GpioData[0].21
+	ptr pGpio_Do06_LaserProgEna			->CK3WAX[0].GpioData[0].22
+	ptr pGpio_Do07_LaserProgStop		->CK3WAX[0].GpioData[0].23
+	ptr pGpio_Do08						->CK3WAX[0].GpioData[0].24
+	ptr pGpio_Do09						->CK3WAX[0].GpioData[0].25
+	ptr pGpio_Do0A						->CK3WAX[0].GpioData[0].26
+	ptr pGpio_Do0B						->CK3WAX[0].GpioData[0].27
+	ptr pGpio_Do0C						->CK3WAX[0].GpioData[0].28
+	ptr pGpio_Do0D						->CK3WAX[0].GpioData[0].29
+	ptr pGpio_Do0E						->CK3WAX[0].GpioData[0].30
+	ptr pGpio_Do0F						->CK3WAX[0].GpioData[0].31
+#else
+	ptr pGpio_Di_Md00(16)->*
+	ptr pGpio_Do_Md00(16)->*
+
+	ptr pGpio_Di00						->*
+	ptr pGpio_Di01_LaserReady			->*
+	ptr pGpio_Di02_LaserReqResp			->*
+	ptr pGpio_Di03_LaserPowerOn			->*
+	ptr pGpio_Di04_LaserProgRun			->*
+	ptr pGpio_Di05_LaserWarning			->*
+	ptr pGpio_Di06_LaserAbnormal		->*
+	ptr pGpio_Di07						->*
+	ptr pGpio_Di08						->*
+	ptr pGpio_Di09						->*
+	ptr pGpio_Di0A						->*
+	ptr pGpio_Di0B						->*
+	ptr pGpio_Di0C						->*
+	ptr pGpio_Di0D						->*
+	ptr pGpio_Di0E						->*
+	ptr pGpio_Di0F						->*
+
+	ptr pGpio_Do00_LaserEmission		->*
+	ptr pGpio_Do01_LaserReset			->*
+	ptr pGpio_Do02_LaserRequest			->*
+	ptr pGpio_Do03_LaserPowerOn			->*
+	ptr pGpio_Do04_LaserAdInEna			->*
+	ptr pGpio_Do05_LaserGuideEna		->*
+	ptr pGpio_Do06_LaserProgEna			->*
+	ptr pGpio_Do07_LaserProgStop		->*
+	ptr pGpio_Do08						->*
+	ptr pGpio_Do09						->*
+	ptr pGpio_Do0A						->*
+	ptr pGpio_Do0B						->*
+	ptr pGpio_Do0C						->*
+	ptr pGpio_Do0D						->*
+	ptr pGpio_Do0E						->*
+	ptr pGpio_Do0F						->*
+#endif
+
+

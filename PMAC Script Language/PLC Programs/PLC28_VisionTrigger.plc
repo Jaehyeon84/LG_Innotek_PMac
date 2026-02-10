@@ -1,0 +1,18 @@
+//######################################################################################################
+// PLC 28 : Vision Trigger On for Teaching Vision Home Offset
+//######################################################################################################
+
+
+open plc 28
+	Gate3[0].Chan[3].EquOutMask = 8;
+	while(P500==0)
+	{
+
+		Gate3[0].Chan[3].EquWrite = 3;
+		call Timer.msec(0.5)
+
+		Gate3[0].Chan[3].EquWrite = 1;
+		call Timer.msec(0.5)
+	}
+	Gate3[0].Chan[3].EquOutMask = 0;
+close

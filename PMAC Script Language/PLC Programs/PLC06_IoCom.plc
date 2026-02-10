@@ -1,0 +1,132 @@
+//######################################################################################################
+// PLC 06 : Dio Monitoring
+//######################################################################################################
+
+
+open plc 6
+	if(gMach_Type!=0)
+	{
+		pUmem_Di_Md00(00) = pGpio_Di_Md00(00);
+		pUmem_Di_Md00(01) = pGpio_Di_Md00(01);
+		pUmem_Di_Md00(02) = pGpio_Di_Md00(02);
+		pUmem_Di_Md00(03) = pGpio_Di_Md00(03);
+		pUmem_Di_Md00(04) = pGpio_Di_Md00(04);
+		pUmem_Di_Md00(05) = pGpio_Di_Md00(05);
+		pUmem_Di_Md00(06) = pGpio_Di_Md00(06);
+		pUmem_Di_Md00(07) = pGpio_Di_Md00(07);
+		pUmem_Di_Md00(08) = pGpio_Di_Md00(08);
+		pUmem_Di_Md00(09) = pGpio_Di_Md00(09);
+		pUmem_Di_Md00(10) = pGpio_Di_Md00(10);
+		pUmem_Di_Md00(11) = pGpio_Di_Md00(11);
+		pUmem_Di_Md00(12) = pGpio_Di_Md00(12);
+		pUmem_Di_Md00(13) = pGpio_Di_Md00(13);
+		pUmem_Di_Md00(14) = pGpio_Di_Md00(14);
+		pUmem_Di_Md00(15) = pGpio_Di_Md00(15);
+
+		pUmem_Di_Md01(00) = pEcat_Di_Md01(00);
+		pUmem_Di_Md01(01) = pEcat_Di_Md01(01);
+		pUmem_Di_Md01(02) = pEcat_Di_Md01(02);
+		pUmem_Di_Md01(03) = pEcat_Di_Md01(03);
+		pUmem_Di_Md01(04) = pEcat_Di_Md01(04);
+		pUmem_Di_Md01(05) = pEcat_Di_Md01(05);
+		pUmem_Di_Md01(06) = pEcat_Di_Md01(06);
+		pUmem_Di_Md01(07) = pEcat_Di_Md01(07);
+		pUmem_Di_Md01(08) = pEcat_Di_Md01(08);
+		pUmem_Di_Md01(09) = pEcat_Di_Md01(09);
+		pUmem_Di_Md01(10) = pEcat_Di_Md01(10);
+		pUmem_Di_Md01(11) = pEcat_Di_Md01(11);
+		pUmem_Di_Md01(12) = pEcat_Di_Md01(12);
+		pUmem_Di_Md01(13) = pEcat_Di_Md01(13);
+		pUmem_Di_Md01(14) = pEcat_Di_Md01(14);
+		pUmem_Di_Md01(15) = pEcat_Di_Md01(15);
+
+		pUmem_Di_Md02(00) = pEcat_Di_Md02(00);
+		pUmem_Di_Md02(01) = pEcat_Di_Md02(01);
+		pUmem_Di_Md02(02) = pEcat_Di_Md02(02);
+		pUmem_Di_Md02(03) = pEcat_Di_Md02(03);
+		pUmem_Di_Md02(04) = pEcat_Di_Md02(04);
+		pUmem_Di_Md02(05) = pEcat_Di_Md02(05);
+		pUmem_Di_Md02(06) = pEcat_Di_Md02(06);
+		pUmem_Di_Md02(07) = pEcat_Di_Md02(07);
+		pUmem_Di_Md02(08) = pEcat_Di_Md02(08);
+		pUmem_Di_Md02(09) = pEcat_Di_Md02(09);
+		pUmem_Di_Md02(10) = pEcat_Di_Md02(10);
+		pUmem_Di_Md02(11) = pEcat_Di_Md02(11);
+		pUmem_Di_Md02(12) = pEcat_Di_Md02(12);
+		pUmem_Di_Md02(13) = pEcat_Di_Md02(13);
+		pUmem_Di_Md02(14) = pEcat_Di_Md02(14);
+		pUmem_Di_Md02(15) = pEcat_Di_Md02(15);
+		call Timer.msec(1);
+
+//------------------------------------------------------------------------------------------------//
+		//pGpio_Do_Md00(00) = pUmem_Do_Md00(00);
+		pUmem_Do_Md00(00) = pGpio_Do_Md00(00);		// Laser Gate Controled By Only PMAC
+		
+		pGpio_Do_Md00(01) = pUmem_Do_Md00(01);
+		pGpio_Do_Md00(02) = pUmem_Do_Md00(02);
+		pGpio_Do_Md00(03) = pUmem_Do_Md00(03);
+		pGpio_Do_Md00(04) = pUmem_Do_Md00(04);
+		pGpio_Do_Md00(05) = pUmem_Do_Md00(05);
+		pGpio_Do_Md00(06) = pUmem_Do_Md00(06);
+		pGpio_Do_Md00(07) = pUmem_Do_Md00(07);
+		pGpio_Do_Md00(08) = pUmem_Do_Md00(08);
+		pGpio_Do_Md00(09) = pUmem_Do_Md00(09);
+		pGpio_Do_Md00(10) = pUmem_Do_Md00(10);
+		pGpio_Do_Md00(11) = pUmem_Do_Md00(11);
+		pGpio_Do_Md00(12) = pUmem_Do_Md00(12);
+		pGpio_Do_Md00(13) = pUmem_Do_Md00(13);
+		pGpio_Do_Md00(14) = pUmem_Do_Md00(14);
+		pGpio_Do_Md00(15) = pUmem_Do_Md00(15);
+
+//		pUmem_Do_Md00(00) = pGpio_Do_Md00(00);
+//		pUmem_Do_Md00(01) = pGpio_Do_Md00(01);
+//		pUmem_Do_Md00(02) = pGpio_Do_Md00(02);
+//		pUmem_Do_Md00(03) = pGpio_Do_Md00(03);
+//		pUmem_Do_Md00(04) = pGpio_Do_Md00(04);
+//		pUmem_Do_Md00(05) = pGpio_Do_Md00(05);
+//		pUmem_Do_Md00(06) = pGpio_Do_Md00(06);
+//		pUmem_Do_Md00(07) = pGpio_Do_Md00(07);
+//		pUmem_Do_Md00(08) = pGpio_Do_Md00(08);
+//		pUmem_Do_Md00(09) = pGpio_Do_Md00(09);
+//		pUmem_Do_Md00(10) = pGpio_Do_Md00(10);
+//		pUmem_Do_Md00(11) = pGpio_Do_Md00(11);
+//		pUmem_Do_Md00(12) = pGpio_Do_Md00(12);
+//		pUmem_Do_Md00(13) = pGpio_Do_Md00(13);
+//		pUmem_Do_Md00(14) = pGpio_Do_Md00(14);
+//		pUmem_Do_Md00(15) = pGpio_Do_Md00(15);
+
+		pEcat_Do_Md01(00) = pUmem_Do_Md01(00);
+		pEcat_Do_Md01(01) = pUmem_Do_Md01(01);
+		pEcat_Do_Md01(02) = pUmem_Do_Md01(02);
+		pEcat_Do_Md01(03) = pUmem_Do_Md01(03);
+		pEcat_Do_Md01(04) = pUmem_Do_Md01(04);
+		pEcat_Do_Md01(05) = pUmem_Do_Md01(05);
+		pEcat_Do_Md01(06) = pUmem_Do_Md01(06);
+		pEcat_Do_Md01(07) = pUmem_Do_Md01(07);
+		pEcat_Do_Md01(08) = pUmem_Do_Md01(08);
+		pEcat_Do_Md01(09) = pUmem_Do_Md01(09);
+		pEcat_Do_Md01(10) = pUmem_Do_Md01(10);
+		pEcat_Do_Md01(11) = pUmem_Do_Md01(11);
+		pEcat_Do_Md01(12) = pUmem_Do_Md01(12);
+		pEcat_Do_Md01(13) = pUmem_Do_Md01(13);
+		pEcat_Do_Md01(14) = pUmem_Do_Md01(14);
+		pEcat_Do_Md01(15) = pUmem_Do_Md01(15);
+
+		pEcat_Do_Md02(00) = pUmem_Do_Md02(00);
+		pEcat_Do_Md02(01) = pUmem_Do_Md02(01);
+		pEcat_Do_Md02(02) = pUmem_Do_Md02(02);
+		pEcat_Do_Md02(03) = pUmem_Do_Md02(03);
+		pEcat_Do_Md02(04) = pUmem_Do_Md02(04);
+		pEcat_Do_Md02(05) = pUmem_Do_Md02(05);
+		pEcat_Do_Md02(06) = pUmem_Do_Md02(06);
+		pEcat_Do_Md02(07) = pUmem_Do_Md02(07);
+		pEcat_Do_Md02(08) = pUmem_Do_Md02(08);
+		pEcat_Do_Md02(09) = pUmem_Do_Md02(09);
+		pEcat_Do_Md02(10) = pUmem_Do_Md02(10);
+		pEcat_Do_Md02(11) = pUmem_Do_Md02(11);
+		pEcat_Do_Md02(12) = pUmem_Do_Md02(12);
+		pEcat_Do_Md02(13) = pUmem_Do_Md02(13);
+		pEcat_Do_Md02(14) = pUmem_Do_Md02(14);
+		pEcat_Do_Md02(15) = pUmem_Do_Md02(15);
+	}
+close

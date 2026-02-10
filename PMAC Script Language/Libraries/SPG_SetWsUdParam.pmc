@@ -1,0 +1,34 @@
+
+
+open subprog spSetWsUdParam(&ret)
+	if(pUmem_Cmd_Ws_UdVelX <= 0)		// X Velocity Config Error
+	{
+		ret = -1;
+		return
+	}
+	else if(pUmem_Cmd_Ws_UdVelY <= 0)	// Y Velocity Config Error
+	{
+		ret = -2;
+		return
+	}
+	else if(pUmem_Cmd_Ws_UdVelC <= 0)	// C Velocity Config Error
+	{
+		ret = -3;
+		return
+	}
+
+	// Set Motor Speed
+	gWs_Unload_VelX = pUmem_Cmd_Ws_UdVelX/1000;
+	gWs_Unload_VelY = pUmem_Cmd_Ws_UdVelY/1000;
+	gWs_Unload_VelC = pUmem_Cmd_Ws_UdVelC/1000;
+
+	// Set Motor Target Position
+	gWs_Unload_PosX = pUmem_Cmd_Ws_UdPosX;
+	gWs_Unload_PosY = pUmem_Cmd_Ws_UdPosY;
+	gWs_Unload_PosC = pUmem_Cmd_Ws_UdPosC;
+
+	ret = 0;
+close
+
+
+

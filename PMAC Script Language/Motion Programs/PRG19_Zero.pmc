@@ -1,0 +1,20 @@
+
+open prog 19
+	local det;
+	
+	if(gWs_WblRatW<=0 || gWs_WblRatL<=0) return;
+
+	tsel 1					// Select Transformation Matrix
+	det = tinit(1)			// Transformation Matrix Initialize
+	Tdata[1].Bias[XaxisIndex] = gWs_WblOfsX/1000		// Set X Offset
+	Tdata[1].Bias[YaxisIndex] = gWs_WblOfsY/1000		// Set Y Offset
+	Tdata[1].Diag[XaxisIndex] = gWs_WblRatW/100			// Set X Scale
+	Tdata[1].Diag[YaxisIndex] = gWs_WblRatL/100			// Set Y Scale
+
+	abs
+	tm(10) ta(0) ts(0)
+
+	linear
+	X0 Y(0)		// Move to Zero Position
+
+close

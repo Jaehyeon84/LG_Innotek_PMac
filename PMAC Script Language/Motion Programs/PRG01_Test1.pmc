@@ -1,0 +1,41 @@
+global Len_X = 10;
+global Len_Y = 10;
+global Len_R = 5;
+
+
+open prog 1
+	p100 = 5;
+	abs
+	f(P100) ta(100) ts(20)
+	
+	X(-Len_X) Y(Len_Y-Len_R) C(0)
+	dwell 2000
+sg
+	linear
+	X(-Len_X) Y(Len_Y-Len_R) C(0)
+	X(-Len_X) Y(-Len_Y+Len_R)
+	
+	circle2
+	X(-Len_X+Len_R) Y(-Len_Y) r(Len_R) c(90)
+
+	linear
+	X(Len_X-Len_R) Y(-Len_Y)
+
+	circle2
+	X(Len_X) Y(-Len_Y+Len_R) r(Len_R) c(180)
+
+	linear
+	X(Len_X) Y(Len_Y-Len_R)
+
+	circle2
+	X(Len_X-Len_R) Y(Len_Y) r(Len_R) c(270)
+
+	linear
+	X(-Len_X+Len_R) Y(Len_Y)
+
+	circle2
+	X(-Len_X) Y(Len_Y-Len_R) r(Len_R) c(360)
+dwell 0
+eg
+
+close

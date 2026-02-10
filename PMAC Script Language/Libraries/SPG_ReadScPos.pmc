@@ -1,0 +1,27 @@
+
+global gScMon_GalvoAngX = 0;
+global gScMon_GalvoAngY = 0;
+
+open subprog spReadScPos(inx,iny,&outx,&outy)
+	local xbuf_1,ybuf_1,ybuf_2
+	local xang,yang
+	local xpos,ypos
+	
+	xbuf_1 = (Motor[inx].ActPos-Motor[inx].HomePos);
+	ybuf_1 = (Motor[iny].ActPos-Motor[iny].HomePos);
+	
+	xang = xbuf_1 * gKin_GalvoSfX;
+	yang = ybuf_1 * (-gKin_GalvoSfY);
+	
+	// Convert Angle to Distance
+	ybuf_2 = gKin_Len2 * tand(yang);
+	xpos = ybuf_2;
+	ypos = ( gKin_Len1 + sqrt(pow(gKin_Len2,2) + pow(ybuf_2,2))) * tand(xang);
+
+	outx = xpos;
+	outy = ypos;
+	return;
+close
+
+
+

@@ -1,0 +1,22 @@
+//######################################################################################################
+// Coordinate 2 Forward Kinematics
+//######################################################################################################
+
+
+open forward (2)
+	local ret;
+
+	if(KinVelEna >0)
+	{
+		callsub 100;
+	}
+	KinAxisUsed=$C0;
+
+	n100:
+		#ifdef CE
+			ret = CfromScript(cFncKin,cCoord2,cKinFwd,nsY,nsX,0,0);		// CE1
+		#elif TG
+			ret = CfromScript(cFncKin,cCoord2,cKinFwd,nsX,nsY,0,0);		// TG
+		#endif
+close
+

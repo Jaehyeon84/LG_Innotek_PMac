@@ -1,0 +1,45 @@
+#define cFncRti			0
+#define cFncKin			1
+
+#define cCoord1			1
+#define cCoord2			2
+#define cCoord3			3
+
+#define cKinFwd			0
+#define cKinInv			1
+
+global gKin_Sf(32);
+gKin_Sf(nwX) = 1000;
+gKin_Sf(nwY) = 1000;
+gKin_Sf(nwC) = 1000;
+
+gKin_Sf(nvX) = 1000;
+gKin_Sf(nvY) = 1000;
+gKin_Sf(nvC) = 1000;
+
+global gKin_RotOffset(32);
+gKin_RotOffset(nwX) = 0;
+gKin_RotOffset(nwY) = 0;
+gKin_RotOffset(nvX) = 0;
+gKin_RotOffset(nvY) = 0;
+
+// 스케일 맞추는법
+// 지령거리/실제거리
+
+#if MACHINE_TYPE==1
+	global gKin_Len1 = 35.53;					// distance between spot center on mirrors at neutral position (mm)
+	global gKin_Len2 = 530;						// distance from Y-mirror to XY-stage surface (mm)
+	global gKin_GalvoSfX = 18.33/exp2(19);			// ratio of XY2-100 command ±32767 to Galvonameter deflection
+	global gKin_GalvoSfY = 19.89/exp2(19);			// ratio of XY2-100 command ±32767 to Galvonameter deflection
+#elif MACHINE_TYPE==2
+	global gKin_Len1 = 10.17;					// distance between spot center on mirrors at neutral position (mm)
+	global gKin_Len2 = 300;						// distance from Y-mirror to XY-stage surface (mm)
+	global gKin_GalvoSfX = 19.5/exp2(15);			// ratio of XY2-100 command ±32767 to Galvonameter deflection
+	global gKin_GalvoSfY = 19.5/exp2(15);			// ratio of XY2-100 command ±32767 to Galvonameter deflection
+#elif MACHINE_TYPE==0
+	global gKin_Len1 = 35.53;					// distance between spot center on mirrors at neutral position (mm)
+	global gKin_Len2 = 530;						// distance from Y-mirror to XY-stage surface (mm)
+	global gKin_GalvoSfX = 19.5/exp2(19);			// ratio of XY2-100 command ±32767 to Galvonameter deflection
+	global gKin_GalvoSfY = 19.5/exp2(19);			// ratio of XY2-100 command ±32767 to Galvonameter deflection
+
+#endif

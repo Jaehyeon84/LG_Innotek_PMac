@@ -1,0 +1,14 @@
+
+
+open subprog spInitSeqParam
+	// Chage Sequence to Idle
+	gWs_Seq_Cur = cPos_Id;
+	gWs_Seq_Old = cPos_Id;
+	gVs_Seq_Cur = cPos_Id;
+	gVs_Seq_Old = cPos_Id;
+
+	// Change Stage Status to Not Ready
+	gWs_Sta_Stg = cStgSta_Nrd;
+	gVs_Sta_Stg = cStgSta_Nrd;
+	return;
+close

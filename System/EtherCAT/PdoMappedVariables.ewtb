@@ -1,0 +1,2512 @@
+<EtherCatWatchTable xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SlaveWatchEntries>
+    <SlaveWatchEntry>
+      <Name>Slave_1001 [NX-ECC203]</Name>
+      <PdoWatchEntries>
+        <ArrayMappedPdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_3003_3_NXUnitRegistrationStatus63</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>64</BitLength>
+          <DataType>ARRAY [0..7] OF BYTE</DataType>
+          <IoBufferOffset>0</IoBufferOffset>
+          <ElementCount>8</ElementCount>
+        </ArrayMappedPdoWatchEntry>
+        <ArrayMappedPdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_3006_3_NXUnitIODataActiveStatus63</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>64</BitLength>
+          <DataType>ARRAY [0..7] OF BYTE</DataType>
+          <IoBufferOffset>8</IoBufferOffset>
+          <ElementCount>8</ElementCount>
+        </ArrayMappedPdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_2002_1_SysmacErrorStatus</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>USINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_6002_1_InputBit16bits</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_6022_1_InputBit16bits</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_6080_1_Ch1AnalogInputValue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_6080_2_Ch2AnalogInputValue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_6080_3_Ch3AnalogInputValue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_6080_4_Ch4AnalogInputValue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_60A1_1_Ch1MeasuredValueINT</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_60A1_2_Ch2MeasuredValueINT</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_7042_1_OutputBit16bits</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_7062_1_OutputBit16bits</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+      </PdoWatchEntries>
+    </SlaveWatchEntry>
+    <SlaveWatchEntry>
+      <Name>Slave_1002 [MADLN15BL]</Name>
+      <PdoWatchEntries>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_603F_0_Errorcode</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_6041_0_Statusword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_6061_0_Modesofoperationdisplay</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_6064_0_Positionactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_606C_0_Velocityactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_6077_0_Torqueactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_60B9_0_Touchprobestatus</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_60BA_0_Touchprobepos1posvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_60FD_0_Digitalinputs</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>UDINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_6040_0_Controlword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_6060_0_Modesofoperation</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_607A_0_Targetposition</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1002_MADLN15BL_60B8_0_Touchprobefunction</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+      </PdoWatchEntries>
+    </SlaveWatchEntry>
+    <SlaveWatchEntry>
+      <Name>Slave_1003 [MADLN15BL]</Name>
+      <PdoWatchEntries>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_603F_0_Errorcode</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_6041_0_Statusword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_6061_0_Modesofoperationdisplay</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_6064_0_Positionactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_606C_0_Velocityactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_6077_0_Torqueactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_60B9_0_Touchprobestatus</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_60BA_0_Touchprobepos1posvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_60FD_0_Digitalinputs</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>UDINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_6040_0_Controlword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_6060_0_Modesofoperation</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_607A_0_Targetposition</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1003_MADLN15BL_60B8_0_Touchprobefunction</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+      </PdoWatchEntries>
+    </SlaveWatchEntry>
+    <SlaveWatchEntry>
+      <Name>Slave_1004 [MCDLN35BL]</Name>
+      <PdoWatchEntries>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_603F_0_Errorcode</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_6041_0_Statusword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_6061_0_Modesofoperationdisplay</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_6064_0_Positionactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_606C_0_Velocityactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_6077_0_Torqueactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_60B9_0_Touchprobestatus</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_60BA_0_Touchprobepos1posvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_60FD_0_Digitalinputs</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>UDINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_6040_0_Controlword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_6060_0_Modesofoperation</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_607A_0_Targetposition</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1004_MCDLN35BL_60B8_0_Touchprobefunction</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+      </PdoWatchEntries>
+    </SlaveWatchEntry>
+    <SlaveWatchEntry>
+      <Name>Slave_1005 [MBDLN25BE]</Name>
+      <PdoWatchEntries>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_603F_0_Errorcode</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_6041_0_Statusword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_6061_0_Modesofoperationdisplay</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_6064_0_Positionactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_606C_0_Velocityactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_6077_0_Torqueactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_60B9_0_Touchprobestatus</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_60BA_0_Touchprobepos1posvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_60FD_0_Digitalinputs</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>UDINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_6040_0_Controlword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_6060_0_Modesofoperation</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_607A_0_Targetposition</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1005_MBDLN25BE_60B8_0_Touchprobefunction</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+      </PdoWatchEntries>
+    </SlaveWatchEntry>
+    <SlaveWatchEntry>
+      <Name>Slave_1006 [MADLN15BL]</Name>
+      <PdoWatchEntries>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_603F_0_Errorcode</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_6041_0_Statusword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_6061_0_Modesofoperationdisplay</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_6064_0_Positionactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_606C_0_Velocityactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_6077_0_Torqueactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_60B9_0_Touchprobestatus</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_60BA_0_Touchprobepos1posvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_60FD_0_Digitalinputs</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>UDINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_6040_0_Controlword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_6060_0_Modesofoperation</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_607A_0_Targetposition</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1006_MADLN15BL_60B8_0_Touchprobefunction</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+      </PdoWatchEntries>
+    </SlaveWatchEntry>
+    <SlaveWatchEntry>
+      <Name>Slave_1007 [MADLN15BL]</Name>
+      <PdoWatchEntries>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_603F_0_Errorcode</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_6041_0_Statusword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_6061_0_Modesofoperationdisplay</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_6064_0_Positionactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_606C_0_Velocityactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_6077_0_Torqueactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_60B9_0_Touchprobestatus</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_60BA_0_Touchprobepos1posvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_60FD_0_Digitalinputs</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>UDINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_6040_0_Controlword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_6060_0_Modesofoperation</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_607A_0_Targetposition</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1007_MADLN15BL_60B8_0_Touchprobefunction</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+      </PdoWatchEntries>
+    </SlaveWatchEntry>
+    <SlaveWatchEntry>
+      <Name>Slave_1008 [MCDLN35BL]</Name>
+      <PdoWatchEntries>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_603F_0_Errorcode</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_6041_0_Statusword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_6061_0_Modesofoperationdisplay</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_6064_0_Positionactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_606C_0_Velocityactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_6077_0_Torqueactualvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_60B9_0_Touchprobestatus</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_60BA_0_Touchprobepos1posvalue</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_60FD_0_Digitalinputs</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>UDINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_6040_0_Controlword</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_6060_0_Modesofoperation</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>SINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_607A_0_Targetposition</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1008_MCDLN35BL_60B8_0_Touchprobefunction</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+      </PdoWatchEntries>
+    </SlaveWatchEntry>
+    <SlaveWatchEntry>
+      <Name>Slave_1009 [JXCE1]</Name>
+      <PdoWatchEntries>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_6011_0_Controllerinformationflag</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_6020_0_Currentposition</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_6021_0_Currentspeed</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_6022_0_Currentpushingforce</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_6023_0_Targetposition</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_6030_1_Alarm1</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>USINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_6030_2_Alarm2</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>USINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_6030_3_Alarm3</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>USINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_6030_4_Alarm4</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>USINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7011_0_Controllingofthenumericaldataflag</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7012_0_Startflag</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>USINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7020_0_OperationMethod</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>8</BitLength>
+          <DataType>USINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7021_0_Speed</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7022_0_Targetposition</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7023_0_Acceleration</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7024_0_Deceleration</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7025_0_Pushingforce</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7026_0_TriggerLV</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7027_0_Pushingspeed</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7028_0_Pushingforceforpositioning</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>UINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_7029_0_AREA1</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_702A_0_AREA2</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1009_JXCE1_702B_0_Positioningwidth</Request>
+          <Response />
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>false</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>false</IsInput>
+          <BitLength>32</BitLength>
+          <DataType>DINT</DataType>
+        </PdoWatchEntry>
+      </PdoWatchEntries>
+    </SlaveWatchEntry>
+  </SlaveWatchEntries>
+  <Settings>
+    <UpdateRate>100</UpdateRate>
+    <EchoMode>7</EchoMode>
+    <IsShowingResponseTime>true</IsShowingResponseTime>
+    <IsDisplayingComment>false</IsDisplayingComment>
+    <IsPrependFormatting>false</IsPrependFormatting>
+    <IsWatchLocked>false</IsWatchLocked>
+  </Settings>
+</EtherCatWatchTable>

@@ -1,0 +1,228 @@
+
+
+open plc 23
+	local ret = -1;
+
+	if(gVs_Vision_Start==1)
+	{
+		gVs_Vision_Start = 0;
+		gVs_Vision_Seq = 1;
+		gVs_Vision_Ena = 1;
+	}
+
+	if(gVs_Vision_Abort==1)
+	{
+		gVs_Vision_Abort = 0;
+		gVs_Vision_Seq = 0;
+		gVs_Vision_Ena = 0;
+		abort 3
+	}
+
+	if(gVs_Vision_Ena==1)
+	{
+		switch(gVs_Vision_Seq)
+		{
+		//------------------------------------------------//
+		// Ready
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				gVs_Vision_TimeBuf = Sys.Time;
+
+				if(gEcatCom_Sta(0)==cEcatComSta_Ok)
+				{
+					gVs_Vision_Sta = cVsSta_Ing;
+					gVs_Vision_Seq = 2;
+				}
+				else
+				{
+					gVs_Vision_Sta = cVsSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_Vision_Seq = 3;
+				}
+				else
+				{
+					gVs_Vision_Sta = cVsSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_Vision_Seq = 4;
+				}
+				else
+				{
+					gVs_Vision_Sta = cVsSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(Coord[3].InPos==1)
+				{
+					gVs_Vision_Seq = 5;
+				}
+				else
+				{
+					gVs_Vision_Sta = cVsSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+
+			case 5:	// Detect
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				if(gRunMode==cRunMode_DryRun)
+				{
+					gVs_Vision_Seq = 10;
+				}
+				else if(pUmem_Di2C_VsTbUndet==cDet_On)
+				{
+					gVs_Vision_Seq = 10;
+				}
+				else
+				{
+					gVs_Vision_Sta = cVsSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 10:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				call spSetVsVnParam(&ret);
+				if(ret==0)
+				{
+					Motor[nvX].JogSpeed = gVs_Vision_VelX;
+					Motor[nvY].JogSpeed = gVs_Vision_VelY;
+					Motor[nvC].JogSpeed = gVs_Vision_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_Vision_PosX;
+					Motor[nvY].ProgJogPos = gVs_Vision_PosY;
+					Motor[nvY].ProgJogPos = gVs_Vision_PosC;
+
+					jog nvX=*
+					jog nvY=*
+					jog nvC=*
+
+					gVs_Vision_Tmr = Sys.Time + 0.1;
+					gVs_Vision_Seq = 11;
+				}
+				else
+				{
+					gVs_Vision_Sta = cVsSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}			
+			break;
+
+			case 11:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(Sys.time > gVs_Vision_Tmr)
+				{
+					gVs_Vision_Tmr = Sys.Time + cVs_MtrTimeOut;
+					gVs_Vision_Seq = 12;
+				}
+			break;
+
+			case 12:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(Coord[3].InPos==1)
+				{
+					gVs_Vision_Seq = 20;
+				}
+				else if(Sys.time > gVs_Vision_Tmr)
+				{
+					gVs_Vision_Sta = cVsSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Vision
+		//------------------------------------------------//
+			case 20:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				start 3:30
+				gVs_Prog_TimeBuf = Sys.Time; 
+
+				gVs_Vision_Tmr = Sys.Time + 0.1;
+				gVs_Vision_Seq = 21;					
+			break;
+
+			case 21:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(Sys.time > gVs_Vision_Tmr)
+				{
+					gVs_Vision_Tmr = Sys.Time + cVs_PrgTimeOut;
+					gVs_Vision_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				gVs_Prog_Time = Sys.Time - gVs_Prog_TimeBuf;
+
+				if(Coord[3].ErrorStatus!=0)
+				{
+					gVs_Vision_Sta = cVsSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+				else if(Coord[3].AmpEna==0)
+				{
+					gVs_Vision_Sta = cVsSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+				else if(Sys.Time > gVs_Vision_Tmr)
+				{
+					gVs_Vision_Sta = cVsSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+				else if(Coord[3].ProgActive==0 && Coord[3].InPos==1)
+				{
+					gVs_Vision_Seq = 90;
+				}
+			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				gVs_Vision_Time = Sys.Time - gVs_Vision_TimeBuf;
+				gVs_Vision_Sta = cVsSta_Fin;
+				gVs_Vision_Seq = 0;
+				gVs_Vision_Ena = 0;
+			break;
+
+			default:
+				gVs_Vision_Sta = cVsSta_Err;
+				gVs_Vision_Seq = 0;
+				gVs_Vision_Ena = 0;				
+			break;
+		}
+	}
+
+
+close
+
+
+

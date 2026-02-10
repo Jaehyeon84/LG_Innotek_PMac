@@ -1,0 +1,34 @@
+
+
+open subprog spSetVsRjParam(&ret)
+	if(pUmem_Cmd_Vs_RjVelX <= 0)		// X Velocity Config Error
+	{
+		ret = -1;
+		return
+	}
+	else if(pUmem_Cmd_Vs_RjVelY <= 0)	// Y Velocity Config Error
+	{
+		ret = -2;
+		return
+	}
+	else if(pUmem_Cmd_Vs_RjVelC <= 0)	// C Velocity Config Error
+	{
+		ret = -3;
+		return
+	}
+
+	// Set Motor Speed
+	gVs_Reject_VelX = pUmem_Cmd_Vs_RjVelX/1000;
+	gVs_Reject_VelY = pUmem_Cmd_Vs_RjVelY/1000;
+	gVs_Reject_VelC = pUmem_Cmd_Vs_RjVelC/1000;
+
+	// Set Motor Target Position
+	gVs_Reject_PosX = pUmem_Cmd_Vs_RjPosX;
+	gVs_Reject_PosY = pUmem_Cmd_Vs_RjPosY;
+	gVs_Reject_PosC = pUmem_Cmd_Vs_RjPosC;
+
+	ret = 0;
+close
+
+
+

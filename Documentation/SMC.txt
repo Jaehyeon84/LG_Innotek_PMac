@@ -1,0 +1,40 @@
+6010h	Signal allocated to the input port 입력 포트 상당 신호
+6011h	Controller information flag 컨트롤러 정보 플래그
+6020h	Current position 현재 위치[0.01mm]
+6021h	Current speed 현재 속도[mm/s]
+6022h	Current pushing force 현재 추력[%]
+6023h	Target position 목표 위치[0.01mm]
+6030h_1	Alarm1 발생 알람 1
+6030h_2	Alarm2 발생 알람 2
+6030h_3	Alarm3 발생 알람 3
+6030h_4	Alarm4 발생 알람 4
+
+7010h	Output port to which signals are allocated 출력 포트 상당 신호
+7011h	Numerical data flag 수치 데이터 읽기 지시 플래그
+7012h	Start flag 수치 지시 실행 플래그
+7020h	Movement mode 동작 방법			1:ABS, 2:INC
+7021h	Speed 속도						[mm/s]
+7022h	Target position 위치				[0.01mm]
+7023h	Acceleration 가속도				[mm/s^2]
+7024h	Deceleration 감속도				[mm/s^2]
+7025h	Pushing force 맞춤 추력			[%]
+7026h	Trigger LV 변환기준치			[%]
+7027h	Pushing speed 맞춤 속도			[mm/s]
+7028h	Moving force 위치 결정 추력		[%]
+7029h	Area1 영역 출력단 1				[0.01mm]
+702Ah	Area2 영역 출력단 2				[0.01mm]
+702Bh	In Position 위치 결정 폭			[0.01mm]
+
+7011h
+	Bit.04 동작방법
+	Bit.05 속도
+	Bit.06 위치
+	Bit.07 가속도
+	Bit.08 감속도
+	Bit.09 맞춤 추력
+	Bit.10 변환기준치
+	Bit.11 맞춤 속도
+	Bit.12 위치 결정 추력
+	Bit.13 영역 출력단 1
+	Bit.14 영역 출력단 2
+	Bit.15 위치 결정 폭

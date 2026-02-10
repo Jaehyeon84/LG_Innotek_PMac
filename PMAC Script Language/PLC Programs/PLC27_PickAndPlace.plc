@@ -1,0 +1,1122 @@
+//######################################################################################################
+// PLC 27 : Pick & Place Test
+//######################################################################################################
+
+
+// Ws:Wait,		Vs:Wait
+// Ws:Unoad,	Vs:Wait
+// Ws:Wait,		Vs:Wait
+// Ws:Wait,		Vs:Load
+// Ws:Wait,		Vs:Wait
+// Ws:Wait,		Vs:Unload
+// Ws:Wait,		Vs:Wait
+// Ws:Load,		Vs:Wait
+
+
+global gMc_TransTest_Start = 0;
+global gMc_TransTest_Abort = 0;
+
+global gMc_TransTest_Ena = 0;
+global gMc_TransTest_Sta = 0;
+global gMc_TransTest_Seq = 0;
+global gMc_TransTest_Buf = 0;
+global gMc_TransTest_Tmr = 0;
+global gMc_TransTest_Err = 0;
+
+global gMc_TransTest_Vel = 100;
+
+open plc 27 
+	
+	if(gMc_TransTest_Start==1)
+	{
+		gMc_TransTest_Start = 0;
+		gMc_TransTest_Seq = 1;
+		gMc_TransTest_Ena = 1;
+	}
+
+	if(gMc_TransTest_Abort==1)
+	{
+		gMc_TransTest_Abort = 0;
+		abort 1,3
+		gMc_TransTest_Seq = 0;
+		gMc_TransTest_Ena = 0;
+	}
+
+
+	if(gMc_TransTest_Ena==1)
+	{
+		switch(gMc_TransTest_Seq)
+		{
+		//------------------------------------------------//
+		// Ready
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gMc_TransTest_Sta = cSeqSta_Ing;
+					gMc_TransTest_Seq = 2;
+				}
+				else
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Coord[1].HomeComplete==1 && Coord[3].HomeComplete==1)
+				{
+					gMc_TransTest_Seq = 3;
+				}
+				else
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Coord[1].AmpEna==1 && Coord[3].AmpEna==1)
+				{
+					gMc_TransTest_Tmr = Sys.Time + 2;
+					gMc_TransTest_Seq = 4;
+				}
+				else
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Coord[1].InPos==1 && Coord[3].InPos==1)
+				{
+					gMc_TransTest_Seq = 5;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 5:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+//				if(gWs_RunOpt&cRunOpt_SkipWsPdSen!=0)
+//				{
+//					gMc_TransTest_Buf = gMc_TransTest_Seq;
+//					gWs_TgtMov_VelX = gMc_TransTest_Vel;
+//					gWs_TgtMov_VelY = gMc_TransTest_Vel;
+//					gWs_TgtMov_VelC = 270;
+
+//					gVs_TgtMov_VelX = gMc_TransTest_Vel;
+//					gVs_TgtMov_VelY = gMc_TransTest_Vel;
+//					gVs_TgtMov_VelC = 270;
+//					gMc_TransTest_Seq = 10;
+//				}
+//				else if(pUmem_Di1C_WsTbDet==cDet_On)
+				if(gWs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				{
+					gMc_TransTest_Buf = gMc_TransTest_Seq;
+					gWs_TgtMov_VelX = gMc_TransTest_Vel;
+					gWs_TgtMov_VelY = gMc_TransTest_Vel;
+					gWs_TgtMov_VelC = 270;
+
+					gVs_TgtMov_VelX = gMc_TransTest_Vel;
+					gVs_TgtMov_VelY = gMc_TransTest_Vel;
+					gVs_TgtMov_VelC = 270;
+					gMc_TransTest_Seq = 10;
+				}
+				else
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Ws Unload
+		//------------------------------------------------//
+			case 10:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				//gWs_CoverCls_Sta = cSeqSta_Idl;
+				gWs_CoverCls_Start = 1;
+				gMc_TransTest_Seq = 11
+			break;
+
+			case 11:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_CoverCls_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 12;
+				}
+				else if(gWs_CoverCls_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 12:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				
+				gWs_TgtMov_Sta = cSeqSta_Idl;
+				gWs_TgtMov_PosX = pUmem_Cmd_Ws_WtPosX;
+				gWs_TgtMov_PosY = pUmem_Cmd_Ws_WtPosY;
+				gWs_TgtMov_PosC = pUmem_Cmd_Ws_WtPosC;
+				gWs_TgtMov_Start = 1;
+
+				gVs_TgtMov_Sta = cSeqSta_Idl;
+				gVs_TgtMov_PosX = pUmem_Cmd_Vs_WtPosX;
+				gVs_TgtMov_PosY = pUmem_Cmd_Vs_WtPosY;
+				gVs_TgtMov_PosC = pUmem_Cmd_Vs_WtPosC;
+				gVs_TgtMov_Start = 1;
+
+				gMc_TransTest_Seq = 13;
+			break;		
+
+			case 13:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+
+				if(gWs_TgtMov_Sta==cSeqSta_Err || gVs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gWs_TgtMov_Sta==cSeqSta_Fin && gVs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 14;
+				}
+			break;
+
+			case 14:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				
+				gWs_TgtMov_Sta = cSeqSta_Idl;
+				gWs_TgtMov_PosX = pUmem_Cmd_Ws_UdPosX;
+				gWs_TgtMov_PosY = pUmem_Cmd_Ws_UdPosY;
+				gWs_TgtMov_PosC = cWs_Cover_MoveAng;
+				gWs_TgtMov_Start = 1;
+
+				gVs_TgtMov_Sta = cSeqSta_Idl;
+				gVs_TgtMov_PosX = pUmem_Cmd_Vs_WtPosX;
+				gVs_TgtMov_PosY = pUmem_Cmd_Vs_WtPosY;
+				gVs_TgtMov_PosC = pUmem_Cmd_Vs_WtPosC;
+				gVs_TgtMov_Start = 1;
+
+				gMc_TransTest_Seq = 15;
+			break;		
+
+			case 15:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+
+				if(gWs_TgtMov_Sta==cSeqSta_Err || gVs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gWs_TgtMov_Sta==cSeqSta_Fin && gVs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 16;
+				}
+			break;
+
+			case 16:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				//gWs_CoverOpn_Sta = cSeqSta_Idl;
+				gWs_CoverOpn_Start = 1;
+				gMc_TransTest_Seq = 17;
+			break;
+
+			case 17:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_CoverOpn_Sta==cSeqSta_Fin)
+				{
+					gWs_TgtMov_Sta = cSeqSta_Idl;
+					gWs_TgtMov_PosX = pUmem_Cmd_Ws_UdPosX;
+					gWs_TgtMov_PosY = pUmem_Cmd_Ws_UdPosY;
+					gWs_TgtMov_PosC = pUmem_Cmd_Ws_UdPosC;
+					gWs_TgtMov_Start = 1;
+
+					gMc_TransTest_Seq = 18;
+				}
+				else if(gWs_CoverOpn_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 18:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gWs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 20;
+				}
+			break;
+
+		//------------------------------------------------//
+		// Pick
+		//------------------------------------------------//
+			Case 20:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				pUmem_Do14_TrGripCls = 0;
+				pUmem_Do16_TrGripOpn = 1;
+				gMc_TransTest_Tmr = Sys.Time + 0.1;
+				gMc_TransTest_Seq = 21;
+			break;
+
+			Case 21:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 22;
+				}
+			break;
+
+			Case 22:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerOC==cOpn)
+				{
+					pUmem_Do18_TrPickUp = 0;
+					pUmem_Do1A_TrPickDn = 1;
+					gMc_TransTest_Tmr = Sys.Time + 0.1;
+					gMc_TransTest_Seq = 23;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			Case 23:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 24;
+				}
+			break;
+
+			Case 24:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerUD==cDn)
+				{
+					call Timer.msec(100);
+					pUmem_Do16_TrGripOpn = 0;
+					pUmem_Do14_TrGripCls = 1;
+					gMc_TransTest_Tmr = Sys.Time + 0.1;
+					gMc_TransTest_Seq = 25;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			Case 25:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 26;
+				}
+			break;
+
+			Case 26:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerOC==cCls)
+				{
+					call Timer.msec(100);
+					pUmem_Do1A_TrPickDn = 0;
+					pUmem_Do18_TrPickUp = 1;
+					gMc_TransTest_Tmr = Sys.Time + 0.1;
+					gMc_TransTest_Seq = 27;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			Case 27:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 28;
+				}
+			break;
+
+			Case 28:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerUD==cUp)
+				{
+					gMc_TransTest_Tmr = Sys.Time + 2;
+					gMc_TransTest_Seq = 29;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			Case 29:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_RunOpt&cRunOpt_SkipWsPdSen!=0)
+				{
+					gWs_Sta_Pdt=cPdtSta_Blk;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gMc_TransTest_Seq = 30;
+				}
+				else if(pUmem_Di1C_WsTbDet==cDet_Off)
+				{
+					gWs_Sta_Pdt=cPdtSta_Blk;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gMc_TransTest_Seq = 30;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Vs Load
+		//------------------------------------------------//
+			case 30:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				
+				gWs_TgtMov_Sta = cSeqSta_Idl;
+				gWs_TgtMov_PosX = pUmem_Cmd_Ws_WtPosX;
+				gWs_TgtMov_PosY = pUmem_Cmd_Ws_WtPosY;
+				gWs_TgtMov_PosC = pUmem_Cmd_Ws_WtPosC;
+				gWs_TgtMov_Start = 1;
+
+				gVs_TgtMov_Sta = cSeqSta_Idl;
+				gVs_TgtMov_PosX = pUmem_Cmd_Vs_WtPosX;
+				gVs_TgtMov_PosY = pUmem_Cmd_Vs_WtPosY;
+				gVs_TgtMov_PosC = pUmem_Cmd_Vs_WtPosC;
+				gVs_TgtMov_Start = 1;
+
+				gMc_TransTest_Seq = 31;
+			break;		
+
+			case 31:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+
+				if(gWs_TgtMov_Sta==cSeqSta_Err || gVs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gWs_TgtMov_Sta==cSeqSta_Fin && gVs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 32;
+				}
+			break;
+
+			case 32:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				
+				gWs_TgtMov_Sta = cSeqSta_Idl;
+				gWs_TgtMov_PosX = pUmem_Cmd_Ws_WtPosX;
+				gWs_TgtMov_PosY = pUmem_Cmd_Ws_WtPosY;
+				gWs_TgtMov_PosC = cVs_Cover_MoveAng;
+				gWs_TgtMov_Start = 1;
+
+				gVs_TgtMov_Sta = cSeqSta_Idl;
+				gVs_TgtMov_PosX = pUmem_Cmd_Vs_LdPosX;
+				gVs_TgtMov_PosY = pUmem_Cmd_Vs_LdPosY;
+				gVs_TgtMov_PosC = pUmem_Cmd_Vs_LdPosC;
+				gVs_TgtMov_Start = 1;
+
+				gMc_TransTest_Seq = 33;
+			break;		
+
+			case 33:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+
+				if(gWs_TgtMov_Sta==cSeqSta_Err || gVs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gWs_TgtMov_Sta==cSeqSta_Fin && gVs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 34;
+				}
+			break;
+
+			case 34:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				gVs_CoverOpn_Sta = cSeqSta_Idl;
+				gVs_CoverOpn_Start = 1;
+				gMc_TransTest_Seq = 35;
+			break;
+
+			case 35:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gVs_CoverOpn_Sta==cSeqSta_Fin)
+				{
+					gVs_TgtMov_Sta = cSeqSta_Idl;
+					gVs_TgtMov_PosX = pUmem_Cmd_Vs_LdPosX;
+					gVs_TgtMov_PosY = pUmem_Cmd_Vs_LdPosY;
+					gVs_TgtMov_PosC = pUmem_Cmd_Vs_LdPosC;
+					gVs_TgtMov_Start = 1;
+
+					gMc_TransTest_Seq = 36;
+				}
+				else if(gVs_CoverOpn_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 36:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gVs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gVs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 40;
+				}
+			break;
+
+		//------------------------------------------------//
+		// Place
+		//------------------------------------------------//
+			case 40:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				pUmem_Do18_TrPickUp = 0;
+				pUmem_Do1A_TrPickDn = 1;
+				gMc_TransTest_Tmr = Sys.Time + 0.1;
+				gMc_TransTest_Seq = 41;
+			break;
+
+			case 41:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 42;
+				}
+			break;
+
+			case 42:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerUD==cDn)
+				{
+					call Timer.msec(100);
+					pUmem_Do14_TrGripCls = 0;
+					pUmem_Do16_TrGripOpn = 1;
+					gMc_TransTest_Tmr = Sys.Time + 0.1;
+					gMc_TransTest_Seq = 43;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 43:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 44;
+				}
+			break;
+
+			case 44:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerOC==cOpn)
+				{
+					call Timer.msec(100);
+					pUmem_Do1A_TrPickDn = 0;
+					pUmem_Do18_TrPickUp = 1;
+					gMc_TransTest_Tmr = Sys.Time + 0.1;
+					gMc_TransTest_Seq = 45;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 45:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 46;
+				}
+			break;
+
+			case 46:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerUD==cUp)
+				{
+					gMc_TransTest_Seq = 47;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 47:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_RunOpt&cRunOpt_SkipWsPdSen!=0)
+				{
+					gVs_Sta_Pdt=cPdtSta_Bvn;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gMc_TransTest_Seq = 50;
+				}
+				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				{
+					gVs_Sta_Pdt=cPdtSta_Bvn;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gMc_TransTest_Seq = 50;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Vs Unoad
+		//------------------------------------------------//
+			case 50:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				gVs_CoverCls_Sta = cSeqSta_Idl;
+				gVs_CoverCls_Start = 1;
+				gMc_TransTest_Seq = 51
+			break;
+
+			case 51:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gVs_CoverCls_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 52;
+				}
+				else if(gVs_CoverCls_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;	
+
+			case 52:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				
+				gWs_TgtMov_Sta = cSeqSta_Idl;
+				gWs_TgtMov_PosX = pUmem_Cmd_Ws_WtPosX;
+				gWs_TgtMov_PosY = pUmem_Cmd_Ws_WtPosY;
+				gWs_TgtMov_PosC = pUmem_Cmd_Ws_WtPosC;
+				gWs_TgtMov_Start = 1;
+
+				gVs_TgtMov_Sta = cSeqSta_Idl;
+				gVs_TgtMov_PosX = pUmem_Cmd_Vs_WtPosX;
+				gVs_TgtMov_PosY = pUmem_Cmd_Vs_WtPosY;
+				gVs_TgtMov_PosC = pUmem_Cmd_Vs_WtPosC;
+				gVs_TgtMov_Start = 1;
+
+				gMc_TransTest_Seq = 53;
+			break;		
+
+			case 53:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+
+				if(gWs_TgtMov_Sta==cSeqSta_Err || gVs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gWs_TgtMov_Sta==cSeqSta_Fin && gVs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 54;
+				}
+			break;
+
+			case 54:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				
+				gWs_TgtMov_Sta = cSeqSta_Idl;
+				gWs_TgtMov_PosX = pUmem_Cmd_Ws_WtPosX;
+				gWs_TgtMov_PosY = pUmem_Cmd_Ws_WtPosY;
+				gWs_TgtMov_PosC = pUmem_Cmd_Ws_WtPosC;
+				gWs_TgtMov_Start = 1;
+
+				gVs_TgtMov_Sta = cSeqSta_Idl;
+				gVs_TgtMov_PosX = pUmem_Cmd_Vs_LdPosX;
+				gVs_TgtMov_PosY = pUmem_Cmd_Vs_LdPosY;
+				gVs_TgtMov_PosC = cVs_Cover_MoveAng;
+				gVs_TgtMov_Start = 1;
+
+				gMc_TransTest_Seq = 55;
+			break;		
+
+			case 55:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_TgtMov_Sta==cSeqSta_Err || gVs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gWs_TgtMov_Sta==cSeqSta_Fin && gVs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 56;
+				}
+			break;
+
+			case 56:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				gVs_CoverOpn_Sta = cSeqSta_Idl;
+				gVs_CoverOpn_Start = 1;
+				gMc_TransTest_Seq = 57;
+			break;
+
+			case 57:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gVs_CoverOpn_Sta==cSeqSta_Fin)
+				{
+					gVs_TgtMov_Sta = cSeqSta_Idl;
+					gVs_TgtMov_PosX = pUmem_Cmd_Vs_LdPosX;
+					gVs_TgtMov_PosY = pUmem_Cmd_Vs_LdPosY;
+					gVs_TgtMov_PosC = pUmem_Cmd_Vs_LdPosC;
+					gVs_TgtMov_Start = 1;
+
+					gMc_TransTest_Seq = 58;
+				}
+				else if(gVs_CoverOpn_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 58:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gVs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gVs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 60;
+				}
+			break;
+		//------------------------------------------------//
+		// Pick
+		//------------------------------------------------//
+			Case 60:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				pUmem_Do14_TrGripCls = 0;
+				pUmem_Do16_TrGripOpn = 1;
+				gMc_TransTest_Tmr = Sys.Time + 0.1;
+				gMc_TransTest_Seq = 61;
+			break;
+
+			Case 61:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 62;
+				}
+			break;
+
+			Case 62:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerOC==cOpn)
+				{
+					pUmem_Do18_TrPickUp = 0;
+					pUmem_Do1A_TrPickDn = 1;
+					gMc_TransTest_Tmr = Sys.Time + 0.1;
+					gMc_TransTest_Seq = 63;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			Case 63:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 64;
+				}
+			break;
+
+			Case 64:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerUD==cDn)
+				{
+					call Timer.msec(100);
+					pUmem_Do16_TrGripOpn = 0;
+					pUmem_Do14_TrGripCls = 1;
+					gMc_TransTest_Tmr = Sys.Time + 0.1;
+					gMc_TransTest_Seq = 65;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			Case 65:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 66;
+				}
+			break;
+
+			Case 66:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerOC==cCls)
+				{
+					call Timer.msec(100);
+					pUmem_Do1A_TrPickDn = 0;
+					pUmem_Do18_TrPickUp = 1;
+					gMc_TransTest_Tmr = Sys.Time + 0.1;
+					gMc_TransTest_Seq = 67;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			Case 67:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 68;
+				}
+			break;
+
+			Case 68:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerUD==cUp)
+				{
+					gMc_TransTest_Tmr = Sys.Time + 2;
+					gMc_TransTest_Seq = 69;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			Case 69:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_RunOpt&cRunOpt_SkipWsPdSen!=0)
+				{
+					gVs_Sta_Pdt=cPdtSta_Blk;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gMc_TransTest_Seq = 70;
+				}
+				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				{
+					gVs_Sta_Pdt=cPdtSta_Blk;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gMc_TransTest_Seq = 70;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Ws Load
+		//------------------------------------------------//
+			case 70:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				
+				gWs_TgtMov_Sta = cSeqSta_Idl;
+				gWs_TgtMov_PosX = pUmem_Cmd_Ws_WtPosX;
+				gWs_TgtMov_PosY = pUmem_Cmd_Ws_WtPosY;
+				gWs_TgtMov_PosC = pUmem_Cmd_Ws_WtPosC;
+				gWs_TgtMov_Start = 1;
+
+				gVs_TgtMov_Sta = cSeqSta_Idl;
+				gVs_TgtMov_PosX = pUmem_Cmd_Vs_WtPosX;
+				gVs_TgtMov_PosY = pUmem_Cmd_Vs_WtPosY;
+				gVs_TgtMov_PosC = pUmem_Cmd_Vs_WtPosC;
+				gVs_TgtMov_Start = 1;
+
+				gMc_TransTest_Seq = 71;
+			break;		
+
+			case 71:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+
+				if(gWs_TgtMov_Sta==cSeqSta_Err || gVs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gWs_TgtMov_Sta==cSeqSta_Fin && gVs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 72;
+				}
+			break;
+
+			case 72:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				
+				gWs_TgtMov_Sta = cSeqSta_Idl;
+				gWs_TgtMov_PosX = pUmem_Cmd_Ws_UdPosX;
+				gWs_TgtMov_PosY = pUmem_Cmd_Ws_UdPosY;
+				gWs_TgtMov_PosC = cWs_Cover_MoveAng;
+				gWs_TgtMov_Start = 1;
+
+				gVs_TgtMov_Sta = cSeqSta_Idl;
+				gVs_TgtMov_PosX = pUmem_Cmd_Vs_WtPosX;
+				gVs_TgtMov_PosY = pUmem_Cmd_Vs_WtPosY;
+				gVs_TgtMov_PosC = pUmem_Cmd_Vs_WtPosC;
+				gVs_TgtMov_Start = 1;
+
+				gMc_TransTest_Seq = 73;
+			break;		
+
+			case 73:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_TgtMov_Sta==cSeqSta_Err || gVs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gWs_TgtMov_Sta==cSeqSta_Fin && gVs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 74;
+				}
+			break;
+
+			case 74:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				//gWs_CoverOpn_Sta = cSeqSta_Idl;
+				gWs_CoverOpn_Start = 1;
+				gMc_TransTest_Seq = 75;
+			break;
+
+			case 75:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_CoverOpn_Sta==cSeqSta_Fin)
+				{
+					gWs_TgtMov_Sta = cSeqSta_Idl;
+					gWs_TgtMov_PosX = pUmem_Cmd_Ws_UdPosX;
+					gWs_TgtMov_PosY = pUmem_Cmd_Ws_UdPosY;
+					gWs_TgtMov_PosC = pUmem_Cmd_Ws_UdPosC;
+					gWs_TgtMov_Start = 1;
+
+					gMc_TransTest_Seq = 76;
+				}
+				else if(gWs_CoverOpn_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 76:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_TgtMov_Sta==cSeqSta_Err)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+				else if(gWs_TgtMov_Sta==cSeqSta_Fin)
+				{
+					gMc_TransTest_Seq = 80;
+				}
+			break;
+		//------------------------------------------------//
+		// Place
+		//------------------------------------------------//
+			case 80:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				pUmem_Do18_TrPickUp = 0;
+				pUmem_Do1A_TrPickDn = 1;
+				gMc_TransTest_Tmr = Sys.Time + 0.1;
+				gMc_TransTest_Seq = 81;
+			break;
+
+			case 81:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 82;
+				}
+			break;
+
+			case 82:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerUD==cDn)
+				{
+					call Timer.msec(100);
+					pUmem_Do14_TrGripCls = 0;
+					pUmem_Do16_TrGripOpn = 1;
+					gMc_TransTest_Tmr = Sys.Time + 0.1;
+					gMc_TransTest_Seq = 83;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 83:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 84;
+				}
+			break;
+
+			case 84:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerOC==cOpn)
+				{
+					call Timer.msec(100);
+					pUmem_Do1A_TrPickDn = 0;
+					pUmem_Do18_TrPickUp = 1;
+					gMc_TransTest_Tmr = Sys.Time + 0.1;
+					gMc_TransTest_Seq = 85;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 85:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_TransTest_Seq = 86;
+				}
+			break;
+
+			case 86:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gTr_CldIn_PickerUD==cUp)
+				{
+					gMc_TransTest_Seq = 87;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 87:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				if(gWs_RunOpt&cRunOpt_SkipWsPdSen!=0)
+				{
+					gWs_Sta_Pdt = cPdtSta_Bwd;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gMc_TransTest_Seq = 90;
+				}
+				else if(pUmem_Di1C_WsTbDet==cDet_Off)
+				{
+					gWs_Sta_Pdt = cPdtSta_Bwd;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gMc_TransTest_Seq = 90;
+				}
+				else if(Sys.time > gMc_TransTest_Tmr)
+				{
+					gMc_TransTest_Sta = cSeqSta_Err;
+					gMc_TransTest_Seq = 0;
+					gMc_TransTest_Ena = 0;
+				}
+			break;
+
+			case 90:
+				gMc_TransTest_Buf = gMc_TransTest_Seq;
+				gMc_TransTest_Seq = 1;
+				//gMc_TransTest_Sta = cSeqSta_Fin;
+				//gMc_TransTest_Seq = 0;
+				//gMc_TransTest_Ena = 0;
+			break;
+		
+			default:
+				gMc_TransTest_Sta = cSeqSta_Err;
+				gMc_TransTest_Seq = 0;
+				gMc_TransTest_Ena = 0;
+			break;
+		}
+
+	}
+close

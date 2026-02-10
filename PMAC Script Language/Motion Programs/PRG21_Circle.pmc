@@ -1,0 +1,41 @@
+
+
+open prog 21
+	local rad, move_time,det = 0;
+
+	rad = gWs_WblLen/1000/2						// Calculation Radious
+	move_time = gWs_WblDst/(Coord[1].Tm*-1)		// Calculation Move Time
+	gWs_WblCnt = 0								// Clear Wobble Count
+
+	if(Ldata.coord!=2) return
+	if(gWs_WblRatW<=0 || gWs_WblRatL<=0) return;
+
+	tsel 1					// Select Transformation Matrix
+	det = tinit(1)			// Transformation Matrix Initialize
+	Tdata[1].Bias[6] = gWs_WblOfsX/1000			// Set X Offset
+	Tdata[1].Bias[7] = gWs_WblOfsY/1000			// Set Y Offset
+	Tdata[1].Diag[6] = gWs_WblRatW/100			// Set X Scale
+	Tdata[1].Diag[7] = gWs_WblRatL/100			// Set Y Scale
+
+
+	Coord[2].pDesTimeBase = Coord[2].DesTimeBase.a		// Disable External Time Base
+
+	abs
+	tm(move_time) ta(0) ts(0)
+
+	linear
+	X0 Y0							// Move to Zero
+	dwell 0
+
+	while(gWs_LaserEna==0){}		// Wait untile Laser Enable
+
+	EncTable[esM].ScaleFactor=1/(256*(EncTable[esM].index5+1)*(Coord[1].Tm*-1))		// Calculate Time Base Scale (Sync Vector Velocity)
+	Coord[2].pDesTimeBase = EncTable[esM].DeltaPos.a	// Enable External Time Base
+
+	circle1
+	while(gWs_LaserEna==1 && Coord[1].ProgRunning==1)
+	{
+		i(rad) j(0)
+		gWs_WblCnt++
+	}
+close

@@ -1,0 +1,5 @@
+pUmem_Sta_Mc_ID
+pUmem_Cmd_HomeOffset(01),32
+pUmem_Cmd_Ws_AccLimitX,100
+pUmem_Cmd_Vs_AccLimitX,100
+pUmem_Cmd_Sc_WblEna,90

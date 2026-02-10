@@ -1,0 +1,36 @@
+//------------------------------------------------------//
+// Gate3[i].SerialEncCtrl (Control Register)
+//------------------------------------------------------//
+// 31: to 20 Reserve Always set 0.
+// 19: TxEnable SL2-100 data send enable
+//		0: SL2-100 output stop
+//		1: SL2-100 output enable
+// 18: Reserve Always set 0.
+// 17: ClockSel Set the clock to use for the linear interpolation of SL2-100 and the delay time of PWM output.
+//		0: Servo clock
+//		1: Phase clock
+// 16: Sync Set the synchronous or asynchronous mode for linear interpolation.
+//		0: Asynchronous Mode
+//		1: Synchronous Mode
+// 15 to 13: Control Bits Set the type of transmission data. *1
+//		001: Command Position
+//		111: Control command
+// 12: EdgeSel Set the clock edge to use for linear interpolation.
+//		0: Rising edge
+//		1: Falling edge
+// 11: Tx Valid Enable or disable transmission data.
+//		0: Transmission data disable
+//		1: Transmission data enable
+// 10 to 0: Reserve Always set 0.
+
+//------------------------------------------------------//
+// Gate3[i].Chan[j].SerialEncDataB (Status Data)
+//------------------------------------------------------//
+// 31 TxRx_Error
+// 30 Power_OK
+// 29 Temp_OK
+// 28 Position_Ack
+// 27 Data for maintenance
+// 26 to 14 Reserve
+// 13 to 08 Data for maintenance
+// 07 to 00 Number of frames received

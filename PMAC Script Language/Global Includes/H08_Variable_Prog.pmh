@@ -1,0 +1,1391 @@
+//######################################################################################################
+// Header 08 : Program Variable
+//######################################################################################################
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Run Mode/Optuon
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define cRunMode_Manual				0
+#define cRunMode_Auto				1
+
+#define cRunOpt_Cycle				$01
+#define cRunOpt_Step				$02
+
+#define cRunOpt_SkipWsLdReq			$01
+#define cRunOpt_SkipWsRjReq			$02
+#define cRunOpt_SkipWsVnReq			$04
+#define cRunOpt_SkipWsLwReq			$08
+#define cRunOpt_SensWsTemp			$10
+#define cRunOpt_SkipWsPdSen			$80
+
+#define cRunOpt_SkipVsUdReq			$01
+#define cRunOpt_SkipVsRjReq			$02
+#define cRunOpt_SkipVsVsReq			$04
+#define cRunOpt_SkipVsVeReq			$08
+#define cRunOpt_SkipVsPdSen			$80
+
+global gKey_RunMod = 0;
+global gMc_RunMod = 0;
+global gMc_RunOpt = 0;
+
+global gWs_RunOpt = 0;
+global gVs_RunOpt = 0;
+
+global gWs_StepRun = 0;
+global gVs_StepRun = 0;
+
+global gTest_Vel = 100000;
+global gWs_LaserTest_Ena = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// RTI
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define cWs_Mode_Mnul			0
+#define cWs_Mode_Auto			1
+
+#define cWbl_Type_Circel		0
+#define cWbl_Type_Snowman		1
+#define cWbl_Type_Butterfly		2
+#define cWbl_Type_Column		3
+#define cWbl_Type_Row			4
+
+//----------------------------------------------------------------------//
+// Machine Servo Count Parameters
+//----------------------------------------------------------------------//
+global gMc_Servo_Cnt_Cur = 0;
+global gMc_Servo_Cnt_Old = 0;
+global gMc_Servo_Cnt_Dlt = 0;
+global gMc_Servo_Prd_Dlt = 0;
+
+//----------------------------------------------------------------------//
+// Welding Acceleration,Velocity,Position Parameters
+//----------------------------------------------------------------------//
+global gWs_AccLimitX = 0;
+global gWs_AccLimitY = 0;
+global gWs_AccLimitC = 0;
+global gWs_VelLimitC = 0;
+
+global gWs_PosX_Cur = 0;
+global gWs_PosY_Cur = 0;
+global gWs_PosX_Old = 0;
+global gWs_PosY_Old = 0;
+
+global gWs_PosX_Dlt = 0;
+global gWs_PosY_Dlt = 0;
+global gWs_PosV_Dlt = 0;
+
+global gWs_Vect_Vel = 0;
+global gWs_Vect_Sum = 0;
+ptr pWs_Vect_Dlt ->Sys.Ddata[1000]
+pWs_Vect_Dlt = 0;
+
+//----------------------------------------------------------------------//
+// Laser Output Parameters
+//----------------------------------------------------------------------//
+global gWs_OutMode	= 0;
+global gWs_RefVel	= 10;
+global gWs_VelRatio = 0;
+global gWs_LaserEna = 0;
+
+//----------------------------------------------------------------------//
+// Core Laser Parameters
+//----------------------------------------------------------------------//
+global gWs_CorePowSf = 0;		// [W/Volt]
+
+global gWs_CoreRefPow = 0;		// [W]
+global gWs_CoreMinPow = 0;		// [W]
+global gWs_CoreMaxPow = 0;		// [W]
+global gWs_CoreOutPow = 0;
+global gWs_CoreOutVdc = 0;
+global gWs_CorePfmEna = 0;
+
+//----------------------------------------------------------------------//
+// Ring Laser Parameters
+//----------------------------------------------------------------------//
+global gWs_RingPowSf = 0;		// [W/Volt]
+
+global gWs_RingRefPow = 0;		// [W]
+global gWs_RingMinPow = 0;		// [W]
+global gWs_RingMaxPow = 0;		// [W]
+global gWs_RingOutPow = 0;
+global gWs_RingOutVdc = 0;
+global gWs_RingPfmEna = 0;
+
+//----------------------------------------------------------------------//
+// Pfm Out Parameters
+//----------------------------------------------------------------------//
+global gWs_PfmRtiCnt = 0;
+global gWs_PfmPeriod = 0;
+global gWs_PfmOnTime = 0;
+global gWs_PfmOnCnt = 0;
+
+global gWs_PfmOut = 0;
+global gWs_PfmBuf = 0;
+global gWs_PfmCnt = 0;
+
+//----------------------------------------------------------------------//
+// Wobble Parameters
+//----------------------------------------------------------------------//
+global gWs_WblEna = 0;
+global gWs_WblLen = 0;
+global gWs_WblDst = 0;
+global gWs_WblCnt = 0;
+
+global gWs_WblType = 0;
+global gWs_WblRatW = 100;
+global gWs_WblRatL = 100;
+global gWs_WblOfsX = 0;
+global gWs_WblOfsY = 0;
+
+//----------------------------------------------------------------------//
+// Vision Acceleration,Velocity,Position Parameters
+//----------------------------------------------------------------------//
+global gVs_AccLimitX = 0;
+global gVs_AccLimitY = 0;
+global gVs_AccLimitC = 0;
+global gVs_VelLimitC = 0;
+
+global gVs_PosX_Cur = 0;
+global gVs_PosY_Cur = 0;
+global gVs_PosX_Old = 0;
+global gVs_PosY_Old = 0;
+
+global gVs_PosX_Dlt = 0;
+global gVs_PosY_Dlt = 0;
+global gVs_PosV_Dlt = 0;
+
+global gVs_Vect_Vel = 0;
+global gVs_Vect_Sum = 0;
+ptr pVs_Vect_Dlt ->Sys.Ddata[1001]
+pVs_Vect_Dlt = 0;
+
+//----------------------------------------------------------------------//
+// Vision Trigger Parameters
+//----------------------------------------------------------------------//
+global gVs_RefVel = 10;
+global gVs_PfmPeriod = 0;
+global gVs_PfmDuty = 0;
+
+global gVs_EquEna = 0;
+global gVs_EquCnt = 0;
+
+global gVs_EquSta_Cur = 0;
+global gVs_EquSta_Old = 0;
+
+//----------------------------------------------------------------------//
+// Scanner Position Parameters
+//----------------------------------------------------------------------//
+global gSc_PosX_Cur = 0;
+global gSc_PosY_Cur = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLC 02 : Status PLC
+////////////////////////////////////////////////////////////////////////////////////////////////////
+global gSta_Idx = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLC 03 : Command PLC
+////////////////////////////////////////////////////////////////////////////////////////////////////
+global gCmd_Idx = 0;
+
+global gMt_HomeStart_Cur(32);
+global gMt_HomeStart_Old(32);
+gMt_HomeStart_Old(0),32 = 0;
+gMt_HomeStart_Cur(0),32 = 0;
+
+global gMt_HomeAbort_Cur(32);
+global gMt_HomeAbort_Old(32);
+gMt_HomeAbort_Cur(0),32 = 0;
+gMt_HomeAbort_Old(0),32 = 0;
+
+global gMt_ServoOn_Cur(32);
+global gMt_ServoOn_Old(32);
+gMt_ServoOn_Cur(0),32 = 0;
+gMt_ServoOn_Old(0),32 = 0;
+
+global gMt_ServoOff_Cur(32);
+global gMt_ServoOff_Old(32);
+gMt_ServoOff_Cur(0),32 = 0;
+gMt_ServoOff_Old(0),32 = 0;
+
+global gMt_Jog_Stop_Cur(32);
+global gMt_Jog_Stop_Old(32);
+gMt_Jog_Stop_Cur(0),32 = 0;
+gMt_Jog_Stop_Old(0),32 = 0;
+
+global gMt_Jog_ContPlus_Cur(32);
+global gMt_Jog_ContPlus_Old(32);
+gMt_Jog_ContPlus_Cur(0),32 = 0;
+gMt_Jog_ContPlus_Old(0),32 = 0;
+
+global gMt_Jog_ContMinus_Cur(32);
+global gMt_Jog_ContMinus_Old(32);
+gMt_Jog_ContMinus_Cur(0),32 = 0;
+gMt_Jog_ContMinus_Old(0),32 = 0;
+
+global gMt_Jog_AbsMove_Cur(32);
+global gMt_Jog_AbsMove_Old(32);
+gMt_Jog_AbsMove_Cur(0),32 = 0;
+gMt_Jog_AbsMove_Old(0),32 = 0;
+
+global gMt_Jog_IncMove_Cur(32);
+global gMt_Jog_IncMove_Old(32);
+gMt_Jog_IncMove_Cur(0),32 = 0;
+gMt_Jog_IncMove_Old(0),32 = 0;
+
+global gMc_ServoOn_Cur = 0;
+global gMc_ServoOn_Old = 0;
+global gMc_ServoOff_Cur = 0;
+global gMc_ServoOff_Old = 0;
+global gMc_HomeStart_Cur = 0;
+global gMc_HomeStart_Old = 0;
+global gMc_HomeAbort_Cur = 0;
+global gMc_HomeAbort_Old = 0;
+global gMc_AlarmReset_Cur = 0;
+global gMc_AlarmReset_Old = 0;
+
+global gMc_RunMod_Cur = 0;
+global gMc_RunMod_Old = 0;
+global gMc_AutoStart_Cur = 0;
+global gMc_AutoStart_Old = 0;
+global gMc_AutoAbort_Cur = 0;
+global gMc_AutoAbort_Old = 0;
+global gMc_AutoPause_Cur = 0;
+global gMc_AutoPause_Old = 0;
+global gMc_CycleStart_Cur = 0;
+global gMc_CycleStart_Old = 0;
+global gMc_StepStart_Cur = 0;
+global gMc_StepStart_Old = 0;
+global gMc_Fsave_Cur = 0;
+global gMc_Fsave_Old = 0;
+
+global gWs_ServoOn_Cur = 0;
+global gWs_ServoOn_Old = 0;
+global gWs_ServoOff_Cur = 0;
+global gWs_ServoOff_Old = 0;
+global gWs_HomeStart_Cur = 0;
+global gWs_HomeStart_Old = 0;
+global gWs_HomeAbort_Cur = 0;
+global gWs_HomeAbort_Old = 0;
+global gWs_AlarmReset_Cur = 0;
+global gWs_AlarmReset_Old = 0;
+global gWs_AlarmRetry_Cur = 0;
+global gWs_AlarmRetry_Old = 0;
+global gWs_AlarmAbort_Cur = 0;
+global gWs_AlarmAbort_Old = 0;
+
+global gWs_PowerCheck_Cur = 0;
+global gWs_PowerCheck_Old = 0;
+global gWs_TestShot_Cur = 0;
+global gWs_TestShot_Old = 0;
+
+global gWs_LaserEnableStart_Cur = 0;
+global gWs_LaserEnableStart_Old = 0;
+global gWs_LaserDisableStart_Cur = 0;
+global gWs_LaserDisableStart_Old = 0;
+global gWs_LaserTestCrossStart_Cur = 0;
+global gWs_LaserTestCrossStart_Old = 0;
+global gWs_LaserTestCrossAbort_Cur = 0;
+global gWs_LaserTestCrossAbort_Old = 0;
+global gWs_LaserTestLineStart_Cur = 0;
+global gWs_LaserTestLineStart_Old = 0;
+global gWs_LaserTestLineAbort_Cur = 0;
+global gWs_LaserTestLineAbort_Old = 0;
+
+global gVs_ServoOn_Cur = 0;
+global gVs_ServoOn_Old = 0;
+global gVs_ServoOff_Cur = 0;
+global gVs_ServoOff_Old = 0;
+global gVs_HomeStart_Cur = 0;
+global gVs_HomeStart_Old = 0;
+global gVs_HomeAbort_Cur = 0;
+global gVs_HomeAbort_Old = 0;
+global gVs_AlarmReset_Cur = 0;
+global gVs_AlarmReset_Old = 0;
+global gVs_AlarmRetry_Cur = 0;
+global gVs_AlarmRetry_Old = 0;
+global gVs_AlarmAbort_Cur = 0;
+global gVs_AlarmAbort_Old = 0;
+
+global gVs_TestShot_Cur = 0;
+global gVs_TestShot_Old = 0;
+
+global gSc_ServoOn_Cur = 0;
+global gSc_ServoOn_Old = 0;
+global gSc_ServoOff_Cur = 0;
+global gSc_ServoOff_Old = 0;
+global gSc_HomeStart_Cur = 0;
+global gSc_HomeStart_Old = 0;
+global gSc_HomeAbort_Cur = 0;
+global gSc_HomeAbort_Old = 0;
+global gSc_AlarmReset_Cur = 0;
+global gSc_AlarmReset_Old = 0;
+
+global gWs_LdStart_Cur = 0;
+global gWs_LdAbort_Cur = 0;
+global gWs_LdStart_Old = 0;
+global gWs_LdAbort_Old = 0;
+
+global gWs_RdStart_Cur = 0;
+global gWs_RdAbort_Cur = 0;
+global gWs_RdStart_Old = 0;
+global gWs_RdAbort_Old = 0;
+
+global gWs_WdStart_Cur = 0;
+global gWs_WdAbort_Cur = 0;
+global gWs_WdStart_Old = 0;
+global gWs_WdAbort_Old = 0;
+
+global gWs_WtStart_Cur = 0;
+global gWs_WtAbort_Cur = 0;
+global gWs_WtStart_Old = 0;
+global gWs_WtAbort_Old = 0;
+
+global gWs_UdStart_Cur = 0;
+global gWs_UdAbort_Cur = 0;
+global gWs_UdStart_Old = 0;
+global gWs_UdAbort_Old = 0;
+
+global gWs_RjStart_Cur = 0;
+global gWs_RjAbort_Cur = 0;
+global gWs_RjStart_Old = 0;
+global gWs_RjAbort_Old = 0;
+
+global gVs_LdStart_Cur = 0;
+global gVs_LdAbort_Cur = 0;
+global gVs_LdStart_Old = 0;
+global gVs_LdAbort_Old = 0;
+
+global gVs_RdStart_Cur = 0;
+global gVs_RdAbort_Cur = 0;
+global gVs_RdStart_Old = 0;
+global gVs_RdAbort_Old = 0;
+
+global gVs_VnStart_Cur = 0;
+global gVs_VnAbort_Cur = 0;
+global gVs_VnStart_Old = 0;
+global gVs_VnAbort_Old = 0;
+
+global gVs_WtStart_Cur = 0;
+global gVs_WtAbort_Cur = 0;
+global gVs_WtStart_Old = 0;
+global gVs_WtAbort_Old = 0;
+
+global gVs_UdStart_Cur = 0;
+global gVs_UdAbort_Cur = 0;
+global gVs_UdStart_Old = 0;
+global gVs_UdAbort_Old = 0;
+
+global gVs_RjStart_Cur = 0;
+global gVs_RjAbort_Cur = 0;
+global gVs_RjStart_Old = 0;
+global gVs_RjAbort_Old = 0;
+
+global gWs_PdtStaChange_Cur = 0;
+global gVs_PdtStaChange_Cur = 0;
+global gTr_PdtStaChange_Cur = 0;
+global gWs_PdtStaChange_Old = 0;
+global gVs_PdtStaChange_Old = 0;
+global gTr_PdtStaChange_Old = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLC 04 : Safety
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define cSafetySta_Idl						0
+#define cSafetySta_Err						-1
+
+#define cTimeOut_Ecat						5000
+
+#define cScComSta_Ng						-1
+#define cScComSta_Ok						1
+
+#define cErrCode_WsServo					001
+#define cErrCode_WsMoveTime             	002
+#define cErrCode_WsHome                 	003
+#define cErrCode_WsInPos                	004
+#define cErrCode_WsCoverClose           	005
+#define cErrCode_WsCoverOpen            	006
+#define cErrCode_WsMotion               	007
+#define cErrCode_WsMotionTime           	008
+#define cErrCode_WsEcdrHome             	009
+#define cErrCode_WsTempSenFwd           	010
+#define cErrCode_WsTempSenBwd           	011
+#define cErrCode_Ws2DVnShtrOpn          	012
+#define cErrCode_Ws2DVnShtrCls          	013
+#define cErrCode_WsPdtDetect            	014
+#define cErrCode_WsMtrVelParam          	015
+#define cErrCode_WsMotionParam          	016
+#define cErrCode_Ws2ndTrLdReadyRsp      	017
+#define cErrCode_Ws2ndTrLdAlignRsp      	018
+#define cErrCode_Ws2ndTrLdLoadRsp       	019
+#define cErrCode_Ws1stTrUdReadyRsp      	020
+#define cErrCode_Ws1stTrUdUnloadRsp     	021
+#define cErrCode_Ws1stTrRjReadyRsp      	022
+#define cErrCode_Ws1stTrRjUnloadRsp     	023
+#define cErrCode_WsLwmReadyRsp          	024
+#define cErrCode_WsLwmStartRsp          	025
+#define cErrCode_Ws2DVnReadyRsp         	026
+#define cErrCode_Ws2DVnStartRsp         	027
+#define cErrCode_WsLdAlignRangeX        	028
+#define cErrCode_WsLdAlignRangeY        	029
+#define cErrCode_WsLdAlignRangeC        	030
+#define cErrCode_WsN2Blw			       	030
+	
+#define cErrCode_VsServo					051
+#define cErrCode_VsMoveTime                 052
+#define cErrCode_VsHome                     053
+#define cErrCode_VsInPos                    054
+#define cErrCode_VsCoverClose               055
+#define cErrCode_VsCoverOpen                056
+#define cErrCode_VsMotion                   057
+#define cErrCode_VsMotionTime               058
+#define cErrCode_VsPdtDetect                059
+#define cErrCode_VsMtrVelParam              060
+#define cErrCode_VsMotionParam              061
+#define cErrCode_Vs3rdTrUdReadyRsp          062
+#define cErrCode_Vs3rdTrUdUnloadRsp         063
+#define cErrCode_Vs3rdTrRjReadyRsp          064
+#define cErrCode_Vs3rdTrRjUnloadRsp         065
+#define cErrCode_Vs3DVnStReadyRsp           066
+#define cErrCode_Vs3DVnStStartRsp           067
+#define cErrCode_Vs3DVnEdReadyRsp           068
+#define cErrCode_Vs3DVnEdStartRsp           069
+
+#define cErrCode_EtEtherCat					101
+#define cErrCode_EtWdZServo                 102
+#define cErrCode_EtWdZMoveTime              103
+#define cErrCode_EtWdZHome                  104
+#define cErrCode_EtWdZInPos                 105
+#define cErrCode_EtScServo                  106
+#define cErrCode_EtScMoveTime               107
+#define cErrCode_EtScHome                   108
+#define cErrCode_EtScInPos                  109
+#define cErrCode_EtTrUp                     110
+#define cErrCode_EtTrDn                     111
+#define cErrCode_EtTrCls                    112
+#define cErrCode_EtTrOpn                    113
+#define cErrCode_EtCrash                    114
+#define cErrCode_EtRunMode					115
+#define cErrCode_EtRunIng					116
+#define cErrCode_EtErrEx					117
+
+global gWs_Error = 0;
+global gVs_Error = 0;
+global gWs_ErrCode = 0;
+global gVs_ErrCode = 0;
+
+global gWs_Error_Cur = 0;	// 251230 추가
+global gWs_Error_Old = 0;	// 251230 추가
+global gVs_Error_Cur = 0;	// 251230 추가
+global gVs_Error_Old = 0;	// 251230 추가
+
+global gSc_Com_Sta = 0;
+global gEc_WdTimer = 0;
+
+global gMc_DistX_Cur = 0;
+global gMc_DistX_Err = 0;
+
+global gWs_Safety_Sta = 0;
+global gVs_Safety_Sta = 0;
+global gWs_Safety_Err = 0;
+global gVs_Safety_Err = 0;
+
+global gMc_AlarmReset_Ena = 1;
+global gWs_AlarmReset_Ena = 1;
+global gVs_AlarmReset_Ena = 1;
+global gSc_AlarmReset_Ena = 1;
+
+global gWs_AlarmRetry_Ena = 1;
+global gVs_AlarmRetry_Ena = 1;
+
+global gWs_AlarmAbort_Ena = 1;
+global gVs_AlarmAbort_Ena = 1;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLC 05 : Ethercat
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define cEcComSta_Ng			-1
+#define cEcComSta_Ok			1
+
+#define cEcCon_Idl				0
+#define cEcCon_Ing				1
+#define cEcCon_Fin				2
+#define cEcCon_Err				-1
+
+global gEc_Com_Sta(32);
+
+global gEc_Con_Start = 0;
+global gEc_Con_Abort = 0;
+
+global gEc_Con_Ena = 0;
+global gEc_Con_Sta = 0;
+global gEc_Con_Seq = 0;
+global gEc_Con_Buf = 0;
+global gEc_Con_Tmr = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLC 10 : Home PLC
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define cHomeSta_Idl			0
+#define cHomeSta_Ing			1
+#define cHomeSta_Fin			2
+#define cHomeSta_Err			-1
+
+#define cHome_CldTimeOut		5
+#define cHome_MtrTimeOut		30
+
+global gMt_Home_Idx = 0;
+
+global gMt_Home_Start(32);
+global gMt_Home_Abort(32);
+gMt_Home_Start(0),32 = 0;
+gMt_Home_Abort(0),32 = 0;
+
+global gMt_Home_Ena(32);
+global gMt_Home_Sta(32);
+global gMt_Home_Seq(32);
+global gMt_Home_Buf(32);
+global gMt_Home_Tmr(32);
+global gMt_Home_Err(32);
+gMt_Home_Ena(0),32 = 0;
+gMt_Home_Sta(0),32 = 0;
+gMt_Home_Seq(0),32 = 0;
+gMt_Home_Buf(0),32 = 0;
+gMt_Home_Tmr(0),32 = 0;
+gMt_Home_Err(0),32 = 0;
+
+
+global gMt_Home_Pos(32);
+gMt_Home_Pos(0),32 = 0;
+
+global gMc_Home_Start = 0;
+global gMc_Home_Abort = 0;
+
+global gMc_Home_Ena = 0;
+global gMc_Home_Sta = 0;
+global gMc_Home_Seq = 0;
+global gMc_Home_Buf = 0;
+global gMc_Home_Tmr = 0;
+global gMc_Home_Err = 0;
+
+global gWs_Home_Start = 0;
+global gWs_Home_Abort = 0;
+
+global gWs_Home_Ena = 0;
+global gWs_Home_Sta = 0;
+global gWs_Home_Seq = 0;
+global gWs_Home_Buf = 0;
+global gWs_Home_Tmr = 0;
+global gWs_Home_Err = 0;
+
+global gVs_Home_Start = 0;
+global gVs_Home_Abort = 0;
+
+global gVs_Home_Ena = 0;
+global gVs_Home_Sta = 0;
+global gVs_Home_Seq = 0;
+global gVs_Home_Buf = 0;
+global gVs_Home_Tmr = 0;
+global gVs_Home_Err = 0;
+
+global gSc_Home_Start = 0;
+global gSc_Home_Abort = 0;
+
+global gSc_Home_Ena = 0;
+global gSc_Home_Sta = 0;
+global gSc_Home_Seq = 0;
+global gSc_Home_Buf = 0;
+global gSc_Home_Tmr = 0;
+global gSc_Home_Err = 0;
+
+global gSc_InitSta = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLC 11 : Jog PLC
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define cJogSta_Idl		0
+#define cJogSta_Ing		1
+#define cJogSta_Fin		2
+#define cJogSta_Err		-1
+
+#define cJog_TimeOut	120
+
+global gJog_Idx = 1;
+
+global gMt_ServoOn_Ena(32);
+global gMt_ServoOff_Ena(32);
+gMt_ServoOn_Ena(0),32 = 0;
+gMt_ServoOff_Ena(0),32 = 0;
+
+global gMc_ServoOn_Ena = 0;
+global gMc_ServoOff_Ena = 0;
+global gWs_ServoOn_Ena = 0;
+global gWs_ServoOff_Ena = 0;
+global gVs_ServoOn_Ena = 0;
+global gVs_ServoOff_Ena = 0;
+global gSc_ServoOn_Ena = 0;
+global gSc_ServoOff_Ena = 0;
+
+global gJog_Stop_Ena(32);
+global gJog_ContPlus_Ena(32);
+global gJog_ContMinus_Ena(32);
+global gJog_AbsMove_Ena(32);
+global gJog_IncMove_Ena(32);
+gJog_Stop_Ena(0),32 = 0;
+gJog_ContPlus_Ena(0),32 = 0;
+gJog_ContMinus_Ena(0),32 = 0;
+gJog_AbsMove_Ena(0),32 = 0;
+gJog_IncMove_Ena(0),32 = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLC 12 : Sequence Control
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define cDet_On				0
+#define cDet_Off			1
+
+#define cPos_Id				0		// Idle
+#define cPos_Ld				1		// Load
+#define cPos_Rd				2		// Ready
+#define cPos_Wd				3		// Welding
+#define cPos_Vn				3		// Vision
+#define cPos_Wt				4		// Wait
+#define cPos_Ud				5		// Unload
+#define cPos_Rj				6		// Reject
+#define cPos_Tr				7		// Transfer
+
+#define cPdtSta_Err			-1		// Error(Reject)
+#define cPdtSta_Blk			0		// Blank
+#define cPdtSta_Bwd			1		// Before Welding
+#define cPdtSta_Awd			2		// Aefore Welding
+#define cPdtSta_Bvn			1		// Before Vision
+#define cPdtSta_Avn			2		// After Vision
+
+#define cStgSta_Nrd			0		// Not Ready
+#define cStgSta_Mov			1		// Moving
+#define cStgSta_Inp			2		// Inpos
+
+#define cWsSeqNo_Ld			1		// Load
+#define cWsSeqNo_Rd			10		// Ready(2D Vision)
+#define cWsSeqNo_Wd			20		// Welding
+#define cWsSeqNo_Wt			30		// Wait
+#define cWsSeqNo_Ud			40		// Unload
+#define cWsSeqNo_Rj			50		// Reject
+
+#define cVsSeqNo_BfWt		1		// Befor Load Wait
+#define cVsSeqNo_Ld			10		// Load
+#define cVsSeqNo_AfWt		20		// After Load Wait
+#define cVsSeqNo_Rd			30		// Ready
+#define cVsSeqNo_Vn			40		// Vision
+#define cVsSeqNo_Ud			50		// Unload
+#define cVsSeqNo_Rj			60		// Reject
+
+#define cErrFlg_Ld			$01
+#define cErrFlg_Rd			$02
+#define cErrFlg_Wd			$04
+#define cErrFlg_Vn			$04
+#define cErrFlg_Wt			$08
+#define cErrFlg_Ud			$10
+#define cErrFlg_Rj			$20
+
+#define cPcRep_Idl			0
+#define cPcRep_Ing			1
+#define cPcRep_Alg			1
+#define cPcRep_Fin			2
+#define cPcRep_Err			-1
+#define cPcRep_Ok			2
+#define cPcRep_Ng			-2
+
+#define cPcReq_Idl			0
+#define cPcReq_Vsn			1
+#define cPcReq_Mov			1
+#define cPcReq_Opn			2
+#define cPcReq_Alg			3
+#define cPcReq_Err			-1
+
+#define cSeqSta_Idl			0
+#define cSeqSta_Ing			1
+#define cSeqSta_Fin			2
+#define cSeqSta_Err			-1
+
+#define cSeq_PrgTimeOut		120
+#define cSeq_MtrTimeOut		60
+#define cSeq_CldTimeOut		10
+#define cSeq_VsnTimeOut		10
+#define cSeq_LwmTimeOut		10
+
+#define cVsnJudge_Ok		1
+#define cVsnJudge_Ng		-1
+
+#define cLdDir_Wd			0
+#define cLdDir_Rj			1
+
+global gWs_PdtNo = 0;
+global gVs_PdtNo = 0;
+global gTr_PdtNo = 0;
+
+global gWs_LdDir = 0;
+
+global gMc_AutoRun_Start = 0;
+global gMc_AutoRun_Abort = 0;
+global gMc_AutoRun_Pause = 0;
+global gMc_Cycle_Start = 0;
+global gMc_Step_Start = 0;
+
+global gMc_AutoRun_Ena = 0;
+global gMc_AutoRun_Sta = 0;
+global gMc_AutoRun_Seq = 0;
+global gMc_AutoRun_Buf = 0;
+global gMc_AutoRun_Tmr = 0;
+global gMc_AutoRun_Err = 0;
+//-----------------------------------//
+global gWs_Loop_Start = 0;
+global gWs_Loop_Abort = 0;
+global gWs_Loop_Pause = 0;
+
+global gWs_Loop_Ena = 0;
+global gWs_Loop_Sta = 0;
+global gWs_Loop_Seq = 0;
+global gWs_Loop_Buf = 0;
+global gWs_Loop_Tmr = 0;
+global gWs_Loop_Err = 0;
+
+global gWs_Loop_Time = 0;
+global gWs_Loop_TimeBuf = 0;
+
+global gWs_Seq_Cur = -1;
+global gWs_Seq_Old = -1;
+global gWs_Seq_Err = 0;
+//-----------------------------------//
+global gVs_Loop_Start = 0;
+global gVs_Loop_Abort = 0;
+global gVs_Loop_Pause = 0;
+
+global gVs_Loop_Ena = 0;
+global gVs_Loop_Sta = 0;
+global gVs_Loop_Seq = 0;
+global gVs_Loop_Buf = 0;
+global gVs_Loop_Tmr = 0;
+global gVs_Loop_Err = 0;
+
+global gVs_Loop_Time = 0;
+global gVs_Loop_TimeBuf = 0;
+
+global gVs_Seq_Cur = 0;
+global gVs_Seq_Old = 0;
+global gVs_Seq_Err = 0;
+//-----------------------------------//
+global gWs_Sta_Pdt = 0;
+global gVs_Sta_Pdt = 0;
+global gTr_Sta_Pdt = 0;
+
+global gWs_Sta_PdtBuf = 0;
+global gVs_Sta_PdtBuf = 0;
+global gTr_Sta_PdtBuf = 0;
+
+global gWs_Sta_Stg = 0;
+global gVs_Sta_Stg = 0;
+
+global gWs_Pos_Pdt = 0;
+global gVs_Pos_Pdt = 0;
+
+global gWs_Pos_Stg = 0;
+global gVs_Pos_Stg = 0;
+
+global gWs_PdtStaChange_Ena = 0;
+global gVs_PdtStaChange_Ena = 0;
+global gTr_PdtStaChange_Ena = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLC 13 : Ws Unit Sequence
+////////////////////////////////////////////////////////////////////////////////////////////////////
+global gWs_Load_Start = 0;
+global gWs_Load_Abort = 0;
+
+global gWs_Load_Ena = 0;
+global gWs_Load_Sta = 0;
+global gWs_Load_Seq = 0;
+global gWs_Load_Buf = 0;
+global gWs_Load_Tmr = 0;
+global gWs_Load_Err = 0;
+
+global gWs_Load_VelX = 0;
+global gWs_Load_VelY = 0;
+global gWs_Load_VelC = 0;
+
+global gWs_Load_PosX = 0;
+global gWs_Load_PosY = 0;
+global gWs_Load_PosC = 0;
+
+global gWs_Load_Time = 0;
+global gWs_Load_TimeBuf = 0;
+//---------------------------------------//
+global gWs_Ready_Start = 0;
+global gWs_Ready_Abort = 0;
+
+global gWs_Ready_Ena = 0;
+global gWs_Ready_Sta = 0;
+global gWs_Ready_Seq = 0;
+global gWs_Ready_Buf = 0;
+global gWs_Ready_Tmr = 0;
+global gWs_Ready_Err = 0;
+
+global gWs_Ready_VelX = 0;
+global gWs_Ready_VelY = 0;
+global gWs_Ready_VelC = 0;
+global gWs_Ready_PosX = 0;
+global gWs_Ready_PosY = 0;
+global gWs_Ready_PosC = 0;
+
+global gWs_Ready_Time = 0;
+global gWs_Ready_TimeBuf = 0;
+
+global gWs_Ready_VsnJudge = 0;
+//---------------------------------------//
+global gWs_Welding_Start = 0;
+global gWs_Welding_Abort = 0;
+
+global gWs_Welding_Ena = 0;
+global gWs_Welding_Sta = 0;
+global gWs_Welding_Seq = 0;
+global gWs_Welding_Buf = 0;
+global gWs_Welding_Tmr = 0;
+global gWs_Welding_Err = 0;
+
+global gWs_Welding_VelX = 0;
+global gWs_Welding_VelY = 0;
+global gWs_Welding_VelC = 0;
+
+global gWs_Welding_PosX = 0;
+global gWs_Welding_PosY = 0;
+global gWs_Welding_PosC = 0;
+
+global gWs_Welding_Time = 0;
+global gWs_Welding_TimeBuf = 0;
+
+global gWs_Prog_Dist = 0;
+global gWs_Prog_Time = 0;
+global gWs_Prog_TimeBuf = 0;
+global gWs_File_Prog_Time = 0;
+global gWs_File_Prog_TimeBuf = 0;
+//---------------------------------------//
+global gWs_Wait_Start = 0;
+global gWs_Wait_Abort = 0;
+
+global gWs_Wait_Ena = 0;
+global gWs_Wait_Sta = 0;
+global gWs_Wait_Seq = 0;
+global gWs_Wait_Buf = 0;
+global gWs_Wait_Tmr = 0;
+global gWs_Wait_Err = 0;
+
+global gWs_Wait_VelX = 0;
+global gWs_Wait_VelY = 0;
+global gWs_Wait_VelC = 0;
+
+global gWs_Wait_PosX = 0;
+global gWs_Wait_PosY = 0;
+global gWs_Wait_PosC = 0;
+
+global gWs_Wait_Time = 0;
+global gWs_Wait_TimeBuf = 0;
+//---------------------------------------//
+global gWs_Unload_Start = 0;
+global gWs_Unload_Abort = 0;
+
+global gWs_Unload_Ena = 0;
+global gWs_Unload_Sta = 0;
+global gWs_Unload_Seq = 0;
+global gWs_Unload_Buf = 0;
+global gWs_Unload_Tmr = 0;
+global gWs_Unload_Err = 0;
+
+global gWs_Unload_VelX = 0;
+global gWs_Unload_VelY = 0;
+global gWs_Unload_VelC = 0;
+
+global gWs_Unload_PosX = 0;
+global gWs_Unload_PosY = 0;
+global gWs_Unload_PosC = 0;
+
+global gWs_Unload_Time = 0;
+global gWs_Unload_TimeBuf = 0;
+//---------------------------------------//
+global gWs_Reject_Start = 0;
+global gWs_Reject_Abort = 0;
+
+global gWs_Reject_Ena = 0;
+global gWs_Reject_Sta = 0;
+global gWs_Reject_Seq = 0;
+global gWs_Reject_Buf = 0;
+global gWs_Reject_Tmr = 0;
+global gWs_Reject_Err = 0;
+
+global gWs_Reject_VelX = 0;
+global gWs_Reject_VelY = 0;
+global gWs_Reject_VelC = 0;
+
+global gWs_Reject_PosX = 0;
+global gWs_Reject_PosY = 0;
+global gWs_Reject_PosC = 0;
+
+global gWs_Reject_Time = 0;
+global gWs_Reject_TimeBuf = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLC 14 : Vs Unit Sequence
+////////////////////////////////////////////////////////////////////////////////////////////////////
+global gVs_Load_Start = 0;
+global gVs_Load_Abort = 0;
+
+global gVs_Load_Ena = 0;
+global gVs_Load_Sta = 0;
+global gVs_Load_Seq = 0;
+global gVs_Load_Buf = 0;
+global gVs_Load_Tmr = 0;
+global gVs_Load_Err = 0;
+
+global gVs_Load_VelX = 0;
+global gVs_Load_VelY = 0;
+global gVs_Load_VelC = 0;
+
+global gVs_Load_PosX = 0;
+global gVs_Load_PosY = 0;
+global gVs_Load_PosC = 0;
+
+global gVs_Load_Time = 0;
+global gVs_Load_TimeBuf = 0;
+//---------------------------------------//
+global gVs_Ready_Start = 0;
+global gVs_Ready_Abort = 0;
+
+global gVs_Ready_Ena = 0;
+global gVs_Ready_Sta = 0;
+global gVs_Ready_Seq = 0;
+global gVs_Ready_Buf = 0;
+global gVs_Ready_Tmr = 0;
+global gVs_Ready_Err = 0;
+
+global gVs_Ready_VelX = 0;
+global gVs_Ready_VelY = 0;
+global gVs_Ready_VelC = 0;
+global gVs_Ready_PosX = 0;
+global gVs_Ready_PosY = 0;
+global gVs_Ready_PosC = 0;
+
+global gVs_Ready_Time = 0;
+global gVs_Ready_TimeBuf = 0;
+
+global gVs_Ready_VsnJudge = 0;
+//---------------------------------------//
+global gVs_Vision_Start = 0;
+global gVs_Vision_Abort = 0;
+
+global gVs_Vision_Ena = 0;
+global gVs_Vision_Sta = 0;
+global gVs_Vision_Seq = 0;
+global gVs_Vision_Buf = 0;
+global gVs_Vision_Tmr = 0;
+global gVs_Vision_Err = 0;
+
+global gVs_Vision_VelX = 0;
+global gVs_Vision_VelY = 0;
+global gVs_Vision_VelC = 0;
+
+global gVs_Vision_PosX = 0;
+global gVs_Vision_PosY = 0;
+global gVs_Vision_PosC = 0;
+
+global gVs_Vision_Time = 0;
+global gVs_Vision_TimeBuf = 0;
+
+global gVs_Prog_Dist = 0;
+global gVs_Prog_Time = 0;
+global gVs_Prog_TimeBuf = 0;
+
+global gVs_Vision_VsnJudge = 0;
+//---------------------------------------//
+global gVs_Wait_Start = 0;
+global gVs_Wait_Abort = 0;
+
+global gVs_Wait_Ena = 0;
+global gVs_Wait_Sta = 0;
+global gVs_Wait_Seq = 0;
+global gVs_Wait_Buf = 0;
+global gVs_Wait_Tmr = 0;
+global gVs_Wait_Err = 0;
+
+global gVs_Wait_VelX = 0;
+global gVs_Wait_VelY = 0;
+global gVs_Wait_VelC = 0;
+
+global gVs_Wait_PosX = 0;
+global gVs_Wait_PosY = 0;
+global gVs_Wait_PosC = 0;
+
+global gVs_Wait_Time = 0;
+global gVs_Wait_TimeBuf = 0;
+//---------------------------------------//
+global gVs_Unload_Start = 0;
+global gVs_Unload_Abort = 0;
+
+global gVs_Unload_Ena = 0;
+global gVs_Unload_Sta = 0;
+global gVs_Unload_Seq = 0;
+global gVs_Unload_Buf = 0;
+global gVs_Unload_Tmr = 0;
+global gVs_Unload_Err = 0;
+
+global gVs_Unload_VelX = 0;
+global gVs_Unload_VelY = 0;
+global gVs_Unload_VelC = 0;
+
+global gVs_Unload_PosX = 0;
+global gVs_Unload_PosY = 0;
+global gVs_Unload_PosC = 0;
+
+global gVs_Unload_Time = 0;
+global gVs_Unload_TimeBuf = 0;
+//---------------------------------------//
+global gVs_Reject_Start = 0;
+global gVs_Reject_Abort = 0;
+
+global gVs_Reject_Ena = 0;
+global gVs_Reject_Sta = 0;
+global gVs_Reject_Seq = 0;
+global gVs_Reject_Buf = 0;
+global gVs_Reject_Tmr = 0;
+global gVs_Reject_Err = 0;
+
+global gVs_Reject_VelX = 0;
+global gVs_Reject_VelY = 0;
+global gVs_Reject_VelC = 0;
+
+global gVs_Reject_PosX = 0;
+global gVs_Reject_PosY = 0;
+global gVs_Reject_PosC = 0;
+
+global gVs_Reject_Time = 0;
+global gVs_Reject_TimeBuf = 0;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// PLC 20 : Cylinder
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#define cEcldSta_Idl			0
+#define cEcldSta_Ing			1
+#define cEcldSta_Fin			2
+#define cEcldSta_Err			-1
+
+#define cEcld_TryNum			3
+
+#define cUp			1
+#define cDn			0
+#define cFwd		1
+#define cBwd		0
+#define cOpn		1
+#define cCls		0
+#define cUkn		-1
+
+global gWs_CldInpos_Delay = 0.1;	// Welding Cylinder Inposition Delay
+global gVs_CldInpos_Delay = 0.1;	// Vision Cylinder Inposition Delay
+
+global gWs_CldIn_CoverUD = 0;		// Welding Cover Up/Down
+global gWs_CldIn_CoverFB = 0;		// Welding Cover Fwd/Bwd
+global gWs_CldIn_TempFB = 0;		// Temperature Sensor Fwd/Bwd
+global gWs_CldIn_ShtrOC = 0;		// 2D Vision Shutter Opn/Close
+
+global gVs_CldIn_CoverUD = 0;		// Vision Cover Up/Down
+global gVs_CldIn_CoverFB = 0;		// Vision Cover Fwd/Bwd
+
+global gTr_CldIn_PickerUD = 0;		// Trans Picker Up/Down
+global gTr_CldIn_PickerOC = 0;		// Trans Picker Opn/Close
+
+global gWs_Epr_OutVdc = 0;						// Electro Pneumatic Proportional Regulator Out Voltage
+ptr pWs_Epr_OutVdc -> Gate3[0].Chan[2].Dac[1];	// Electro Pneumatic Proportional Regulator Out Channel
+
+global gWs_EcldHome_Start = 0;
+global gWs_EcldHome_Abort = 0;
+
+global gWs_EcldHome_Ena = 0;
+global gWs_EcldHome_Sta = 0;
+global gWs_EcldHome_Seq = 0;
+global gWs_EcldHome_Buf = 0;
+global gWs_EcldHome_Tmr = 0;
+global gWs_EcldHome_Err = 0;
+global gWs_EcldHome_Try = 0;
+global gWs_EcldHome_Fin = 0;
+
+global gWs_EcldFwd_Start = 0;
+global gWs_EcldFwd_Abort = 0;
+
+global gWs_EcldFwd_Ena = 0;
+global gWs_EcldFwd_Sta = 0;
+global gWs_EcldFwd_Seq = 0;
+global gWs_EcldFwd_Buf = 0;
+global gWs_EcldFwd_Tmr = 0;
+global gWs_EcldFwd_Err = 0;
+global gWs_EcldFwd_Try = 0;
+
+global gWs_EcldBwd_Start = 0;
+global gWs_EcldBwd_Abort = 0;
+
+global gWs_EcldBwd_Ena = 0;
+global gWs_EcldBwd_Sta = 0;
+global gWs_EcldBwd_Seq = 0;
+global gWs_EcldBwd_Buf = 0;
+global gWs_EcldBwd_Tmr = 0;
+global gWs_EcldBwd_Err = 0;
+global gWs_EcldBwd_Try = 0;
+
+global gWs_EcldCmdFwd_Cur = 0;
+global gWs_EcldCmdFwd_Old = 0;
+global gWs_EcldCmdBwd_Cur = 0;
+global gWs_EcldCmdBwd_Old = 0;
+
+//-----------------------------------------------------------------------------------------------------//
+// PLC 21 : Test Shot
+//-----------------------------------------------------------------------------------------------------//
+global gWs_TestShot_Ena = 0;
+global gWs_TestShot_Time = 0;
+
+global gVs_TestShot_Ena = 0;
+global gVs_TestShot_Time = 0;
+global gVs_TestShot_TimeBuf = 0;
+
+global gVs_TestShot_Seq = 0;
+global gVs_TestShot_Tmr = 0;
+
+//-----------------------------------------------------------------------------------------------------//
+// PLC 22 : Laser Control
+//-----------------------------------------------------------------------------------------------------//
+#define cLaserSta_Idl			0
+#define cLaserSta_Ing			1
+#define cLaserSta_Fin			2
+#define cLaserSta_Err			-1
+
+#define cLaser_EnaTimeOut		5
+#define cLaser_TestTimeOut		20
+
+global gWs_LaserSta_Ready = 0;
+global gWs_LaserSta_Enable = 0;
+global gWs_LaserSta_CorePower = 0;
+global gWs_LaserSta_RingPower = 0;
+
+global gWs_LaserEnable_Start = 0;
+global gWs_LaserEnable_Abort = 0;
+
+global gWs_LaserEnable_Ena = 0;
+global gWs_LaserEnable_Sta = 0;
+global gWs_LaserEnable_Seq = 0;
+global gWs_LaserEnable_Buf = 0;
+global gWs_LaserEnable_Tmr = 0;
+global gWs_LaserEnable_Err = 0;
+
+global gWs_LaserDisable_Start = 0;
+global gWs_LaserDisable_Abort = 0;
+
+global gWs_LaserDisable_Ena = 0;
+global gWs_LaserDisable_Sta = 0;
+global gWs_LaserDisable_Seq = 0;
+global gWs_LaserDisable_Buf = 0;
+global gWs_LaserDisable_Tmr = 0;
+global gWs_LaserDisable_Err = 0;
+
+global gWs_LaserTestCross_Start = 0;
+global gWs_LaserTestCross_Abort = 0;
+
+global gWs_LaserTestCross_Ena = 0;
+global gWs_LaserTestCross_Sta = 0;
+global gWs_LaserTestCross_Seq = 0;
+global gWs_LaserTestCross_Buf = 0;
+global gWs_LaserTestCross_Tmr = 0;
+global gWs_LaserTestCross_Err = 0;
+
+global gWs_LaserTestLine_Start = 0;
+global gWs_LaserTestLine_Abort = 0;
+
+global gWs_LaserTestLine_Ena = 0;
+global gWs_LaserTestLine_Sta = 0;
+global gWs_LaserTestLine_Seq = 0;
+global gWs_LaserTestLine_Buf = 0;
+global gWs_LaserTestLine_Tmr = 0;
+global gWs_LaserTestLine_Err = 0;
+
+//-----------------------------------------------------------------------------------------------------//
+// PLC 23 : Target Move
+//-----------------------------------------------------------------------------------------------------//
+#define cMovSta_Idl		0
+#define cMovSta_Ing		1
+#define cMovSta_Fin		2
+#define cMovSta_Err		-1
+
+
+global gWs_TgtMov_Start = 0;
+global gWs_TgtMov_Abort = 0;
+
+global gWs_TgtMov_Ena = 0;
+global gWs_TgtMov_Sta = 0;
+global gWs_TgtMov_Seq = 0;
+global gWs_TgtMov_Buf = 0;
+global gWs_TgtMov_Tmr = 0;
+global gWs_TgtMov_Err = 0;
+
+global gVs_TgtMov_Start = 0;
+global gVs_TgtMov_Abort = 0;
+
+global gVs_TgtMov_Ena = 0;
+global gVs_TgtMov_Sta = 0;
+global gVs_TgtMov_Seq = 0;
+global gVs_TgtMov_Buf = 0;
+global gVs_TgtMov_Tmr = 0;
+global gVs_TgtMov_Err = 0;
+
+global gWs_TgtMov_VelX = 10;
+global gWs_TgtMov_VelY = 10;
+global gWs_TgtMov_VelC = 10;
+
+global gWs_TgtMov_PosX = 0;
+global gWs_TgtMov_PosY = 0;
+global gWs_TgtMov_PosC = 0;
+
+global gVs_TgtMov_VelX = 10;
+global gVs_TgtMov_VelY = 10;
+global gVs_TgtMov_VelC = 10;
+
+global gVs_TgtMov_PosX = 0;
+global gVs_TgtMov_PosY = 0;
+global gVs_TgtMov_PosC = 0;
+
+//-----------------------------------------------------------------------------------------------------//
+// PLC 24 : Cover
+//-----------------------------------------------------------------------------------------------------//
+#define cWs_Cover_MoveAng	0
+#define cVs_Cover_MoveAng	-90000
+
+global gWs_CoverOpn_TgtAng = 0;
+
+global gWs_CoverOpn_Start = 0;
+global gWs_CoverOpn_Abort = 0;
+
+global gWs_CoverOpn_Ena = 0;
+global gWs_CoverOpn_Sta = 0;
+global gWs_CoverOpn_Seq = 0;
+global gWs_CoverOpn_Buf = 0;
+global gWs_CoverOpn_Tmr = 0;
+global gWs_CoverOpn_Err = 0;
+
+global gWs_CoverCls_Start = 0;
+global gWs_CoverCls_Abort = 0;
+
+global gWs_CoverCls_Ena = 0;
+global gWs_CoverCls_Sta = 0;
+global gWs_CoverCls_Seq = 0;
+global gWs_CoverCls_Buf = 0;
+global gWs_CoverCls_Tmr = 0;
+global gWs_CoverCls_Err = 0;
+
+// Welding Vision Cover Start.
+global gWsV_CoverOpn_Start = 0;
+global gWsV_CoverOpn_Abort = 0;
+
+global gWsV_CoverOpn_Ena = 0;
+global gWsV_CoverOpn_Sta = 0;
+global gWsV_CoverOpn_Seq = 0;
+global gWsV_CoverOpn_Buf = 0;
+global gWsV_CoverOpn_Tmr = 0;
+global gWsV_CoverOpn_Err = 0;
+
+global gWsV_CoverCls_Start = 0;
+global gWsV_CoverCls_Abort = 0;
+
+global gWsV_CoverCls_Ena = 0;
+global gWsV_CoverCls_Sta = 0;
+global gWsV_CoverCls_Seq = 0;
+global gWsV_CoverCls_Buf = 0;
+global gWsV_CoverCls_Tmr = 0;
+global gWsV_CoverCls_Err = 0;
+
+global gWsV_Cover_Cur = 0;
+// Welding Vision Cover End.
+
+global gVs_CoverOpn_Start = 0;
+global gVs_CoverOpn_Abort = 0;
+
+global gVs_CoverOpn_Ena = 0;
+global gVs_CoverOpn_Sta = 0;
+global gVs_CoverOpn_Seq = 0;
+global gVs_CoverOpn_Buf = 0;
+global gVs_CoverOpn_Tmr = 0;
+global gVs_CoverOpn_Err = 0;
+
+global gVs_CoverCls_Start = 0;
+global gVs_CoverCls_Abort = 0;
+
+global gVs_CoverCls_Ena = 0;
+global gVs_CoverCls_Sta = 0;
+global gVs_CoverCls_Seq = 0;
+global gVs_CoverCls_Buf = 0;
+global gVs_CoverCls_Tmr = 0;
+global gVs_CoverCls_Err = 0;
+
+global gWs_ThCoverPos_Old = 0;
+global gVs_ThCoverPos_Old = 0;
+
+global gWs_ThTargetPos_Old = 0;
+global gVs_ThTargetPos_Old = 0;
+
+global gWs_CoverMoving_Sta = 0;
+global gVs_CoverMoving_Sta = 0;
+
+//-----------------------------------------------------------------------------------------------------//
+// PLC 25 : Blow Off
+//-----------------------------------------------------------------------------------------------------//
+global gBlow_Time = 500;
+
+//-----------------------------------------------------------------------------------------------------//
+// PLC 26 : Power Check
+//-----------------------------------------------------------------------------------------------------//
+global gWs_PowerCheck_Start = 0;
+global gWs_PowerCheck_Abort = 0;
+
+global gWs_PowerCheck_Ena = 0;
+global gWs_PowerCheck_Time = 0;
+global gWs_PowerCheck_TimeBuf = 0;
+
+global gWs_PowerCheck_Seq = 0;
+global gWs_PowerCheck_Tmr = 0;
+
+//-----------------------------------------------------------------------------------------------------//
+// PLC 32 : Vision Seq
+//-----------------------------------------------------------------------------------------------------//
+global gVs_PostVisionST_Start = 0;
+global gVs_PostVisionST_Abort = 0;
+
+global gVs_PostVisionST_Ena = 0;
+global gVs_PostVisionST_Sta = 0;
+global gVs_PostVisionST_Seq = 0;
+global gVs_PostVisionST_Buf = 0;
+global gVs_PostVisionST_Tmr = 0;
+global gVs_PostVisionST_Err = 0;
+
+global gVs_PostVisionED_Start = 0;
+global gVs_PostVisionED_Abort = 0;
+
+global gVs_PostVisionED_Ena = 0;
+global gVs_PostVisionED_Sta = 0;
+global gVs_PostVisionED_Seq = 0;
+global gVs_PostVisionED_Buf = 0;
+global gVs_PostVisionED_Tmr = 0;
+global gVs_PostVisionED_Err = 0;
+
+//-----------------------------------------------------------------------------------------------------//
+// ETC IO Check 및 State Check.
+//-----------------------------------------------------------------------------------------------------//
+global gWs_Skip_N2 = 0;
+global gN2BlowState = 0;
+global gN2BlowOld = 0;
+global gN2BlowTime = 0;
+
+global gIsWsCoverComplete = 0;
+global gIsVsCoverComplete = 0;
+global gIsWStationReady = 0;
+global gIsVStationReady = 0;

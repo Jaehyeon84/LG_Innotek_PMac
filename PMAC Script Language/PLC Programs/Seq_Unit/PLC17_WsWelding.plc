@@ -1,0 +1,350 @@
+
+
+open plc 17
+	local ret = -1;
+
+	if(gWs_Welding_Start==1)
+	{
+		gWs_Welding_Start = 0;
+		gWs_Welding_Seq = 1;
+		gWs_Welding_Ena = 1;
+	}
+
+	if(gWs_Welding_Abort==1)
+	{
+		gWs_Welding_Abort = 0;
+		gWs_Welding_Seq = 0;
+		gWs_Welding_Ena = 0;
+
+		gWs_LaserEna = 0;
+		pGpio_Do00_LaserEmission = 0;
+		abort 1,2
+		Coord[2].pDesTimeBase = Coord[2].DesTimeBase.a
+	}
+
+	if(gWs_Welding_Ena==1)
+	{
+		switch(gWs_Welding_Seq)
+		{
+		//------------------------------------------------//
+		// Ready
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				gWs_Welding_TimeBuf = Sys.Time;
+
+				if(gEcatCom_Sta(0)==cEcatComSta_Ok)
+				{
+					gWs_Welding_Sta = cWsSta_Ing;
+					gWs_Welding_Seq = 2;
+				}
+				else
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Coord[1].HomeComplete==1)
+				{
+					gWs_Welding_Seq = 3;
+				}
+				else
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Coord[1].AmpEna==1)
+				{
+					gWs_Welding_Seq = 4;
+				}
+				else
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Coord[1].InPos==1)
+				{
+					gWs_Welding_Seq = 5;
+				}
+				else
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+			break;
+
+			case 5:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				pUmem_Do13_WsTempFwd = 0;
+				pUmem_Do11_WsTempBwd = 1;		// Product Detected when Temp Sensor FWD Status
+				gWs_Welding_Tmr = Sys.Time + 0.1;
+				gWs_Welding_Seq = 6;
+			break;
+
+			case 6:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Sys.time > gWs_Welding_Tmr)
+				{
+					gWs_Welding_Tmr = Sys.Time + cWs_SydTimeOut;
+					gWs_Welding_Seq = 7;
+				}
+			break;
+
+			case 7:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(pUmem_Di18_WsTempBwd==1 && pUmem_Di1A_WsTempFwd==0)
+				{
+					gWs_Welding_Seq = 8;
+				}
+				else if(Sys.time > gWs_Welding_Tmr)
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+			break;
+
+			case 8:	// Detect
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(gRunMode==cRunMode_DryRun)
+				{
+					gWs_Welding_Seq = 9;
+				}
+				else if(pUmem_Di1C_WsTbUndet==cDet_On)
+				{
+					gWs_Welding_Seq = 9;
+				}
+				else
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+			break;
+
+			case 9:
+				if(pUmem_Cmd_Sc_WblEna==1 && (Coord[2].AmpEna==0||Coord[2].DesVelZero==0))
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+				if(pUmem_Di12_WsLtFixDn!=1 || pUmem_Di10_WsLtFixUp!=0 || pUmem_Di16_WsRtFixDn!=1 || pUmem_Di14_WsRtFixUp!=0)
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+				else if(abs(pEcat_Esld_ActPos-cEsdr_PosFwd) > 10)
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+				else
+				{
+					gWs_Welding_Seq = 10;
+				}
+			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 10:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				call spSetWsWdParam(&ret);
+				if(ret==0)
+				{
+					Motor[nwX].JogSpeed = gWs_Welding_VelX;
+					Motor[nwY].JogSpeed = gWs_Welding_VelY;
+					Motor[nwC].JogSpeed = gWs_Welding_VelC;
+
+					Motor[nwX].ProgJogPos = gWs_Welding_PosX;
+					Motor[nwY].ProgJogPos = gWs_Welding_PosY;
+					Motor[nwY].ProgJogPos = gWs_Welding_PosC;
+
+					jog nwX=*
+					jog nwY=*
+					jog nwC=*
+
+					gWs_Welding_Tmr = Sys.Time + 0.1;
+					gWs_Welding_Seq = 11;
+				}
+				else
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}			
+			break;
+
+			case 11:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Sys.time > gWs_Welding_Tmr)
+				{
+					gWs_Welding_Tmr = Sys.Time + cWs_MtrTimeOut;
+					gWs_Welding_Seq = 12;
+				}
+			break;
+
+			case 12:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Coord[1].InPos==1)
+				{
+					gWs_Welding_Seq = 20;
+				}
+				else if(Sys.time > gWs_Welding_Tmr)
+				{
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Welding
+		//------------------------------------------------//
+			case 20:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				start 1:20
+				gWs_Prog_TimeBuf = Sys.Time; 
+
+				if(gWs_WblEna==1)
+				{
+					if(gWs_WblType==cWbl_Type_Circel)			start 2:21
+					else if(gWs_WblType==cWbl_Type_Snowman)		start 2:22
+					else if(gWs_WblType==cWbl_Type_Butterfly)	start 2:23
+					else if(gWs_WblType==cWbl_Type_Column)		start 2:24
+					else if(gWs_WblType==cWbl_Type_Row)			start 2:25
+				}
+				gWs_Welding_Tmr = Sys.Time + 0.1;
+				gWs_Welding_Seq = 21;					
+			break;
+
+			case 21:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Sys.time > gWs_Welding_Tmr)
+				{
+					gWs_Welding_Tmr = Sys.Time + cWs_PrgTimeOut;
+					gWs_Welding_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				gWs_Prog_Time = Sys.Time - gWs_Prog_TimeBuf;
+
+				if(Coord[1].ErrorStatus!=0)
+				{
+					abort 1,2
+					gWs_LaserEna = 0;
+					pGpio_Do00_LaserEmission = 0;
+
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+				else if(Coord[1].AmpEna==0)
+				{
+					abort 1,2
+					gWs_LaserEna = 0;
+					pGpio_Do00_LaserEmission = 0;
+
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+				else if(Sys.Time > gWs_Welding_Tmr)
+				{
+					abort 1,2
+					gWs_LaserEna = 0;
+					pGpio_Do00_LaserEmission = 0;
+
+					gWs_Welding_Sta = cWsSta_Err;
+					gWs_Welding_Seq = 0;
+					gWs_Welding_Ena = 0;
+				}
+				else if(Coord[1].ProgActive==0 && Coord[1].InPos==1)
+				{
+					if(gWs_WblEna==1)	gWs_Welding_Seq = 30;
+					else				gWs_Welding_Seq = 90;
+				}
+			break;
+
+		//------------------------------------------------//
+		// Wobble Stop
+		//------------------------------------------------//
+		case 30:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Coord[2].ProgRunning==1) abort 2
+				gWs_Welding_Tmr = Sys.Time + 0.1;
+				gWs_Welding_Seq = 31;
+			break;
+
+			case 31:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Sys.Time > gWs_Welding_Tmr)
+				{
+					gWs_Welding_Seq = 32;
+				}
+			break;
+
+			case 32:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				Coord[2].pDesTimeBase = Coord[2].DesTimeBase.a
+				start 2:19
+				gWs_Welding_Tmr = Sys.Time + 0.1;
+				gWs_Welding_Seq = 33;
+			break;
+
+			case 33:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Sys.Time > gWs_Welding_Tmr)
+				{
+					gWs_Welding_Seq = 34;
+				}
+			break;
+
+			case 35:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				if(Coord[2].InPos==1)
+				{
+					gWs_Welding_Seq = 90;
+				}
+			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gWs_Welding_Buf = gWs_Welding_Seq;
+				gWs_Welding_Time = Sys.Time - gWs_Welding_TimeBuf;
+				gWs_Welding_Sta = cWsSta_Fin;
+				gWs_Welding_Seq = 0;
+				gWs_Welding_Ena = 0;
+			break;
+
+			default:
+				gWs_Welding_Sta = cWsSta_Err;
+				gWs_Welding_Seq = 0;
+				gWs_Welding_Ena = 0;				
+			break;
+		}
+	}
+
+
+close
+
+

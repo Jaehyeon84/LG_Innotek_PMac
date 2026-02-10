@@ -1,0 +1,390 @@
+//######################################################################################################
+// PLC 04 : Safety PLC
+//######################################################################################################
+
+
+#define cDistX_Limit		-623000		// Ws-Vs Distance, Small -> Narrow
+
+
+open plc 4
+//-------------------------------------------------------------//
+// Safety Alarm
+//-------------------------------------------------------------//
+	// Ethercat Disconnction Detect
+	if(gEc_Con_Ena==0)
+	{
+		if(gEc_Com_Sta(0)==cEcComSta_Ng)
+		{
+			gEc_WdTimer++;
+		}
+		else
+		{
+			gEc_WdTimer = 0;
+		}
+
+		if(gEc_WdTimer > cTimeOut_Ecat)
+		{
+			gEc_WdTimer = 0;
+			gEc_Con_Start = 1;
+		}
+	}
+
+	if(gEc_Com_Sta(0)==cEcComSta_Ng)
+	{
+		gWs_Safety_Err = cErrCode_EtEtherCat;
+		gWs_Safety_Err = cErrCode_EtEtherCat;
+		gWs_Safety_Sta = cSafetySta_Err;
+		gVs_Safety_Sta = cSafetySta_Err;
+	}
+	else
+	{
+		// Stage Crash Detect
+		if(Motor[nwX].HomeComplete==1 && Motor[nvX].HomeComplete==1)
+		{
+			//20260111 KJH - Home Position 계산 후에 계산 하게 되면 서로 Home 위치가 다르기 때문에 비교가 되지 않는 현상 발생.
+			//gMc_DistX_Cur = pUmem_Sta_ActPos(nvX) -  pUmem_Sta_ActPos(nwX); 
+
+//			if((gMc_DistX_Cur) < (cDistX_Limit))
+//			{
+//				gMc_DistX_Err = 1;
+//			}
+//			else
+//			{
+//				gMc_DistX_Err = 0;
+//			}
+
+			// 전역 변수 설정 (단위: mm, sec)
+			local AccelTime = 0.1;      // 가감속 시간 (s)
+			local RespTime = 0.05;      // 시스템 반응 시간 (s)
+			local SafetyMargin = 20.0;  // 최소 유지 여유 (mm)
+
+			local V1, V2, P1, P2, gMc_SafeDist;
+			local StopD1, StopD2;
+
+			// 1. 현재 속도 및 위치 데이터 취득 (절대값 및 단위 환산)
+			V1 = abs(Motor[nwX].ActVel * 1000); // mm/s
+			V2 = abs(Motor[nvX].ActVel * 1000); // mm/s
+    
+			// 2. 물리적 절대 좌표로 통일 (Normalization)
+			P1 = Motor[nwX].ActPos + Motor[nwX].HomePos; // mm/s
+			P2 = Motor[nvX].ActPos + Motor[nvX].HomePos; // mm/s
+			gMc_DistX_Cur = abs(P1 - P2);
+
+			// 3. 동적 안전 거리 계산 (각자의 제동 거리 합산)
+			// 수식: (V * T_acc / 2) + (V * T_resp)
+			StopD1 = (V1 * AccelTime / 2.0) + (V1 * RespTime);
+			StopD2 = (V2 * AccelTime / 2.0) + (V2 * RespTime);
+			gMc_SafeDist = StopD1 + StopD2 + SafetyMargin;
+
+			// 4. 충돌 위험 판단 및 정지 시퀀스
+			if (gMc_DistX_Cur < gMc_SafeDist)
+			{
+				gMc_DistX_Err = 1;
+			}
+			else
+			{
+				gMc_DistX_Err = 0;
+			}
+
+			if(gMc_DistX_Err==1)
+			{
+				Motor[nwX].MaxPos = Motor[nwX].DesPos - Motor[nwX].HomePos;
+				Motor[nwX].MinPos = Motor[nwX].MaxPos - 5000000;
+				Motor[nvX].MinPos = Motor[nvX].DesPos - Motor[nvX].HomePos;
+				Motor[nvX].MaxPos = Motor[nvX].MinPos + 5000000;
+			
+				gWs_Safety_Sta = cSafetySta_Err;
+				gVs_Safety_Sta = cSafetySta_Err;
+				gWs_Safety_Err = cErrCode_EtCrash;
+				gVs_Safety_Err = cErrCode_EtCrash;
+
+				if(gMc_AutoRun_Ena==1 || gWs_Loop_Ena==1 || gVs_Loop_Ena==1)
+				{
+					gMc_AutoRun_Abort = 1;
+				}
+			}
+			else
+			{
+				Motor[nwX].MaxPos = 0;
+				Motor[nwX].MinPos = 0;
+				Motor[nvX].MaxPos = 0;
+				Motor[nvX].MinPos = 0;
+			}
+		}
+		else
+		{
+			gMc_DistX_Err = 0;
+		}
+	}
+
+	// Scanner Error
+	if(gMach_Type==0)
+	{
+		gSc_Com_Sta = cScComSta_Ok;
+	}
+	else if((Gate3[1].Chan[0].SerialEncDataB & $FF000000) != $78000000 || (Gate3[1].Chan[1].SerialEncDataB & $FF000000) != $78000000)
+	{
+		gSc_Com_Sta = cScComSta_Ng;
+		gWs_Safety_Err = cErrCode_EtScServo;
+		gWs_Safety_Sta = cSafetySta_Err;
+	}//20251230 KJH - Vision Stage는 Scanner와 상관 없는 것으로 생각 되어 Welding 쪽으로 변경.
+//	else if((Gate3[1].Chan[1].SerialEncDataB & $FF000000) != $78000000)
+//	{
+//		gSc_Com_Sta = cScComSta_Ng;
+//		gVs_Safety_Err = cErrCode_EtScServo;
+//		gVs_Safety_Sta = cSafetySta_Err;
+//	}
+	else
+	{
+		gSc_Com_Sta = cScComSta_Ok;
+	}
+
+
+//-------------------------------------------------------------//
+// Alarm Set
+//-------------------------------------------------------------//
+	// Sequence Error
+	if(gWs_Load_Sta==cSeqSta_Err)		gWs_Seq_Err |= cErrFlg_Ld;
+	if(gWs_Ready_Sta==cSeqSta_Err)		gWs_Seq_Err |= cErrFlg_Rd;
+	if(gWs_Welding_Sta==cSeqSta_Err)	gWs_Seq_Err |= cErrFlg_Wd;
+	if(gWs_Wait_Sta==cSeqSta_Err)		gWs_Seq_Err |= cErrFlg_Wt;
+	if(gWs_Unload_Sta==cSeqSta_Err)		gWs_Seq_Err |= cErrFlg_Ud;
+	if(gWs_Reject_Sta==cSeqSta_Err)		gWs_Seq_Err |= cErrFlg_Rj;
+
+	if(gVs_Load_Sta==cSeqSta_Err)		gVs_Seq_Err |= cErrFlg_Ld;
+	if(gVs_Ready_Sta==cSeqSta_Err)		gVs_Seq_Err |= cErrFlg_Rd;
+	if(gVs_Vision_Sta==cSeqSta_Err)		gVs_Seq_Err |= cErrFlg_Vn;
+	if(gVs_Wait_Sta==cSeqSta_Err)		gVs_Seq_Err |= cErrFlg_Wt;
+	if(gVs_Unload_Sta==cSeqSta_Err)		gVs_Seq_Err |= cErrFlg_Ud;
+	if(gVs_Reject_Sta==cSeqSta_Err)		gVs_Seq_Err |= cErrFlg_Rj;
+
+
+	// Ws Alarm Update
+	if(gWs_Safety_Sta==cSafetySta_Err)
+	{
+		gWs_ErrCode	= gWs_Safety_Err;
+		gWs_Error = 1;
+	}
+	else if(gWs_Home_Sta==cHomeSta_Err)
+	{
+		gWs_ErrCode = gWs_Home_Err;
+		gWs_Error = 1;
+	}
+	else if(gMc_Home_Sta==cHomeSta_Err)
+	{
+		gWs_ErrCode = gMc_Home_Err;
+		gWs_Error = 1;
+	}
+	else if(gMc_AutoRun_Sta==cSeqSta_Err)
+	{
+		gWs_ErrCode = gMc_AutoRun_Err;
+		gWs_Error = 1;
+	}
+	else if(gWs_Seq_Err!=0)
+	{
+		if(gWs_Load_Sta==cSeqSta_Err)			gWs_ErrCode = gWs_Load_Err;
+		else if(gWs_Ready_Sta==cSeqSta_Err)		gWs_ErrCode = gWs_Ready_Err;
+		else if(gWs_Welding_Sta==cSeqSta_Err)	gWs_ErrCode = gWs_Welding_Err;
+		else if(gWs_Wait_Sta==cSeqSta_Err)		gWs_ErrCode = gWs_Wait_Err;
+		else if(gWs_Unload_Sta==cSeqSta_Err)	gWs_ErrCode = gWs_Unload_Err;
+		else if(gWs_Reject_Sta==cSeqSta_Err)	gWs_ErrCode = gWs_Reject_Err;
+		gWs_Error = 1;
+	}
+	else if(gWs_Loop_Sta==cSeqSta_Err)
+	{
+		gWs_ErrCode = gWs_Loop_Err;
+		gWs_Error = 1;
+	}
+	else
+	{
+		gWs_Error = 0;
+	}
+
+	// Vs Alarm Update
+	if(gVs_Safety_Sta==cSafetySta_Err)
+	{
+		gVs_ErrCode	= gVs_Safety_Err;
+		gVs_Error = 1;
+	}
+	else if(gVs_Home_Sta==cHomeSta_Err)
+	{
+		gVs_ErrCode = gVs_Home_Err;
+		gVs_Error = 1;
+	}
+	else if(gVs_Seq_Err!=0)
+	{
+		if(gVs_Load_Sta==cSeqSta_Err)			gVs_ErrCode = gVs_Load_Err;
+		else if(gVs_Ready_Sta==cSeqSta_Err)		gVs_ErrCode = gVs_Ready_Err;
+		else if(gVs_Vision_Sta==cSeqSta_Err)	gVs_ErrCode = gVs_Vision_Err;
+		else if(gVs_Wait_Sta==cSeqSta_Err)		gVs_ErrCode = gVs_Wait_Err;
+		else if(gVs_Unload_Sta==cSeqSta_Err)	gVs_ErrCode = gVs_Unload_Err;
+		else if(gVs_Reject_Sta==cSeqSta_Err)	gVs_ErrCode = gVs_Reject_Err;
+		gVs_Error = 1;
+	}
+	else if(gVs_Loop_Sta==cSeqSta_Err)
+	{
+		gVs_ErrCode = gVs_Loop_Err;
+		gVs_Error = 1;
+	}
+	else
+	{
+		gVs_Error = 0;
+	}
+
+//-------------------------------------------------------------//
+// Alarm Reset
+//-------------------------------------------------------------//
+	if(gMc_AlarmReset_Ena==1)
+	{
+		gMc_AlarmReset_Ena = 0;
+		gWs_AlarmReset_Ena = 1;
+		gVs_AlarmReset_Ena = 1;
+	}
+
+	if(gWs_AlarmReset_Ena==1)
+	{
+		gWs_AlarmReset_Ena = 0;
+		call spResetWsAlarm();
+	}
+
+	if(gVs_AlarmReset_Ena==1)
+	{
+		gVs_AlarmReset_Ena = 0;
+		pUmem_Cmd_Vs_AlarmReset = 0;
+		call spResetVsAlarm();
+	}
+
+	if(gSc_AlarmReset_Ena==1)
+	{
+		gSc_AlarmReset_Ena = 0;
+
+		if(gSc_Home_Sta==cHomeSta_Err)			gSc_Home_Sta	  = cHomeSta_Idl;
+		if(gMt_Home_Sta(nsX)==cHomeSta_Err)		gMt_Home_Sta(nsX) = cHomeSta_Idl;
+		if(gMt_Home_Sta(nsY)==cHomeSta_Err)		gMt_Home_Sta(nsY) = cHomeSta_Idl;
+	}
+
+	if(gWs_AlarmRetry_Ena==1)
+	{
+		gWs_AlarmRetry_Ena = 0;
+		if(gMc_Home_Sta==cHomeSta_Err)
+		{
+			call spAbortWsHome();
+			call spResetWsAlarm();
+			call Timer.msec(5);
+			gMc_Home_Start = 1;
+		}
+		else if(gWs_Home_Sta==cHomeSta_Err)
+		{
+			call spAbortWsHome();
+			call spResetWsAlarm();
+			call Timer.msec(5);
+			gWs_Home_Start = 1;
+		}
+		else
+		{
+			call spAbortWsLoop();
+			call spResetWsAlarm();
+			call Timer.msec(5);
+			gWs_Loop_Start = 1;
+
+			//20251230 KJH - Manual Mode시 Auto Mode 알람 발생.(방안 모색중)
+		}
+	}
+
+	if(gVs_AlarmRetry_Ena==1)
+	{
+		gVs_AlarmRetry_Ena = 0;
+		pUmem_Cmd_Vs_AlarmRetry = 0;
+		if(gVs_Home_Sta==cHomeSta_Err)
+		{
+			call spAbortVsHome();
+			call spResetVsAlarm();
+			call Timer.msec(5);
+			gVs_Home_Start = 1;
+		}
+		else
+		{
+			call spAbortVsLoop();
+			call spResetVsAlarm();
+			call Timer.msec(5);
+			gVs_Loop_Start = 1;
+		}
+	}
+
+	if(gWs_AlarmAbort_Ena==1)
+	{
+		gWs_AlarmAbort_Ena = 0;
+
+		if(gWs_Home_Sta==cHomeSta_Err)
+		{
+			call spAbortWsHome();
+			call spResetWsAlarm();
+		}
+		else
+		{
+			call spAbortWsLoop();
+			call spResetWsAlarm();
+		}
+	}
+
+	if(gVs_AlarmAbort_Ena==1)
+	{
+		gVs_AlarmAbort_Ena = 0;
+		pUmem_Cmd_Vs_AlarmAbort = 0;
+
+		if(gVs_Home_Sta==cHomeSta_Err)
+		{
+			call spAbortVsHome();
+			call spResetVsAlarm();
+		}
+		else
+		{
+			call spAbortVsLoop();
+			call spResetVsAlarm();
+		}
+	}
+//-------------------------------------------------------------//
+// Interlock
+//-------------------------------------------------------------//
+	// Laser Gate Interlock
+	if(Coord[1].ProgActive!=1 && gWs_TestShot_Ena!=1 && gWs_LaserTest_Ena!=1)
+	{
+		pGpio_Do00_LaserEmission = 0;
+	}
+
+	// Scanner Timebase Lock Cancel
+	if(Coord[2].ProgActive!=1)
+	{
+		Coord[2].pDesTimeBase = Coord[2].DesTimeBase.a
+	}
+
+//-------------------------------------------------------------//
+// Request Signal Clear
+//-------------------------------------------------------------//
+	if(gWs_Load_Ena!=1)
+	{
+		if(pUmem_Sta_Ws_2ndTransLdReq!=cPcReq_Err)		pUmem_Sta_Ws_2ndTransLdReq = 0;
+		else
+		{
+			if(pUmem_Cmd_Ws_2ndTransLdRsp==cPcRep_Idl)	pUmem_Sta_Ws_2ndTransLdReq = cPcReq_Idl;
+		}
+	}
+	else
+	{
+		if(pUmem_Sta_Ws_2ndTransLdReq==cPcReq_Err)
+		{
+			if(pUmem_Cmd_Ws_2ndTransLdRsp==cPcRep_Idl)	pUmem_Sta_Ws_2ndTransLdReq = cPcReq_Idl;
+		}
+	}
+	if(gWs_Welding_Ena!=1)				pUmem_Sta_Ws_LwmStartReq = 0;
+	if(gWs_Reject_Ena!=1)				pUmem_Sta_Ws_1stTransRjReq = 0;
+	if(gWs_Ready_Ena!=1)				pUmem_Sta_Ws_2dVisionCkReq = 0;
+	if(gVs_Unload_Ena!=1){				pUmem_Sta_Vs_3rdTransUdReq = 0;
+										pUmem_Sta_Vs_3rdTransRjReq = 0;}
+//	if(gVs_Unload_Ena!=1)				pUmem_Sta_Vs_3rdTransUdReq = 0;
+//	if(gVs_Reject_Ena!=1)				pUmem_Sta_Vs_3rdTransRjReq = 0;
+//	if(gVs_PostVisionST_Ena!=1)			pUmem_Sta_Vs_3DVisionStReq = 0;
+//	if(gVs_PostVisionED_Ena!=1)			pUmem_Sta_Vs_3DVisionEdReq = 0;
+
+close
+

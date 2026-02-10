@@ -1,0 +1,193 @@
+//######################################################################################################
+// PLC 25 : Picker Blow Off (For Tangerine)
+//######################################################################################################
+
+
+open plc 25
+	local lN2BlowOld = 0;
+	//if(gMc_RunMod==cRunMode_Auto)		//20251230 KJH - gKey_RunMod는 Switch 값을 전달 받는 값.
+	if(gKey_RunMod != cRunMode_Auto)
+	{
+		if(pUmem_Do16_TrGripOpn==1)	
+		{
+			Call Timer.msec(gBlow_Time)
+			pUmem_Do16_TrGripOpn=0;
+		}
+	}
+
+	if(pUmem_Do23_WsN2Blow != gN2BlowOld )
+	{
+		gN2BlowOld = pUmem_Do23_WsN2Blow;
+		if(pUmem_Do23_WsN2Blow == 1)
+		{
+			gN2BlowTime = Sys.Time + 2;
+		}
+		else
+		{
+			gN2BlowState = 0;
+		}
+	}
+
+	if(pUmem_Do23_WsN2Blow == 1 && gN2BlowTime <= Sys.Time && gN2BlowState == 0)
+	{
+		gN2BlowTime = Sys.Time;
+
+		gN2BlowState = 1;
+	}
+
+
+	//--------------------------------------------------------------------------------------------//
+// Post Vison Start Seq.
+//--------------------------------------------------------------------------------------------//
+	if(gVs_PostVisionST_Start==1)
+	{
+		gVs_PostVisionST_Start = 0;
+		gVs_PostVisionST_Sta = cSeqSta_Idl;
+		gVs_PostVisionST_Seq = 1;
+		gVs_PostVisionST_Ena = 1;
+
+		pUmem_Cmd_Vs_3DVisionStRsp = cPcRep_Idl;
+		pUmem_Cmd_Vs_3DVisionEdRsp = cPcRep_Idl;
+	}
+
+	if(gVs_PostVisionST_Abort==1)
+	{
+		gVs_PostVisionST_Abort = 0;
+		gVs_PostVisionST_Seq = 0;
+		gVs_PostVisionST_Ena = 0;
+	}
+
+	if(gVs_PostVisionST_Ena==1)
+	{
+		switch(gVs_PostVisionST_Seq)
+		{
+			case 1:
+				gVs_PostVisionST_Buf = gVs_PostVisionST_Seq;
+				if(gVs_RunOpt&cRunOpt_SkipVsVeReq!=0)
+				{
+					gVs_Sta_Pdt = cPdtSta_Avn;
+					gVs_PostVisionST_Seq = 90;
+				}
+				else if(pUmem_Cmd_Vs_3DVisionStRsp==cPcRep_Idl)
+				{
+					pUmem_Sta_Vs_3DVisionStReq = cPcReq_Vsn;
+					gVs_PostVisionST_Tmr = Sys.Time + cSeq_VsnTimeOut;
+					gVs_PostVisionST_Seq = 90;
+				}
+				else if(Sys.Time > gVs_PostVisionST_Tmr)
+				{
+					gVs_PostVisionST_Err = cErrCode_Vs3DVnStReadyRsp;
+					gVs_PostVisionST_Sta = cSeqSta_Err;
+					gVs_PostVisionST_Seq = 0;
+					gVs_PostVisionST_Ena = 0;
+				}
+			break;
+			case 90:
+				gVs_PostVisionST_Buf = gVs_PostVisionST_Seq;
+				gVs_PostVisionST_Sta = cSeqSta_Fin;
+				gVs_PostVisionST_Seq = 0;
+				gVs_PostVisionST_Ena = 0;
+			break;
+
+			default:
+				gVs_PostVisionST_Err = -1;
+				gVs_PostVisionST_Sta = cSeqSta_Err;
+				gVs_PostVisionST_Seq = 0;
+				gVs_PostVisionST_Ena = 0;
+			break;
+		}
+	}
+//--------------------------------------------------------------------------------------------//
+// Post Vison End Seq.
+//--------------------------------------------------------------------------------------------//
+	if(gVs_PostVisionED_Start==1)
+	{
+		gVs_PostVisionED_Start = 0;
+		gVs_PostVisionED_Sta = cSeqSta_Idl;
+		gVs_PostVisionED_Seq = 1;
+		gVs_PostVisionED_Ena = 1;
+	}
+
+	if(gVs_PostVisionED_Abort==1)
+	{
+		gVs_PostVisionED_Abort = 0;
+		gVs_PostVisionED_Seq = 0;
+		gVs_PostVisionED_Ena = 0;
+	}
+
+	if(gVs_PostVisionED_Ena==1)
+	{
+		switch(gVs_PostVisionED_Seq)
+		{
+			case 1:
+				gVs_PostVisionED_Buf = gVs_PostVisionED_Seq;
+				if(gVs_RunOpt&cRunOpt_SkipVsVsReq!=0)
+				{
+					gVs_PostVisionED_Sta = cSeqSta_Ing;
+					gVs_Vision_VsnJudge = cVsnJudge_Ok;
+					gVs_PostVisionED_Seq = 90;
+				}
+				else if(pUmem_Cmd_Vs_3DVisionEdRsp==cPcRep_Idl)
+				{
+					gVs_PostVisionED_Sta = cSeqSta_Ing;
+					pUmem_Sta_Vs_3DVisionEdReq = cPcReq_Vsn;
+					gVs_PostVisionED_Tmr = Sys.Time + cSeq_VsnTimeOut;
+					gVs_PostVisionED_Seq = 2;
+				}
+//				else if(Sys.Time > gVs_PostVisionED_Tmr)
+//				{
+//					gVs_PostVisionED_Err = cErrCode_Vs3DVnStReadyRsp;
+//					gVs_PostVisionED_Sta = cSeqSta_Err;
+//					gVs_PostVisionED_Seq = 0;
+//					gVs_PostVisionED_Ena = 0;
+//				}
+			break;
+			case 2:
+				gVs_PostVisionED_Buf = gVs_PostVisionED_Seq;
+				if(pUmem_Cmd_Vs_3DVisionEdRsp==cPcRep_Ok)
+				{
+					pUmem_Sta_Vs_3DVisionEdReq = cPcReq_Idl;
+					gVs_Sta_Pdt = cPdtSta_Avn;
+					gVs_Vision_VsnJudge = cVsnJudge_Ok;
+					gVs_PostVisionED_Seq = 90;
+				}
+				else if(pUmem_Cmd_Vs_3DVisionEdRsp==cPcRep_Ng)
+				{
+					pUmem_Sta_Vs_3DVisionEdReq = cPcReq_Idl;
+					gVs_Sta_Pdt = cPdtSta_Err;
+					gVs_Vision_VsnJudge = cVsnJudge_Ng;
+					gVs_PostVisionED_Seq = 90;
+				}
+				else if(pUmem_Cmd_Vs_3DVisionEdRsp==cPcRep_Err)
+				{
+					pUmem_Sta_Vs_3DVisionEdReq = cPcReq_Idl;
+					gVs_PostVisionED_Err = cErrCode_Vs3DVnEdStartRsp;
+					gVs_PostVisionED_Sta = cSeqSta_Err;
+					gVs_PostVisionED_Seq = 0;
+					gVs_PostVisionED_Ena = 0;
+				}
+				else if(Sys.Time > gVs_PostVisionED_Tmr)
+				{
+					pUmem_Sta_Vs_3DVisionEdReq = cPcReq_Idl;
+					gVs_PostVisionED_Err = cErrCode_Vs3DVnEdStartRsp;
+					gVs_PostVisionED_Sta = cSeqSta_Err;
+					gVs_PostVisionED_Seq = 0;
+					gVs_PostVisionED_Ena = 0;
+				}
+			break;
+			case 90:
+				gVs_PostVisionED_Buf = gVs_PostVisionED_Seq;
+				gVs_PostVisionED_Sta = cSeqSta_Fin;
+				gVs_PostVisionED_Seq = 0;
+				gVs_PostVisionED_Ena = 0;
+			break;
+
+			default:
+				gVs_PostVisionED_Err = -1;
+				gVs_PostVisionED_Sta = cSeqSta_Err;
+				gVs_PostVisionED_Seq = 0;
+				gVs_PostVisionED_Ena = 0;
+			break;
+		}
+	}
+close

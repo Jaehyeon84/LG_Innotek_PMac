@@ -1,0 +1,88 @@
+////######################################################################################################
+//// PLC 26 : Laser Power Check
+////######################################################################################################
+
+
+//open plc 26
+////--------------------------------------------------------------------------------------------//
+//// Laser Shot
+////--------------------------------------------------------------------------------------------//
+//	if(gWs_PowerCheck_Ena==1)
+//	{
+//		gWs_CorePowSf	= pUmem_Cmd_Ws_CorePowerSf;
+//		gWs_CoreRefPow	= pUmem_Cmd_Ws_CoreRefPower;
+//		gWs_CoreMinPow	= pUmem_Cmd_Ws_CoreMinPower;
+//		gWs_CoreMaxPow	= pUmem_Cmd_Ws_CoreMaxPower;
+
+//		gWs_RingPowSf	= pUmem_Cmd_Ws_RingPowerSf;
+//		gWs_RingRefPow	= pUmem_Cmd_Ws_RingRefPower;
+//		gWs_RingMinPow	= pUmem_Cmd_Ws_RingMinPower;
+//		gWs_RingMaxPow	= pUmem_Cmd_Ws_RingMaxPower;
+
+//		gWs_TestShot_Time = pUmem_Cmd_Ws_ShotTime;
+
+//		gWs_LaserEna = 1;
+//		pGpio_Do00_LaserEmission = 1;
+//		call Timer.msec(gWs_TestShot_Time);
+
+//		gWs_LaserEna = 0;
+//		pGpio_Do00_LaserEmission = 0;
+//		gWs_TestShot_Ena = 0;
+//	}
+
+////--------------------------------------------------------------------------------------------//
+//// Vision Trigger Shot
+////--------------------------------------------------------------------------------------------//
+//	if(gVs_TestShot_Ena==1)
+//	{
+//		switch(gVs_TestShot_Seq)
+//		{
+//			case 1:
+//				Gate3[0].Chan[3].EquWrite = 1;
+//				Gate3[0].Chan[3].EquOutMask = 8;
+//				gVs_TestShot_TimeBuf = Sys.Time + pUmem_Cmd_Vs_ShotTime/1000;
+//				gVs_TestShot_Seq = 10;
+//			break;
+
+//			case 10:
+//				Gate3[0].Chan[3].EquWrite = 3;
+//				gVs_TestShot_Tmr = Sys.Time + 0.0005
+//				gVs_TestShot_Seq = 11;
+//			break;
+
+//			case 11:
+//				if(Sys.Time > gVs_TestShot_Tmr)
+//				{
+//					gVs_TestShot_Seq = 20;
+//				}
+//			break;
+
+//			case 20:
+//				Gate3[0].Chan[3].EquWrite = 1;
+//				gVs_TestShot_Tmr = Sys.Time + 0.0005
+//				gVs_TestShot_Seq = 21;
+//			break;
+
+//			case 21:
+//				if(Sys.Time > gVs_TestShot_Tmr)
+//				{
+//					gVs_TestShot_Seq = 30;
+//				}
+//			break;
+
+//			case 30:
+//				if(Sys.Time > gVs_TestShot_TimeBuf)
+//				{
+//					Gate3[0].Chan[3].EquOutMask = 0;
+//					gVs_TestShot_Seq = 0;
+//					gVs_TestShot_Ena = 0;
+//				}
+//				else
+//				{
+//					gVs_TestShot_Seq = 10;
+//				}
+//			break;
+//		}
+//	}
+//close
+

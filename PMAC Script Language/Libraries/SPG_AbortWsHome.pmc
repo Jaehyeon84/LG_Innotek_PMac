@@ -1,0 +1,14 @@
+
+
+open subprog spAbortWsHome
+	gWs_Loop_Abort = 1;				// Abort Welding Sequence Loop
+
+	gMt_Home_Abort(nwX) = 1;		// Abort Welding Stage X Motor Home
+	gMt_Home_Abort(nwY) = 1;		// Abort Welding Stage Y Motor Home
+	gMt_Home_Abort(nwC) = 1;		// Abort Welding Stage C Motor Home
+	gMt_Home_Abort(nwZ) = 1;		// Abort Welding Stage Z Motor Home
+									
+	gWs_Home_Sta = cSeqSta_Idl;		// Clear Home Sequence Status
+	gWs_Home_Seq = 0;				// Clear Home Sequence Number
+	gWs_Home_Ena = 0;				// Disable Home Sequence
+close

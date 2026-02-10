@@ -1,0 +1,178 @@
+
+
+open plc 22
+	local ret = -1;
+
+	if(gVs_Ready_Start==1)
+	{
+		gVs_Ready_Start = 0;
+		gVs_Ready_Seq = 1;
+		gVs_Ready_Ena = 1;
+	}
+
+	if(gVs_Ready_Abort==1)
+	{
+		gVs_Ready_Abort = 0;
+		gVs_Ready_Seq = 0;
+		gVs_Ready_Ena = 0;
+	}
+
+	if(gVs_Ready_Ena==1)
+	{
+		switch(gVs_Ready_Seq)
+		{
+		//------------------------------------------------//
+		// Ready
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				gVs_Ready_TimeBuf = Sys.Time;
+
+				if(gEcatCom_Sta(0)==cEcatComSta_Ok)
+				{
+					gVs_Ready_Sta = cVsSta_Ing;
+					gVs_Ready_Seq = 2;
+				}
+				else
+				{
+					gVs_Ready_Sta = cVsSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_Ready_Seq = 3;
+				}
+				else
+				{
+					gVs_Ready_Sta = cVsSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_Ready_Seq = 4;
+				}
+				else
+				{
+					gVs_Ready_Sta = cVsSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				if(Coord[3].InPos==1)
+				{
+					gVs_Ready_Seq = 5;
+				}
+				else
+				{
+					gVs_Ready_Sta = cVsSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+
+			case 5:	// Detect
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				if(gRunMode==cRunMode_DryRun)
+				{
+					gVs_Ready_Seq = 10;
+				}
+				else if(pUmem_Di2C_VsTbUndet==cDet_On)
+				{
+					gVs_Ready_Seq = 10;
+				}
+				else
+				{
+					gVs_Ready_Sta = cVsSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 10:
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				call spSetVsRdParam(&ret);
+				if(ret==0)
+				{
+					Motor[nvX].JogSpeed = gVs_Ready_VelX;
+					Motor[nvY].JogSpeed = gVs_Ready_VelY;
+					Motor[nvC].JogSpeed = gVs_Ready_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_Ready_PosX;
+					Motor[nvY].ProgJogPos = gVs_Ready_PosY;
+					Motor[nvY].ProgJogPos = gVs_Ready_PosC;
+
+					jog nvX=*
+					jog nvY=*
+					jog nvC=*
+
+					gVs_Ready_Tmr = Sys.Time + 0.1;
+					gVs_Ready_Seq = 11;
+				}
+				else
+				{
+					gVs_Ready_Sta = cVsSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+
+			case 11:
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				if(Sys.time > gVs_Ready_Tmr)
+				{
+					gVs_Ready_Tmr = Sys.Time + cVs_MtrTimeOut;
+					gVs_Ready_Seq = 12;
+				}
+			break;
+
+			case 12:
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				if(Coord[3].InPos==1)
+				{
+					gVs_Ready_Seq = 90;
+				}
+				else if(Sys.time > gVs_Ready_Tmr)
+				{
+					gVs_Ready_Sta = cVsSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				gVs_Ready_Sta = cVsSta_Fin;
+				gVs_Ready_Seq = 0;
+				gVs_Ready_Ena = 0;
+			break;
+
+			default:
+				gVs_Ready_Sta = cVsSta_Err;
+				gVs_Ready_Seq = 0;
+				gVs_Ready_Ena = 0;				
+			break;
+		}
+	}
+
+
+close
+
+

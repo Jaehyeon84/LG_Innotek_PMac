@@ -1,0 +1,461 @@
+//######################################################################################################
+// PLC 22 : Laser Control
+//######################################################################################################
+
+
+open plc 22
+//--------------------------------------------------------------------------------------------//
+// Laser Status
+//--------------------------------------------------------------------------------------------//
+	if(pUmem_Di02_LaserReqResp==1 && pUmem_Di03_LaserPowerOn==1 && pUmem_Di04_LaserAdMode==1 && pUmem_Di05_LaserProgRun==1)
+	{
+		gWs_LaserSta_Ready = 1;
+	}
+	else
+	{
+		gWs_LaserSta_Ready = 0;
+	}
+
+	if(gWs_LaserSta_Ready==1 && pGpio_Do00_LaserEmission==1)
+	{
+		gWs_LaserSta_Enable = 1;
+	}
+	else
+	{
+		gWs_LaserSta_Enable = 0;
+	}
+
+	gWs_LaserSta_CorePower = (Gate3[0].Chan[3].Dac[0]/exp2(31)*10) * gWs_CorePowSf;
+	gWs_LaserSta_RingPower = (Gate3[0].Chan[3].Dac[1]/exp2(31)*10) * gWs_RingPowSf;
+
+//--------------------------------------------------------------------------------------------//
+// Laser Enable Sequence
+//--------------------------------------------------------------------------------------------//
+	if(gWs_LaserEnable_Start==1)
+	{
+		gWs_LaserEnable_Start = 0;
+		gWs_LaserEnable_Seq = 1;
+		gWs_LaserEnable_Ena = 1;
+	}
+
+	if(gWs_LaserEnable_Abort==1)
+	{
+		gWs_LaserEnable_Abort = 0;
+		gWs_LaserEnable_Seq = 0;
+		gWs_LaserEnable_Ena = 0;
+	}
+
+	if(gWs_LaserEnable_Ena==1)
+	{
+		switch(gWs_LaserEnable_Seq)
+		{
+			case 1:
+				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
+				gWs_LaserEnable_Sta = cLaserSta_Ing;
+				pUmem_Do02_LaserRequest = 1;
+				gWs_LaserEnable_Tmr = Sys.Time + cLaser_EnaTimeOut;
+				gWs_LaserEnable_Seq = 2;
+			break;
+			
+			case 2:
+				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
+				if(pUmem_Di02_LaserReqResp==1)
+				{
+					pUmem_Do03_LaserPowerOn = 1;
+					gWs_LaserEnable_Tmr = Sys.Time + cLaser_EnaTimeOut;
+					gWs_LaserEnable_Seq = 3;
+				}
+				else if(Sys.Time > gWs_LaserEnable_Tmr)
+				{
+					gWs_LaserEnable_Err = 777;
+					gWs_LaserEnable_Sta = cLaserSta_Err;
+					gWs_LaserEnable_Seq = 0;
+					gWs_LaserEnable_Ena = 0;
+				}
+			break;
+
+			case 3:
+				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
+				if(pUmem_Di03_LaserPowerOn==1)
+				{
+					pUmem_Do04_LaserAdInEna = 1;
+					gWs_LaserEnable_Tmr = Sys.Time + cLaser_EnaTimeOut;
+					gWs_LaserEnable_Seq = 4;
+				}
+				else if(Sys.Time > gWs_LaserEnable_Tmr)
+				{
+					gWs_LaserEnable_Err = 777;
+					gWs_LaserEnable_Sta = cLaserSta_Err;
+					gWs_LaserEnable_Seq = 0;
+					gWs_LaserEnable_Ena = 0;
+				}
+			break;
+
+			case 4:
+				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
+				if(pUmem_Di04_LaserAdMode==1)
+				{
+					pUmem_Do06_LaserProgEna = 1;
+					gWs_LaserEnable_Tmr = Sys.Time + cLaser_EnaTimeOut;
+					gWs_LaserEnable_Seq = 5;
+				}
+				else if(Sys.Time > gWs_LaserEnable_Tmr)
+				{
+					gWs_LaserEnable_Err = 777;
+					gWs_LaserEnable_Sta = cLaserSta_Err;
+					gWs_LaserEnable_Seq = 0;
+					gWs_LaserEnable_Ena = 0;
+				}
+			break;
+
+			case 5:
+				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
+				if(pUmem_Di05_LaserProgRun==1)
+				{
+					gWs_LaserEnable_Sta = cLaserSta_Fin;
+					gWs_LaserEnable_Seq = 0;
+					gWs_LaserEnable_Ena = 0;
+				}
+				else if(Sys.Time > gWs_LaserEnable_Tmr)
+				{
+					gWs_LaserEnable_Err = 777;
+					gWs_LaserEnable_Sta = cLaserSta_Err;
+					gWs_LaserEnable_Seq = 0;
+					gWs_LaserEnable_Ena = 0;
+				}
+			break;
+
+			default : 
+				gWs_LaserEnable_Err = 777;
+				gWs_LaserEnable_Sta = cLaserSta_Err;
+				gWs_LaserEnable_Seq = 0;
+				gWs_LaserEnable_Ena = 0;
+			break;
+		}
+	}
+
+//--------------------------------------------------------------------------------------------//
+// Laser Disable Sequence
+//--------------------------------------------------------------------------------------------//
+	if(gWs_LaserDisable_Start==1)
+	{
+		gWs_LaserDisable_Start = 0;
+		gWs_LaserDisable_Seq = 1;
+		gWs_LaserDisable_Ena = 1;
+	}
+
+	if(gWs_LaserDisable_Abort==1)
+	{
+		gWs_LaserDisable_Abort = 0;
+		gWs_LaserDisable_Seq = 0;
+		gWs_LaserDisable_Ena = 0;
+	}
+
+	if(gWs_LaserDisable_Ena==1)
+	{
+		switch(gWs_LaserDisable_Seq)
+		{
+			case 1:
+				gWs_LaserDisable_Buf = gWs_LaserDisable_Seq;
+				gWs_LaserDisable_Sta = cLaserSta_Ing;
+				pUmem_Do06_LaserProgEna = 0;
+				gWs_LaserDisable_Tmr = Sys.Time + cLaser_EnaTimeOut;
+				gWs_LaserDisable_Seq = 2;
+			break;
+			
+			case 2:
+				gWs_LaserDisable_Buf = gWs_LaserDisable_Seq;
+				if(pUmem_Di05_LaserProgRun==0)
+				{
+					pUmem_Do04_LaserAdInEna = 0;
+					gWs_LaserDisable_Tmr = Sys.Time + cLaser_EnaTimeOut;
+					gWs_LaserDisable_Seq = 3;
+				}
+				else if(Sys.Time > gWs_LaserDisable_Tmr)
+				{
+					gWs_LaserDisable_Err = 777;
+					gWs_LaserDisable_Sta = cLaserSta_Err;
+					gWs_LaserDisable_Seq = 0;
+					gWs_LaserDisable_Ena = 0;
+				}
+			break;
+
+			case 3:
+				gWs_LaserDisable_Buf = gWs_LaserDisable_Seq;
+				if(pUmem_Di04_LaserAdMode==0)
+				{
+					pUmem_Do03_LaserPowerOn = 0;
+					gWs_LaserDisable_Tmr = Sys.Time + cLaser_EnaTimeOut;
+					gWs_LaserDisable_Seq = 4;
+				}
+				else if(Sys.Time > gWs_LaserDisable_Tmr)
+				{
+					gWs_LaserDisable_Err = 777;
+					gWs_LaserDisable_Sta = cLaserSta_Err;
+					gWs_LaserDisable_Seq = 0;
+					gWs_LaserDisable_Ena = 0;
+				}
+			break;
+
+			case 4:
+				gWs_LaserDisable_Buf = gWs_LaserDisable_Seq;
+				if(pUmem_Di03_LaserPowerOn==0)
+				{
+					pUmem_Do02_LaserRequest = 0;
+					gWs_LaserDisable_Tmr = Sys.Time + cLaser_EnaTimeOut;
+					gWs_LaserDisable_Seq = 5;
+				}
+				else if(Sys.Time > gWs_LaserDisable_Tmr)
+				{
+					gWs_LaserDisable_Err = 777;
+					gWs_LaserDisable_Sta = cLaserSta_Err;
+					gWs_LaserDisable_Seq = 0;
+					gWs_LaserDisable_Ena = 0;
+				}
+			break;
+
+			case 5:
+				gWs_LaserDisable_Buf = gWs_LaserDisable_Seq;
+				if(pUmem_Di02_LaserReqResp==0)
+				{
+					gWs_LaserDisable_Sta = cLaserSta_Fin;
+					gWs_LaserDisable_Seq = 0;
+					gWs_LaserDisable_Ena = 0;
+				}
+				else if(Sys.Time > gWs_LaserDisable_Tmr)
+				{
+					gWs_LaserDisable_Err = 777;
+					gWs_LaserDisable_Sta = cLaserSta_Err;
+					gWs_LaserDisable_Seq = 0;
+					gWs_LaserDisable_Ena = 0;
+				}
+			break;
+
+			default : 
+				gWs_LaserDisable_Err = 777;
+				gWs_LaserDisable_Sta = cLaserSta_Err;
+				gWs_LaserDisable_Seq = 0;
+				gWs_LaserDisable_Ena = 0;
+			break;
+		}
+	}
+
+//--------------------------------------------------------------------------------------------//
+// Laser Calibration (Cross Output)
+//--------------------------------------------------------------------------------------------//
+	if(gWs_LaserTestCross_Start==1)
+	{
+		gWs_LaserTestCross_Start = 0;
+		gWs_LaserTestCross_Seq = 1;
+		gWs_LaserTestCross_Ena = 1;
+	}
+
+	if(gWs_LaserTestCross_Abort==1)
+	{
+		gWs_LaserTestCross_Abort = 0;
+		abort 2
+		gWs_LaserTestCross_Seq = 0;
+		gWs_LaserTestCross_Ena = 0;
+	}
+
+	if(gWs_LaserTestCross_Ena==1)
+	{
+		switch(gWs_LaserTestCross_Seq)
+		{
+			case 1:
+				gWs_LaserTestCross_Buf = gWs_LaserTestCross_Seq;
+				gWs_LaserTestCross_Sta = cLaserSta_Ing;
+				gWs_LaserTestCross_Tmr = Sys.Time + 3;
+				gWs_LaserTestCross_Seq = 2;
+			break;
+			
+			case 2:
+				gWs_LaserTestCross_Buf = gWs_LaserTestCross_Seq;
+				if(Coord[2].InPos==1)
+				{
+					Start 2:50
+					gWs_LaserTestCross_Tmr = Sys.Time + 0.1;
+					gWs_LaserTestCross_Seq = 3;
+				}
+				else if(Sys.Time > gWs_LaserTestCross_Tmr)
+				{
+					gWs_LaserTestCross_Err = 777;
+					gWs_LaserTestCross_Sta = cLaserSta_Err;
+					gWs_LaserTestCross_Seq = 0;
+					gWs_LaserTestCross_Ena = 0;
+				}
+			break;
+
+			case 3:
+				gWs_LaserTestCross_Buf = gWs_LaserTestCross_Seq;
+				if(Sys.Time > gWs_LaserTestCross_Tmr)
+				{
+					gWs_LaserTestCross_Tmr = Sys.Time + cLaser_TestTimeOut;
+					gWs_LaserTestCross_Seq = 4;
+				}
+			break;
+
+			case 4:
+				gWs_LaserTestCross_Buf = gWs_LaserTestCross_Seq;
+
+				if(Coord[2].ErrorStatus!=0)
+				{
+					abort 2
+					gWs_LaserEna = 0;
+					pGpio_Do00_LaserEmission = 0;
+
+					gWs_LaserTestCross_Err = 777;
+					gWs_LaserTestCross_Sta = cLaserSta_Err;
+					gWs_LaserTestCross_Seq = 0;
+					gWs_LaserTestCross_Ena = 0;
+				}
+				else if(Coord[2].AmpEna==0)
+				{
+					abort 2
+					gWs_LaserEna = 0;
+					pGpio_Do00_LaserEmission = 0;
+
+					gWs_LaserTestCross_Err = 777;
+					gWs_LaserTestCross_Sta = cLaserSta_Err;
+					gWs_LaserTestCross_Seq = 0;
+					gWs_LaserTestCross_Ena = 0;
+				}
+				else if(Sys.Time > gWs_LaserTestCross_Tmr)
+				{
+					abort 2
+					gWs_LaserEna = 0;
+					pGpio_Do00_LaserEmission = 0;
+
+					gWs_LaserTestCross_Err = 777;
+					gWs_LaserTestCross_Sta = cLaserSta_Err;
+					gWs_LaserTestCross_Seq = 0;
+					gWs_LaserTestCross_Ena = 0;
+				}
+				else if(Coord[2].ProgActive==0 && Coord[2].InPos==1)
+				{
+					gWs_LaserTestCross_Sta = cLaserSta_Fin;
+					gWs_LaserTestCross_Seq = 0;
+					gWs_LaserTestCross_Ena = 0;
+					
+				}
+			break;
+
+			default : 
+				gWs_LaserTestCross_Err = 777;
+				gWs_LaserTestCross_Sta = cLaserSta_Err;
+				gWs_LaserTestCross_Seq = 0;
+				gWs_LaserTestCross_Ena = 0;
+			break;
+		}
+	}
+
+//--------------------------------------------------------------------------------------------//
+// Laser Calibration (Line Output)
+//--------------------------------------------------------------------------------------------//
+	if(gWs_LaserTestLine_Start==1)
+	{
+		gWs_LaserTestLine_Start = 0;
+		gWs_LaserTestLine_Seq = 1;
+		gWs_LaserTestLine_Ena = 1;
+	}
+
+	if(gWs_LaserTestLine_Abort==1)
+	{
+		gWs_LaserTestLine_Abort = 0;
+		abort 2
+		gWs_LaserTestLine_Seq = 0;
+		gWs_LaserTestLine_Ena = 0;
+	}
+
+	if(gWs_LaserTestLine_Ena==1)
+	{
+		switch(gWs_LaserTestLine_Seq)
+		{
+			case 1:
+				gWs_LaserTestLine_Buf = gWs_LaserTestLine_Seq;
+				gWs_LaserTestLine_Sta = cLaserSta_Ing;
+				gWs_LaserTestLine_Tmr = Sys.Time + 3;
+				gWs_LaserTestLine_Seq = 2;
+			break;
+			
+			case 2:
+				gWs_LaserTestLine_Buf = gWs_LaserTestLine_Seq;
+				if(Coord[2].InPos==1)
+				{
+					Start 2:51
+					gWs_LaserTestLine_Tmr = Sys.Time + 0.1;
+					gWs_LaserTestLine_Seq = 3;
+				}
+				else if(Sys.Time > gWs_LaserTestLine_Tmr)
+				{
+					gWs_LaserTestLine_Err = 777;
+					gWs_LaserTestLine_Sta = cLaserSta_Err;
+					gWs_LaserTestLine_Seq = 0;
+					gWs_LaserTestLine_Ena = 0;
+				}
+			break;
+
+			case 3:
+				gWs_LaserTestLine_Buf = gWs_LaserTestLine_Seq;
+				if(Sys.Time > gWs_LaserTestLine_Tmr)
+				{
+					gWs_LaserTestLine_Tmr = Sys.Time + cLaser_TestTimeOut;
+					gWs_LaserTestLine_Seq = 4;
+				}
+			break;
+
+			case 4:
+				gWs_LaserTestLine_Buf = gWs_LaserTestLine_Seq;
+
+				if(Coord[2].ErrorStatus!=0)
+				{
+					abort 2
+					gWs_LaserEna = 0;
+					pGpio_Do00_LaserEmission = 0;
+
+					gWs_LaserTestLine_Err = 777;
+					gWs_LaserTestLine_Sta = cLaserSta_Err;
+					gWs_LaserTestLine_Seq = 0;
+					gWs_LaserTestLine_Ena = 0;
+				}
+				else if(Coord[2].AmpEna==0)
+				{
+					abort 2
+					gWs_LaserEna = 0;
+					pGpio_Do00_LaserEmission = 0;
+
+					gWs_LaserTestLine_Err = 777;
+					gWs_LaserTestLine_Sta = cLaserSta_Err;
+					gWs_LaserTestLine_Seq = 0;
+					gWs_LaserTestLine_Ena = 0;
+				}
+				else if(Sys.Time > gWs_LaserTestLine_Tmr)
+				{
+					abort 2
+					gWs_LaserEna = 0;
+					pGpio_Do00_LaserEmission = 0;
+
+					gWs_LaserTestLine_Err = 777;
+					gWs_LaserTestLine_Sta = cLaserSta_Err;
+					gWs_LaserTestLine_Seq = 0;
+					gWs_LaserTestLine_Ena = 0;
+				}
+				else if(Coord[2].ProgActive==0 && Coord[2].InPos==1)
+				{
+					gWs_LaserTestLine_Sta = cLaserSta_Fin;
+					gWs_LaserTestLine_Seq = 0;
+					gWs_LaserTestLine_Ena = 0;
+					
+				}
+			break;
+
+			default : 
+				gWs_LaserTestLine_Err = 777;
+				gWs_LaserTestLine_Sta = cLaserSta_Err;
+				gWs_LaserTestLine_Seq = 0;
+				gWs_LaserTestLine_Ena = 0;
+			break;
+		}
+	}
+
+close

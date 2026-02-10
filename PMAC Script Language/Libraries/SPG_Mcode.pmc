@@ -1,0 +1,419 @@
+open subprog 1001	//M-Code Sub-Routines
+
+////////////////////////////////////////////////////////////
+// M10 - Laser On, M10 P#
+////////////////////////////////////////////////////////////
+	n10000:
+		local ondelay
+		read(P)							// Read possible arguments
+
+		if(Ldata.coord==1)
+		{
+			if (ArgPassVar & PargMask)
+			{			
+				ondelay = Parg
+			}
+			else
+			{
+				ondelay = 0
+			}
+
+			gWs_Vect_Sum = 0		// Clear variables for Laser Pfm Output
+			gWs_PfmBuf = 0;
+			gWs_PfmCnt = 0;
+			gWs_PfmRtiCnt = 0;
+			//gWs_Prog_TimeBuf = Sys.Time
+
+			gWs_LaserEna = 1;				// Laser Enable
+			pGpio_Do00_LaserEmission = 1;	// Laser Gate Out On
+			dwell (ondelay)					// Laser On Delay
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M11 - Laser Off, M11 P#
+////////////////////////////////////////////////////////////
+	n11000:
+		local offdelay
+		read(P)
+
+		if(Ldata.coord==1)
+		{
+			if (ArgPassVar & PargMask)
+			{			
+				offdelay = Parg
+			}
+			else
+			{
+				offdelay = 0
+			}
+
+			dwell (offdelay)				// Laser Off Delay
+			gWs_LaserEna = 0				// Laser Disable
+			pGpio_Do00_LaserEmission = 0	// Laser Gate Out Off
+			gWs_Prog_Dist = gWs_Vect_Sum	// Update Welding Vector Distance
+			//gWs_Prog_Time = Sys.Time - gWs_Prog_TimeBuf
+			
+			if(gWs_WblEna==1)				// Wobble Enable Status
+			{
+				abort 2						// Coordnate 2(Scanner) Abort
+			}
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M12 - Laser Core Reference Power(Watt), M12 W#
+////////////////////////////////////////////////////////////
+	n12000:
+		read(W)
+		if(Ldata.coord==1 || Ldata.coord==2)
+		{
+			if (ArgPassVar & WargMask)
+			{			
+				gWs_CoreRefPow == Warg		// Update Core Reference Power
+			}
+		}
+	return;
+
+
+////////////////////////////////////////////////////////////
+// M14 - Laser Ring Reference Power(Watt), M14 W#
+////////////////////////////////////////////////////////////
+	n14000:
+		read(W)
+		if(Ldata.coord==1 || Ldata.coord==2)
+		{
+			if (ArgPassVar & WargMask)
+			{			
+				gWs_RingRefPow == Warg		// Update Ring Reference Power
+			}
+		}
+	return;
+
+
+////////////////////////////////////////////////////////////
+// M20 - Wobble On, M20 A# B# D# L# T# X# Y#
+////////////////////////////////////////////////////////////
+	n20000:
+		read(A,B,D,L,T,X,Y)
+		if(Ldata.coord==1)
+		{
+			dwell 0
+
+			if (ArgPassVar & AargMask)
+			{			
+				gWs_WblRatW = Aarg			// Update Wobble Width Ratio
+			}
+
+			if (ArgPassVar & BargMask)
+			{			
+				gWs_WblRatL = Barg			// Update Wobble Length Ratio
+			}
+
+			if (ArgPassVar & DargMask)
+			{			
+				gWs_WblDst = Darg			// Update Wobble Distance(Wobble to Wobble)
+			}
+
+			if (ArgPassVar & LargMask)
+			{			
+				gWs_WblLen = Larg			// Update Wobble Length
+			}
+
+			if (ArgPassVar & TargMask)
+			{			
+				gWs_WblType = Targ			// Update Wobble Type
+			}
+
+			if (ArgPassVar & XargMask)
+			{			
+				gWs_WblOfsX = Xarg			// Update X Offset
+			}
+
+			if (ArgPassVar & YargMask)
+			{			
+				gWs_WblOfsY = Yarg			// Update Y Offset
+			}
+
+			switch(gWs_WblType)
+			{
+				case cWbl_Type_Circel:
+					start 2:21				// Run Prog 21
+				break;
+
+				case cWbl_Type_Snowman:
+					start 2:22				// Run Prog 22
+				break;
+
+				case cWbl_Type_Butterfly:
+					start 2:23				// Run Prog 23
+				break;
+
+				case cWbl_Type_Column:
+					start 2:24				// Run Prog 24
+				break;
+
+				case cWbl_Type_Row:
+					start 2:25				// Run Prog 25
+				break;
+			}
+			dwell 100
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M21 - Wobble Off, M21
+////////////////////////////////////////////////////////////
+	n21000:
+		if(Ldata.coord==1)
+		{
+			dwell 0
+			abort 2		// Coordinate 2(Scanner) Abort
+			Coord[2].pDesTimeBase = Coord[2].DesTimeBase.a	// Disable External Time Base Control
+			dwell 50	// Wait Stop	
+		
+			start 2:19	// Move to Zero Position
+			dwell 50	// Wait Settling
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M40 - Vision Trigger ON, M40 D# P#
+////////////////////////////////////////////////////////////
+	n40000:
+		read(D,P)
+		if(Ldata.coord==3)
+		{
+			dwell 0
+
+			if (ArgPassVar & PargMask) 	gVs_PfmPeriod = Parg
+			if (ArgPassVar & DargMask) 	gVs_PfmDuty = Darg
+
+			Motor[nvS].MasterCtrl = 0				// Disable Vector Distance Following
+			if(Motor[nvS].AmpEna==0)
+			{
+				jog/ nvS							// Servo On Vector Distance Following Axis
+				while(Motor[nvS].AmpEna==0){}		// Wait until Vector Distance Following Axis is Servo On
+			}
+			dwell 5
+
+			call spSetEquOut(gVs_PfmPeriod, gVs_PfmDuty)	// Set EQU Out
+
+			gVs_Vect_Sum = 0						// Clear Vector Move Distance
+			//gVs_Prog_TimeBuf = Sys.Time
+
+			gVs_EquCnt = 0							// Clear Equ Count Value
+			gVs_EquEna = 1							// Enable Equ Count
+
+			Motor[nvS].MasterCtrl = 1				// Enable Vector Distance Following
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M41 - Vision Trigger OFF, M41
+////////////////////////////////////////////////////////////
+	n41000:
+		if(Ldata.coord==3)
+		{
+			dwell 0
+			
+			//gVs_Prog_Time = Sys.Time - gVs_Prog_TimeBuf
+			gVs_Prog_Dist = gVs_Vect_Sum			// Update Vector Move Distance
+
+			Gate3[0].Chan[3].EquOutMask = 0			// Disable Equ Output 
+			Motor[nvS].MasterCtrl = 0				// Disable Vector Distance Following
+			gVs_EquEna = 0							// Disable Equ Count
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M50 - Laser Test On, M50 G# P#
+////////////////////////////////////////////////////////////
+	n50000:
+		local guidena,test_ondelay
+		read(G,P)
+		
+		if(Ldata.coord==2)
+		{
+			dwell 0
+
+			if (ArgPassVar & GargMask)
+			{			
+				guidena = Garg			// Guid Beam Enable/Disable
+			}
+			else
+			{
+				guidena = 0
+			}
+
+			if (ArgPassVar & PargMask)
+			{			
+				test_ondelay = Parg
+			}
+			else
+			{
+				test_ondelay = 0
+			}
+
+			gWs_LaserTest_Ena=1;
+			gWs_LaserEna = 1;		// Laser Enable
+
+			if(guidena==1)			// Guaid Beam Enable
+			{
+				pUmem_Do05_LaserGuideEna = 1;
+				pGpio_Do00_LaserEmission = 0;
+			}
+			else					// Laser Out Enable
+			{
+				pUmem_Do05_LaserGuideEna = 0;
+				pGpio_Do00_LaserEmission = 1;
+			}
+			dwell (test_ondelay)	// Laser On Delay
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M51 - Laset Test Off, M51 P#
+////////////////////////////////////////////////////////////
+	n51000:
+		local test_offdelay
+		read(P)
+
+		if(Ldata.coord==2)
+		{
+			if (ArgPassVar & PargMask)
+			{			
+				test_offdelay = Parg
+			}
+			else
+			{
+				test_offdelay = 0
+			}
+
+			dwell (test_offdelay)	// Laser Off Delay
+			gWs_LaserEna = 0		// Laser Disable
+			pUmem_Do05_LaserGuideEna = 0;	// Guid Beam Off 
+			pGpio_Do00_LaserEmission = 0;	// Gate Off
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M100 - Laser Output Mode		: M100 A0, M100 A1
+////////////////////////////////////////////////////////////
+	n100000:
+		read(A)
+		if(Ldata.coord==1)
+		{
+			if (ArgPassVar & AargMask) 	gWs_OutMode == Aarg		// Update LAser Out Mode
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M101 - Ref Velocity		: M101 V#
+////////////////////////////////////////////////////////////
+	n101000:
+		read(V)
+		if(Ldata.coord==1)
+		{
+			if (ArgPassVar & VargMask)
+			{
+				gWs_RefVel == Varg		// Update Reference Velocity, Coord 1 : Welding
+				f(Varg)
+			}
+		}
+		else if(Ldata.coord==3)
+		{
+			if (ArgPassVar & VargMask) 
+			{
+				gVs_RefVel == Varg		// Update Reference Velocity, Coord 3 : Vision
+				f(Varg)
+			}
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M110 - Core Laser Power Condition	 : M110 A# B# S#
+////////////////////////////////////////////////////////////
+	n110000:
+		read(A,B,S)
+		if(Ldata.coord==1 || Ldata.coord==2)
+		{
+			if (ArgPassVar & AargMask) 	gWs_CoreMinPow == Aarg		// Update Laser Core Min Power
+			if (ArgPassVar & BargMask) 	gWs_CoreMaxPow == Barg		// Update Laser Core Max Power
+			if (ArgPassVar & SargMask) 	gWs_CorePowSf == Sarg		// Update Laser Core Power Scale Factor
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M111 - Ring Laser Power Condition	 : M111 A# B# S#
+////////////////////////////////////////////////////////////
+	n111000:
+		read(A,B,S)
+		if(Ldata.coord==1 || Ldata.coord==2)
+		{ 
+			if (ArgPassVar & AargMask) 	gWs_RingMinPow == Aarg		// Update Laser Ring Min Power
+			if (ArgPassVar & BargMask) 	gWs_RingMaxPow == Barg		// Update Laser Ring Max Power
+			if (ArgPassVar & SargMask) 	gWs_RingPowSf == Sarg		// Update Laser Ring Power Scale Factor
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M120 - Core PFM Enable	: M120
+////////////////////////////////////////////////////////////
+	n120000:
+		if(Ldata.coord==1)
+		{
+			gWs_CorePfmEna == 1		// Core Laser PFM Enable
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M121 - Core PFM Disable	: M121
+////////////////////////////////////////////////////////////
+	n121000:
+		if(Ldata.coord==1)
+		{
+			gWs_CorePfmEna == 0		// Core Laser PFM Disable
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M130 - Ring PFM Enable	: M130
+////////////////////////////////////////////////////////////
+	n130000:
+		if(Ldata.coord==1)
+		{
+			gWs_RingPfmEna == 1		// Ring Laser PFM Enable
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M131 - Ring PFM Disable	: M131
+////////////////////////////////////////////////////////////
+	n131000:
+		if(Ldata.coord==1)
+		{
+			gWs_RingPfmEna == 0		// Ring Laser PFM Disable
+		}
+	return;
+
+////////////////////////////////////////////////////////////
+// M140 - PFM Control, M140 O# P#
+////////////////////////////////////////////////////////////
+	n140000:
+		read(O,P)
+		if(Ldata.coord==1)
+		{
+			if (ArgPassVar & OargMask)
+			{			
+				gWs_PfmOnTime == Oarg		// Update PFM On time
+			}
+
+			if (ArgPassVar & PargMask)
+			{			
+				gWs_PfmPeriod == Parg		// Update PFM Period
+			}
+		}
+	return;
+
+close

@@ -1,0 +1,11 @@
+
+// EQU(PFM) Setup
+open subprog spSetEquOut(period, duty)
+		Gate3[0].Chan[3].CompA = (Gate3[0].Chan[3].PhaseCapt*16 + (period - duty)*4096)&$FFFFFFFF;	// Set CompA(Off Distance)
+		Gate3[0].Chan[3].CompB = (Gate3[0].Chan[3].PhaseCapt*16 + period*4096)&$FFFFFFFF;			// Set CompA(On Distance)
+		Gate3[0].Chan[3].CompAdd = period*4096;		// Set Equ Period
+		Gate3[0].Chan[3].EquWrite = 1;				// Set Current EQU Output to 0
+		Gate3[0].Chan[3].EquOutMask = 8;			// Enable Equ Output
+
+	return;
+close

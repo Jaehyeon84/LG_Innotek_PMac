@@ -1,0 +1,116 @@
+//######################################################################################################
+// Set Basic Motor Parameter When Home Search
+//######################################################################################################
+
+
+open subprog spInitMotor(m_num)
+	switch(m_num)
+	{
+		case nwX:
+			Motor[nwX].CompDesPos = 0;					// Clear Compensation Value
+			Motor[nwX].MaxPos = 0;						// Clear Plus Soft Limit
+			Motor[nwX].MinPos = 0;						// Clear Minus Soft Limit
+			Motor[nwX].JogTa = 100;						// Set Jog Ta [msec^2/mu]       
+			Motor[nwX].JogTs = 100;						// Set Jog Ts [msec^2/mu]
+			Motor[nwX].JogSpeed = 30;					// Set Jog Speed [mu/msec]
+			Motor[nwX].HomeVel = 30;					// Set Home Velocity & Direction
+			Motor[nwX].AbortTa = 100;					// Set Abort Ta [msec^2/mu] (for Limit Stop)
+			Motor[nwX].AbortTs = 50;					// Set Abort Ts [msec^2/mu] (for Limit Stop)
+			Motor[nwX].HomeOffset = pUmem_Cmd_HomeOffset(nwX);	// Set Home Offset
+			gMt_Home_Pos(nwX) = pUmem_Cmd_Ws_LdPosX;	// Set Initioal Pos
+		break;
+
+		case nwY:
+			Motor[nwY].CompDesPos = 0;
+			Motor[nwY].MaxPos = 0;
+			Motor[nwY].MinPos = 0;
+			Motor[nwY].JogTa = 100;
+			Motor[nwY].jogTs = 100;
+			Motor[nwY].JogSpeed = 30;
+			Motor[nwY].HomeVel = 30;
+			Motor[nwY].AbortTa = 100;
+			Motor[nwY].AbortTs = 50;
+			Motor[nwY].HomeOffset = pUmem_Cmd_HomeOffset(nwY);
+			gMt_Home_Pos(nwY) = 0;
+		break;
+
+		case nwC:
+			Motor[nwC].CompDesPos = 0;
+			Motor[nwC].MaxPos = 0;
+			Motor[nwC].MinPos = 0;
+			Motor[nwC].JogTa = 100;
+			Motor[nwC].jogTs = 100;
+			Motor[nwC].JogSpeed = 120
+			Motor[nwC].HomeVel = 120;
+			Motor[nwC].AbortTa = 100;
+			Motor[nwC].AbortTs = 50;
+			Motor[nwC].HomeOffset = pUmem_Cmd_HomeOffset(nwC);
+			gMt_Home_Pos(nwC) = 0;
+			//gMt_Home_Pos(nwC) = Motor[nwC].DesPos - Motor[nwC].HomeOffset;
+		break;
+
+		case nvX:
+			Motor[nvX].CompDesPos = 0;
+			Motor[nvX].MaxPos = 0;
+			Motor[nvX].MinPos = 0;
+			Motor[nvX].JogTa = 100;
+			Motor[nvX].jogTs = 100;
+			Motor[nvX].JogSpeed = 30;
+			Motor[nvX].HomeVel = 30;
+			Motor[nvX].AbortTa = 100;
+			Motor[nvX].AbortTs = 50;
+			Motor[nvX].HomeOffset = pUmem_Cmd_HomeOffset(nvX);
+			gMt_Home_Pos(nvX) = pUmem_Cmd_Vs_WtPosX;
+		break;
+
+		case nvY:
+			Motor[nvY].CompDesPos = 0;
+			Motor[nvY].MaxPos = 0;
+			Motor[nvY].MinPos = 0;
+			Motor[nvY].JogTa = 100;
+			Motor[nvY].jogTs = 100;
+			Motor[nvY].JogSpeed = 30;
+			Motor[nvY].HomeVel = 30;
+			Motor[nvY].AbortTa = 100;
+			Motor[nvY].AbortTs = 50;
+			Motor[nvY].HomeOffset = pUmem_Cmd_HomeOffset(nvY);
+			gMt_Home_Pos(nvY) = 0;
+		break;
+
+		case nvC:
+			Motor[nvC].CompDesPos = 0;
+			Motor[nvC].MaxPos = 0;
+			Motor[nvC].MinPos = 0;
+			Motor[nvC].JogTa = 100;
+			Motor[nvC].jogTs = 100;
+			Motor[nvC].JogSpeed = 120
+			Motor[nvC].HomeVel = 120;
+			Motor[nvC].AbortTa = 100;
+			Motor[nvC].AbortTs = 50;
+			Motor[nvC].HomeOffset = pUmem_Cmd_HomeOffset(nvC);
+			gMt_Home_Pos(nvC) = 0;
+			//gMt_Home_Pos(nvC) = Motor[nvC].DesPos - Motor[nvC].HomeOffset;
+		break;
+
+		case nwZ:
+			Motor[nwZ].CompDesPos = 0;
+			Motor[nwZ].MaxPos = 0;
+			Motor[nwZ].MinPos = 0;
+			Motor[nwZ].JogTa = 100;
+			Motor[nwZ].jogTs = 100;
+			Motor[nwZ].JogSpeed = 5;
+			Motor[nwZ].HomeVel = 5;
+			Motor[nwZ].AbortTa = 100;
+			Motor[nwZ].AbortTs = 50;
+			Motor[nwZ].HomeOffset = pUmem_Cmd_HomeOffset(nwZ);
+			gMt_Home_Pos(nwZ) = 0;
+		break;
+
+		default:
+			kill m_num
+		break;
+	}
+close
+
+
+

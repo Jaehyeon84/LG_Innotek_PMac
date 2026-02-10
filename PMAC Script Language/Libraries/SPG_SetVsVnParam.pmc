@@ -1,0 +1,89 @@
+
+
+open subprog spSetVsVnParam(&ret)
+	if(pUmem_Cmd_Vs_VnVelX <= 0)		// X Velocity Config Error
+	{
+		ret = -1;
+		return
+	}
+	else if(pUmem_Cmd_Vs_VnVelY <= 0)	// Y Velocity Config Error
+	{
+		ret = -2;
+		return
+	}
+	else if(pUmem_Cmd_Vs_VnVelC <= 0)	// C Velocity Config Error
+	{
+		ret = -3;
+		return
+	}
+
+	// Set Motor Speed
+	gVs_Vision_VelX = pUmem_Cmd_Vs_VnVelX/1000;
+	gVs_Vision_VelY = pUmem_Cmd_Vs_VnVelY/1000;
+	gVs_Vision_VelC = pUmem_Cmd_Vs_VnVelC/1000;
+
+	// Set Motor Target Position
+	gVs_Vision_PosX = pUmem_Cmd_Vs_VnPosX;
+	gVs_Vision_PosY = pUmem_Cmd_Vs_VnPosY;
+	gVs_Vision_PosC = pUmem_Cmd_Vs_VnPosC;
+	//--------------------------------------------------------//
+	if(pUmem_Cmd_Vs_AccLimitX <= 0)		// X Acceleration Limit Config Error
+	{
+		ret = -10;
+		return
+	}
+	if(pUmem_Cmd_Vs_AccLimitY <= 0)		// Y Acceleration Limit Config Error
+	{
+		ret = -11;
+		return
+	}
+	if(pUmem_Cmd_Vs_AccLimitC <= 0)		// C Acceleration Limit Config Error
+	{
+		ret = -12;
+		return
+	}
+	if(pUmem_Cmd_Vs_VelLimitC <= 0)		// C Velocity Limit Config Error
+	{
+		ret = -13;
+		return
+	}
+
+	// Set Motor Acceleration Limit
+	gVs_AccLimitX = pUmem_Cmd_Vs_AccLimitX; 
+	gVs_AccLimitY = pUmem_Cmd_Vs_AccLimitY;
+	gVs_AccLimitC = pUmem_Cmd_Vs_AccLimitC; 
+	gVs_VelLimitC = pUmem_Cmd_Vs_VelLimitC;
+
+	Motor[nwX].InvAmax = 1/gVs_AccLimitX;
+	Motor[nwX].InvDmax = 1/gVs_AccLimitX;
+	Motor[nwY].InvAmax = 1/gVs_AccLimitY;
+	Motor[nwY].InvDmax = 1/gVs_AccLimitY;
+	Motor[nwC].InvAmax = 1/gVs_AccLimitC;
+	Motor[nwC].InvDmax = 1/gVs_AccLimitC;
+
+	// Set Motor C Velocity Limit
+	Coord[1].AltFeedRate = gVs_VelLimitC;
+	//--------------------------------------------------------//
+	if(pUmem_Cmd_Vs_RefVel <= 0)		// Vector Velocity Config Error
+	{
+		ret = -20;
+		return
+	}
+
+	if(pUmem_Cmd_Vs_PfmPeriod <= 0)		// Pfm Period Config Error
+	{
+		ret = -21;
+		return
+	}
+	if(pUmem_Cmd_Vs_PfmDuty <= 0)		// Pfm On Distance Config Error
+	{
+		ret = -22;
+		return
+	}
+
+	gVs_RefVel		= pUmem_Cmd_Vs_RefVel;		// Set Vector Velocity
+	gVs_PfmPeriod	= pUmem_Cmd_Vs_PfmPeriod;	// Set Pfm Period
+	gVs_PfmDuty		= pUmem_Cmd_Vs_PfmDuty;		// Set Pfm On Distance
+
+	ret = 0;
+close

@@ -1,0 +1,63 @@
+#define cSeqBuf_WsLdSrt		$4000
+#define cSeqBuf_WsLdEnd		$8000
+#define cSeqBuf_WsRdSrt		$4001
+#define cSeqBuf_WsRdEnd		$8001
+#define cSeqBuf_WsWdSrt		$4002
+#define cSeqBuf_WsWdEnd		$8002
+#define cSeqBuf_WsWtSrt		$4003
+#define cSeqBuf_WsWtEnd		$8003
+#define cSeqBuf_WsUdSrt		$4004
+#define cSeqBuf_WsUdEnd		$8004
+#define cSeqBuf_WsRjSrt		$4005
+#define cSeqBuf_WsRjEnd		$8005
+
+#define cSeqBuf_VsLdSrt		$400A
+#define cSeqBuf_VsLdEnd		$800A
+#define cSeqBuf_VsRdSrt		$400B
+#define cSeqBuf_VsRdEnd		$800B
+#define cSeqBuf_VsVnSrt		$400C
+#define cSeqBuf_VsVnEnd		$800C
+#define cSeqBuf_VsWtSrt		$400D
+#define cSeqBuf_VsWtEnd		$800D
+#define cSeqBuf_VsUdSrt		$400E
+#define cSeqBuf_VsUdEnd		$800E
+#define cSeqBuf_VsRjSrt		$400F
+#define cSeqBuf_VsRjEnd		$800F
+
+global gMc_SeqBuf_Idx = 0;
+global gWs_SeqBuf_Cur = 0;
+global gWs_SeqBuf_Old = 0;
+global gVs_SeqBuf_Cur = 0;
+global gVs_SeqBuf_Old = 0;
+
+open subprog spSetSeqBufQ(cur_seq, old_seq, pdt_id, judge_2d, judge_3d)
+	local jug_2d,jug_3d;
+	//--------------------------------------------------------------------------------------//
+	pUmem_Sta_Mc_SeqCur(gMc_SeqBuf_Idx)		= cur_seq;	// Send Current Sequence, Bit 15..0
+	pUmem_Sta_Mc_SeqOld(gMc_SeqBuf_Idx)		= old_seq;	// Send Old Sequence, Bit 31..16
+	//--------------------------------------------------------------------------------------//
+	if(judge_2d==cVsnJudge_Ok)				jug_2d = 1;		// 260102 추가
+	else if(judge_2d==cVsnJudge_Ng)			jug_2d = 2;		// 260102 추가
+	else									jug_2d = 0;		// 260102 추가
+
+	if(judge_3d==cVsnJudge_Ok)				jug_3d = 1;		// 260102 추가
+	else if(judge_3d==cVsnJudge_Ng)			jug_3d = 2;		// 260102 추가
+	else									jug_3d = 0;		// 260102 추가
+
+	pUmem_Sta_Mc_Pdt(gMc_SeqBuf_Idx)		= jug_3d<<30 | jug_2d<<28 | (pdt_id & $0FFFFFFF);	// 260102 추가
+	//--------------------------------------------------------------------------------------//
+	pUmem_Sta_Mc_Time_BufD(gMc_SeqBuf_Idx)	= Sys.Time;									// 260102 추가
+	pUmem_Sta_Mc_Time_L(gMc_SeqBuf_Idx)		= pUmem_Sta_Mc_Time_BufL(gMc_SeqBuf_Idx);		// 260102 추가
+	pUmem_Sta_Mc_Time_H(gMc_SeqBuf_Idx)		= pUmem_Sta_Mc_Time_BufH(gMc_SeqBuf_Idx);		// 260102 추가
+	//pUmem_Sta_Mc_Time_L(gMc_SeqBuf_Idx)	= time_buf & $00000000FFFFFFFF;
+	//pUmem_Sta_Mc_Time_H(gMc_SeqBuf_Idx)	= (time_buf & $FFFFFFFF00000000)>>32;
+	//--------------------------------------------------------------------------------------//
+	pUmem_Sta_Mc_BufIdx						= gMc_SeqBuf_Idx;			// Send Current Q-Buffer Index
+
+	if(gMc_SeqBuf_Idx<49)					gMc_SeqBuf_Idx++;		// Q-Buffer : 49..0, 50EA
+	else									gMc_SeqBuf_Idx = 0;
+
+close
+
+
+

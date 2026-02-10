@@ -1,0 +1,2190 @@
+//######################################################################################################
+// PLC 14 : Vision Sequence
+//######################################################################################################
+
+
+Open plc 14
+	local ret = -1;
+	gVs_RunOpt = pUmem_Cmd_Vs_RspSkipOpt;
+
+////////////////////////////////////////////////////////////////////////
+// Loding
+////////////////////////////////////////////////////////////////////////
+	if(gVs_Load_Start==1)
+	{
+		gVs_Load_Start = 0;
+		gVs_Load_Seq = 1;
+		gVs_Load_Ena = 1;
+
+		//20260123 KJH - TactTime 작업.
+		if(gVs_CoverMoving_Sta != 1)
+			gVs_CoverOpn_Start = 1;
+	}
+
+	if(gVs_Load_Abort==1)
+	{
+		gVs_Load_Abort = 0;
+		gVs_Load_Seq = 0;
+		gVs_Load_Ena = 0;
+	}
+
+	if(gVs_Load_Ena==1)
+	{
+		switch(gVs_Load_Seq)
+		{
+		//------------------------------------------------//
+		// Ready
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gVs_Load_Buf = gVs_Load_Seq;
+				gVs_Load_TimeBuf = Sys.Time;
+
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gVs_Load_Sta = cSeqSta_Ing;
+					gVs_Load_Seq = 2;
+				}
+				else
+				{
+					gVs_Load_Err = cErrCode_EtEtherCat;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_Load_Seq = 3;
+				}
+				else
+				{
+					gVs_Load_Err = cErrCode_VsHome;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_Load_Tmr = Sys.Time + 2;
+					gVs_Load_Seq = 4;
+				}
+				else
+				{
+					gVs_Load_Err = cErrCode_VsServo;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gVs_Load_Buf = gVs_Load_Seq;
+				//if(Coord[3].InPos==1)
+				if(Motor[nvX].InPos==1 && Motor[nvY].InPos==1)
+				{
+					gVs_Load_Seq = 5;
+				}
+				else if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Err = cErrCode_VsInPos;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+
+			case 5:	// Detect
+				gVs_Load_Buf = gVs_Load_Seq;
+//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+//				{
+//					gVs_Sta_Pdt = cPdtSta_Blk;
+//					gVs_Load_Seq = 20;
+//				}
+//				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				if(gVs_Sta_Pdt == cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				{
+					//gVs_Sta_Pdt = cPdtSta_Blk;
+					gVs_Load_Seq = 20;
+				}
+				else
+				{
+//					gVs_Sta_Pdt = cPdtSta_Bvn;
+//					gVs_Load_Seq = 80;
+					gVs_Load_Err = cErrCode_VsPdtDetect;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Picker Up
+		//------------------------------------------------//
+			case 20:
+				gVs_Load_Buf = gVs_Load_Seq;
+				pUmem_Do1A_TrPickDn = 0;
+				pUmem_Do18_TrPickUp = 1;
+				gVs_Load_Tmr = Sys.Time + 0.1;
+				gVs_Load_Seq = 21;
+			break;
+
+			case 21:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gVs_Load_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(gTr_CldIn_PickerUD==cUp)
+				{
+					gVs_Load_Seq = 30;
+				}
+				else if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Err = cErrCode_EtTrUp;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 30:
+				gVs_Load_Buf = gVs_Load_Seq;
+				call spSetVsLdParam(&ret);
+				if(ret==0)
+				{
+					Motor[nvX].JogSpeed = gVs_Load_VelX;
+					Motor[nvY].JogSpeed = gVs_Load_VelY;
+					Motor[nvC].JogSpeed = gVs_Load_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_Load_PosX;
+					Motor[nvY].ProgJogPos = gVs_Load_PosY;
+					//Motor[nvC].ProgJogPos = gVs_Load_PosC;
+					gVs_ThTargetPos_Old = -1;
+
+					jog nvX=*
+					jog nvY=*
+
+					//20260127 KJH - Theta Coord 관련 작업.
+//					call spReadVsThPos(nvC, gVs_Load_PosC);
+
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Load_PosC, &gVs_ThTargetPos_Old);
+
+						//jog nvC=*
+						jog nvC:*
+					}
+					else if(gVs_CoverMoving_Sta != 1)
+						gVs_CoverOpn_Start = 1;
+
+					gVs_Load_Tmr = Sys.Time + 0.1;
+					gVs_Load_Seq = 31;
+				}
+				else
+				{
+					gVs_Load_Err = cErrCode_VsMtrVelParam;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+
+			case 31:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gVs_Load_Seq = 32;
+				}
+			break;
+
+			case 32:
+				gVs_Load_Buf = gVs_Load_Seq;
+				//20260123 KJH - TactTime 작업.
+				if(gVs_CoverMoving_Sta != 1)
+				{
+					gVs_CoverOpn_Start = 1;
+				}
+				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					call spReadVsThPos(nvC, gVs_Load_PosC, &gVs_ThTargetPos_Old);
+
+					//jog nvC=*
+					jog nvC:*
+				}
+				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					gVs_Load_Seq = 50;
+				}
+				else if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Err = cErrCode_VsMoveTime;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Cover Open
+		//------------------------------------------------//
+//			case 40:
+//				gVs_Load_Buf = gVs_Load_Seq;
+//				gVs_CoverOpn_Sta = cSeqSta_Idl;
+//				gVs_CoverOpn_Start = 1;
+//				gVs_Load_Seq = 41;
+//			break;
+
+//			case 41:
+//				gVs_Load_Buf = gVs_Load_Seq;
+//				if(gVs_CoverOpn_Sta==cSeqSta_Fin)
+//				{
+//					gVs_Load_Seq = 42;
+//				}
+//				else if(gVs_CoverOpn_Sta==cSeqSta_Err)
+//				{
+//					gVs_Load_Err = cErrCode_VsCoverOpen;
+//					gVs_Load_Sta = cSeqSta_Err;
+//					gVs_Load_Seq = 0;
+//					gVs_Load_Ena = 0;
+//				}
+//			break;
+
+//			case 42:
+//				gVs_Load_Buf = gVs_Load_Seq;
+//				Motor[nvC].JogSpeed = gVs_Load_VelC;
+//				Motor[nvC].ProgJogPos = gVs_Load_PosC;
+//				jog nvC=*
+
+//				gVs_Load_Tmr = Sys.Time + 0.1;
+//				gVs_Load_Seq = 43;
+//			break;
+
+//			case 43:
+//				gVs_Load_Buf = gVs_Load_Seq;
+//				if(Sys.time > gVs_Load_Tmr)
+//				{
+//					gVs_Load_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gVs_Load_Seq = 44;
+//				}
+//			break;
+
+//			case 44:
+//				gVs_Load_Buf = gVs_Load_Seq;
+//				if(Coord[3].InPos==1)
+//				{
+//					gVs_Load_Seq = 50;
+//				}
+//				else if(Sys.time > gVs_Load_Tmr)
+//				{
+//					gVs_Load_Err = cErrCode_VsMoveTime;
+//					gVs_Load_Sta = cSeqSta_Err;
+//					gVs_Load_Seq = 0;
+//					gVs_Load_Ena = 0;
+//				}
+//			break;
+		//------------------------------------------------//
+		// Picker Down
+		//------------------------------------------------//
+			case 50:
+				gVs_Load_Buf = gVs_Load_Seq;
+				pUmem_Do18_TrPickUp = 0;
+				pUmem_Do1A_TrPickDn = 1;
+				gVs_Load_Tmr = Sys.Time + 0.1;
+				gVs_Load_Seq = 51;
+			break;
+
+			case 51:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gVs_Load_Seq = 52;
+				}
+			break;
+
+			case 52:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(gTr_CldIn_PickerUD==cDn)
+				{
+					gVs_Load_Tmr = Sys.Time + gVs_CldInpos_Delay;
+					gVs_Load_Seq = 53;
+				}
+				else if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Err = cErrCode_EtTrDn;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+
+			case 53:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(Sys.time > gVs_Load_Tmr)
+				{
+					pUmem_Do14_TrGripCls = 0;
+					pUmem_Do16_TrGripOpn = 1;
+					gVs_Load_Tmr = Sys.Time + 0.1;
+					gVs_Load_Seq = 54;
+				}
+			break;
+
+			case 54:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gVs_Load_Seq = 55;
+				}
+			break;
+
+			case 55:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(gTr_CldIn_PickerOC==cOpn)
+				{
+					gVs_PdtNo = gTr_PdtNo;
+					gTr_PdtNo = 0;
+
+					if(gTr_Sta_Pdt==cPdtSta_Awd)	gVs_Sta_Pdt = cPdtSta_Bvn;
+					else							gVs_Sta_Pdt = cPdtSta_Err;
+					gTr_Sta_Pdt = cPdtSta_Blk;
+
+					pUmem_Sta_Vs_PdtNo = gVs_PdtNo;
+
+					gVs_Load_Tmr = Sys.Time + gVs_CldInpos_Delay;
+					gVs_Load_Seq = 56;
+				}
+				else if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Err = cErrCode_EtTrOpn;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+
+			case 56:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Seq = 60;
+				}
+			break;
+		//------------------------------------------------//
+		// Picker Up
+		//------------------------------------------------//
+			case 60:
+				gVs_Load_Buf = gVs_Load_Seq;
+				pUmem_Do1A_TrPickDn = 0;
+				pUmem_Do18_TrPickUp = 1;
+				gVs_Load_Tmr = Sys.Time + 0.1;
+				gVs_Load_Seq = 61;
+			break;
+
+			case 61:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gVs_Load_Seq = 62;
+				}
+			break;
+
+			case 62:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(gTr_CldIn_PickerUD==cUp)
+				{
+					gVs_Load_Tmr = Sys.Time + 2;
+					gVs_Load_Seq = 63;
+
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta != 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+						gVs_CoverCls_Start = 1;
+				}
+				else if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Err = cErrCode_EtTrUp;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+
+			case 63:
+				gVs_Load_Buf = gVs_Load_Seq;
+				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+				{
+					gVs_Load_Seq = 90;
+				}
+				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				{
+					//gVs_Sta_Pdt = cPdtSta_Bvn;
+					gVs_Load_Seq = 90;
+				}
+				else if(Sys.time > gVs_Load_Tmr)
+				{
+					gVs_Load_Err = cErrCode_VsPdtDetect;
+					gVs_Load_Sta = cSeqSta_Err;
+					gVs_Load_Seq = 0;
+					gVs_Load_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Cover Close
+		//------------------------------------------------//
+//			case 80:
+//				gVs_Load_Buf = gVs_Load_Seq;
+//				gVs_CoverCls_Sta = cSeqSta_Idl;
+//				gVs_CoverCls_Start = 1;
+//				gVs_Load_Seq = 81;
+//			break;
+
+//			case 81:
+//				gVs_Load_Buf = gVs_Load_Seq;
+//				if(gVs_CoverCls_Sta==cSeqSta_Fin)
+//				{
+//					gVs_Load_Seq = 90;
+//				}
+//				else if(gVs_CoverCls_Sta==cSeqSta_Err)
+//				{
+//					gVs_Load_Err = cErrCode_VsCoverClose;
+//					gVs_Load_Sta = cSeqSta_Err;
+//					gVs_Load_Seq = 0;
+//					gVs_Load_Ena = 0;
+//				}
+//			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_Load_Buf = gVs_Load_Seq;
+				gVs_Load_Time = Sys.Time - gVs_Load_TimeBuf;
+				gVs_Load_Sta = cSeqSta_Fin;
+				gVs_Load_Seq = 0;
+				gVs_Load_Ena = 0;
+			break;
+
+			default:
+				gVs_Load_Err = -1;
+				gVs_Load_Sta = cSeqSta_Err;
+				gVs_Load_Seq = 0;
+				gVs_Load_Ena = 0;				
+			break;
+		}
+	}
+
+////////////////////////////////////////////////////////////////////////
+// Ready
+////////////////////////////////////////////////////////////////////////
+	if(gVs_Ready_Start==1)
+	{
+		gVs_Ready_Start = 0;
+		gVs_Ready_Seq = 1;
+		gVs_Ready_Ena = 1;
+
+		//20260123 KJH - TactTime 작업.
+		if(gVs_CoverMoving_Sta != 1)
+			gVs_CoverOpn_Start = 1;
+	}
+
+	if(gVs_Ready_Abort==1)
+	{
+		gVs_Ready_Abort = 0;
+		gVs_Ready_Seq = 0;
+		gVs_Ready_Ena = 0;
+	}
+
+	if(gVs_Ready_Ena==1)
+	{
+		switch(gVs_Ready_Seq)
+		{
+		//------------------------------------------------//
+		// Ready
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				gVs_Ready_TimeBuf = Sys.Time;
+
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gVs_Ready_Sta = cSeqSta_Ing;
+					gVs_Ready_Seq = 2;
+				}
+				else
+				{
+					gVs_Ready_Err = cErrCode_EtEtherCat;
+					gVs_Ready_Sta = cSeqSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_Ready_Seq = 3;
+				}
+				else
+				{
+					gVs_Ready_Err = cErrCode_VsHome;
+					gVs_Ready_Sta = cSeqSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_Ready_Tmr = Sys.Time + 2;
+					gVs_Ready_Seq = 5;
+				}
+				else
+				{
+					gVs_Ready_Err = cErrCode_VsServo;
+					gVs_Ready_Sta = cSeqSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+
+//			case 4:	// Stop Check
+//				gVs_Ready_Buf = gVs_Ready_Seq;
+//				if(Coord[3].InPos==1)
+//				{
+//					gVs_Ready_Seq = 5;
+//				}
+//				else if(Sys.time > gVs_Ready_Tmr)
+//				{
+//					gVs_Ready_Err = cErrCode_VsInPos;
+//					gVs_Ready_Sta = cSeqSta_Err;
+//					gVs_Ready_Seq = 0;
+//					gVs_Ready_Ena = 0;
+//				}
+//			break;
+
+			case 5:	// Detect
+				gVs_Ready_Buf = gVs_Ready_Seq;
+//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+//				{
+//					gVs_Sta_Pdt = cPdtSta_Bvn;
+//					gVs_Ready_Seq = 20;
+//				}
+//				else if(pUmem_Di2C_VsTbDet==cDet_On)
+				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				{
+					gVs_Sta_Pdt = cPdtSta_Bvn;
+					gVs_Ready_Seq = 20;
+				}
+				else
+				{
+					gVs_Ready_Err = cErrCode_VsPdtDetect;
+					gVs_Ready_Sta = cSeqSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Cover Close
+		//------------------------------------------------//
+//			case 10:
+//				gVs_Ready_Buf = gVs_Ready_Seq;
+//				gVs_CoverCls_Sta = cSeqSta_Idl;
+//				gVs_CoverCls_Start = 1;
+//				gVs_Ready_Seq = 11;
+//			break;
+
+//			case 11:
+//				gVs_Ready_Buf = gVs_Ready_Seq;
+//				if(gVs_CoverCls_Sta==cSeqSta_Fin)
+//				{
+//					gVs_Ready_Seq = 20;
+//				}
+//				else if(gVs_CoverCls_Sta==cSeqSta_Err)
+//				{
+//					gVs_Ready_Err = cErrCode_VsCoverClose;
+//					gVs_Ready_Sta = cSeqSta_Err;
+//					gVs_Ready_Seq = 0;
+//					gVs_Ready_Ena = 0;
+//				}
+//			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 20:
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				call spSetVsRdParam(&ret);
+				if(ret==0)
+				{
+					Motor[nvX].JogSpeed = gVs_Ready_VelX;
+					Motor[nvY].JogSpeed = gVs_Ready_VelY;
+					Motor[nvC].JogSpeed = gVs_Ready_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_Ready_PosX;
+					Motor[nvY].ProgJogPos = gVs_Ready_PosY;
+					//Motor[nvC].ProgJogPos = gVs_Ready_PosC;
+					//20260127 KJH - Theta Coord 관련 작업.
+					//call spReadVsThPos(nvC, gVs_Ready_PosC);
+					gVs_ThTargetPos_Old = -1;
+
+					jog nvX=*
+					jog nvY=*
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Ready_PosC, &gVs_ThTargetPos_Old);
+
+						//jog nvC=*
+						jog nvC:*
+					}
+					else if(gVs_CoverMoving_Sta != 1)
+						gVs_CoverOpn_Start = 1;
+
+					gVs_Ready_Tmr = Sys.Time + 0.1;
+					gVs_Ready_Seq = 21;
+				}
+				else
+				{
+					gVs_Ready_Err = cErrCode_VsMtrVelParam;
+					gVs_Ready_Sta = cSeqSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+
+			case 21:
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				if(Sys.time > gVs_Ready_Tmr)
+				{
+					gVs_Ready_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gVs_Ready_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				//20260123 KJH - TactTime 작업.
+				if(gVs_CoverMoving_Sta != 1)
+				{
+					gVs_CoverOpn_Start = 1;
+				}
+				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					call spReadVsThPos(nvC, gVs_Ready_PosC, &gVs_ThTargetPos_Old);
+
+					//jog nvC=*
+					jog nvC:*
+				}
+				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					gVs_Ready_Seq = 90;
+				}
+				else if(Sys.time > gVs_Ready_Tmr)
+				{
+					gVs_Ready_Err = cErrCode_VsMoveTime;
+					gVs_Ready_Sta = cSeqSta_Err;
+					gVs_Ready_Seq = 0;
+					gVs_Ready_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_Ready_Buf = gVs_Ready_Seq;
+				gVs_Ready_Sta = cSeqSta_Fin;
+				gVs_Ready_Seq = 0;
+				gVs_Ready_Ena = 0;
+			break;
+
+			default:
+				gVs_Ready_Err = -1;
+				gVs_Ready_Sta = cSeqSta_Err;
+				gVs_Ready_Seq = 0;
+				gVs_Ready_Ena = 0;				
+			break;
+		}
+	}
+
+////////////////////////////////////////////////////////////////////////
+// Vision
+////////////////////////////////////////////////////////////////////////
+	if(gVs_Vision_Start==1)
+	{
+		gVs_Vision_Start = 0;
+		gVs_Vision_Seq = 1;
+		gVs_Vision_Ena = 1;
+
+		pUmem_Sta_Vs_3DVisionStReq = 0;
+		pUmem_Sta_Vs_3DVisionEdReq = 0;
+
+		//20260123 KJH - TactTime 작업.
+		if(gVs_CoverMoving_Sta != 2)
+			gVs_CoverCls_Start = 1;
+	}
+
+	if(gVs_Vision_Abort==1)
+	{
+		gVs_Vision_Abort = 0;
+		gVs_Vision_Seq = 0;
+		gVs_Vision_Ena = 0;
+		if(Coord[3].ProgActive)	abort 3
+	}
+
+	if(gVs_Vision_Ena==1)
+	{
+		switch(gVs_Vision_Seq)
+		{
+		//------------------------------------------------//
+		// Ready
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				gVs_Vision_TimeBuf = Sys.Time;
+
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gVs_Vision_Sta = cSeqSta_Ing;
+					gVs_Vision_Seq = 2;
+				}
+				else
+				{
+					gVs_Vision_Err = cErrCode_EtEtherCat;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_Vision_Seq = 3;
+				}
+				else
+				{
+					gVs_Vision_Err = cErrCode_VsHome;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_Vision_Tmr = Sys.Time + 2;
+					gVs_Vision_Seq = 5;
+				}
+				else
+				{
+					gVs_Vision_Err = cErrCode_VsServo;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+
+//			case 4:	// Stop Check
+//				gVs_Vision_Buf = gVs_Vision_Seq;
+//				if(Coord[3].InPos==1)
+//				{
+//					gVs_Vision_Seq = 5;
+//				}
+//				else if(Sys.time > gVs_Vision_Tmr)
+//				{
+//					gVs_Vision_Err = cErrCode_VsInPos;
+//					gVs_Vision_Sta = cSeqSta_Err;
+//					gVs_Vision_Seq = 0;
+//					gVs_Vision_Ena = 0;
+//				}
+//			break;
+
+			case 5:	// Detect
+				gVs_Vision_Buf = gVs_Vision_Seq;
+//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+//				{
+//					gVs_Sta_Pdt = cPdtSta_Bvn;
+//					gVs_Vision_Seq = 20;
+					//20260123 KJH - TactTime 작업.
+//					gVs_PostVisionST_Start = 1;
+//				}
+//				else if(pUmem_Di2C_VsTbDet==cDet_On)
+				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				{
+					gVs_Sta_Pdt = cPdtSta_Bvn;
+					gVs_Vision_Seq = 20;
+
+					//20260123 KJH - TactTime 작업.
+					gVs_PostVisionST_Start = 1;
+				}
+				else
+				{
+					gVs_Vision_Err = cErrCode_VsPdtDetect;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Cover Close
+		//------------------------------------------------//
+		
+		//20260123 KJH - TactTime 작업.
+//			case 10:
+//				gVs_Vision_Buf = gVs_Vision_Seq;
+//				gVs_CoverCls_Sta = cSeqSta_Idl;
+//				gVs_CoverCls_Start = 1;
+//				gVs_Vision_Seq = 11;
+//			break;
+
+//			case 11:
+//				gVs_Vision_Buf = gVs_Vision_Seq;
+//				if(gVs_CoverCls_Sta==cSeqSta_Fin)
+//				{
+//					gVs_Vision_Seq = 20;
+//				}
+//				else if(gVs_CoverCls_Sta==cSeqSta_Err)
+//				{
+//					gVs_Vision_Err = cErrCode_VsCoverClose;
+//					gVs_Vision_Sta = cSeqSta_Err;
+//					gVs_Vision_Seq = 0;
+//					gVs_Vision_Ena = 0;
+//				}
+//			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 20:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				call spSetVsVnParam(&ret);
+				if(ret==0)
+				{
+					Motor[nvX].JogSpeed = gVs_Vision_VelX;
+					Motor[nvY].JogSpeed = gVs_Vision_VelY;
+					Motor[nvC].JogSpeed = gVs_Vision_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_Vision_PosX;
+					Motor[nvY].ProgJogPos = gVs_Vision_PosY;
+					//Motor[nvC].ProgJogPos = gVs_Vision_PosC;
+					//20260127 KJH - Theta Coord 관련 작업.
+					//call spReadVsThPos(nvC, gVs_Vision_PosC);
+					gVs_ThTargetPos_Old = -1;
+
+					jog nvX=*
+					jog nvY=*
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Vision_PosC, &gVs_ThTargetPos_Old);
+
+						//jog nvC=*
+						jog nvC:*
+					}
+					else if(gVs_CoverMoving_Sta != 2)
+						gVs_CoverCls_Start = 1;
+
+					gVs_Vision_Tmr = Sys.Time + 0.1;
+					gVs_Vision_Seq = 21;
+				}
+				else
+				{
+					if(ret<=-10)	gVs_Vision_Err = cErrCode_VsMtrVelParam;
+					else			gVs_Vision_Err = cErrCode_VsMtrVelParam;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+
+			case 21:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(Sys.time > gVs_Vision_Tmr)
+				{
+					gVs_Vision_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gVs_Vision_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				//20260123 KJH - TactTime 작업.
+				if(gVs_CoverMoving_Sta != 2 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					gVs_CoverCls_Start = 1;
+				}
+				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+				{
+					call spReadVsThPos(nvC, gVs_Vision_PosC, &gVs_ThTargetPos_Old);
+
+					//jog nvC=*
+					jog nvC:*
+				}
+				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+				{
+					gVs_Vision_Seq = 30;
+				}
+				else if(Sys.time > gVs_Vision_Tmr)
+				{
+					gVs_Vision_Err = cErrCode_VsMoveTime;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Vision Start
+		//------------------------------------------------//
+//			case 30:
+//				gVs_Vision_Buf = gVs_Vision_Seq;
+//				if(gVs_RunOpt&cRunOpt_SkipVsVsReq!=0)
+//				{
+//					gVs_Vision_Seq = 31;
+//				}
+//				else if(pUmem_Cmd_Vs_3DVisionStRsp==cPcRep_Idl)
+//				{
+//					pUmem_Sta_Vs_3DVisionStReq = cPcReq_Vsn;
+//					gVs_Vision_Tmr = Sys.Time + cSeq_VsnTimeOut;
+//					gVs_Vision_Seq = 31;
+//				}
+//				else
+//				{
+//					gVs_Vision_Err = cErrCode_Vs3DVnStReadyRsp;
+//					gVs_Vision_Sta = cSeqSta_Err;
+//					gVs_Vision_Seq = 0;
+//					gVs_Vision_Ena = 0;
+//				}
+//			break;
+			case 30:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(gVs_RunOpt&cRunOpt_SkipVsVsReq!=0)
+				{
+					start 3:30
+					gVs_Prog_TimeBuf = Sys.Time;
+					gVs_Vision_Tmr = Sys.Time + 0.1;
+					gVs_Vision_Seq = 32;
+				}
+				else if(pUmem_Cmd_Vs_3DVisionStRsp==cPcRep_Fin)
+				{
+					pUmem_Sta_Vs_3DVisionStReq = cPcReq_Idl;
+					start 3:30
+					gVs_Prog_TimeBuf = Sys.Time;
+					gVs_Vision_Tmr = Sys.Time + 0.1;
+					gVs_Vision_Seq = 32;
+				}
+				else if(pUmem_Cmd_Vs_3DVisionStRsp==cPcRep_Err)
+				{
+					pUmem_Sta_Vs_3DVisionStReq = cPcReq_Idl;
+					gVs_Vision_Err = cErrCode_Vs3DVnStStartRsp;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+				else if(Sys.Time > gVs_Vision_Tmr)
+				{
+					pUmem_Sta_Vs_3DVisionStReq = cPcReq_Idl;
+					gVs_Vision_Err = cErrCode_Vs3DVnStStartRsp;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+			break;
+
+			case 32:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				if(Sys.time > gVs_Vision_Tmr)
+				{
+					gVs_Vision_Tmr = Sys.Time + cSeq_PrgTimeOut;
+					gVs_Vision_Seq = 33;
+				}
+			break;
+
+			case 33:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				gVs_Prog_Time = Sys.Time - gVs_Prog_TimeBuf;
+
+				if(Coord[3].ErrorStatus!=0)
+				{
+					abort 3
+					gVs_Vision_Err = cErrCode_VsMotion;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+				else if(Coord[3].AmpEna==0)
+				{
+					abort 3
+					gVs_Vision_Err = cErrCode_VsMotion;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+				else if(Sys.Time > gVs_Vision_Tmr)
+				{
+					abort 3
+					gVs_Vision_Err = cErrCode_VsMotionTime;
+					gVs_Vision_Sta = cSeqSta_Err;
+					gVs_Vision_Seq = 0;
+					gVs_Vision_Ena = 0;
+				}
+				else if(Coord[3].ProgActive==0 && Coord[3].InPos==1)
+				{
+					//20260123 KJH - TactTime 작업.
+					gVs_PostVisionED_Start = 1;
+
+					gVs_Vision_Seq = 90;
+				}
+			break;
+		//------------------------------------------------//
+		// Vision End
+		//------------------------------------------------//
+			//20260123 KJH - TactTime 작업.
+//			case 40:
+//				gVs_Vision_Buf = gVs_Vision_Seq;
+//				if(gVs_RunOpt&cRunOpt_SkipVsVeReq!=0)
+//				{
+//					gVs_Sta_Pdt = cPdtSta_Avn;
+//					gVs_Vision_VsnJudge = cVsnJudge_Ok;
+//					gVs_Vision_Seq = 90;
+//				}
+//				else if(pUmem_Cmd_Vs_3DVisionEdRsp==cPcRep_Idl)
+//				{
+//					pUmem_Sta_Vs_3DVisionEdReq = cPcReq_Vsn;
+//					gVs_Vision_Tmr = Sys.Time + cSeq_VsnTimeOut;
+//					gVs_Vision_Seq = 90;
+//				}
+//				else
+//				{
+//					gVs_Vision_Err = cErrCode_Vs3DVnEdReadyRsp;
+//					gVs_Vision_Sta = cSeqSta_Err;
+//					gVs_Vision_Seq = 0;
+//					gVs_Vision_Ena = 0;
+//				}
+//			break;
+//			case 41:
+//				gVs_Vision_Buf = gVs_Vision_Seq;
+//				if(pUmem_Cmd_Vs_3DVisionEdRsp==cPcRep_Ok)
+//				{
+//					pUmem_Sta_Vs_3DVisionEdReq = cPcReq_Idl;
+//					gVs_Sta_Pdt = cPdtSta_Avn;
+//					gVs_Vision_VsnJudge = cVsnJudge_Ok;
+//					gVs_Vision_Seq = 90;
+//				}
+//				else if(pUmem_Cmd_Vs_3DVisionEdRsp==cPcRep_Ng)
+//				{
+//					pUmem_Sta_Vs_3DVisionEdReq = cPcReq_Idl;
+//					gVs_Sta_Pdt = cPdtSta_Err;
+//					gVs_Vision_VsnJudge = cVsnJudge_Ng;
+//					gVs_Vision_Seq = 90;
+//				}
+//				else if(pUmem_Cmd_Vs_3DVisionEdRsp==cPcRep_Err)
+//				{
+//					pUmem_Sta_Vs_3DVisionEdReq = cPcReq_Idl;
+//					gVs_Vision_Err = cErrCode_Vs3DVnEdStartRsp;
+//					gVs_Vision_Sta = cSeqSta_Err;
+//					gVs_Vision_Seq = 0;
+//					gVs_Vision_Ena = 0;
+//				}
+//				else if(Sys.Time > gVs_Vision_Tmr)
+//				{
+//					pUmem_Sta_Vs_3DVisionEdReq = cPcReq_Idl;
+//					gVs_Vision_Err = cErrCode_Vs3DVnEdStartRsp;
+//					gVs_Vision_Sta = cSeqSta_Err;
+//					gVs_Vision_Seq = 0;
+//					gVs_Vision_Ena = 0;
+//				}
+//			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_Vision_Buf = gVs_Vision_Seq;
+				gVs_Vision_Time = Sys.Time - gVs_Vision_TimeBuf;
+				gVs_Vision_Sta = cSeqSta_Fin;
+				gVs_Vision_Seq = 0;
+				gVs_Vision_Ena = 0;
+			break;
+
+			default:
+				gVs_Vision_Err = -1;
+				gVs_Vision_Sta = cSeqSta_Err;
+				gVs_Vision_Seq = 0;
+				gVs_Vision_Ena = 0;
+			break;
+		}
+	}
+
+////////////////////////////////////////////////////////////////////////
+// Wait
+////////////////////////////////////////////////////////////////////////
+	if(gVs_Wait_Start==1)
+	{
+		gVs_Wait_Start = 0;
+		gVs_Wait_Seq = 1;
+		gVs_Wait_Ena = 1;
+
+		//20260123 KJH - TactTime 작업.
+		if(gVs_CoverMoving_Sta != 1)
+			gVs_CoverOpn_Start = 1;
+	}
+
+	if(gVs_Wait_Abort==1)
+	{
+		gVs_Wait_Abort = 0;
+		gVs_Wait_Seq = 0;
+		gVs_Wait_Ena = 0;
+	}
+
+	if(gVs_Wait_Ena==1)
+	{
+		switch(gVs_Wait_Seq)
+		{
+		//------------------------------------------------//
+		// Wait
+		//------------------------------------------------//
+		case 1:	// Ethercat Check
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				gVs_Wait_TimeBuf = Sys.Time;
+
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gVs_Wait_Sta = cSeqSta_Ing;
+					gVs_Wait_Seq = 2;
+				}
+				else
+				{
+					gVs_Wait_Err = cErrCode_EtEtherCat;
+					gVs_Wait_Sta = cSeqSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_Wait_Seq = 3;
+				}
+				else
+				{
+					gVs_Wait_Err = cErrCode_VsHome;
+					gVs_Wait_Sta = cSeqSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_Wait_Tmr = Sys.Time + 2;
+					gVs_Wait_Seq = 4;
+				}
+				else
+				{
+					gVs_Wait_Err = cErrCode_VsServo;
+					gVs_Wait_Sta = cSeqSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				//if(Coord[3].InPos==1)
+				if(Motor[nvX].InPos==1 && Motor[nvY].InPos==1)
+				{
+					gVs_Wait_Seq = 20;
+				}
+				else if(Sys.time > gVs_Wait_Tmr)
+				{
+					gVs_Wait_Err = cErrCode_VsInPos;
+					gVs_Wait_Sta = cSeqSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Cover Close
+		//------------------------------------------------//
+//			case 10:
+//				gVs_Wait_Buf = gVs_Wait_Seq;
+//				if(gVs_Sta_Pdt==cPdtSta_Blk)	gVs_Wait_Seq = 20;
+//				else							gVs_Wait_Seq = 11;
+//			break;
+
+//			case 11:
+//				gVs_Wait_Buf = gVs_Wait_Seq;
+//				gVs_CoverCls_Sta = cSeqSta_Idl;
+//				gVs_CoverCls_Start = 1;
+//				gVs_Wait_Seq = 12;
+//			break;
+
+//			case 12:
+//				gVs_Wait_Buf = gVs_Wait_Seq;
+//				if(gVs_CoverCls_Sta==cSeqSta_Fin)
+//				{
+//					gVs_Wait_Seq = 20;
+//				}
+//				else if(gVs_CoverCls_Sta==cSeqSta_Err)
+//				{
+//					gVs_Wait_Err = cErrCode_VsCoverClose;
+//					gVs_Wait_Sta = cSeqSta_Err;
+//					gVs_Wait_Seq = 0;
+//					gVs_Wait_Ena = 0;
+//				}
+//			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 20:
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				call spSetVsWtParam(&ret);
+				if(ret==0)
+				{
+					Motor[nvX].JogSpeed = gVs_Wait_VelX;
+					Motor[nvY].JogSpeed = gVs_Wait_VelY;
+					Motor[nvC].JogSpeed = gVs_Wait_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_Wait_PosX;
+					Motor[nvY].ProgJogPos = gVs_Wait_PosY;
+					//Motor[nvC].ProgJogPos = gVs_Wait_PosC;
+					//20260127 KJH - Theta Coord 관련 작업.
+					//call spReadVsThPos(nvC, gVs_Wait_PosC);
+					gVs_ThTargetPos_Old = -1;
+
+					jog nvX=*
+					jog nvY=*
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Wait_PosC, &gVs_ThTargetPos_Old);
+
+						//jog nvC=*
+						jog nvC:*
+					}
+					else if(gVs_CoverMoving_Sta != 1)
+						gVs_CoverOpn_Start = 1;
+
+					gVs_Wait_Tmr = Sys.Time + 0.1;
+					gVs_Wait_Seq = 21;
+				}
+				else
+				{
+					gVs_Wait_Err = cErrCode_VsMtrVelParam;
+					gVs_Wait_Sta = cSeqSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+
+			case 21:
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				if(Sys.time > gVs_Wait_Tmr)
+				{
+					gVs_Wait_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gVs_Wait_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				if(gVs_CoverMoving_Sta != 1)
+				{
+					gVs_CoverOpn_Start = 1;
+				}
+				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					call spReadVsThPos(nvC, gVs_Wait_PosC, &gVs_ThTargetPos_Old);
+
+					//jog nvC=*
+					jog nvC:*
+				}
+				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					gVs_Wait_Seq = 90;
+				}
+				else if(Sys.time > gVs_Wait_Tmr)
+				{
+					gVs_Wait_Err = cErrCode_VsMoveTime;
+					gVs_Wait_Sta = cSeqSta_Err;
+					gVs_Wait_Seq = 0;
+					gVs_Wait_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_Wait_Buf = gVs_Wait_Seq;
+				gVs_Wait_Time = Sys.Time - gVs_Wait_TimeBuf;
+				gVs_Wait_Sta = cSeqSta_Fin;
+				gVs_Wait_Seq = 0;
+				gVs_Wait_Ena = 0;
+			break;
+
+			default:
+				gVs_Wait_Err = -1;
+				gVs_Wait_Sta = cSeqSta_Err;
+				gVs_Wait_Seq = 0;
+				gVs_Wait_Ena = 0;				
+			break;
+		}
+	}
+
+////////////////////////////////////////////////////////////////////////
+// Unload
+////////////////////////////////////////////////////////////////////////
+	if(gVs_Unload_Start==1)
+	{
+		gVs_Unload_Start = 0;
+		gVs_Unload_Seq = 1;
+		gVs_Unload_Ena = 1;
+
+		//20260123 KJH - TactTime 작업.
+		if(gVs_CoverMoving_Sta != 1)
+			gVs_CoverOpn_Start = 1;
+	}
+
+	if(gVs_Unload_Abort==1)
+	{
+		gVs_Unload_Abort = 0;
+		gVs_Unload_Seq = 0;
+		gVs_Unload_Ena = 0;
+	}
+
+	if(gVs_Unload_Ena==1)
+	{
+		switch(gVs_Unload_Seq)
+		{
+		//------------------------------------------------//
+		// Unload
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				gVs_Unload_TimeBuf = Sys.Time;
+
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gVs_Unload_Sta = cSeqSta_Ing;
+					gVs_Unload_Seq = 2;
+				}
+				else
+				{
+					gVs_Unload_Err = cErrCode_EtEtherCat;
+					gVs_Unload_Sta = cSeqSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_Unload_Seq = 3;
+				}
+				else
+				{
+					gVs_Unload_Err = cErrCode_VsHome;
+					gVs_Unload_Sta = cSeqSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_Unload_Tmr = Sys.Time + 2;
+					gVs_Unload_Seq = 4;
+				}
+				else
+				{
+					gVs_Unload_Err = cErrCode_VsServo;
+					gVs_Unload_Sta = cSeqSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				//if(Coord[3].InPos==1)
+				if(Motor[nvX].InPos==1 && Motor[nvY].InPos==1)
+				{
+					gVs_Unload_Seq = 20;
+				}
+				else if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Err = cErrCode_VsInPos;
+					gVs_Unload_Sta = cSeqSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+//			case 5:	// Detect
+//				gVs_Unload_Buf = gVs_Unload_Seq;
+////				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+////				{
+////					gVs_Sta_Pdt = cPdtSta_Avn;
+////					gVs_Unload_Seq = 10;
+////				}
+////				else if(pUmem_Di2C_VsTbDet==cDet_On)
+//				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+//				{
+//					if(gVs_Vision_VsnJudge==cVsnJudge_Ok)
+//						gVs_Sta_Pdt = cPdtSta_Avn;
+//					else 
+//						gVs_Sta_Pdt = cPdtSta_Err;
+
+//					gVs_Unload_Seq = 20;
+//				}
+//				else
+//				{
+//					gVs_Unload_Err = cErrCode_VsPdtDetect;
+//					gVs_Unload_Sta = cSeqSta_Err;
+//					gVs_Unload_Seq = 0;
+//					gVs_Unload_Ena = 0;
+//				}
+//			break;
+
+		//------------------------------------------------//
+		// Cover Close
+		//------------------------------------------------//
+//			case 10:
+//				gVs_Unload_Buf = gVs_Unload_Seq;
+//				gVs_CoverCls_Sta = cSeqSta_Idl;
+//				gVs_CoverCls_Start = 1;
+//				gVs_Unload_Seq = 11;
+//			break;
+
+//			case 11:
+//				gVs_Unload_Buf = gVs_Unload_Seq;
+//				if(gVs_CoverCls_Sta==cSeqSta_Fin)
+//				{
+//					gVs_Unload_Seq = 20;
+//				}
+//				else if(gVs_CoverCls_Sta==cSeqSta_Err)
+//				{
+//					gVs_Unload_Err = cErrCode_VsCoverClose;
+//					gVs_Unload_Sta = cSeqSta_Err;
+//					gVs_Unload_Seq = 0;
+//					gVs_Unload_Ena = 0;
+//				}
+//			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 20:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				call spSetVsUdParam(&ret);
+				if(ret==0)
+				{
+					Motor[nvX].JogSpeed = gVs_Unload_VelX;
+					Motor[nvY].JogSpeed = gVs_Unload_VelY;
+					Motor[nvC].JogSpeed = gVs_Unload_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_Unload_PosX;
+					Motor[nvY].ProgJogPos = gVs_Unload_PosY;
+					//Motor[nvC].ProgJogPos = cVs_Cover_MoveAng;
+					//Motor[nvC].ProgJogPos = gVs_Unload_PosC;
+					//20260127 KJH - Theta Coord 관련 작업.
+					//call spReadVsThPos(nvC, gVs_Unload_PosC);
+					gVs_ThTargetPos_Old = -1;
+
+					jog nvX=*
+					jog nvY=*
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Unload_PosC, &gVs_ThTargetPos_Old);
+
+						//jog nvC=*
+						jog nvC:*
+					}
+					else if(gVs_CoverMoving_Sta != 1)
+						gVs_CoverOpn_Start = 1;
+
+					gVs_Unload_Tmr = Sys.Time + 0.1;
+					gVs_Unload_Seq = 21;
+				}
+				else
+				{
+					gVs_Unload_Err = cErrCode_VsMtrVelParam;
+					gVs_Unload_Sta = cSeqSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 21:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gVs_Unload_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				//20260123 KJH - TactTime 작업
+				if(gVs_PostVisionED_Sta == cSeqSta_Fin)
+				{
+					if(gVs_Vision_VsnJudge==cVsnJudge_Ok)
+					{
+						if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+							gVs_Sta_Pdt = cPdtSta_Avn;
+
+						if(gVs_RunOpt&cRunOpt_SkipVsUdReq!=0)
+							pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Mov;
+						else
+							pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Mov;
+					}
+					else
+					{
+						if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+							gVs_Sta_Pdt = cPdtSta_Err;
+
+						if(gVs_RunOpt&cRunOpt_SkipVsRjReq!=0)
+						{
+							if(gVs_RunOpt&cRunOpt_SkipVsUdReq==0)
+								pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Mov;
+						}
+						else
+							pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Mov;
+					}
+
+					gVs_Unload_Seq = 23;
+				}
+				else if(Sys.time > gVs_Unload_Tmr)
+				{
+					if(gVs_PostVisionED_Sta != cSeqSta_Fin)
+						gVs_Unload_Err = cErrCode_Vs3DVnEdStartRsp;
+					else 
+						gVs_Unload_Err = cErrCode_VsMoveTime;
+
+					gVs_Unload_Sta = cSeqSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 23:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				//20260123 KJH - TactTime 작업.if()
+
+				if(gVs_CoverMoving_Sta != 1)
+				{
+					gVs_CoverOpn_Start = 1;
+				}
+				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					call spReadVsThPos(nvC, gVs_Unload_PosC, &gVs_ThTargetPos_Old);
+
+					//jog nvC=*
+					jog nvC:*
+				}
+				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin && gVs_PostVisionED_Sta == cSeqSta_Fin)				
+				{
+					gVs_Unload_Seq = 40;
+				}
+				else if(Sys.time > gVs_Unload_Tmr)
+				{
+					//if(Coord[3].InPos!=1 && pUmem_Sta_ActPos(nvC) == gVs_Unload_PosC)
+					//if((Motor[nvX].InPos != 1 || Motor[nvY].InPos != 1) && pUmem_Sta_ActPos(nvC) == gVs_Unload_PosC)
+					if(gIsVStationReady != 1)
+						gVs_Unload_Err = cErrCode_VsMoveTime;
+					else if(gVs_PostVisionED_Sta != cSeqSta_Fin)
+						gVs_Unload_Err = cErrCode_Vs3DVnEdReadyRsp;
+					gVs_Unload_Sta = cSeqSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+		//------------------------------------------------//
+		// Cover Open
+		//------------------------------------------------//
+//			case 30:
+//				gVs_Unload_Buf = gVs_Unload_Seq;
+//				gVs_CoverOpn_Sta = cSeqSta_Idl;
+//				gVs_CoverOpn_Start = 1;
+//				gVs_Unload_Seq = 31;
+//			break;
+
+//			case 31:
+//				gVs_Unload_Buf = gVs_Unload_Seq;
+//				if(gVs_CoverOpn_Sta==cSeqSta_Fin)
+//				{
+//					gVs_Unload_Seq = 32;
+//				}
+//				else if(gVs_CoverOpn_Sta==cSeqSta_Err)
+//				{
+//					gVs_Unload_Err = cErrCode_VsCoverOpen;
+//					gVs_Unload_Sta = cSeqSta_Err;
+//					gVs_Unload_Seq = 0;
+//					gVs_Unload_Ena = 0;
+//				}
+//			break;
+
+//			case 32:
+//				gVs_Unload_Buf = gVs_Unload_Seq;
+//				Motor[nvC].JogSpeed = gVs_Unload_VelC;
+//				Motor[nvC].ProgJogPos = gVs_Unload_PosC;
+//				jog nvC=*
+
+//				gVs_Unload_Tmr = Sys.Time + 0.1;
+//				gVs_Unload_Seq = 33;
+//			break;
+
+//			case 33:
+//				gVs_Unload_Buf = gVs_Unload_Seq;
+//				if(Sys.time > gVs_Unload_Tmr)
+//				{
+//					gVs_Unload_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gVs_Unload_Seq = 34;
+//				}
+//			break;
+
+//			case 34:
+//				gVs_Unload_Buf = gVs_Unload_Seq;
+//				if(Coord[3].InPos==1)
+//				{
+//					gVs_Unload_Seq = 40;
+//				}
+//				else if(Sys.time > gVs_Unload_Tmr)
+//				{
+//					gVs_Unload_Err = cErrCode_VsMoveTime;
+//					gVs_Unload_Sta = cSeqSta_Err;
+//					gVs_Unload_Seq = 0;
+//					gVs_Unload_Ena = 0;
+//				}
+//			break;
+		//------------------------------------------------//
+		// Unload Request
+		//------------------------------------------------//
+			case 40:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(gVs_Vision_VsnJudge==cVsnJudge_Ok)
+				{
+					if(gVs_RunOpt&cRunOpt_SkipVsUdReq!=0)
+					{
+						pUmem_Sta_Vs_3rdTransPtdNo = gVs_PdtNo;
+						pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Opn;
+
+						gVs_Unload_Seq = 42;
+					}
+					else if(pUmem_Cmd_Vs_3rdTransUdRsp==cPcRep_Idl)
+					{
+						pUmem_Sta_Vs_3rdTransPtdNo = gVs_PdtNo;
+						pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Opn;
+					}
+					else
+					{
+						pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Idl;
+						pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Idl;
+
+						gVs_Unload_Err = cErrCode_Vs3rdTrUdReadyRsp;
+						gVs_Unload_Sta = cSeqSta_Err;
+						gVs_Unload_Seq = 0;
+						gVs_Unload_Ena = 0;
+					}
+				}
+				else
+				{
+					if(gVs_RunOpt&cRunOpt_SkipVsRjReq!=0)
+					{
+						if(gVs_RunOpt&cRunOpt_SkipVsUdReq==0)
+						{
+							pUmem_Sta_Vs_3rdTransPtdNo = gVs_PdtNo;
+							pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Opn;
+							gVs_Unload_Seq = 42;
+						}
+					}
+					else if(pUmem_Cmd_Vs_3rdTransRjRsp==cPcRep_Idl)
+					{
+						pUmem_Sta_Vs_3rdTransPtdNo = gVs_PdtNo;
+						pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Opn;
+					}
+					else
+					{
+						pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Idl;
+						pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Idl;
+
+						gVs_Unload_Err = cErrCode_Vs3rdTrUdReadyRsp;
+						gVs_Unload_Sta = cSeqSta_Err;
+						gVs_Unload_Seq = 0;
+						gVs_Unload_Ena = 0;
+					}
+				}
+				gVs_Unload_Seq = 41;
+
+			break;
+
+			case 41:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+
+				if(gVs_Vision_VsnJudge==cVsnJudge_Ok)
+				{
+					if(pUmem_Cmd_Vs_3rdTransUdRsp==cPcRep_Fin)
+					{
+						//gVs_PdtNo = 0;	//251230 수정
+						pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Idl;
+						gVs_Unload_Seq = 42;
+					}
+					else if(pUmem_Cmd_Vs_3rdTransUdRsp==cPcRep_Err)
+					{
+						gVs_Unload_Err = cErrCode_Vs3rdTrUdUnloadRsp;
+						gVs_Unload_Sta = cSeqSta_Err;
+						gVs_Unload_Seq = 0;
+						gVs_Unload_Ena = 0;
+					}
+				}
+				else
+				{
+					if(pUmem_Cmd_Vs_3rdTransRjRsp==cPcRep_Fin)
+					{
+						//gVs_PdtNo = 0;	//251230 수정
+						pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Idl;
+						gVs_Unload_Seq = 42;
+					}
+					else if(pUmem_Cmd_Vs_3rdTransRjRsp==cPcRep_Err)
+					{
+						gVs_Unload_Err = cErrCode_Vs3rdTrUdUnloadRsp;
+						gVs_Unload_Sta = cSeqSta_Err;
+						gVs_Unload_Seq = 0;
+						gVs_Unload_Ena = 0;
+					}
+				}
+
+			break;
+
+			case 42:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+				{
+					gVs_Sta_Pdt = cPdtSta_Blk;
+					gVs_Unload_Seq = 90;
+				}
+				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				{
+					gVs_Sta_Pdt = cPdtSta_Blk;
+					gVs_Unload_Seq = 90;
+				}
+				else
+				{
+					gVs_Unload_Err = cErrCode_VsPdtDetect;
+					gVs_Unload_Sta = cSeqSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				gVs_Unload_Time = Sys.Time - gVs_Unload_TimeBuf;
+				gVs_Unload_Sta = cSeqSta_Fin;
+				gVs_Unload_Seq = 0;
+				gVs_Unload_Ena = 0;
+			break;
+
+			default:
+				gVs_Unload_Err = -1;
+				gVs_Unload_Sta = cSeqSta_Err;
+				gVs_Unload_Seq = 0;
+				gVs_Unload_Ena = 0;				
+			break;
+		}
+	}
+
+////////////////////////////////////////////////////////////////////////
+// Reject
+////////////////////////////////////////////////////////////////////////
+	if(gVs_Reject_Start==1)
+	{
+		gVs_Reject_Start = 0;
+		gVs_Reject_Seq = 1;
+		gVs_Reject_Ena = 1;
+
+		//20260123 KJH - TactTime 작업.
+		if(gVs_CoverMoving_Sta != 1)
+			gVs_CoverOpn_Start = 1;
+	}
+
+	if(gVs_Reject_Abort==1)
+	{
+		gVs_Reject_Abort = 0;
+		gVs_Reject_Seq = 0;
+		gVs_Reject_Ena = 0;
+	}
+
+	if(gVs_Reject_Ena==1)
+	{
+		switch(gVs_Reject_Seq)
+		{
+		//------------------------------------------------//
+		// Reject
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gVs_Reject_Buf = gVs_Reject_Seq;
+				gVs_Reject_TimeBuf = Sys.Time;
+
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gVs_Reject_Sta = cSeqSta_Ing;
+					gVs_Reject_Seq = 2;
+				}
+				else
+				{
+					gVs_Reject_Err = cErrCode_EtEtherCat;
+					gVs_Reject_Sta = cSeqSta_Err;
+					gVs_Reject_Seq = 0;
+					gVs_Reject_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gVs_Reject_Buf = gVs_Reject_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_Reject_Seq = 3;
+				}
+				else
+				{
+					gVs_Reject_Err = cErrCode_VsHome;
+					gVs_Reject_Sta = cSeqSta_Err;
+					gVs_Reject_Seq = 0;
+					gVs_Reject_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_Reject_Buf = gVs_Reject_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_Reject_Tmr = Sys.Time + 2;
+					gVs_Reject_Seq = 4;
+				}
+				else
+				{
+					gVs_Reject_Err = cErrCode_VsServo;
+					gVs_Reject_Sta = cSeqSta_Err;
+					gVs_Reject_Seq = 0;
+					gVs_Reject_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gVs_Reject_Buf = gVs_Reject_Seq;
+				//if(Coord[3].InPos==1)
+				if(Motor[nvX].InPos==1 && Motor[nvY].InPos==1)
+				{
+					gVs_Reject_Seq = 5;
+				}
+				else if(Sys.time > gVs_Reject_Tmr)
+				{
+					gVs_Reject_Err = cErrCode_VsInPos;
+					gVs_Reject_Sta = cSeqSta_Err;
+					gVs_Reject_Seq = 0;
+					gVs_Reject_Ena = 0;
+				}
+			break;
+
+			case 5:	// Detect
+				gVs_Reject_Buf = gVs_Reject_Seq;
+//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+//				{
+//					gVs_Sta_Pdt = cPdtSta_Err;
+//					gVs_Reject_Seq = 10;
+//				}
+//				else if(pUmem_Di2C_VsTbDet==cDet_On)
+				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				{
+					gVs_Sta_Pdt = cPdtSta_Err;
+					gVs_Reject_Seq = 20;
+				}
+				else
+				{
+					gVs_Reject_Err = cErrCode_VsPdtDetect;
+					gVs_Reject_Sta = cSeqSta_Err;
+					gVs_Reject_Seq = 0;
+					gVs_Reject_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Cover Close
+		//------------------------------------------------//
+//			case 10:
+//				gVs_Reject_Buf = gVs_Reject_Seq;
+//				gVs_CoverCls_Sta = cSeqSta_Idl;
+//				gVs_CoverCls_Start = 1;
+//				gVs_Reject_Seq = 11;
+//			break;
+
+//			case 11:
+//				gVs_Reject_Buf = gVs_Reject_Seq;
+//				if(gVs_CoverCls_Sta==cSeqSta_Fin)
+//				{
+//					gVs_Reject_Seq = 20;
+//				}
+//				else if(gVs_CoverCls_Sta==cSeqSta_Err)
+//				{
+//					gVs_Reject_Err = cErrCode_VsCoverClose;
+//					gVs_Reject_Sta = cSeqSta_Err;
+//					gVs_Reject_Seq = 0;
+//					gVs_Reject_Ena = 0;
+//				}
+//			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 20:
+				gVs_Reject_Buf = gVs_Reject_Seq;
+				call spSetVsRjParam(&ret);
+				if(ret==0)
+				{
+					Motor[nvX].JogSpeed = gVs_Reject_VelX;
+					Motor[nvY].JogSpeed = gVs_Reject_VelY;
+					Motor[nvC].JogSpeed = gVs_Reject_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_Reject_PosX;
+					Motor[nvY].ProgJogPos = gVs_Reject_PosY;
+					//Motor[nvC].ProgJogPos = gVs_Reject_PosC;					
+					//20260127 KJH - Theta Coord 관련 작업.
+					//call spReadVsThPos(nvC, gVs_Reject_PosC);
+					gVs_ThTargetPos_Old = -1;
+
+					jog nvX=*
+					jog nvY=*
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Reject_PosC, &gVs_ThTargetPos_Old);
+
+						//jog nvC=*
+						jog nvC:*
+					}
+					else if(gVs_CoverMoving_Sta != 1)
+						gVs_CoverOpn_Start = 1;
+					
+					if(gVs_RunOpt&cRunOpt_SkipVsRjReq==0)
+					{
+						pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Mov;
+					}
+					gVs_Reject_Tmr = Sys.Time + 0.1;
+					gVs_Reject_Seq = 21;
+				}
+				else
+				{
+					gVs_Reject_Err = cErrCode_VsMtrVelParam;
+					gVs_Reject_Sta = cSeqSta_Err;
+					gVs_Reject_Seq = 0;
+					gVs_Reject_Ena = 0;
+				}
+			break;
+
+			case 21:
+				gVs_Reject_Buf = gVs_Reject_Seq;
+				if(Sys.time > gVs_Reject_Tmr)
+				{
+					gVs_Reject_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gVs_Reject_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_Reject_Buf = gVs_Reject_Seq;
+
+				//20260123 KJH - TactTime 작업.
+				if(gVs_CoverMoving_Sta != 1)
+				{
+					gVs_CoverOpn_Start = 1;
+				}
+				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					call spReadVsThPos(nvC, gVs_Reject_PosC, &gVs_ThTargetPos_Old);
+
+					//jog nvC=*
+					jog nvC:*
+				}
+				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					gVs_Reject_Seq = 40;
+				}
+				else if(Sys.time > gVs_Reject_Tmr)
+				{
+					gVs_Reject_Err = cErrCode_VsMoveTime;
+					gVs_Reject_Sta = cSeqSta_Err;
+					gVs_Reject_Seq = 0;
+					gVs_Reject_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Cover Open
+		//------------------------------------------------//
+//			case 30:
+//				gVs_Reject_Buf = gVs_Reject_Seq;
+//				gVs_CoverOpn_Sta = cSeqSta_Idl;
+//				gVs_CoverOpn_Start = 1;
+//				gVs_Reject_Seq = 31;
+//			break;
+
+//			case 31:
+//				gVs_Reject_Buf = gVs_Reject_Seq;
+//				if(gVs_CoverOpn_Sta==cSeqSta_Fin)
+//				{
+//					gVs_Reject_Seq = 32;
+//				}
+//				else if(gVs_CoverOpn_Sta==cSeqSta_Err)
+//				{
+//					gVs_Reject_Err = cErrCode_VsCoverOpen;
+//					gVs_Reject_Sta = cSeqSta_Err;
+//					gVs_Reject_Seq = 0;
+//					gVs_Reject_Ena = 0;
+//				}
+//			break;
+
+//			case 32:
+//				gVs_Reject_Buf = gVs_Reject_Seq;
+//				Motor[nvC].JogSpeed = gVs_Reject_VelC;
+//				Motor[nvC].ProgJogPos = gVs_Reject_PosC;
+//				jog nvC=*
+
+//				gVs_Reject_Tmr = Sys.Time + 0.1;
+//				gVs_Reject_Seq = 33;
+//			break;
+
+//			case 33:
+//				gVs_Reject_Buf = gVs_Reject_Seq;
+//				if(Sys.time > gVs_Reject_Tmr)
+//				{
+//					gVs_Reject_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gVs_Reject_Seq = 34;
+//				}
+//			break;
+
+//			case 34:
+//				gVs_Reject_Buf = gVs_Reject_Seq;
+//				if(Coord[3].InPos==1)
+//				{
+//					gVs_Reject_Seq = 40;
+//				}
+//				else if(Sys.time > gVs_Reject_Tmr)
+//				{
+//					gVs_Reject_Err = cErrCode_VsMoveTime;
+//					gVs_Reject_Sta = cSeqSta_Err;
+//					gVs_Reject_Seq = 0;
+//					gVs_Reject_Ena = 0;
+//				}
+//			break;
+		//------------------------------------------------//
+		// Reject Request
+		//------------------------------------------------//
+			case 40:
+				gVs_Reject_Buf = gVs_Reject_Seq;
+				if(gVs_RunOpt&cRunOpt_SkipVsRjReq!=0)
+				{
+					pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Idl;
+					gVs_Reject_Seq = 42;
+				}
+				else if(pUmem_Cmd_Vs_3rdTransRjRsp==cPcRep_Idl)
+				{
+					pUmem_Sta_Vs_3rdTransPtdNo = gVs_PdtNo;
+					pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Opn;
+					gVs_Reject_Seq = 41;
+				}
+				else
+				{
+					pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Idl;
+					gVs_Reject_Err = cErrCode_Vs3DVnEdReadyRsp;
+					gVs_Reject_Sta = cSeqSta_Err;
+					gVs_Reject_Seq = 0;
+					gVs_Reject_Ena = 0;
+				}
+			break;
+
+			case 41:
+				gVs_Reject_Buf = gVs_Reject_Seq;
+				if(pUmem_Cmd_Vs_3rdTransRjRsp==cPcRep_Fin)
+				{
+					//gVs_PdtNo = 0;	//251230 수정
+					pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Idl;
+					gVs_Reject_Seq = 42;
+				}
+				else if(pUmem_Cmd_Vs_3rdTransRjRsp==cPcRep_Err)
+				{
+					pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Idl;
+					gVs_Reject_Err = cErrCode_Vs3DVnEdStartRsp;
+					gVs_Reject_Sta = cSeqSta_Err;
+					gVs_Reject_Seq = 0;
+					gVs_Reject_Ena = 0;
+				}
+			break;
+
+			case 42:
+				gVs_Reject_Buf = gVs_Reject_Seq;
+//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+//				{
+//					gVs_Sta_Pdt = cPdtSta_Blk;
+//					gVs_Reject_Seq = 90;
+//				}
+//				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				{
+					gVs_Sta_Pdt = cPdtSta_Blk;
+					gVs_Reject_Seq = 90;
+				}
+				else
+				{
+					gVs_Reject_Err = cErrCode_VsPdtDetect;
+					gVs_Reject_Sta = cSeqSta_Err;
+					gVs_Reject_Seq = 0;
+					gVs_Reject_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_Reject_Buf = gVs_Reject_Seq;
+				gVs_Reject_Time = Sys.Time - gVs_Reject_TimeBuf;
+				gVs_Reject_Sta = cSeqSta_Fin;
+				gVs_Reject_Seq = 0;
+				gVs_Reject_Ena = 0;
+			break;
+
+			default:
+				gVs_Reject_Err = -1;
+				gVs_Reject_Sta = cSeqSta_Err;
+				gVs_Reject_Seq = 0;
+				gVs_Reject_Ena = 0;				
+			break;
+		}
+	}
+close

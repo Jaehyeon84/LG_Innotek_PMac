@@ -1,0 +1,15 @@
+open prog 2
+	abs
+	linear
+	F100 Ta0.1 Ts0 Td0
+
+	X0 Y0 C0
+	dwell 5000
+	X10 Y10 C10
+
+//	Gather.Enable = 2
+//	x0 y0 c360
+//	dwell 0
+//	Gather.Enable = 0
+//	x0 y0 c0
+close

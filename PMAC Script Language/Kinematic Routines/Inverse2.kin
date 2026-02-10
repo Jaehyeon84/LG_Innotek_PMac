@@ -1,0 +1,14 @@
+//######################################################################################################
+// Coordinate 2 Inverse Kinematics
+//######################################################################################################
+
+
+open inverse (2)
+	local ret;
+
+	#ifdef CE
+		ret = CfromScript(cFncKin,cCoord2,cKinInv,nsY,nsX,0,0);		// CE
+	#elif TG
+		ret = CfromScript(cFncKin,cCoord2,cKinInv,nsX,nsY,0,0);		// TG
+	#endif
+close

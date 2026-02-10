@@ -1,0 +1,50 @@
+
+
+open subprog spResetWsAlarm
+	// Reset EtherCat Amp Alaram : 6040.Bit7 Trigger
+	pEcat_AlarmReset(nwX) = 1;
+	pEcat_AlarmReset(nwY) = 1;
+	pEcat_AlarmReset(nwC) = 1;
+	pEcat_AlarmReset(nwZ) = 1;
+	call Timer.msec(10)
+
+	pEcat_AlarmReset(nwX) = 0;
+	pEcat_AlarmReset(nwY) = 0;
+	pEcat_AlarmReset(nwC) = 0;
+	pEcat_AlarmReset(nwZ) = 0;
+
+	// Error Status Clear
+	if(gMc_Home_Sta==cSeqSta_Err)			gMc_Home_Sta	  = cHomeSta_Idl;
+	if(gWs_Home_Sta==cHomeSta_Err)			gWs_Home_Sta	  = cHomeSta_Idl;
+	if(gMc_AutoRun_Sta==cSeqSta_Err)		gMc_AutoRun_Sta	  = cSeqSta_Idl;
+	if(gWs_Safety_Sta==cSafetySta_Err)		gWs_Safety_Sta	  = cSeqSta_Idl;
+	if(gMt_Home_Sta(nwX)==cHomeSta_Err)		gMt_Home_Sta(nwX) = cHomeSta_Idl;
+	if(gMt_Home_Sta(nwY)==cHomeSta_Err)		gMt_Home_Sta(nwY) = cHomeSta_Idl;
+	if(gMt_Home_Sta(nwC)==cHomeSta_Err)		gMt_Home_Sta(nwC) = cHomeSta_Idl;
+	if(gMt_Home_Sta(nwZ)==cHomeSta_Err)		gMt_Home_Sta(nwZ) = cHomeSta_Idl;
+	if(gWs_Home_Sta!=cHomeSta_Fin)			gMc_Home_Sta	  = cHomeSta_Idl;
+
+	if(gWs_Loop_Sta==cSeqSta_Err)			gWs_Loop_Sta	= cSeqSta_Idl;
+	if(gWs_Load_Sta==cSeqSta_Err)			gWs_Load_Sta	= cSeqSta_Idl;	
+	if(gWs_Ready_Sta==cSeqSta_Err)			gWs_Ready_Sta	= cSeqSta_Idl;
+	if(gWs_Welding_Sta==cSeqSta_Err)		gWs_Welding_Sta	= cSeqSta_Idl;
+	if(gWs_Wait_Sta==cSeqSta_Err)			gWs_Wait_Sta	= cSeqSta_Idl;
+	if(gWs_Unload_Sta==cSeqSta_Err)			gWs_Unload_Sta	= cSeqSta_Idl;
+	if(gWs_Reject_Sta==cSeqSta_Err)			gWs_Reject_Sta	= cSeqSta_Idl;
+
+	//해제 되지 않는 현상이 발생 되어 초기화 해주는 코드 추가.
+	//Welding Program 수정 후에 삭제 가능. 
+	//Request와 분리한 이유는 어느 부분에서 문제 생겼는지 확인 후에 클리어 하기 위에 여기에 추가.
+	if(gWs_Welding_Ena!=1)				pUmem_Cmd_Ws_LwmStartRsp = 0;
+	if(gWs_Reject_Ena!=1)				pUmem_Cmd_Ws_1stTransRjRsp = 0;
+	if(gWs_Ready_Ena!=1)				pUmem_Cmd_Ws_2dVisionCkRsp = 0;
+
+	gWs_Seq_Err = 0;
+	gWs_Error = 0;
+
+	if(gWs_Error_Old == 1)				gWs_Error_Old = 0;
+	else						gWs_Error_Old = 1;
+close
+
+
+

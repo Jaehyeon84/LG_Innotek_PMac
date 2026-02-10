@@ -1,0 +1,34 @@
+
+
+open subprog spSetVsLdParam(&ret)
+	if(pUmem_Cmd_Vs_LdVelX <= 0)		// X Velocity Config Error
+	{
+		ret = -1;
+		return
+	}
+	else if(pUmem_Cmd_Vs_LdVelY <= 0)	// Y Velocity Config Error
+	{
+		ret = -2;
+		return
+	}
+	else if(pUmem_Cmd_Vs_LdVelC <= 0)	// C Velocity Config Error
+	{
+		ret = -3;
+		return
+	}
+
+	// Set Motor Speed
+	gVs_Load_VelX = pUmem_Cmd_Vs_LdVelX/1000;
+	gVs_Load_VelY = pUmem_Cmd_Vs_LdVelY/1000;
+	gVs_Load_VelC = pUmem_Cmd_Vs_LdVelC/1000;
+
+	// Set Motor Target Position
+	gVs_Load_PosX = pUmem_Cmd_Vs_LdPosX;
+	gVs_Load_PosY = pUmem_Cmd_Vs_LdPosY;
+	gVs_Load_PosC = pUmem_Cmd_Vs_LdPosC;
+
+	ret = 0;
+close
+
+
+

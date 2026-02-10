@@ -1,0 +1,19 @@
+//######################################################################################################
+// Coordinate 1 Forward Kinematics
+//######################################################################################################
+
+
+open forward (1)
+	local ret;
+
+	if(KinVelEna >0)
+	{
+		callsub 100;
+	}
+	KinAxisUsed=$C4;
+
+	n100:
+		gKin_RotOffset(nwX) = pUmem_Cmd_Ws_RotOffsetX/1000;
+		gKin_RotOffset(nwY) = pUmem_Cmd_Ws_RotOffsetY/1000;
+		ret = CfromScript(cFncKin,cCoord1,cKinFwd,nwX,nwY,nwC,0);
+close

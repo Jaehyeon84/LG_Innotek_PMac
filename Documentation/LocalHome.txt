@@ -1,0 +1,165 @@
+
+
+
+	if(gMt_Home_Ena(home_idx)==1)
+	{
+		switch(gMt_Home_Seq(home_idx))
+		{
+			// Kill Motor	---------------------------------------------------------------------------//
+			case 1:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				gMt_Home_Sta(home_idx) = cHomeSta_Ing;				// Home Status = ING
+				
+				cmd"#%d kill",home_idx
+
+				gMt_Home_Tmr(home_idx) = Sys.Time + 3;				// Set Erorr Timer
+				gMt_Home_Seq(home_idx) = 2;
+			break;
+
+			case 2:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				if(Motor[home_idx].AmpEna==0)		gMt_Home_Seq(home_idx) = 10;
+
+				if(Sys.Time>gMt_Home_Tmr(home_idx))				// Occur Error, If Can't disable Amp
+				{
+					cmd"#%d kill",home_idx
+					gMt_Home_Sta(home_idx) = cHomeSta_Err;			// Home Status = ERR
+					gMt_Home_Seq(home_idx) = 0;					// Clear Home Search Sequence
+					gMt_Home_Ena(home_idx) = 0;					// Stop Home Search
+				}
+			break;
+
+			// Phasing	---------------------------------------------------------------------------//
+			case 10:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				if(Motor[home_idx].PhaseCtrl!=0)
+				{
+					if(Motor[home_idx].PhaseFound==1)	gMt_Home_Seq(home_idx) = 20;
+					else								gMt_Home_Seq(home_idx) = 11;
+				}
+				else									gMt_Home_Seq(home_idx) = 20;
+			break;
+
+			case 11:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				Motor[home_idx].PhaseFindingStep = 1;
+				gMt_Home_Tmr(home_idx) = Sys.time + 3;
+				gMt_Home_Seq(home_idx) = 12;
+			break;
+
+			case 12:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				if(Motor[home_idx].PhaseFound==1)	gMt_Home_Seq(home_idx) = 20;
+
+				if(Sys.Time>gMt_Home_Tmr(home_idx))
+				{
+					cmd"#%d kill",home_idx
+					gMt_Home_Sta(home_idx) = cHomeSta_Err;
+					gMt_Home_Seq(home_idx) = 0;
+					gMt_Home_Ena(home_idx) = 0;
+				}
+			break;
+
+			// Servo On	---------------------------------------------------------------------------//
+			case 20:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				call spInitMotor(home_idx);						// Set Basic Motor Parameters
+				cmd"#%d j/",home_idx
+				gMt_Home_Tmr(home_idx) = Sys.Time + 0.5;			// Set Erorr Timer
+				gMt_Home_Seq(home_idx) = 21;
+			break;
+
+			case 21:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				if(Sys.Time>gMt_Home_Tmr(home_idx))
+				{
+					gMt_Home_Tmr(home_idx) = Sys.time + 3;
+					gMt_Home_Seq(home_idx) = 22;
+				}
+			break;
+
+			case 22:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				if(Motor[home_idx].InPos==1)
+				{
+					if(home_idx==nwC)	gMt_Home_Seq(home_idx) = 40;
+					else				gMt_Home_Seq(home_idx) = 30;
+				}
+
+				if(Sys.Time>gMt_Home_Tmr(home_idx))
+				{
+					cmd"#%d kill",home_idx
+					gMt_Home_Sta(home_idx) = cHomeSta_Err;
+					gMt_Home_Seq(home_idx) = 0;
+					gMt_Home_Ena(home_idx) = 0;
+				}
+			break;
+
+			// Move Minus Limit	---------------------------------------------------------------------------//
+			case 30:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				if(Motor[home_idx].MinusLimit==1)	gMt_Home_Seq(home_idx) = 40;
+				else								gMt_Home_Seq(home_idx) = 31;
+			break;
+
+			case 31:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				cmd"#%d j-",home_idx
+				gMt_Home_Tmr(home_idx) = Sys.time + 0.1;
+				gMt_Home_Seq(home_idx) = 32;
+			break;
+
+			case 32:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				if(Sys.Time>gMt_Home_Tmr(home_idx))
+				{
+					gMt_Home_Tmr(home_idx) = Sys.time + cHome_TimeOut;
+					gMt_Home_Seq(home_idx) = 33;
+				}
+			break;
+				
+			case 33:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				if(Motor[home_idx].MinusLimit==1 && Motor[home_idx].InPos==1)	gMt_Home_Seq(home_idx) = 40;
+				
+				if(Sys.Time>gMt_Home_Tmr(home_idx) || Motor[home_idx].AmpEna==0)
+				{
+					cmd"#%d kill",home_idx
+					gMt_Home_Sta(home_idx) = cHomeSta_Err;
+					gMt_Home_Seq(home_idx) = 0;
+					gMt_Home_Ena(home_idx) = 0;
+				}
+			break;
+
+			// Home Search	---------------------------------------------------------------------------//
+			case 40:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				cmd"#%d hm",home_idx
+				gMt_Home_Tmr(home_idx) = Sys.time + cHome_TimeOut;
+				gMt_Home_Seq(home_idx) = 41;
+			break;
+
+			case 41:
+				gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+				if(Motor[home_idx].HomeComplete==1 && Motor[home_idx].InPos==1)
+				{
+					gMt_Home_Sta(home_idx) = cHomeSta_Fin;
+					gMt_Home_Seq(home_idx) = 0;
+					gMt_Home_Ena(home_idx) = 0;
+				}
+
+				if(Sys.Time>gMt_Home_Tmr(home_idx) || Motor[home_idx].AmpEna==0)
+				{
+					cmd"#%d kill",home_idx
+					gMt_Home_Sta(home_idx) = cHomeSta_Err;
+					gMt_Home_Seq(home_idx) = 0;
+					gMt_Home_Ena(home_idx) = 0;
+				}
+			break;
+
+			default:
+				gMt_Home_Seq(home_idx) = 0;					// Clear Home Sequence Number
+				gMt_Home_Ena(home_idx) = 0;					// Stop Home Search
+			break;
+		}
+	}

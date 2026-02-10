@@ -1,0 +1,35 @@
+
+
+open prog 50
+sg
+	M110 A0 B1000 S200	// Ring Power Condition -> Min : 0[W], Max : 1000[W], Sf : 200[W/V]
+	M111 A0 B1000 S200	// Core Power Condition -> Min : 0[W], Max : 1000[W], Sf : 200[W/V]
+
+	M12 W400				// Core Power 400[W]
+	M14 W0				// Ring Power 0[W]
+	dwell 10
+
+	abs
+	linear
+	F(100) ta(0) ts(0)	// Velocity = 100
+
+	M51 P50				// Laser Off
+	X(-25)	Y(0)
+
+	//M50 G1 P50		// Laser Off, Guide On
+	M50 G0 P50			// Laser On, Guide Off
+	X(25)	Y(0)	
+
+	M51 P50				// Laser Off
+	X(0)	Y(-25)
+
+	//M50 G1 P50			// Laser Off, Guide On
+	M50 G0 P50			// Laser On, Guide Off
+	X(0)	Y(25)	
+
+	M51 P50				// Laser Off
+	X(0)	Y(0)
+eg
+close
+
+

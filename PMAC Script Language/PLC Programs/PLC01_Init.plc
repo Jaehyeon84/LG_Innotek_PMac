@@ -1,0 +1,47 @@
+//######################################################################################################
+// PLC 01 : Initialize PLC
+//######################################################################################################
+
+
+open plc 1
+
+	// delete lookahead buffer for vision
+	Ldata.CmdStatus = 1;
+	cmd"&3 delete lookahead"
+	sendallcmds
+	while(Ldata.CmdStatus == 1){}
+	call Timer.msec(100)
+
+	// delete lookahead buffer for welding
+	Ldata.CmdStatus = 1;
+	cmd"&1 delete lookahead"
+	sendallcmds
+	while(Ldata.CmdStatus == 1){}
+	call Timer.msec(100)
+
+	// define lookahead buffer for welding
+	Ldata.CmdStatus = 1;
+	cmd"&1 define lookahead %d",Coord[1].LHDistance*2
+	sendallcmds
+	while(Ldata.CmdStatus == 1){}
+
+	// define lookahead buffer for vision
+	Ldata.CmdStatus = 1;
+	cmd"&3 define lookahead %d",Coord[3].LHDistance*2
+	sendallcmds
+	while(Ldata.CmdStatus == 1){}
+
+	// Clear Move Commands
+	call spInitCommand();
+	call Timer.msec(100)
+
+	// Enable PLC
+	enable plc 0,2..25
+	call Timer.msec(100)
+	if(gMach_Type==0) enable plc 31		// 251230 Ãß°¡
+
+	// Clear Rti Error
+	Sys.RtIntBusyCtr = 0;
+	Sys.RtIntErrorCtr = 0;
+	disable plc 1
+close

@@ -1,0 +1,700 @@
+//######################################################################################################
+// Header 01 : Encoder Conversion Table
+//######################################################################################################
+
+
+EncTable[0].type=1
+EncTable[0].index1=0
+EncTable[0].index2=0
+EncTable[0].index3=0
+EncTable[0].index4=0
+EncTable[0].index5=0
+EncTable[0].pEnc1=Sys.pushm
+EncTable[0].pEnc=Sys.pushm
+EncTable[0].MaxDelta=0
+EncTable[0].ScaleFactor=0
+EncTable[0].index6=0
+
+#if MACHINE_TYPE==1		// for Actual Machine
+	//----------------------------------------------------------------------//
+	// Table 1 ~ 3 : Quadrature Encoder Input
+	//----------------------------------------------------------------------//
+	EncTable[1].type=1
+	EncTable[1].index1=0
+	EncTable[1].index2=0
+	EncTable[1].index3=0
+	EncTable[1].index4=0
+	EncTable[1].index5=0
+	EncTable[1].pEnc1=Sys.pushm
+	EncTable[1].pEnc=CK3WAX[0].Chan[0].ServoCapt.a
+	EncTable[1].MaxDelta=0
+	EncTable[1].ScaleFactor=1/256
+	EncTable[1].index6=0
+
+	EncTable[2].type=1
+	EncTable[2].index1=0
+	EncTable[2].index2=0
+	EncTable[2].index3=0
+	EncTable[2].index4=0
+	EncTable[2].index5=0
+	EncTable[2].pEnc1=Sys.pushm
+	EncTable[2].pEnc=CK3WAX[0].Chan[1].ServoCapt.a
+	EncTable[2].MaxDelta=0
+	EncTable[2].ScaleFactor=1/256
+	EncTable[2].index6=0
+
+	EncTable[3].type=1
+	EncTable[3].index1=0
+	EncTable[3].index2=0
+	EncTable[3].index3=0
+	EncTable[3].index4=0
+	EncTable[3].index5=0
+	EncTable[3].pEnc1=Sys.pushm
+	EncTable[3].pEnc=CK3WAX[0].Chan[2].ServoCapt.a
+	EncTable[3].MaxDelta=0
+	EncTable[3].ScaleFactor=1/256
+	EncTable[3].index6=0
+	//----------------------------------------------------------------------//
+	// Table 4 : PFM for Vision Trigger
+	//----------------------------------------------------------------------//
+	EncTable[4].type=11
+	EncTable[4].index1=0
+	EncTable[4].index2=0
+	EncTable[4].index3=0
+	EncTable[4].index4=1
+	EncTable[4].index5=255
+	EncTable[4].pEnc1=Sys.pushm
+	EncTable[4].pEnc=Motor[4].IqCmd.a
+	EncTable[4].MaxDelta=0
+	EncTable[4].ScaleFactor=1/(256*(EncTable[4].index5+1))
+	EncTable[4].index6=0
+	//----------------------------------------------------------------------//
+	// Table 5 ~ 6 : Serial Data for SL2-100 Scanner
+	//----------------------------------------------------------------------//
+	EncTable[5].type=1
+	EncTable[5].index1=8
+	EncTable[5].index2=8
+	EncTable[5].index3=0
+	EncTable[5].index4=0
+	EncTable[5].index5=0
+	EncTable[5].pEnc1=Sys.pushm
+	EncTable[5].pEnc=CK3WGC[1].Chan[0].SerialEncDataA.a
+	EncTable[5].MaxDelta=0
+	EncTable[5].ScaleFactor=1
+	EncTable[5].index6=0
+
+	EncTable[6].type=1
+	EncTable[6].index1=8
+	EncTable[6].index2=8
+	EncTable[6].index3=0
+	EncTable[6].index4=0
+	EncTable[6].index5=0
+	EncTable[6].pEnc1=Sys.pushm
+	EncTable[6].pEnc=CK3WGC[1].Chan[1].SerialEncDataA.a
+	EncTable[6].MaxDelta=0
+	EncTable[6].ScaleFactor=1
+	EncTable[6].index6=0
+	//----------------------------------------------------------------------//
+	// Table 7 : Welding Vector Sum
+	//----------------------------------------------------------------------//
+	EncTable[7].type=11
+	EncTable[7].index1=0
+	EncTable[7].index2=0
+	EncTable[7].index3=0
+	EncTable[7].index4=1
+	EncTable[7].index5=255
+	EncTable[7].pEnc1=Sys.pushm
+	EncTable[7].pEnc=Sys.Ddata[1000].a
+	EncTable[7].MaxDelta=0
+	EncTable[7].ScaleFactor=1/(256*(EncTable[7].index5+1))		// Flexible depend on welding vector velocity
+	EncTable[7].index6=1
+	//----------------------------------------------------------------------//
+	// Table 8 : Vision Vector Sum
+	//----------------------------------------------------------------------//
+	EncTable[8].type=11
+	EncTable[8].index1=0
+	EncTable[8].index2=0
+	EncTable[8].index3=0
+	EncTable[8].index4=1
+	EncTable[8].index5=255
+	EncTable[8].pEnc1=Sys.pushm
+	EncTable[8].pEnc=Sys.Ddata[1001].a
+	EncTable[8].MaxDelta=0
+	EncTable[8].ScaleFactor=1/(256*(EncTable[8].index5+1))
+	EncTable[8].index6=1
+	//----------------------------------------------------------------------//
+	// Table 9 ~ 11 : PDO 0x6064 for Welding
+	//----------------------------------------------------------------------//
+	EncTable[9].type=1
+	EncTable[9].index1=0
+	EncTable[9].index2=0
+	EncTable[9].index3=0
+	EncTable[9].index4=0
+	EncTable[9].index5=0
+	EncTable[9].pEnc1=Sys.pushm
+	EncTable[9].pEnc=Slave_1004_MCDLN35BL_6064_0_Positionactualvalue.a
+	EncTable[9].MaxDelta=0
+	EncTable[9].ScaleFactor=1
+	EncTable[9].index6=0
+
+	EncTable[10].type=1
+	EncTable[10].index1=0
+	EncTable[10].index2=0
+	EncTable[10].index3=0
+	EncTable[10].index4=0
+	EncTable[10].index5=0
+	EncTable[10].pEnc1=Sys.pushm
+	EncTable[10].pEnc=Slave_1002_MADLN15BL_6064_0_Positionactualvalue.a
+	EncTable[10].MaxDelta=0
+	EncTable[10].ScaleFactor=1
+	EncTable[10].index6=0
+
+	EncTable[11].type=1
+	EncTable[11].index1=0
+	EncTable[11].index2=0
+	EncTable[11].index3=0
+	EncTable[11].index4=0
+	EncTable[11].index5=0
+	EncTable[11].pEnc1=Sys.pushm
+	EncTable[11].pEnc=Slave_1003_MADLN15BL_6064_0_Positionactualvalue.a
+	EncTable[11].MaxDelta=0
+	EncTable[11].ScaleFactor=1
+	EncTable[11].index6=0
+	//----------------------------------------------------------------------//
+	// Table 12 : Dummy
+	//----------------------------------------------------------------------//
+	EncTable[12].type=1
+	EncTable[12].index1=0
+	EncTable[12].index2=0
+	EncTable[12].index3=0
+	EncTable[12].index4=0
+	EncTable[12].index5=0
+	EncTable[12].pEnc1=Sys.pushm
+	EncTable[12].pEnc=Sys.pushm
+	EncTable[12].MaxDelta=0
+	EncTable[12].ScaleFactor=0
+	EncTable[12].index6=0
+	//----------------------------------------------------------------------//
+	// Table 13 ~ 15 : PDO 0x6064 for Vision
+	//----------------------------------------------------------------------//
+	EncTable[13].type=1
+	EncTable[13].index1=0
+	EncTable[13].index2=0
+	EncTable[13].index3=0
+	EncTable[13].index4=0
+	EncTable[13].index5=0
+	EncTable[13].pEnc1=Sys.pushm
+	EncTable[13].pEnc=Slave_1008_MCDLN35BL_6064_0_Positionactualvalue.a
+	EncTable[13].MaxDelta=0
+
+	EncTable[13].ScaleFactor=1
+	EncTable[13].index6=0
+	EncTable[14].type=1
+	EncTable[14].index1=0
+	EncTable[14].index2=0
+	EncTable[14].index3=0
+	EncTable[14].index4=0
+	EncTable[14].index5=0
+	EncTable[14].pEnc1=Sys.pushm
+	EncTable[14].pEnc=Slave_1006_MADLN15BL_6064_0_Positionactualvalue.a
+	EncTable[14].MaxDelta=0
+	EncTable[14].ScaleFactor=1
+	EncTable[14].index6=0
+
+	EncTable[15].type=1
+	EncTable[15].index1=0
+	EncTable[15].index2=0
+	EncTable[15].index3=0
+	EncTable[15].index4=0
+	EncTable[15].index5=0
+	EncTable[15].pEnc1=Sys.pushm
+	EncTable[15].pEnc=Slave_1007_MADLN15BL_6064_0_Positionactualvalue.a
+	EncTable[15].MaxDelta=0
+	EncTable[15].ScaleFactor=1
+	EncTable[15].index6=0
+	//----------------------------------------------------------------------//
+	// Table 16 : Dummy
+	//----------------------------------------------------------------------//
+	EncTable[16].type=1
+	EncTable[16].index1=0
+	EncTable[16].index2=0
+	EncTable[16].index3=0
+	EncTable[16].index4=0
+	EncTable[16].index5=0
+	EncTable[16].pEnc1=Sys.pushm
+	EncTable[16].pEnc=Sys.pushm
+	EncTable[16].MaxDelta=0
+	EncTable[16].ScaleFactor=0
+	EncTable[16].index6=0
+
+	//----------------------------------------------------------------------//
+	// Table 17 : PDO 0x6064 for Welding Z
+	//----------------------------------------------------------------------//
+	EncTable[17].type=1
+	EncTable[17].index1=0
+	EncTable[17].index2=0
+	EncTable[17].index3=0
+	EncTable[17].index4=0
+	EncTable[17].index5=0
+	EncTable[17].pEnc1=Sys.pushm
+	EncTable[17].pEnc=Slave_1005_MBDLN25BE_6064_0_Positionactualvalue.a
+	EncTable[17].MaxDelta=0
+	EncTable[17].ScaleFactor=1
+	EncTable[17].index6=0
+
+
+#elif MACHINE_TYPE==2		// for Test Machine
+	//----------------------------------------------------------------------//
+	// Table 1 ~ 3 : Quadrature Encoder Input
+	//----------------------------------------------------------------------//
+	EncTable[1].type=1
+	EncTable[1].index1=0
+	EncTable[1].index2=0
+	EncTable[1].index3=0
+	EncTable[1].index4=0
+	EncTable[1].index5=0
+	EncTable[1].pEnc1=Sys.pushm
+	EncTable[1].pEnc=CK3WAX[0].Chan[0].ServoCapt.a
+	EncTable[1].MaxDelta=0
+	EncTable[1].ScaleFactor=1/256
+	EncTable[1].index6=0
+
+	EncTable[2].type=1
+	EncTable[2].index1=0
+	EncTable[2].index2=0
+	EncTable[2].index3=0
+	EncTable[2].index4=0
+	EncTable[2].index5=0
+	EncTable[2].pEnc1=Sys.pushm
+	EncTable[2].pEnc=CK3WAX[0].Chan[1].ServoCapt.a
+	EncTable[2].MaxDelta=0
+	EncTable[2].ScaleFactor=1/256
+	EncTable[2].index6=0
+
+	EncTable[3].type=1
+	EncTable[3].index1=0
+	EncTable[3].index2=0
+	EncTable[3].index3=0
+	EncTable[3].index4=0
+	EncTable[3].index5=0
+	EncTable[3].pEnc1=Sys.pushm
+	EncTable[3].pEnc=CK3WAX[0].Chan[2].ServoCapt.a
+	EncTable[3].MaxDelta=0
+	EncTable[3].ScaleFactor=1/256
+	EncTable[3].index6=0
+	//----------------------------------------------------------------------//
+	// Table 4 : PFM Axis for Vision Trigger
+	//----------------------------------------------------------------------//
+	EncTable[4].type=11
+	EncTable[4].index1=0
+	EncTable[4].index2=0
+	EncTable[4].index3=0
+	EncTable[4].index4=1
+	EncTable[4].index5=255
+	EncTable[4].pEnc1=Sys.pushm
+	EncTable[4].pEnc=Motor[4].IqCmd.a
+	EncTable[4].MaxDelta=0
+	EncTable[4].ScaleFactor=1/(256*(EncTable[4].index5+1))
+	EncTable[4].index6=0
+	//----------------------------------------------------------------------//
+	// Table 5 ~ 6 : Serial Data for SL2-100 Scanner
+	//----------------------------------------------------------------------//
+	EncTable[5].type=1
+	EncTable[5].index1=8
+	EncTable[5].index2=8
+	EncTable[5].index3=0
+	EncTable[5].index4=0
+	EncTable[5].index5=0
+	EncTable[5].pEnc1=Sys.pushm
+	EncTable[5].pEnc=CK3WGC[1].Chan[0].SerialEncDataA.a
+	EncTable[5].MaxDelta=0
+	EncTable[5].ScaleFactor=1
+	EncTable[5].index6=0
+
+	EncTable[6].type=1
+	EncTable[6].index1=8
+	EncTable[6].index2=8
+	EncTable[6].index3=0
+	EncTable[6].index4=0
+	EncTable[6].index5=0
+	EncTable[6].pEnc1=Sys.pushm
+	EncTable[6].pEnc=CK3WGC[1].Chan[1].SerialEncDataA.a
+	EncTable[6].MaxDelta=0
+	EncTable[6].ScaleFactor=1
+	EncTable[6].index6=0
+	//----------------------------------------------------------------------//
+	// Table 7 : Welding Vector Sum
+	//----------------------------------------------------------------------//
+	EncTable[7].type=11
+	EncTable[7].index1=0
+	EncTable[7].index2=0
+	EncTable[7].index3=0
+	EncTable[7].index4=1
+	EncTable[7].index5=255
+	EncTable[7].pEnc1=Sys.pushm
+	EncTable[7].pEnc=Sys.Ddata[1000].a
+	EncTable[7].MaxDelta=0
+	EncTable[7].ScaleFactor=1/(256*(EncTable[7].index5+1))		// Flexible depend on welding vector velocity
+	EncTable[7].index6=1
+	//----------------------------------------------------------------------//
+	// Table 8 : Vision Vector Sum
+	//----------------------------------------------------------------------//
+	EncTable[8].type=11
+	EncTable[8].index1=0
+	EncTable[8].index2=0
+	EncTable[8].index3=0
+	EncTable[8].index4=1
+	EncTable[8].index5=255
+	EncTable[8].pEnc1=Sys.pushm
+	EncTable[8].pEnc=Sys.Ddata[1001].a
+	EncTable[8].MaxDelta=0
+	EncTable[8].ScaleFactor=1/(256*(EncTable[8].index5+1))
+	EncTable[8].index6=1
+	//----------------------------------------------------------------------//
+	// Table 9 ~ 11 : PDO 0x6064 for Welding
+	//----------------------------------------------------------------------//
+	EncTable[9].type=1
+	EncTable[9].index1=0
+	EncTable[9].index2=0
+	EncTable[9].index3=0
+	EncTable[9].index4=0
+	EncTable[9].index5=0
+	EncTable[9].pEnc1=Sys.pushm
+	EncTable[9].pEnc=Slave_1001_SGD7S_xxxxA0x_CoE_Drive_6064_0_Positionactualvalue.a
+	EncTable[9].MaxDelta=0
+	EncTable[9].ScaleFactor=1
+	EncTable[9].index6=0
+
+	EncTable[10].type=1
+	EncTable[10].index1=0
+	EncTable[10].index2=0
+	EncTable[10].index3=0
+	EncTable[10].index4=0
+	EncTable[10].index5=0
+	EncTable[10].pEnc1=Sys.pushm
+	EncTable[10].pEnc=Slave_1002_SGD7S_xxxxA0x_CoE_Drive_6064_0_Positionactualvalue.a
+	EncTable[10].MaxDelta=0
+	EncTable[10].ScaleFactor=1
+	EncTable[10].index6=0
+
+	EncTable[11].type=1
+	EncTable[11].index1=0
+	EncTable[11].index2=0
+	EncTable[11].index3=0
+	EncTable[11].index4=0
+	EncTable[11].index5=0
+	EncTable[11].pEnc1=Sys.pushm
+	EncTable[11].pEnc=Slave_1003_SGD7S_xxxxA0x_CoE_Drive_6064_0_Positionactualvalue.a
+	EncTable[11].MaxDelta=0
+	EncTable[11].ScaleFactor=1
+	EncTable[11].index6=0
+	//----------------------------------------------------------------------//
+	// Table 12 : Dummy
+	//----------------------------------------------------------------------//
+	EncTable[12].type=1
+	EncTable[12].index1=0
+	EncTable[12].index2=0
+	EncTable[12].index3=0
+	EncTable[12].index4=0
+	EncTable[12].index5=0
+	EncTable[12].pEnc1=Sys.pushm
+	EncTable[12].pEnc=Sys.pushm
+	EncTable[12].MaxDelta=0
+	EncTable[12].ScaleFactor=0
+	EncTable[12].index6=0
+	//----------------------------------------------------------------------//
+	// Table 13 ~ 15 : PDO 0x6064 for Vision
+	//----------------------------------------------------------------------//
+	EncTable[13].type=1
+	EncTable[13].index1=0
+	EncTable[13].index2=0
+	EncTable[13].index3=0
+	EncTable[13].index4=0
+	EncTable[13].index5=0
+	EncTable[13].pEnc1=Sys.pushm
+	EncTable[13].pEnc=Slave_1004_R88D_1SN01H_ECT_6064_0_Positionactualvalue.a
+	EncTable[13].MaxDelta=0
+
+	EncTable[13].ScaleFactor=1
+	EncTable[13].index6=0
+	EncTable[14].type=1
+	EncTable[14].index1=0
+	EncTable[14].index2=0
+	EncTable[14].index3=0
+	EncTable[14].index4=0
+	EncTable[14].index5=0
+	EncTable[14].pEnc1=Sys.pushm
+	EncTable[14].pEnc=Slave_1005_R88D_1SN01H_ECT_6064_0_Positionactualvalue.a
+	EncTable[14].MaxDelta=0
+	EncTable[14].ScaleFactor=1
+	EncTable[14].index6=0
+
+	EncTable[15].type=1
+	EncTable[15].index1=0
+	EncTable[15].index2=0
+	EncTable[15].index3=0
+	EncTable[15].index4=0
+	EncTable[15].index5=0
+	EncTable[15].pEnc1=Sys.pushm
+	EncTable[15].pEnc=Slave_1006_R88D_1SN01H_ECT_6064_0_Positionactualvalue.a
+	EncTable[15].MaxDelta=0
+	EncTable[15].ScaleFactor=1
+	EncTable[15].index6=0
+	//----------------------------------------------------------------------//
+	// Table 16 : Dummy
+	//----------------------------------------------------------------------//
+	EncTable[16].type=1
+	EncTable[16].index1=0
+	EncTable[16].index2=0
+	EncTable[16].index3=0
+	EncTable[16].index4=0
+	EncTable[16].index5=0
+	EncTable[16].pEnc1=Sys.pushm
+	EncTable[16].pEnc=Sys.pushm
+	EncTable[16].MaxDelta=0
+	EncTable[16].ScaleFactor=0
+	EncTable[16].index6=0
+
+	//----------------------------------------------------------------------//
+	// Table 17 : PDO 0x6064 for Welding Z
+	//----------------------------------------------------------------------//
+	EncTable[17].type=1
+	EncTable[17].index1=0
+	EncTable[17].index2=0
+	EncTable[17].index3=0
+	EncTable[17].index4=0
+	EncTable[17].index5=0
+	EncTable[17].pEnc1=Sys.pushm
+	EncTable[17].pEnc=Slave_1005_MBDLN25BE_6064_0_Positionactualvalue.a
+	EncTable[17].MaxDelta=0
+	EncTable[17].ScaleFactor=1
+	EncTable[17].index6=0
+
+#else		// for Simulation
+	//----------------------------------------------------------------------//
+	// Table 1 ~ 3 : Virtual Axis for Torque Control
+	//----------------------------------------------------------------------//
+	EncTable[1].type=11
+	EncTable[1].index1=0
+	EncTable[1].index2=0
+	EncTable[1].index3=0
+	EncTable[1].index4=1
+	EncTable[1].index5=255
+	EncTable[1].pEnc1=Sys.pushm
+	EncTable[1].pEnc=Motor[1].IqCmd.a
+	EncTable[1].MaxDelta=0
+	EncTable[1].ScaleFactor=1/(256*(EncTable[1].index5+1))
+	EncTable[1].index6=0
+
+	EncTable[2].type=11
+	EncTable[2].index1=0
+	EncTable[2].index2=0
+	EncTable[2].index3=0
+	EncTable[2].index4=1
+	EncTable[2].index5=255
+	EncTable[2].pEnc1=Sys.pushm
+	EncTable[2].pEnc=Motor[2].IqCmd.a
+	EncTable[2].MaxDelta=0
+	EncTable[2].ScaleFactor=1/(256*(EncTable[2].index5+1))
+	EncTable[2].index6=0
+
+	EncTable[3].type=11
+	EncTable[3].index1=0
+	EncTable[3].index2=0
+	EncTable[3].index3=0
+	EncTable[3].index4=1
+	EncTable[3].index5=255
+	EncTable[3].pEnc1=Sys.pushm
+	EncTable[3].pEnc=Motor[3].IqCmd.a
+	EncTable[3].MaxDelta=0
+	EncTable[3].ScaleFactor=1/(256*(EncTable[3].index5+1))
+	EncTable[3].index6=0
+	//----------------------------------------------------------------------//
+	// Table 4 : Virtual Axis for Vision Trigger
+	//----------------------------------------------------------------------//
+	EncTable[4].type=11
+	EncTable[4].index1=0
+	EncTable[4].index2=0
+	EncTable[4].index3=0
+	EncTable[4].index4=1
+	EncTable[4].index5=255
+	EncTable[4].pEnc1=Sys.pushm
+	EncTable[4].pEnc=Motor[4].IqCmd.a
+	EncTable[4].MaxDelta=0
+	EncTable[4].ScaleFactor=1/(256*(EncTable[4].index5+1))
+	EncTable[4].index6=0
+	//----------------------------------------------------------------------//
+	// Table 5 ~ 6 : Virtual Axis for SL2-100 Scanner
+	//----------------------------------------------------------------------//
+	EncTable[5].type=11
+	EncTable[5].index1=0
+	EncTable[5].index2=0
+	EncTable[5].index3=0
+	EncTable[5].index4=1
+	EncTable[5].index5=255
+	EncTable[5].pEnc1=Sys.pushm
+	EncTable[5].pEnc=Motor[5].IqCmd.a
+	EncTable[5].MaxDelta=0
+	EncTable[5].ScaleFactor=1/(256*(EncTable[5].index5+1))
+	EncTable[5].index6=0
+
+	EncTable[6].type=11
+	EncTable[6].index1=0
+	EncTable[6].index2=0
+	EncTable[6].index3=0
+	EncTable[6].index4=1
+	EncTable[6].index5=255
+	EncTable[6].pEnc1=Sys.pushm
+	EncTable[6].pEnc=Motor[6].IqCmd.a
+	EncTable[6].MaxDelta=0
+	EncTable[6].ScaleFactor=1/(256*(EncTable[6].index5+1))
+	EncTable[6].index6=0
+	//----------------------------------------------------------------------//
+	// Table 7 : Welding Vector Sum
+	//----------------------------------------------------------------------//
+	EncTable[7].type=11
+	EncTable[7].index1=0
+	EncTable[7].index2=0
+	EncTable[7].index3=0
+	EncTable[7].index4=1
+	EncTable[7].index5=255
+	EncTable[7].pEnc1=Sys.pushm
+	EncTable[7].pEnc=Sys.Ddata[1000].a
+	EncTable[7].MaxDelta=0
+	EncTable[7].ScaleFactor=1/(256*(EncTable[7].index5+1))		// Flexible depend on welding vector velocity
+	EncTable[7].index6=1
+	//----------------------------------------------------------------------//
+	// Table 8 : Vision Vector Sum
+	//----------------------------------------------------------------------//
+	EncTable[8].type=11
+	EncTable[8].index1=0
+	EncTable[8].index2=0
+	EncTable[8].index3=0
+	EncTable[8].index4=1
+	EncTable[8].index5=255
+	EncTable[8].pEnc1=Sys.pushm
+	EncTable[8].pEnc=Sys.Ddata[1001].a
+	EncTable[8].MaxDelta=0
+	EncTable[8].ScaleFactor=1/(256*(EncTable[8].index5+1))
+	EncTable[8].index6=1
+	//----------------------------------------------------------------------//
+	// Table 9 ~ 11 : Virtual Axis for Welding
+	//----------------------------------------------------------------------//
+	EncTable[9].type=11
+	EncTable[9].index1=0
+	EncTable[9].index2=0
+	EncTable[9].index3=0
+	EncTable[9].index4=1
+	EncTable[9].index5=255
+	EncTable[9].pEnc1=Sys.pushm
+	EncTable[9].pEnc=Motor[9].IqCmd.a
+	EncTable[9].MaxDelta=0
+	EncTable[9].ScaleFactor=1/(256*(EncTable[9].index5+1))
+	EncTable[9].index6=0
+
+	EncTable[10].type=11
+	EncTable[10].index1=0
+	EncTable[10].index2=0
+	EncTable[10].index3=0
+	EncTable[10].index4=1
+	EncTable[10].index5=255
+	EncTable[10].pEnc1=Sys.pushm
+	EncTable[10].pEnc=Motor[10].IqCmd.a
+	EncTable[10].MaxDelta=0
+	EncTable[10].ScaleFactor=1/(256*(EncTable[10].index5+1))
+	EncTable[10].index6=0
+
+	EncTable[11].type=11
+	EncTable[11].index1=0
+	EncTable[11].index2=0
+	EncTable[11].index3=0
+	EncTable[11].index4=1
+	EncTable[11].index5=255
+	EncTable[11].pEnc1=Sys.pushm
+	EncTable[11].pEnc=Motor[11].IqCmd.a
+	EncTable[11].MaxDelta=0
+	EncTable[11].ScaleFactor=1/(256*(EncTable[11].index5+1))
+	EncTable[11].index6=0
+	//----------------------------------------------------------------------//
+	// Table 12 : Dummy
+	//----------------------------------------------------------------------//
+	EncTable[12].type=1
+	EncTable[12].index1=0
+	EncTable[12].index2=0
+	EncTable[12].index3=0
+	EncTable[12].index4=0
+	EncTable[12].index5=0
+	EncTable[12].pEnc1=Sys.pushm
+	EncTable[12].pEnc=Sys.pushm
+	EncTable[12].MaxDelta=0
+	EncTable[12].ScaleFactor=0
+	EncTable[12].index6=0
+	//----------------------------------------------------------------------//
+	// Table 13 ~ 15 : Virtual Axis for Vision
+	//----------------------------------------------------------------------//
+	EncTable[13].type=11
+	EncTable[13].index1=0
+	EncTable[13].index2=0
+	EncTable[13].index3=0
+	EncTable[13].index4=1
+	EncTable[13].index5=255
+	EncTable[13].pEnc1=Sys.pushm
+	EncTable[13].pEnc=Motor[13].IqCmd.a
+	EncTable[13].MaxDelta=0
+	EncTable[13].ScaleFactor=1/(256*(EncTable[13].index5+1))
+	EncTable[13].index6=0
+
+	EncTable[14].type=11
+	EncTable[14].index1=0
+	EncTable[14].index2=0
+	EncTable[14].index3=0
+	EncTable[14].index4=1
+	EncTable[14].index5=255
+	EncTable[14].pEnc1=Sys.pushm
+	EncTable[14].pEnc=Motor[14].IqCmd.a
+	EncTable[14].MaxDelta=0
+	EncTable[14].ScaleFactor=1/(256*(EncTable[14].index5+1))
+	EncTable[14].index6=0
+
+	EncTable[15].type=11
+	EncTable[15].index1=0
+	EncTable[15].index2=0
+	EncTable[15].index3=0
+	EncTable[15].index4=1
+	EncTable[15].index5=255
+	EncTable[15].pEnc1=Sys.pushm
+	EncTable[15].pEnc=Motor[15].IqCmd.a
+	EncTable[15].MaxDelta=0
+	EncTable[15].ScaleFactor=1/(256*(EncTable[15].index5+1))
+	EncTable[15].index6=0
+	//----------------------------------------------------------------------//
+	// Table 16 : Dummy
+	//----------------------------------------------------------------------//
+	EncTable[16].type=1
+	EncTable[16].index1=0
+	EncTable[16].index2=0
+	EncTable[16].index3=0
+	EncTable[16].index4=0
+	EncTable[16].index5=0
+	EncTable[16].pEnc1=Sys.pushm
+	EncTable[16].pEnc=Sys.pushm
+	EncTable[16].MaxDelta=0
+	EncTable[16].ScaleFactor=0
+	EncTable[16].index6=0
+	//----------------------------------------------------------------------//
+	// Table 17 : Virtual Axis for Welding Z
+	//----------------------------------------------------------------------//
+	EncTable[17].type=11
+	EncTable[17].index1=0
+	EncTable[17].index2=0
+	EncTable[17].index3=0
+	EncTable[17].index4=1
+	EncTable[17].index5=255
+	EncTable[17].pEnc1=Sys.pushm
+	EncTable[17].pEnc=Motor[17].IqCmd.a
+	EncTable[17].MaxDelta=0
+	EncTable[17].ScaleFactor=1/(256*(EncTable[17].index5+1))
+	EncTable[17].index6=0
+#endif
+
+

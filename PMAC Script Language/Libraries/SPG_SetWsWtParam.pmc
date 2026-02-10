@@ -1,0 +1,32 @@
+open subprog spSetWsWtParam(&ret)
+	if(pUmem_Cmd_Ws_WtVelX <= 0)		// X Velocity Config Error
+	{
+		ret = -1;
+		return
+	}
+	else if(pUmem_Cmd_Ws_WtVelY <= 0)	// Y Velocity Config Error
+	{
+		ret = -2;
+		return
+	}
+	else if(pUmem_Cmd_Ws_WtVelC <= 0)	// C Velocity Config Error
+	{
+		ret = -3;
+		return
+	}
+
+	// Set Motor Speed
+	gWs_Wait_VelX = pUmem_Cmd_Ws_WtVelX/1000;
+	gWs_Wait_VelY = pUmem_Cmd_Ws_WtVelY/1000;
+	gWs_Wait_VelC = pUmem_Cmd_Ws_WtVelC/1000;
+
+	// Set Motor Target Position
+	gWs_Wait_PosX = pUmem_Cmd_Ws_WtPosX;
+	gWs_Wait_PosY = pUmem_Cmd_Ws_WtPosY;
+	gWs_Wait_PosC = pUmem_Cmd_Ws_WtPosC;
+
+	ret = 0;
+close
+
+
+

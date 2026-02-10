@@ -1,0 +1,1164 @@
+//######################################################################################################
+// PLC 10 : Home Search
+//######################################################################################################
+
+
+open plc 10
+	local home_idx = 0;
+
+	gMt_Home_Idx++;											// Polling Motor Index
+	if(gMt_Home_Idx > cMtrNum)	gMt_Home_Idx = cMtrLow;
+
+	home_idx = gMt_Home_Idx;									// Copy Globlal Variable to Local Variable (Because Array Index Can't used Double(global) Type)
+
+//-------------------------------------------------------------------------//
+// Home Start
+//-------------------------------------------------------------------------//
+	if(gMc_Home_Start==1)
+	{
+		gMc_Home_Start = 0;
+		call spAbortWsLoop();
+		call spAbortVsLoop();
+		call spInitSeqParam();
+		gMc_Home_Err = 0;
+		gMc_Home_Seq = 1;
+		gMc_Home_Ena = 1;
+	}
+
+	if(gWs_Home_Start==1)
+	{
+		gWs_Home_Start = 0;
+		gMc_RunMod = cRunMode_Manual;
+		gWs_Home_Err = 0;
+		gWs_Home_Seq = 1;
+		gWs_Home_Ena = 1;
+	}
+
+	if(gVs_Home_Start==1)
+	{
+		gVs_Home_Start = 0;
+		gMc_RunMod = cRunMode_Manual;
+		gVs_Home_Err = 0;
+		gVs_Home_Seq = 1;
+		gVs_Home_Ena = 1;
+	}
+
+	if(gSc_Home_Start==1)
+	{
+		gSc_Home_Start = 0;
+		gSc_Home_Err = 0;
+		gSc_Home_Seq = 1;
+		gSc_Home_Ena = 1;
+	}
+
+	if(gMt_Home_Start(home_idx)==1)
+	{
+		gMt_Home_Start(home_idx) = 0;
+		if(home_idx!=nsX && home_idx!=nsY)
+		{
+			gMt_Home_Err(home_idx) = 1;
+			gMt_Home_Seq(home_idx) = 1;
+			gMt_Home_Ena(home_idx) = 1;
+		}
+		else
+		{
+			gSc_Home_Start = 1;
+		}
+	}
+
+//-------------------------------------------------------------------------//
+// Home Abort
+//-------------------------------------------------------------------------//
+	if(gMc_Home_Abort==1)
+	{
+		gMc_Home_Abort = 0;
+		gMc_Home_Sta = cHomeSta_Idl;
+		call spAbortWsHome();
+		call spAbortVsHome();
+	}
+
+	if(gWs_Home_Abort==1)
+	{
+		gWs_Home_Abort = 0;
+		gWs_Home_Sta = cHomeSta_Idl;
+		call spAbortWsHome();
+	}
+
+	if(gVs_Home_Abort==1)
+	{
+		gVs_Home_Abort = 0;
+		gVs_Home_Sta = cHomeSta_Idl;
+		call spAbortVsHome();
+	}
+
+	if(gSc_Home_Abort==1)
+	{
+		gSc_Home_Abort = 0;
+		gSc_Home_Sta = cHomeSta_Idl;
+		gMt_Home_Abort(nsX) = 1;
+		gMt_Home_Abort(nsY) = 1;
+	}
+
+	if(gMt_Home_Abort(home_idx)==1)
+	{
+		gMt_Home_Abort(home_idx) = 0;
+		gMt_Home_Seq(home_idx) = 0;
+		gMt_Home_Ena(home_idx) = 0;
+		if(Motor[home_idx].AmpEna==1)
+		{
+			Ldata.motor = home_idx;
+			jog/
+		}
+	}
+
+//-------------------------------------------------------------------------//
+// Home Enable
+//-------------------------------------------------------------------------//
+	if(gMc_Home_Ena==1)
+	{
+		switch(gMc_Home_Seq)
+		{
+			case 1:
+				gMc_Home_Buf = gMc_Home_Seq;
+				gMc_Home_Sta = cHomeSta_Ing;
+				pUmem_Do1A_TrPickDn = 0;
+				pUmem_Do18_TrPickUp = 1;
+				gMc_Home_Tmr = Sys.Time + 0.1;
+				gMc_Home_Seq = 2;
+			break;
+
+			case 2:
+				gMc_Home_Buf = gMc_Home_Seq;
+				if(Sys.Time > gMc_Home_Tmr)
+				{
+					gMc_Home_Tmr = Sys.Time + cHome_CldTimeOut;
+					gMc_Home_Seq = 3;
+				}
+			break;
+
+			case 3:
+				gMc_Home_Buf = gMc_Home_Seq;
+				if(gTr_CldIn_PickerUD==cUp)
+				{
+					pUmem_Do14_TrGripCls = 0;
+					pUmem_Do16_TrGripOpn = 1;
+					gMc_Home_Seq = 4;
+				}
+				else if(Sys.Time > gMc_Home_Tmr)
+				{
+					gMc_Home_Err = cErrCode_EtTrUp;
+					gMc_Home_Sta = cHomeSta_Err;
+					gMc_Home_Seq = 0;
+					gMc_Home_Ena = 0;
+				}
+			break;
+
+			case 4:
+				gMc_Home_Buf = gMc_Home_Seq;
+				if(gTr_CldIn_PickerOC==cOpn)
+				{
+					gMc_Home_Seq = 10;
+				}
+				else if(Sys.Time > gMc_Home_Tmr)
+				{
+					gMc_Home_Err = cErrCode_EtTrOpn;
+					gMc_Home_Sta = cHomeSta_Err;
+					gMc_Home_Seq = 0;
+					gMc_Home_Ena = 0;
+				}
+			break;
+
+			case 10:
+				gMc_Home_Buf = gMc_Home_Seq;
+				gWs_Home_Start = 1;
+				gMc_Home_Tmr = Sys.Time + 5;
+				gMc_Home_Seq = 11;
+			break;
+
+			case 11:
+				gMc_Home_Buf = gMc_Home_Seq;
+				if(Sys.Time > gMc_Home_Tmr)
+				{
+					gVs_Home_Start = 1;
+					gMc_Home_Seq = 12;
+				}
+			break;
+
+			case 12:
+				gMc_Home_Buf = gMc_Home_Seq;
+				if(gWs_Home_Sta==cHomeSta_Fin && gVs_Home_Sta==cHomeSta_Fin)
+				{
+					gMc_Home_Seq = 90;
+				}
+				else if(gWs_Home_Sta==cHomeSta_Err || gVs_Home_Sta==cHomeSta_Err)
+				{
+					//gMc_Home_Sta = cHomeSta_Err;  Display Ws/Vs Home Alarm
+ 					gMc_Home_Seq = 0;
+					gMc_Home_Ena = 0;
+				}
+			break;
+
+			case 90:
+				gMc_Home_Buf = gMc_Home_Seq;
+				gMc_Home_Sta = cHomeSta_Fin;
+				gMc_Home_Seq = 0;
+				gMc_Home_Ena = 0;
+			break;
+
+			default:
+				gMc_Home_Err = -1;
+				gMc_Home_Sta = cHomeSta_Err;
+				gMc_Home_Seq = 0;
+				gMc_Home_Ena = 0;
+			break;
+		}
+	}
+
+	if(gWs_Home_Ena==1)
+	{
+		switch(gWs_Home_Seq)
+		{
+			//-----------------------------------------------------------------------------//
+			// Servo Off
+			//-----------------------------------------------------------------------------//
+			case 1:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gWs_Home_Sta = cHomeSta_Ing;
+					disable 0..2
+					gWs_Home_Tmr = Sys.Time + 3;
+					gWs_Home_Seq = 2;
+				}
+				else
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_EtEtherCat;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+
+			case 2:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(Coord[1].AmpEna==0 && Coord[2].AmpEna==0 && Motor[nwZ].AmpEna==0)
+				{
+					gWs_Home_Seq = 10;
+				}
+				else if(Sys.Time > gWs_Home_Tmr)
+				{
+					if(Coord[1].AmpEna!=0)			gWs_Home_Err = cErrCode_WsServo;
+					else if(Coord[2].AmpEna!=0)		gWs_Home_Err = cErrCode_EtScServo;
+					else if(Motor[nwZ].AmpEna!=0)	gWs_Home_Err = cErrCode_EtWdZServo;
+					
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+			//-----------------------------------------------------------------------------//
+			// Cylinder Init
+			//-----------------------------------------------------------------------------//
+			case 10:
+				gWs_Home_Buf = gWs_Home_Seq;
+				pUmem_Do13_WsTempFwd = 0;
+				pUmem_Do11_WsTempBwd = 1;
+				gWs_Home_Tmr = Sys.Time + 0.1;
+				gWs_Home_Seq = 11;
+			break;
+
+			case 11:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(Sys.Time > gWs_Home_Tmr)
+				{
+					gWs_Home_Tmr = Sys.Time + cHome_CldTimeOut;
+					gWs_Home_Seq = 14;
+				}
+			break;
+//20251230 KJH - Cover를 먼저 올리게 되면 T축 Homing 하면서 걸리는 현상 발생.
+//			case 12:
+//				gWs_Home_Buf = gWs_Home_Seq;
+//				if(gWs_CldIn_TempFB==cBwd)
+//				{
+//					pUmem_Do12_WsTbFixDn = 0;
+//					pUmem_Do10_WsTbFixUp = 1;
+
+//					gWs_Home_Tmr = Sys.Time + 0.1;
+//					gWs_Home_Seq = 13;
+//				}
+//				else if(Sys.Time > gWs_Home_Tmr)
+//				{
+//					disable 0..2
+//					gWs_Home_Err = cErrCode_WsTempSenBwd;
+//					gWs_Home_Sta = cHomeSta_Err;
+//					gWs_Home_Seq = 0;
+//					gWs_Home_Ena = 0;
+//				}
+//			break;
+
+//			case 13:
+//				gWs_Home_Buf = gWs_Home_Seq;
+//				if(Sys.Time > gWs_Home_Tmr)
+//				{
+//					gWs_Home_Tmr = Sys.Time + cHome_CldTimeOut;
+//					gWs_Home_Seq = 14;
+//				}
+//			break;
+
+			case 14:
+				gWs_Home_Buf = gWs_Home_Seq;
+				//if(gWs_CldIn_CoverUD==cUp)
+				//{
+					pUmem_Do1E_WsVsStrOpn = 0;
+					pUmem_Do1C_WsVsStrCls = 1;
+
+					gWs_Home_Tmr = Sys.Time + 0.1;
+					gWs_Home_Seq = 15;
+				//}
+				//else if(Sys.Time > gWs_Home_Tmr)
+				if(Sys.Time > gWs_Home_Tmr)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_WsCoverOpen;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+
+			case 15:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(Sys.Time > gWs_Home_Tmr)
+				{
+					gWs_Home_Tmr = Sys.Time + cHome_CldTimeOut;
+					gWs_Home_Seq = 16;
+				}
+			break;
+
+			case 16:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(gWs_CldIn_ShtrOC==cCls)
+				{
+					gWs_Home_Seq = 20;
+				}
+				else if(Sys.Time > gWs_Home_Tmr)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_Ws2DVnShtrCls;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+
+			//-----------------------------------------------------------------------------//
+			// Motor Init
+			//-----------------------------------------------------------------------------//
+			case 20:
+				gWs_Home_Buf = gWs_Home_Seq;
+
+				call spInitMotor(nwY);
+				gMt_Home_Sta(nwY) = cHomeSta_Idl;
+				gMt_Home_Start(nwY) = 1;
+				gWs_Home_Seq = 21;
+			break;
+
+			case 21:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(gMt_Home_Sta(nwY)==cHomeSta_Fin)
+				{
+					gWs_ThTargetPos_Old = -1;
+					call spReadWsThPos(nwC, 0, &gWs_ThTargetPos_Old);
+//					Motor[nwC].JogSpeed = 700;
+//					Motor[nwC].JogPos = 0; 
+//					jog nwC=*
+					jog nwC:*
+
+					gWs_Home_Seq = 22;
+				}
+				else if(gMt_Home_Sta(nwY)==cHomeSta_Err)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_WsHome;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+
+			case 22:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(Motor[nwC].InPos == 1)
+				{
+					call spInitMotor(nwC);
+					
+					//homez nwC
+
+					//gMt_Home_Sta(nwC) = cHomeSta_Fin;
+					gMt_Home_Sta(nwC) = cHomeSta_Idl;
+					gMt_Home_Start(nwC) = 1;
+					gWs_Home_Seq = 23;
+				}
+				else if(gMt_Home_Sta(nwC)==cHomeSta_Err)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_WsHome;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+
+			case 23:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(gMt_Home_Sta(nwC)==cHomeSta_Fin)
+				{
+					call spInitMotor(nwX);
+					gMt_Home_Sta(nwX) = cHomeSta_Idl;
+					gMt_Home_Start(nwX) = 1;
+					gWs_Home_Seq = 24;
+				}
+				else if(gMt_Home_Sta(nwC)==cHomeSta_Err)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_WsHome;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+
+			case 24:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(gMt_Home_Sta(nwX)==cHomeSta_Fin)
+				{
+					call spInitMotor(nwZ);
+					gMt_Home_Sta(nwZ) = cHomeSta_Idl;
+					gMt_Home_Start(nwZ) = 1;
+					gWs_Home_Seq = 25;
+				}
+				else if(gMt_Home_Sta(nwX)==cHomeSta_Err)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_WsHome;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+
+			case 25:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(gMt_Home_Sta(nwZ)==cHomeSta_Fin)
+				{
+					gWs_Home_Seq = 30;
+				}
+				else if(gMt_Home_Sta(nwZ)==cHomeSta_Err)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_EtWdZHome;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+			//-----------------------------------------------------------------------------//
+			// Scanner Init
+			//-----------------------------------------------------------------------------//
+			case 30:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(gMach_Type!=0)	call spInitScanner(nsX,nsY)
+				else
+				{
+					homez nsX					// 251230 추가
+					homez nsY					// 251230 추가
+					call Timer.msec(100);		// 251230 추가
+
+					jog nsX=0
+					jog nsY=0
+				}
+				gWs_Home_Tmr = Sys.Time + 5;
+				gWs_Home_Seq = 31;
+			break;
+
+			case 31:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(Motor[nsX].InPos==1 && Motor[nsY].InPos==1)
+				{
+					gMt_Home_Sta(nsX) = cHomeSta_Fin;
+					gMt_Home_Sta(nsY) = cHomeSta_Fin;
+					gWs_Home_Seq = 40;
+				}
+				else if(Sys.Time > gWs_Home_Tmr)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_EtScHome;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+
+			//-----------------------------------------------------------------------------//
+			// E-Cylinder Init
+			//-----------------------------------------------------------------------------//
+			case 40:
+				gWs_Home_Buf = gWs_Home_Seq;
+
+				pUmem_Do12_WsTbFixDn = 0;
+				pUmem_Do10_WsTbFixUp = 1;
+
+				gWs_Home_Tmr = Sys.Time + 3;
+				gWs_Home_Seq = 42;
+			break;
+//			case 41:
+//				gWs_Home_Buf = gWs_Home_Seq;
+//				if(Sys.Time > gWs_Home_Tmr)
+//				{
+//					gWs_Home_Tmr = Sys.Time + cHome_CldTimeOut;
+//					gWs_Home_Seq = 42;
+//				}
+//			break;
+			case 42:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(gWs_CldIn_CoverUD==cUp)
+				{
+					gWs_EcldHome_Sta = cEcldSta_Idl;
+					gWs_EcldHome_Start = 1;
+
+					gWs_Home_Tmr = Sys.Time + 5;
+					gWs_Home_Seq = 43;
+				}
+				else if(Sys.Time > gWs_Home_Tmr)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_WsEcdrHome;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+			case 43:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(gWs_EcldHome_Sta==cEcldSta_Fin)
+				{
+					gWs_Home_Seq = 44;
+				}
+				else if(gWs_EcldHome_Sta==cEcldSta_Err)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_WsEcdrHome;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+				else if(Sys.Time > gWs_Home_Tmr)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_WsEcdrHome;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+
+			case 44:
+				gWs_Home_Buf = gWs_Home_Seq;
+				gWs_CoverOpn_Sta = cSeqSta_Idl;
+				gWs_CoverOpn_Start = 1;
+				//gWs_EcldBwd_Start = 1;
+				
+				gWs_Home_Tmr = Sys.Time + 5;
+				gWs_Home_Seq = 45;
+			break;
+
+			case 45:
+				gWs_Home_Buf = gWs_Home_Seq;
+				if(gWs_CoverOpn_Sta==cSeqSta_Fin)
+				//if(gWs_EcldBwd_Sta == cEcldSta_Fin)
+				{
+					gWs_Home_Seq = 90;
+				}
+				else if(gWs_CoverOpn_Sta==cSeqSta_Err)
+				//else if(gWs_EcldBwd_Sta==cSeqSta_Err)
+				{
+					gWs_Home_Err = cErrCode_WsCoverOpen;
+					gWs_Home_Sta = cSeqSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+				else if(Sys.Time > gWs_Home_Tmr)
+				{
+					disable 0..2
+					gWs_Home_Err = cErrCode_WsCoverOpen;
+					gWs_Home_Sta = cHomeSta_Err;
+					gWs_Home_Seq = 0;
+					gWs_Home_Ena = 0;
+				}
+			break;
+
+			//-----------------------------------------------------------------------------//
+			// Complete
+			//-----------------------------------------------------------------------------//
+			case 90:
+				gWs_Home_Buf = gWs_Home_Seq;
+				gWs_Home_Sta = cHomeSta_Fin;
+				gWs_Home_Seq = 0;
+				gWs_Home_Ena = 0;
+			break;
+
+			default:
+				gWs_Home_Err = -1;
+				gWs_Home_Sta = cHomeSta_Err;
+				gWs_Home_Seq = 0;
+				gWs_Home_Ena = 0;
+			break;
+		}
+	}
+
+	if(gVs_Home_Ena==1)
+	{
+		switch(gVs_Home_Seq)
+		{
+			//-----------------------------------------------------------------------------//
+			// Servo Off
+			//-----------------------------------------------------------------------------//
+			case 1:
+				gVs_Home_Buf = gVs_Home_Seq;
+				if(gEc_Com_Sta(0)==cEcComSta_Ok)
+				{
+					gVs_Home_Sta = cHomeSta_Ing;
+					disable 3
+					gVs_Home_Tmr = Sys.Time + 3;
+					gVs_Home_Seq = 2;
+				}
+				else
+				{
+					disable 3
+					gVs_Home_Err = cErrCode_EtEtherCat;
+					gVs_Home_Sta = cHomeSta_Err;
+					gVs_Home_Seq = 0;
+					gVs_Home_Ena = 0;
+				}
+			break;
+
+			case 2:
+				gVs_Home_Buf = gVs_Home_Seq;
+				if(Coord[3].AmpEna==0)
+				{
+					gVs_Home_Seq = 10;
+				}
+				else if(Sys.Time > gVs_Home_Tmr)
+				{
+					disable 3
+					gVs_Home_Err = cErrCode_VsServo;
+					gVs_Home_Sta = cHomeSta_Err;
+					gVs_Home_Seq = 0;
+					gVs_Home_Ena = 0;
+				}
+			break;
+//			//-----------------------------------------------------------------------------//
+//			// Cylinder Init
+//			//-----------------------------------------------------------------------------//
+//			case 10:
+//				gVs_Home_Buf = gVs_Home_Seq;
+//				pUmem_Do1B_VsTbFixDn = 0;
+//				pUmem_Do19_VsTbFixUp = 1;
+//				gVs_Home_Tmr = Sys.Time + 0.1;
+//				gVs_Home_Seq = 11;
+//			break;
+
+//			case 11:
+//				gVs_Home_Buf = gVs_Home_Seq;
+//				if(Sys.Time > gVs_Home_Tmr)
+//				{
+//					gVs_Home_Tmr = Sys.Time + cHome_CldTimeOut;
+//					gVs_Home_Seq = 12;
+//				}
+//			break;
+
+//			case 12:
+//				gVs_Home_Buf = gVs_Home_Seq;
+//				if(gVs_CldIn_CoverUD==cUp)
+//				{
+//					pUmem_Do17_VsTbFixFwd = 0;
+//					pUmem_Do15_VsTbFixBwd = 1;
+//					gVs_Home_Tmr = Sys.Time + 0.1;
+//					gVs_Home_Seq = 13;
+//				}
+//				else if(Sys.Time > gVs_Home_Tmr)
+//				{
+//					disable 3
+//					gVs_Home_Err = cErrCode_VsCoverOpen;
+//					gVs_Home_Sta = cHomeSta_Err;
+//					gVs_Home_Seq = 0;
+//					gVs_Home_Ena = 0;
+//				}
+//			break;
+
+//			case 13:
+//				gVs_Home_Buf = gVs_Home_Seq;
+//				if(Sys.Time > gVs_Home_Tmr)
+//				{
+//					gVs_Home_Tmr = Sys.Time + cHome_CldTimeOut;
+//					gVs_Home_Seq = 14;
+//				}
+//			break;
+
+//			case 14:
+//				gVs_Home_Buf = gVs_Home_Seq;
+//				if(gVs_CldIn_CoverFB==cBwd)
+//				{
+//					gVs_Home_Seq = 20;
+//				}
+//				else if(Sys.Time > gVs_Home_Tmr)
+//				{
+//					disable 3
+//					gVs_Home_Err = cErrCode_VsCoverOpen;
+//					gVs_Home_Sta = cHomeSta_Err;
+//					gVs_Home_Seq = 0;
+//					gVs_Home_Ena = 0;
+//				}
+//			break;
+
+			//-----------------------------------------------------------------------------//
+			// Motor Init
+			//-----------------------------------------------------------------------------//
+			case 10:
+				gVs_Home_Buf = gVs_Home_Seq;
+
+				call spInitMotor(nvY);
+				gMt_Home_Sta(nvY) = cHomeSta_Idl;
+				gMt_Home_Start(nvY) = 1;
+				gVs_Home_Seq = 11;
+			break;
+
+			case 11:
+				gVs_Home_Buf = gVs_Home_Seq;
+				if(gMt_Home_Sta(nvY)==cHomeSta_Fin)
+				{
+					gVs_ThTargetPos_Old = -1;
+					call spReadVsThPos(nvC, 0, &gVs_ThTargetPos_Old);
+//					Motor[nvC].JogSpeed = 700;
+//					Motor[nvC].JogPos = 0; 
+//					jog nvC =*;
+					jog nvC:*
+
+					gVs_Home_Seq = 12;
+				}
+				else if(gMt_Home_Sta(nvY)==cHomeSta_Err)
+				{
+					disable 3
+					gVs_Home_Err = cErrCode_VsHome;
+					gVs_Home_Sta = cHomeSta_Err;
+					gVs_Home_Seq = 0;
+					gVs_Home_Ena = 0;
+				}
+			break;
+
+			case 12:
+				gVs_Home_Buf = gVs_Home_Seq;
+				if(Motor[nvC].InPos == 1)
+				{
+					call spInitMotor(nvC);
+
+					//homez nvC
+					//gMt_Home_Sta(nvC) = cHomeSta_Fin;
+					gMt_Home_Sta(nvC) = cHomeSta_Idl;
+					gMt_Home_Start(nvC) = 1;
+					gVs_Home_Seq = 13;
+				}
+				else if(gMt_Home_Sta(nvC)==cHomeSta_Err)
+				{
+					disable 3
+					gVs_Home_Err = cErrCode_VsHome;
+					gVs_Home_Sta = cHomeSta_Err;
+					gVs_Home_Seq = 0;
+					gVs_Home_Ena = 0;
+				}
+			break;
+
+			break;
+			case 13:
+				gVs_Home_Buf = gVs_Home_Seq;
+				if(gMt_Home_Sta(nvC)==cHomeSta_Fin)
+				{
+					call spInitMotor(nvX);
+					gMt_Home_Sta(nvX) = cHomeSta_Idl;
+					gMt_Home_Start(nvX) = 1;
+					gVs_Home_Seq = 14;
+				}
+				else if(gMt_Home_Sta(nvC)==cHomeSta_Err)
+				{
+					disable 3
+					gVs_Home_Err = cErrCode_VsHome;
+					gVs_Home_Sta = cHomeSta_Err;
+					gVs_Home_Seq = 0;
+					gVs_Home_Ena = 0;
+				}
+			break;
+
+			case 14:
+				gVs_Home_Buf = gVs_Home_Seq;
+				if(gMt_Home_Sta(nvX)==cHomeSta_Fin)
+				{
+					gVs_Home_Seq = 20;
+				}
+				else if(gMt_Home_Sta(nvX)==cHomeSta_Err)
+				{
+					disable 3
+					gVs_Home_Err = cErrCode_VsHome;
+					gVs_Home_Sta = cHomeSta_Err;
+					gVs_Home_Seq = 0;
+					gVs_Home_Ena = 0;
+				}
+			break;
+
+			//-----------------------------------------------------------------------------//
+			// Cylinder Init
+			//-----------------------------------------------------------------------------//
+			case 20:
+				gVs_Home_Buf = gVs_Home_Seq;
+				gVs_CoverOpn_Sta = cSeqSta_Idl;
+				gVs_CoverOpn_Start = 1;
+				//gVs_EcldBwd_Start = 1;
+				
+				gVs_Home_Tmr = Sys.Time + 5;
+				gVs_Home_Seq = 21;
+			break;
+
+			case 21:
+				gVs_Home_Buf = gVs_Home_Seq;
+				if(gVs_CoverOpn_Sta==cSeqSta_Fin)
+				//if(gVs_EcldBwd_Sta == cEcldSta_Fin)
+				{
+					gVs_Home_Seq = 90;
+				}
+				else if(gVs_CoverOpn_Sta==cSeqSta_Err)
+				//else if(gVs_EcldBwd_Sta==cSeqSta_Err)
+				{
+					gVs_Home_Err = cErrCode_VsCoverOpen;
+					gVs_Home_Sta = cSeqSta_Err;
+					gVs_Home_Seq = 0;
+					gVs_Home_Ena = 0;
+				}
+				else if(Sys.Time > gVs_Home_Tmr)
+				{
+					disable 3
+					gVs_Home_Err = cErrCode_VsCoverOpen;
+					gVs_Home_Sta = cHomeSta_Err;
+					gVs_Home_Seq = 0;
+					gVs_Home_Ena = 0;
+				}
+			break;
+//			case 20:
+//				gVs_Home_Buf = gVs_Home_Seq;
+
+//				pUmem_Do1B_VsTbFixDn = 0;
+//				pUmem_Do19_VsTbFixUp = 1;
+
+//				gVs_Home_Tmr = Sys.Time + 0.1;
+//				gVs_Home_Seq = 21;
+//			break;
+
+//			case 21:
+//				gVs_Home_Buf = gVs_Home_Seq;
+//				if(Sys.Time > gVs_Home_Tmr)
+//				{
+//					gVs_Home_Tmr = Sys.Time + cHome_CldTimeOut;
+//					gVs_Home_Seq = 22;
+//				}
+//			break;
+
+//			case 22:
+//				gVs_Home_Buf = gVs_Home_Seq;
+//				if(gVs_CldIn_CoverUD==cUp)
+//				{
+//					pUmem_Do17_VsTbFixFwd = 0;
+//					pUmem_Do15_VsTbFixBwd = 1;
+
+//					gVs_Home_Tmr = Sys.Time + 0.1;
+//					gVs_Home_Seq = 23;
+//				}
+//				else if(Sys.Time > gVs_Home_Tmr)
+//				{
+//					disable 3
+//					gVs_Home_Err = cErrCode_VsCoverOpen;
+//					gVs_Home_Sta = cHomeSta_Err;
+//					gVs_Home_Seq = 0;
+//					gVs_Home_Ena = 0;
+//				}
+//			break;
+
+//			case 23:
+//				gVs_Home_Buf = gVs_Home_Seq;
+//				if(Sys.Time > gVs_Home_Tmr)
+//				{
+//					gVs_Home_Tmr = Sys.Time + cHome_CldTimeOut;
+//					gVs_Home_Seq = 24;
+//				}
+//			break;
+
+//			case 24:
+//				gVs_Home_Buf = gVs_Home_Seq;
+//				if(gVs_CldIn_CoverFB==cBwd)
+//				{
+//					gVs_Home_Seq = 90;
+
+//					//20260131 KJH - Cover 상태 초기화.
+//					gVs_CoverMoving_Sta = 1;
+//				}
+//				else if(Sys.Time > gVs_Home_Tmr)
+//				{
+//					disable 3
+//					gVs_Home_Err = cErrCode_VsCoverOpen;
+//					gVs_Home_Sta = cHomeSta_Err;
+//					gVs_Home_Seq = 0;
+//					gVs_Home_Ena = 0;
+//				}
+//			break;
+
+			//-----------------------------------------------------------------------------//
+			// Complete
+			//-----------------------------------------------------------------------------//
+			case 90:
+				gVs_Home_Buf = gVs_Home_Seq;
+				gVs_Home_Sta = cHomeSta_Fin;
+				gVs_Home_Seq = 0;
+				gVs_Home_Ena = 0;
+
+				pUmem_Do21_WsAirCurtain = 1;
+				pUmem_Do1D_WsCoolAir = 1;
+			break;
+
+			default:
+				gVs_Home_Err = 0;
+				gVs_Home_Sta = cHomeSta_Err;
+				gVs_Home_Seq = 0;
+				gVs_Home_Ena = 0;
+			break;
+		}
+	}
+
+	if(gSc_Home_Ena==1)
+	{
+		switch(gSc_Home_Seq)
+		{
+			//-----------------------------------------------------------------------------//
+			// Servo Off
+			//-----------------------------------------------------------------------------//
+			case 1:
+				gSc_Home_Buf = gSc_Home_Seq;
+				gSc_Home_Sta = cHomeSta_Ing;
+				disable 2
+				gSc_Home_Tmr = Sys.Time + 3;
+				gSc_Home_Seq = 2;
+			break;
+
+			case 2:
+				gSc_Home_Buf = gSc_Home_Seq;
+				if(Coord[2].AmpEna==0)
+				{
+					gSc_Home_Seq = 10;
+				}
+				else if(Sys.Time > gSc_Home_Tmr)
+				{
+					disable 2
+					gSc_Home_Err = cErrCode_EtScServo;
+					gSc_Home_Sta = cHomeSta_Err;
+					gSc_Home_Seq = 0;
+					gSc_Home_Ena = 0;
+				}
+			break;
+			//-----------------------------------------------------------------------------//
+			// Scanner Init
+			//-----------------------------------------------------------------------------//
+			case 10:
+				gSc_Home_Buf = gSc_Home_Seq;
+				if(gMach_Type!=0)	call spInitScanner(nsX,nsY)
+				else
+				{
+					jog nsX=0
+					jog nsY=0
+				}
+				gSc_Home_Tmr = Sys.Time + 0.1;
+				gSc_Home_Seq = 11;
+			break;
+
+			case 11:
+				gSc_Home_Buf = gSc_Home_Seq;
+				if(Sys.Time > gSc_Home_Tmr)
+				{
+					gSc_Home_Tmr = Sys.Time + 10;
+					gSc_Home_Seq = 12;
+				}
+			break;
+
+			case 12:
+				gSc_Home_Buf = gSc_Home_Seq;
+				if(Coord[2].InPos==1 && gSc_InitSta==0)
+				{
+					gSc_Home_Seq = 90;
+				}
+				else if(Sys.Time > gSc_Home_Tmr)
+				{
+					disable 3
+					gSc_Home_Err = cErrCode_EtScServo;
+					gSc_Home_Sta = cHomeSta_Err;
+					gSc_Home_Seq = 0;
+					gSc_Home_Ena = 0;
+				}
+			break;
+			//-----------------------------------------------------------------------------//
+			// Complete
+			//-----------------------------------------------------------------------------//
+			case 90:
+				gSc_Home_Buf = gSc_Home_Seq;
+				gSc_Home_Sta = cHomeSta_Fin;
+				gSc_Home_Seq = 0;
+				gSc_Home_Ena = 0;
+			break;
+
+			default:
+				gSc_Home_Err = 0;
+				gSc_Home_Sta = cHomeSta_Err;
+				gSc_Home_Seq = 0;
+				gSc_Home_Ena = 0;
+			break;
+		}
+	}
+
+	if(gMt_Home_Ena(home_idx)==1)
+	{
+		if(home_idx==nsX || home_idx==nsY)
+		{
+			call spInitScanner(nsX,nsY)
+			gMt_Home_Seq(home_idx) = 0;
+			gMt_Home_Ena(home_idx) = 0;
+			gMt_Home_Sta(home_idx) = cHomeSta_Fin;
+		}
+		else
+		{
+			switch(gMt_Home_Seq(home_idx))
+			{
+				// Kill Motor	---------------------------------------------------------------------------//
+				case 1:
+					gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+					if(gEc_Com_Sta(0)==cEcComSta_Ok || gMach_Type==0)
+					{
+						gMt_Home_Sta(home_idx) = cHomeSta_Ing;
+						Ldata.motor = home_idx
+						kill
+						
+						gMt_Home_Tmr(home_idx) = Sys.Time + 3;				// Set Erorr Timer
+						gMt_Home_Seq(home_idx) = 2;
+					}
+					else
+					{
+						Ldata.motor = home_idx
+						kill
+						gMt_Home_Err(home_idx) = 1;
+						gMt_Home_Sta(home_idx) = cHomeSta_Err;			// Home Status = ERR
+						gMt_Home_Seq(home_idx) = 0;					// Clear Home Search Sequence
+						gMt_Home_Ena(home_idx) = 0;					// Stop Home Search
+					}
+				break;
+
+				case 2:
+					gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+					if(Motor[home_idx].AmpEna==0)
+					{
+						call spInitMotor(home_idx);				// Set Basic Motor Parameters
+
+						Ldata.motor = home_idx
+						homez										// Read ABS Pos
+						gMt_Home_Seq(home_idx) = 10;
+					}
+					if(Sys.Time>gMt_Home_Tmr(home_idx))				// Occur Error, If Can't disable Amp
+					{
+						Ldata.motor = home_idx
+						kill
+						gMt_Home_Err(home_idx) = 2;
+						gMt_Home_Sta(home_idx) = cHomeSta_Err;			// Home Status = ERR
+						gMt_Home_Seq(home_idx) = 0;					// Clear Home Search Sequence
+						gMt_Home_Ena(home_idx) = 0;					// Stop Home Search
+					}
+				break;
+
+				// Servo On	---------------------------------------------------------------------------//
+				case 10:
+					gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+					Ldata.motor = home_idx
+					jog/
+					gMt_Home_Tmr(home_idx) = Sys.Time + 0.5;			// Set Erorr Timer
+					gMt_Home_Seq(home_idx) = 11;
+				break;
+
+				case 11:
+					gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+					if(Sys.Time>gMt_Home_Tmr(home_idx))
+					{
+						gMt_Home_Tmr(home_idx) = Sys.time + 10;
+						gMt_Home_Seq(home_idx) = 12;
+					}
+				break;
+
+				case 12:
+					gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+					if(Motor[home_idx].InPos==1)
+					{
+						gMt_Home_Seq(home_idx) = 20;
+					}
+
+					if(Sys.Time>gMt_Home_Tmr(home_idx))
+					{
+						Ldata.motor = home_idx
+						kill
+						gMt_Home_Err(home_idx) = 3;
+						gMt_Home_Sta(home_idx) = cHomeSta_Err;
+						gMt_Home_Seq(home_idx) = 0;
+						gMt_Home_Ena(home_idx) = 0;
+					}
+				break;
+
+				// Home Search	---------------------------------------------------------------------------//
+				case 20:
+					gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+					Ldata.motor = home_idx
+					Motor[home_idx].ProgJogPos = gMt_Home_Pos(home_idx);
+					jog=*
+					gMt_Home_Tmr(home_idx) = Sys.time + cHome_MtrTimeOut;
+					gMt_Home_Seq(home_idx) = 21;
+				break;
+
+				case 21:
+					gMt_Home_Buf(home_idx) = gMt_Home_Seq(home_idx);
+					if(Motor[home_idx].HomeComplete==1 && Motor[home_idx].InPos==1)
+					{
+						gMt_Home_Sta(home_idx) = cHomeSta_Fin;
+						gMt_Home_Seq(home_idx) = 0;
+						gMt_Home_Ena(home_idx) = 0;
+					}
+
+					if(Sys.Time>gMt_Home_Tmr(home_idx) || Motor[home_idx].AmpEna==0)
+					{
+						Ldata.motor = home_idx
+						kill
+						gMt_Home_Err(home_idx) = 4;
+						gMt_Home_Sta(home_idx) = cHomeSta_Err;
+						gMt_Home_Seq(home_idx) = 0;
+						gMt_Home_Ena(home_idx) = 0;
+					}
+				break;
+
+				default:
+					gMt_Home_Err(home_idx) = -1;
+					gMt_Home_Sta(home_idx) = cHomeSta_Err;
+					gMt_Home_Seq(home_idx) = 0;
+					gMt_Home_Ena(home_idx) = 0;
+				break;
+			}
+		}
+	}
+close

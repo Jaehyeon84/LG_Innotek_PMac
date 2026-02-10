@@ -1,0 +1,32 @@
+
+// 명령리셋, 다운로드시 PC 제어명령에 의해 모터가 갑자기 움직이는것을 방지
+open subprog spInitCommand
+	// Clear Machine Move Commands
+	pUmem_Cmd_Mc_HomeStart	= 0;
+	pUmem_Cmd_Mc_AutoStart	= 0;
+	pUmem_Cmd_Mc_CycleStart	= 0;
+	pUmem_Cmd_Mc_StepStart	= 0;
+
+	// Clear Welding Stage Move Commands
+	pUmem_Cmd_Ws_HomeStart	= 0;
+	pUmem_Cmd_Ws_LdStart	= 0;
+	pUmem_Cmd_Ws_RdStart	= 0;
+	pUmem_Cmd_Ws_WdStart	= 0;
+	pUmem_Cmd_Ws_WtStart	= 0;
+	pUmem_Cmd_Ws_UdStart	= 0;
+	pUmem_Cmd_Ws_RjStart	= 0;
+
+	// Clear Vision Stage Move Commands
+	pUmem_Cmd_Vs_HomeStart	= 0;
+	pUmem_Cmd_Vs_LdStart	= 0;
+	pUmem_Cmd_Vs_RdStart	= 0;
+	pUmem_Cmd_Vs_VnStart	= 0;
+	pUmem_Cmd_Vs_WtStart	= 0;
+	pUmem_Cmd_Vs_UdStart	= 0;
+	pUmem_Cmd_Vs_RjStart	= 0;
+
+	return;
+close
+
+
+

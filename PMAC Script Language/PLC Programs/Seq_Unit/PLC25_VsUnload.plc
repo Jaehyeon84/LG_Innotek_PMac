@@ -1,0 +1,336 @@
+
+
+open plc 25
+	local ret = -1;
+
+	if(gVs_Unload_Start==1)
+	{
+		gVs_Unload_Start = 0;
+		gVs_Unload_Seq = 1;
+		gVs_Unload_Ena = 1;
+	}
+
+	if(gVs_Unload_Abort==1)
+	{
+		gVs_Unload_Abort = 0;
+		gVs_Unload_Seq = 0;
+		gVs_Unload_Ena = 0;
+	}
+
+	if(gVs_Unload_Ena==1)
+	{
+		switch(gVs_Unload_Seq)
+		{
+		//------------------------------------------------//
+		// Unload
+		//------------------------------------------------//
+			case 1:	// Ethercat Check
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				gVs_Unload_TimeBuf = Sys.Time;
+
+				if(gEcatCom_Sta(0)==cEcatComSta_Ok)
+				{
+					gVs_Unload_Sta = cVsSta_Ing;
+					gVs_Unload_Seq = 2;
+				}
+				else
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 2:	// Home Check
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Coord[3].HomeComplete==1)
+				{
+					gVs_Unload_Seq = 3;
+				}
+				else
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 3:	// Servo Check
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Coord[3].AmpEna==1)
+				{
+					gVs_Unload_Seq = 4;
+				}
+				else
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 4:	// Stop Check
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Coord[3].InPos==1)
+				{
+					gVs_Unload_Seq = 5;
+				}
+				else
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 5:	// Detect
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(gRunMode==cRunMode_DryRun)
+				{
+					gVs_Unload_Seq = 10;
+				}
+				else if(pUmem_Di2C_VsTbUndet==cDet_On)
+				{
+					gVs_Unload_Seq = 10;
+				}
+				else
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Move
+		//------------------------------------------------//
+			case 10:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				call spSetVsUdParam(&ret);
+				if(ret==0)
+				{
+					Motor[nvX].JogSpeed = gVs_Unload_VelX;
+					Motor[nvY].JogSpeed = gVs_Unload_VelY;
+					Motor[nvC].JogSpeed = gVs_Unload_VelC;
+
+					Motor[nvX].ProgJogPos = gVs_Unload_PosX;
+					Motor[nvY].ProgJogPos = gVs_Unload_PosY;
+					Motor[nvY].ProgJogPos = gVs_Unload_PosC;
+
+					jog nvX=*
+					jog nvY=*
+					jog nvC=*
+
+					gVs_Unload_Tmr = Sys.Time + 0.1;
+					gVs_Unload_Seq = 11;
+				}
+				else
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 11:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Tmr = Sys.Time + cVs_MtrTimeOut;
+					gVs_Unload_Seq = 12;
+				}
+			break;
+
+			case 12:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Coord[3].InPos==1)
+				{
+					gVs_Unload_Seq = 20;
+				}
+				else if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Cover Open
+		//------------------------------------------------//
+			case 20:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				pUmem_Do1B_VsTbFixDn = 0;
+				pUmem_Do19_VsTbFixUp = 1;
+				gVs_Unload_Tmr = Sys.Time + 0.1;
+				gVs_Unload_Seq = 21;
+			break;
+
+			case 21:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Tmr = Sys.Time + cVs_SydTimeOut;
+					gVs_Unload_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(pUmem_Di24_VsTbFixUp==1 && pUmem_Di26_VsTbFixDn==0)
+				{
+					pUmem_Do17_VsTbFixFwd = 0;
+					pUmem_Do15_VsTbFixBwd = 1;
+					gVs_Unload_Tmr = Sys.Time + 0.1;
+					gVs_Unload_Seq = 23;
+				}
+				else if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 23:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Tmr = Sys.Time + cVs_SydTimeOut;
+					gVs_Unload_Seq = 24;
+				}
+			break;
+
+			case 24:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(pUmem_Di20_VsTbFixBwd==1 && pUmem_Di22_VsTbFixFwd==0)
+				{
+					gVs_Unload_Seq = 30;
+				}
+				else if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+		//------------------------------------------------//
+		// Unload Request
+		//------------------------------------------------//
+			case 30:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(pUmem_Cmd_Vs_3rdTransUdRsp==cPcRep_Idl)
+				{
+					pUmem_Sta_Vs_3rdTransUdReq = 1;
+					gVs_Unload_Seq = 31;
+				}
+			break;
+
+			case 31:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(pUmem_Cmd_Vs_3rdTransUdRsp==cPcRep_Fin)
+				{
+					pUmem_Sta_Vs_3rdTransUdReq = 0;
+					gVs_Unload_Seq = 32;
+				}
+				else if(pUmem_Cmd_Vs_3rdTransUdRsp==cPcRep_Err)
+				{
+					pUmem_Sta_Vs_3rdTransUdReq = 0;
+					gVs_Unload_Seq = 30;
+				}
+			break;
+
+			case 32:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(pUmem_Di2C_VsTbUndet==cDet_Off)
+				{
+					gVs_Unload_Seq = 40;
+				}
+				else
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+		//------------------------------------------------//
+		// Cover Close
+		//------------------------------------------------//
+			case 40:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				pUmem_Do15_VsTbFixBwd = 0;
+				pUmem_Do17_VsTbFixFwd = 1;
+				gVs_Unload_Tmr = Sys.Time + 0.1;
+				gVs_Unload_Seq = 41;
+			break;
+
+			case 41:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Tmr = Sys.Time + cVs_SydTimeOut;
+					gVs_Unload_Seq = 42;
+				}
+			break;
+
+			case 42:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(pUmem_Di22_VsTbFixFwd==1 && pUmem_Di20_VsTbFixBwd==0)
+				{
+					pUmem_Do19_VsTbFixUp = 0;
+					pUmem_Do1B_VsTbFixDn = 1;
+					gVs_Unload_Tmr = Sys.Time + 0.1;
+					gVs_Unload_Seq = 43;
+				}
+				else if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+
+			case 43:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Tmr = Sys.Time + cVs_SydTimeOut;
+					gVs_Unload_Seq = 44;
+				}
+			break;
+
+			case 44:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(pUmem_Di26_VsTbFixDn==1 && pUmem_Di24_VsTbFixUp==0)
+				{
+					gVs_Unload_Seq = 90;
+				}
+				else if(Sys.time > gVs_Unload_Tmr)
+				{
+					gVs_Unload_Sta = cVsSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
+		//------------------------------------------------//
+		// Completes
+		//------------------------------------------------//
+			case 90:
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				gVs_Unload_Time = Sys.Time - gVs_Unload_TimeBuf;
+				gVs_Unload_Sta = cVsSta_Fin;
+				gVs_Unload_Seq = 0;
+				gVs_Unload_Ena = 0;
+			break;
+
+			default:
+				gVs_Unload_Sta = cVsSta_Err;
+				gVs_Unload_Seq = 0;
+				gVs_Unload_Ena = 0;				
+			break;
+		}
+	}
+
+
+close
+

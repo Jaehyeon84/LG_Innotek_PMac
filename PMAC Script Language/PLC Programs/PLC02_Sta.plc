@@ -1,0 +1,342 @@
+//######################################################################################################
+// PLC 02 : Status PLC : PPMAC -> PC
+//######################################################################################################
+
+
+open plc 2
+//--------------------------------------------------------------------------------------------//
+// Motor Status
+//--------------------------------------------------------------------------------------------//
+	local sta_idx = 0;
+	local retx,rety;
+	gSta_Idx++;							// Polling Motor Index
+	if(gSta_Idx > cMtrNum)	gSta_Idx = cMtrLow;
+
+	sta_idx = gSta_Idx;					// Copy Globlal Variable to Local Variable (Because Array Index Can't used Double(global) Type)
+
+	if(sta_idx==nsX||sta_idx==nsY)
+	{
+		#ifdef CE
+			call spReadScPos(nsY,nsX,&retx,&rety)	// CE1, Change X,Y
+		#elif TG
+			call spReadScPos(nsX,nsY,&retx,&rety)	// TG
+		#endif
+
+		pUmem_Sta_ActPos(nsX) = rint(retx * 1000);
+		pUmem_Sta_ActPos(nsY) = rint(rety * 1000);
+	}
+	else
+	{
+		if(sta_idx == nwC || sta_idx == nvC)
+		{
+			pUmem_Sta_CmdPos(sta_idx)	= rint((Motor[sta_idx].DesPos - Motor[sta_idx].HomePos) % 360000);			// Motor Command Position	[um]
+			pUmem_Sta_ActPos(sta_idx)	= rint((Motor[sta_idx].ActPos - Motor[sta_idx].HomePos) % 360000);			// Motor Actual Position	[um]
+		}
+		else
+		{
+			pUmem_Sta_CmdPos(sta_idx)	= rint(Motor[sta_idx].DesPos - Motor[sta_idx].HomePos);			// Motor Command Position	[um]
+			pUmem_Sta_ActPos(sta_idx)	= rint(Motor[sta_idx].ActPos - Motor[sta_idx].HomePos);			// Motor Actual Position	[um]
+		}
+	}
+
+	pUmem_Sta_Velocity(sta_idx)		= rint(Motor[sta_idx].FltrVel/(16*Sys.ServoPeriod)*1000);		// Motor Actual Velocity	[um/sec]
+	pBuf_ActTrq(sta_idx)			= pEcat_ActTrq(sta_idx);										// Motor Actual Load From Drive, PDO : 6077	[0.1%]
+	pUmem_Sta_Load(sta_idx)			= abs(pBuf_ActTrq(sta_idx));									// Buffer, For Convert Type (16Bit Int -> 32Bit Int)
+
+	pUmem_Sta_AmpEna(sta_idx)		= Motor[sta_idx].AmpEna;										// Motor Amp Enable Status
+	pUmem_Sta_CloseLoop(sta_idx)	= Motor[sta_idx].ClosedLoop;									// Motor Move Status
+	pUmem_Sta_InPos(sta_idx)		= Motor[sta_idx].AmpEna & Motor[sta_idx].InPos;					// Motor Inposition Status
+	
+	pUmem_Sta_LimitMinus(sta_idx)	= Motor[sta_idx].MinusLimit;									// Motor Minus Limit Status
+	pUmem_Sta_LimitPlus(sta_idx)	= Motor[sta_idx].PlusLimit;										// Motor Plus Limit Status
+
+	pUmem_Sta_FollowingErr(sta_idx)	= Motor[sta_idx].FeFatal;										// Motor Following Error Status
+	pUmem_Sta_AmpFault(sta_idx)		= Motor[sta_idx].AmpFault;										// Amp Fault Status
+	pUmem_Sta_EncLoss(sta_idx)		= Motor[sta_idx].EncLoss;										// Amp Fault Status
+	pUmem_Sta_I2tErr(sta_idx)		= Motor[sta_idx].I2tFault;										// Amp Fault Status
+	
+
+	if(gMt_Home_Sta(sta_idx)==cHomeSta_Fin)					// Motor Home Search Status
+	{														//  1. Not Excute Home Command
+		pUmem_Sta_HomeFin(sta_idx) = 1;						//		pUmem_Sta_HomeIng(sta_idx) = 0
+		pUmem_Sta_HomeIng(sta_idx) = 0;						//		pUmem_Sta_HomeFin(sta_idx) = 0
+	}											
+	else if(gMt_Home_Sta(sta_idx)==cHomeSta_Ing)			//  2. Home Search Progress
+	{														//		pUmem_Sta_HomeIng(sta_idx) = 1
+		pUmem_Sta_HomeFin(sta_idx) = 0;						//		pUmem_Sta_HomeFin(sta_idx) = 0
+		pUmem_Sta_HomeIng(sta_idx) = 1;			
+	}														//  3. Home Search Complete
+	else													//		pUmem_Sta_HomeIng(sta_idx) = 0
+	{														//		pUmem_Sta_HomeFin(sta_idx) = 1
+		pUmem_Sta_HomeFin(sta_idx) = 0;
+		pUmem_Sta_HomeIng(sta_idx) = 0;
+	}
+
+	// Update Program(Kinematics) Positions
+	pUmem_Sta_ProgPos(nwX) = gWs_PosX_Cur*1000;
+	pUmem_Sta_ProgPos(nwY) = gWs_PosY_Cur*1000;
+	pUmem_Sta_ProgPos(nwC) = pUmem_Sta_ActPos(nwC);
+	
+	pUmem_Sta_ProgPos(nsX) = gSc_PosX_Cur*1000;
+	pUmem_Sta_ProgPos(nsY) = gSc_PosY_Cur*1000;
+
+	pUmem_Sta_ProgPos(nvX) = gVs_PosX_Cur*1000;
+	pUmem_Sta_ProgPos(nvY) = gVs_PosY_Cur*1000;
+	pUmem_Sta_ProgPos(nvC) = pUmem_Sta_ActPos(nvC);
+
+//------------------------------------------------------------------------------------------------------------//
+	// Update Machine Status
+	pUmem_Sta_Mc_AmpEna  = Coord[1].AmpEna & Coord[2].AmpEna & Coord[3].AmpEna;
+	pUmem_Sta_Mc_InPos	 = Coord[1].InPos & Coord[2].InPos & Coord[3].InPos;
+	pUmem_Sta_Mc_Home	 = gMc_Home_Sta;
+	//pUmem_Sta_Mc_RunMode = gMc_RunMod;	//20251230 KJH - gKey_RunMod는 Switch 값을 전달 받는 값.
+	pUmem_Sta_Mc_AutoRun = gWs_Loop_Ena | gVs_Loop_Ena;
+	pUmem_Sta_Mc_EcatCon = gEc_Com_Sta(0);
+	pUmem_Sta_Mc_Error = pUmem_Sta_Ws_Error | pUmem_Sta_Vs_Error;
+
+//------------------------------------------------------------------------------------------------------------//
+	// Update Welding Stage Status
+	pUmem_Sta_Ws_AmpEna = Coord[1].AmpEna;
+	pUmem_Sta_Ws_InPos = Coord[1].InPos;
+	pUmem_Sta_Ws_Home = gWs_Home_Sta;
+	pUmem_Sta_Ws_HomeErr = gWs_Home_Err;
+	pUmem_Sta_Ws_EcatCon = gEc_Com_Sta(0);
+
+	// 251230 알람 발생시 클리어 전까지 알람코드 업데이트 중지
+	gWs_Error_Cur = gWs_Error;
+	if(gWs_Error_Cur != gWs_Error_Old)
+	{
+		gWs_Error_Old = gWs_Error_Cur;	//20251230 KJH - 알람 상태 변경시에만 변경 되도록 수정.
+		if(gWs_Error_Cur == 1)
+		{
+			pUmem_Sta_Ws_Error = gWs_Error;
+			pUmem_Sta_Ws_ErrCode = gWs_ErrCode;
+		}
+		else
+		{
+			pUmem_Sta_Ws_Error = gWs_Error;
+			pUmem_Sta_Ws_ErrCode = 0;
+		}
+	}
+
+	pUmem_Sta_Ws_ProgRun = Coord[1].ProgActive;
+	pUmem_Sta_Ws_VectorVel = gWs_Vect_Vel*1000;
+	pUmem_Sta_Ws_ProgTime = gWs_Prog_Time*1000;
+	pUmem_Sta_Ws_PosStage = gWs_Pos_Stg;
+	pUmem_Sta_Ws_PosProduct = gWs_Pos_Pdt;
+
+	// Cover Status
+	if(gWs_CldIn_CoverFB==cFwd && gWs_CldIn_CoverUD==cDn)	pUmem_Sta_Ws_Cover = 2;		// Cover Close
+	else if(gWs_CldIn_CoverFB==cBwd)						pUmem_Sta_Ws_Cover = 1;		// Cover Open
+	else													pUmem_Sta_Ws_Cover = 0;		// Cover Unknown
+
+//	if(gWs_CoverOpn_Ena == 1)								gWs_CoverMoving_Sta = 1;	// Cover Open
+//	else if(gWs_CoverCls_Ena == 2)							gWs_CoverMoving_Sta = 2;	// Cover Close
+
+	//20260201 KJH -
+	//X, Y축이 움직이면서 Theta 축 동작시 Inpos 늦게 켜지는 현상 관련 동작 완료 확인 관련 Status.
+	if(Motor[nwX].InPos == 1 && Motor[nwY].InPos == 1 && pUmem_Sta_CmdPos(nwC) == gWs_ThTargetPos_Old)	gIsWStationReady = 1;
+	else	gIsWStationReady = 0;
+
+//	if(cWs_Cover_MoveAng < 0)
+//	{
+//		if(Motor[nwC].InPos == 1 && (pUmem_Sta_ActPos(nwC) % 360000) == (360000 + cWs_Cover_MoveAng))		gIsWsCoverComplete = 1;
+//		else	gIsWsCoverComplete = 0;
+//	}
+//	else
+//	{
+//		if(Motor[nwC].InPos == 1 && (pUmem_Sta_ActPos(nwC) % 360000) == cWs_Cover_MoveAng)		gIsWsCoverComplete = 1;
+//		else	gIsWsCoverComplete = 0;
+//	}
+
+//	if(Motor[nwC].InPos == 1 && gWs_ThPos_Old == pUmem_Sta_ActPos(nwC))		gIsWsCoverComplete = 1;
+//	else	gIsWsCoverComplete = 0;
+
+	//20260201 KJH -
+	//Cover Open/Close 동작 완료 여부 확인을 위한 Status
+	//참고 사항 : Cover가 Open 되어 있는 경우 재 동작 하지 않기 때문에 gWs_ThCoverPos_Old 갱신 되지 않습니다. 
+	//           그래서 각도로 변환 하여 Check 하는 방식 설정.
+	//if(Motor[nwC].InPos == 1 && ((gWs_ThCoverPos_Old % 360000)- (pUmem_Sta_CmdPos(nwC) % 360000)) < 1000)		gIsWsCoverComplete = 1;
+	if(Motor[nwC].InPos == 1 && (gWs_ThCoverPos_Old - pUmem_Sta_CmdPos(nwC)) < 1000)		gIsWsCoverComplete = 1;
+	else	gIsWsCoverComplete = 0;
+
+	//20260209 KJH - N2 Blow Skip 기능 추가.
+	if(pUmem_Di05_LaserProgRun == 0)
+	{
+		gWs_Skip_N2 = 0;
+	}
+	
+	// Product Status
+	pUmem_Sta_Ws_PdtSta = gWs_Sta_Pdt;
+	pUmem_Sta_Tr_PdtSta = gTr_Sta_Pdt;
+
+	// Sequence Status
+	pUmem_Sta_Ws_LdSeq = gWs_Load_Sta;
+	pUmem_Sta_Ws_LdErr = gWs_Load_Err;
+	pUmem_Sta_Ws_LdTime = gWs_Load_Time*1000;
+
+	pUmem_Sta_Ws_RdSeq = gWs_Ready_Sta;
+	pUmem_Sta_Ws_RdErr = gWs_Ready_Err;
+	pUmem_Sta_Ws_RdTime = gWs_Ready_Time*1000;
+
+	pUmem_Sta_Ws_WdSeq = gWs_Welding_Sta;
+	pUmem_Sta_Ws_WdErr = gWs_Welding_Err;
+	pUmem_Sta_Ws_WdTime = gWs_Welding_Time*1000;
+
+	pUmem_Sta_Ws_WtSeq = gWs_Wait_Sta;
+	pUmem_Sta_Ws_WtErr = gWs_Wait_Err;
+	pUmem_Sta_Ws_WtTime = gWs_Wait_Time*1000;
+
+	pUmem_Sta_Ws_UdSeq = gWs_Unload_Sta;
+	pUmem_Sta_Ws_UdErr = gWs_Unload_Err;
+	pUmem_Sta_Ws_UdTime = gWs_Unload_Time*1000;
+
+	pUmem_Sta_Ws_RjSeq = gWs_Reject_Sta;
+	pUmem_Sta_Ws_RjErr = gWs_Reject_Err;
+	pUmem_Sta_Ws_RjTime = gWs_Reject_Time*1000;
+
+	// Laser Status
+	pUmem_Sta_Ws_LaserReady		= gWs_LaserSta_Ready;
+	pUmem_Sta_Ws_LaserEnable	= gWs_LaserSta_Enable;
+	pUmem_Sta_Ws_LaserCorePower	= gWs_LaserSta_CorePower*10;
+	pUmem_Sta_Ws_LaserRingPower	= gWs_LaserSta_RingPower*10;
+
+//------------------------------------------------------------------------------------------------------------//
+	// Update Vision Stage Status
+	pUmem_Sta_Vs_AmpEna = Coord[3].AmpEna;
+	pUmem_Sta_Vs_InPos = Coord[3].InPos;
+	pUmem_Sta_Vs_Home = gVs_Home_Sta;
+	pUmem_Sta_Vs_HomeErr = gVs_Home_Err;
+	pUmem_Sta_Vs_EcatCon = gEc_Com_Sta(0);
+	
+	// 251230 알람 발생시 클리어 전까지 알람코드 업데이트 중지
+	gVs_Error_Cur = gVs_Error;
+	if(gVs_Error_Cur != gVs_Error_Old)
+	{
+		gVs_Error_Old = gVs_Error_Cur;	//20251230 KJH - 알람 상태 변경시에만 변경 되도록 수정.
+		if(gVs_Error_Cur == 1)
+		{
+			pUmem_Sta_Vs_Error = gVs_Error;
+			pUmem_Sta_Vs_ErrCode = gVs_ErrCode;
+		}
+		else
+		{
+			pUmem_Sta_Vs_Error = gVs_Error;
+			pUmem_Sta_Vs_ErrCode = 0;
+		}
+	}
+
+	pUmem_Sta_Vs_ProgRun = Coord[3].ProgActive;
+	pUmem_Sta_Vs_VectorVel = gVs_Vect_Vel*1000;
+	pUmem_Sta_Vs_ProgTime  = gVs_Prog_Time*1000;
+	pUmem_Sta_Vs_PosStage = gVs_Pos_Stg;
+	pUmem_Sta_Vs_PosProduct = gVs_Pos_Pdt;
+
+	// Cover Status
+	if(gVs_CldIn_CoverFB==cFwd && gVs_CldIn_CoverUD==cDn)	pUmem_Sta_Vs_Cover = 2;		// Cover Close
+	else if(gVs_CldIn_CoverFB==cBwd)						pUmem_Sta_Vs_Cover = 1;		// Cover Open
+	else													pUmem_Sta_Vs_Cover = 0;		// Cover Unknown
+
+//	if(gVs_CoverOpn_Ena == 1)								gVs_CoverMoving_Sta = 1;	// Cover Open
+//	else if(gVs_CoverCls_Ena == 2)							gVs_CoverMoving_Sta = 2;	// Cover Close
+
+	//20260201 KJH -
+	//X, Y축이 움직이면서 Theta 축 동작시 Inpos 늦게 켜지는 현상 관련 동작 완료 확인 관련 Status.
+	if(Motor[nvX].InPos == 1 && Motor[nvY].InPos == 1 && pUmem_Sta_CmdPos(nvC) == gVs_ThTargetPos_Old)	gIsVStationReady = 1;
+	else	gIsVStationReady = 0;
+
+//	if(cVs_Cover_MoveAng < 0)
+//	{
+//		if(Motor[nvC].InPos == 1 && (pUmem_Sta_ActPos(nvC) % 360000) == (360000 + cVs_Cover_MoveAng))		gIsVsCoverComplete = 1;
+//		else	gIsVsCoverComplete = 0;
+//	}	
+//	else
+//	{
+//		if(Motor[nvC].InPos == 1 && (pUmem_Sta_ActPos(nvC) % 360000) == cVs_Cover_MoveAng)		gIsVsCoverComplete = 1;
+//		else	gIsVsCoverComplete = 0;
+//	}
+
+//	if(Motor[nvC].InPos == 1 && gVs_ThPos_Old == pUmem_Sta_ActPos(nvC))		gIsVsCoverComplete = 1;
+//	else	gIsVsCoverComplete = 0;
+
+	//20260201 KJH -
+	//Cover Open/Close 동작 완료 여부 확인을 위한 Status
+	//참고 사항 : Cover가 Open 되어 있는 경우 재 동작 하지 않기 때문에 gWs_ThCoverPos_Old 갱신 되지 않습니다. 
+	//           그래서 각도로 변환 하여 Check 하는 방식 설정.
+	//if(Motor[nvC].InPos == 1 && (gVs_ThCoverPos_Old % 360000) - (pUmem_Sta_CmdPos(nvC) % 360000) < 1000)		gIsVsCoverComplete = 1;
+	if(Motor[nvC].InPos == 1 && gVs_ThCoverPos_Old - pUmem_Sta_CmdPos(nvC) < 1000)		gIsVsCoverComplete = 1;
+	else	gIsVsCoverComplete = 0;
+
+	// Product Status
+	pUmem_Sta_Vs_PdtSta = gVs_Sta_Pdt;
+
+	// Sequence Status
+	pUmem_Sta_Vs_LdSeq = gVs_Load_Sta;
+	pUmem_Sta_Vs_LdErr = gVs_Load_Err;
+	pUmem_Sta_Vs_LdTime = gVs_Load_Time*1000;
+
+	pUmem_Sta_Vs_RdSeq = gVs_Ready_Sta;
+	pUmem_Sta_Vs_RdErr = gVs_Ready_Err;
+	pUmem_Sta_Vs_RdTime = gVs_Ready_Time*1000;
+
+	pUmem_Sta_Vs_VnSeq = gVs_Vision_Sta;
+	pUmem_Sta_Vs_VnErr = gVs_Vision_Err;
+	pUmem_Sta_Vs_VnTime = gVs_Vision_Time*1000;
+
+	pUmem_Sta_Vs_WtSeq = gVs_Wait_Sta;
+	pUmem_Sta_Vs_WtErr = gVs_Wait_Err;
+	pUmem_Sta_Vs_WtTime = gVs_Wait_Time*1000;
+
+	pUmem_Sta_Vs_UdSeq = gVs_Unload_Sta;
+	pUmem_Sta_Vs_UdErr = gVs_Unload_Err;
+	pUmem_Sta_Vs_UdTime = gVs_Unload_Time*1000;
+
+	pUmem_Sta_Vs_RjSeq = gVs_Reject_Sta;
+	pUmem_Sta_Vs_RjErr = gVs_Reject_Err;
+	pUmem_Sta_Vs_RjTime = gVs_Reject_Time*1000;
+
+//------------------------------------------------------------------------------------------------------------//
+	// Update Scanner Stage Status
+	pUmem_Sta_Sc_AmpEna = Coord[2].AmpEna;
+	pUmem_Sta_Sc_InPos =  Coord[2].InPos;
+	pUmem_Sta_Sc_Home = gSc_Home_Sta;
+	pUmem_Sta_Sc_HomeErr = gSc_Home_Err;
+	pUmem_Sta_Sc_Con = gSc_Com_Sta;
+	pUmem_Sta_Sc_Error = Coord[2].AmpFault;
+	//pUmem_Sta_Sc_ErrCode
+
+//------------------------------------------------------------------------------------------------------------//
+	// Update Analog Input
+	pBuf_Ai00_WsLoadCell = pEcat_Ai00_WsLoadCell;
+	gAi00_WsLoadCell = pBuf_Ai00_WsLoadCell/15000*50;
+	pUmem_Ai00_WsLoadCell = gAi00_WsLoadCell*100;
+
+	pBuf_Ti00_Ws_TempSen1 = pEcat_Ti00_Ws_TempSen1;
+	pBuf_Ti01_Ws_TempSen2 = pEcat_Ti01_Ws_TempSen2;
+	gTi00_Ws_TempSen1 = (pBuf_Ti00_Ws_TempSen1 / 10) + pUmem_Cmd_Ws_TempOffset1;
+	gTi01_Ws_TempSen2 = (pBuf_Ti01_Ws_TempSen2 / 10) + pUmem_Cmd_Ws_TempOffset2;
+	pUmem_Ti00_WsTempSen1 = gTi00_Ws_TempSen1;
+	pUmem_Ti01_WsTempSen2 = gTi01_Ws_TempSen2;
+
+	if(pUmem_Do23_WsN2Blow == 1 && pUmem_Do23_WsN2Blow == 1)
+	{
+		pUmem_Do23_WsN2Blow = 1;
+	}
+
+	//Welding Vision Camera Shutter
+	if(pUmem_Di11_WsVsLtStrCls == 0 && pUmem_Di13_WsVsLtStrOpn == 1 && pUmem_Di15_WsVsRtStrCls == 0 && pUmem_Di17_WsVsRtStrOpn == 1)
+	{
+		gWsV_Cover_Cur = cOpn;
+	}
+	else if(pUmem_Di11_WsVsLtStrCls == 1 && pUmem_Di13_WsVsLtStrOpn == 0 &&	pUmem_Di15_WsVsRtStrCls == 1 && pUmem_Di17_WsVsRtStrOpn == 0)
+	{
+		gWsV_Cover_Cur = cCls;
+	}
+	else
+	{
+		gWsV_Cover_Cur = cUkn;
+	}
+
+close
+
+

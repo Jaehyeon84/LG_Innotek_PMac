@@ -1,0 +1,1467 @@
+//######################################################################################################
+// PLC 12 : Sequence Control
+//######################################################################################################
+
+
+open plc 12
+
+////////////////////////////////////////////////////////////////////////
+// Stage Status Check
+////////////////////////////////////////////////////////////////////////
+	//---------------------------------------------------------------//
+	if(Coord[1].AmpEna==1 && Coord[1].HomeComplete==1)
+	{
+		if(Coord[1].InPos==1)
+		{
+			gWs_Sta_Stg = cStgSta_Inp;		// Stage Status : Inposition
+		}
+		else
+		{
+			gWs_Sta_Stg = cStgSta_Mov;		// Stage Status : Moving
+		}
+	}
+	else
+	{
+		gWs_Sta_Stg = cStgSta_Nrd;			// Stage Status : Not Ready
+	}
+
+	if(Coord[3].AmpEna==1 && Coord[3].HomeComplete==1)
+	{
+		if(Coord[3].InPos==1)
+		{
+			gVs_Sta_Stg = cStgSta_Inp;
+		}
+		else
+		{
+			gVs_Sta_Stg = cStgSta_Mov;
+		}
+	}
+	else
+	{
+		gVs_Sta_Stg = cStgSta_Nrd;
+	}
+////////////////////////////////////////////////////////////////////////
+// Stage,Product Position Check
+////////////////////////////////////////////////////////////////////////
+	if(gWs_Loop_Ena==1)
+	{
+		gWs_Pos_Stg = gWs_Seq_Cur;		// Stage Position
+		if(gWs_Sta_Pdt==cPdtSta_Blk)	gWs_Pos_Pdt = cPos_Id;
+		else							gWs_Pos_Pdt = gWs_Seq_Cur;	// Product Position
+	}
+
+	if(gVs_Loop_Ena==1)
+	{
+		gVs_Pos_Stg = gVs_Seq_Cur;
+		if(gVs_Sta_Pdt==cPdtSta_Blk)	gVs_Pos_Pdt = cPos_Id;
+		else							gVs_Pos_Pdt = gVs_Seq_Cur;
+		//else							gVs_Pos_Pdt = gWs_Seq_Cur;	//20260104 KJH : Vision Seq이어야 하지 않나? 
+	}
+////////////////////////////////////////////////////////////////////////
+// Product Status Update
+////////////////////////////////////////////////////////////////////////
+//	if(gWs_PdtStaChange_Ena==1)
+//	{
+//		gWs_PdtStaChange_Ena = 0;
+//		if(gWs_Loop_Ena==0)
+//		{
+//			if(gWs_Sta_Pdt==cPdtSta_Err)
+//			{
+//				//20260118 KJH - Welding Program에서 Grid Click 했을때만 지워 지도록 변경.
+//				pUmem_Sta_Mc_ErasePdtFlgWs = 1;
+//				pUmem_Sta_Mc_ErasePdtNoWs = gWs_PdtNo;
+
+//				gWs_Sta_Pdt = cPdtSta_Blk;
+//			}
+//			else if(gWs_Sta_Pdt==cPdtSta_Blk)	gWs_Sta_Pdt = cPdtSta_Bwd;
+//			else if(gWs_Sta_Pdt==cPdtSta_Bwd)	gWs_Sta_Pdt = cPdtSta_Awd;
+//			else if(gWs_Sta_Pdt==cPdtSta_Awd)	gWs_Sta_Pdt = cPdtSta_Err;
+
+//			if(pUmem_Sta_Mc_ErasePdtFlgWs != 1)
+//			{
+//				pUmem_Cmd_Ws_PdtStaChange = 0;
+//			}
+//		}
+//	}
+
+//	if(gVs_PdtStaChange_Ena==1)
+//	{
+//		gVs_PdtStaChange_Ena = 0;
+//		if(gVs_Loop_Ena==0)
+//		{
+//			if(gVs_Sta_Pdt==cPdtSta_Err)
+//			{
+//				//20260118 KJH - Welding Program에서 Grid Click 했을때만 지워 지도록 변경.
+//				pUmem_Sta_Mc_ErasePdtFlgVs = 1;
+//				pUmem_Sta_Mc_ErasePdtNoVs = gVs_PdtNo;
+
+//				gVs_Sta_Pdt = cPdtSta_Blk;
+//			}
+//			else if(gVs_Sta_Pdt==cPdtSta_Blk) gVs_Sta_Pdt = cPdtSta_Bwd;
+//			else if(gVs_Sta_Pdt==cPdtSta_Bwd) gVs_Sta_Pdt = cPdtSta_Awd;
+//			else if(gVs_Sta_Pdt==cPdtSta_Awd) gVs_Sta_Pdt = cPdtSta_Err;
+
+//			if(pUmem_Sta_Mc_ErasePdtFlgVs != 1)
+//			{
+//				pUmem_Cmd_Vs_PdtStaChange = 0;
+//			}
+//		}
+//	}
+
+//	if(gTr_PdtStaChange_Ena==1)
+//	{
+//		gTr_PdtStaChange_Ena = 0;
+//		if(gWs_Loop_Ena==0 && gVs_Loop_Ena==0)
+//		{
+//			if(gTr_Sta_Pdt==cPdtSta_Err)
+//			{
+//				//20260118 KJH - Welding Program에서 Grid Click 했을때만 지워 지도록 변경.
+//				pUmem_Sta_Mc_ErasePdtFlgTr = 1;
+//				pUmem_Sta_Mc_ErasePdtNoTr = gTr_PdtNo;
+
+//				gTr_Sta_Pdt = cPdtSta_Blk;
+//			}
+//			else if(gTr_Sta_Pdt==cPdtSta_Blk) gTr_Sta_Pdt = cPdtSta_Awd;
+//			else if(gTr_Sta_Pdt==cPdtSta_Awd) gTr_Sta_Pdt = cPdtSta_Err;
+
+//			if(pUmem_Sta_Mc_ErasePdtFlgTr != 1)
+//			{
+//				pUmem_Cmd_Tr_PdtStaChange = 0;
+//			}
+//		}
+//	}
+
+	if(gWs_Loop_Ena==1)						gWs_Sta_PdtBuf = gWs_Sta_Pdt;
+	if(gVs_Loop_Ena==1)						gVs_Sta_PdtBuf = gVs_Sta_Pdt;
+	if(gWs_Loop_Ena==1 || gVs_Loop_Ena==1)	gTr_Sta_PdtBuf = gTr_Sta_Pdt;
+////////////////////////////////////////////////////////////////////////
+// Start
+////////////////////////////////////////////////////////////////////////
+	if(gMc_Step_Start==1)
+	{
+		gMc_Step_Start = 0;
+		if(gWs_Loop_Ena==0 && gVs_Loop_Ena==0)
+		{
+			gMc_RunOpt |= cRunOpt_Step;
+			gMc_RunMod = cRunMode_Auto;
+			gMc_AutoRun_Seq = 1;
+			gMc_AutoRun_Ena = 1;
+		}
+		else
+		{
+			gWs_StepRun = 1;
+			gVs_StepRun = 1;
+		}
+	}
+
+	if(gMc_Cycle_Start==1)
+	{
+		gMc_Cycle_Start = 0;
+		gMc_RunOpt |= cRunOpt_Cycle;
+		gMc_RunOpt &= ~cRunOpt_Step;
+		gMc_RunMod = cRunMode_Auto;
+		gMc_AutoRun_Seq = 1;
+		gMc_AutoRun_Ena = 1;
+	}
+
+	if(gMc_AutoRun_Start==1)
+	{
+		gMc_AutoRun_Start = 0;
+		gMc_RunOpt &= ~cRunOpt_Cycle;
+		gMc_RunOpt &= ~cRunOpt_Step;
+		gMc_RunMod = cRunMode_Auto;
+		gMc_AutoRun_Seq = 1;
+		gMc_AutoRun_Ena = 1;
+	}
+
+	if(gWs_Loop_Start==1)
+	{
+		gWs_Loop_Start = 0;
+		//if(gMc_RunMod!=cRunMode_Auto)		//20251230 KJH - gKey_RunMod는 Switch 값을 전달 받는 값.
+		if(gKey_RunMod != cRunMode_Auto)
+		{
+			gWs_Loop_Err = cErrCode_EtRunMode;
+			gWs_Loop_Sta = cSeqSta_Err;
+		}
+		else if(gWs_Seq_Err!=0)
+		{
+			gWs_Loop_Err = cErrCode_EtErrEx;
+			gWs_Loop_Sta = cSeqSta_Err
+		}
+		else if(gWs_Sta_Stg!=cStgSta_Inp)
+		{
+			gWs_Loop_Err = cErrCode_WsInPos;
+			gWs_Loop_Sta = cSeqSta_Err;
+		}
+		else if(gWs_Loop_Ena==0)
+		{
+			//20260118 KJH - Welding Program에서 Grid Click 했을때만 지워 지도록 변경.
+//			if(gWs_Sta_PdtBuf!=cPdtSta_Blk && gWs_Sta_Pdt==cPdtSta_Blk)
+//			{
+//				pUmem_Sta_Mc_ErasePdtFlgWs = 1;
+//				pUmem_Sta_Mc_ErasePdtNoWs = gWs_PdtNo;
+// 			}
+
+//			if(gVs_Loop_Ena==0)
+//			{
+//				if(gTr_Sta_PdtBuf!=cPdtSta_Blk && gTr_Sta_Pdt==cPdtSta_Blk)
+//				{
+//					//pUmem_Sta_Mc_ErasePdtFlgTr = 1;
+//					pUmem_Sta_Mc_ErasePdtNoTr = gTr_PdtNo;
+// 				}
+//			}
+
+			if(gWs_Sta_Pdt==cPdtSta_Blk)			gWs_Loop_Seq = cWsSeqNo_Ld;
+			else if(gWs_Sta_Pdt==cPdtSta_Bwd)		gWs_Loop_Seq = cWsSeqNo_Rd;
+			else if(gWs_Sta_Pdt==cPdtSta_Awd)		gWs_Loop_Seq = cWsSeqNo_Wt;
+			else if(gWs_Sta_Pdt==cPdtSta_Err)		gWs_Loop_Seq = cWsSeqNo_Rj;
+			else									gWs_Loop_Seq = 0;	// Unknown Status
+
+			gWs_Loop_Err = 0;
+			gWs_Loop_Sta = cSeqSta_Ing;
+			gWs_Loop_Ena = 1;
+		}
+	}
+
+	if(gVs_Loop_Start==1)
+	{
+		gVs_Loop_Start = 0;
+		//if(gMc_RunMod!=cRunMode_Auto)		//20251230 KJH - gKey_RunMod는 Switch 값을 전달 받는 값.
+		if(gKey_RunMod != cRunMode_Auto)
+		{
+			gVs_Loop_Err = cErrCode_EtRunMode;
+			gVs_Loop_Sta = cSeqSta_Err;
+		}
+		else if(gVs_Seq_Err!=0)
+		{
+			gVs_Loop_Err = cErrCode_EtErrEx;
+			gVs_Loop_Sta = cSeqSta_Err
+		}
+		else if(gVs_Sta_Stg!=cStgSta_Inp)
+		{
+			gVs_Loop_Err = cErrCode_VsInPos;
+			gVs_Loop_Sta = cSeqSta_Err;
+		}
+		else if(gVs_Loop_Ena==0)
+		{
+			//20260118 KJH - Welding Program에서 Grid Click 했을때만 지워 지도록 변경.
+//			if(gVs_Sta_PdtBuf!=cPdtSta_Blk && gVs_Sta_Pdt==cPdtSta_Blk)
+//			{
+//				pUmem_Sta_Mc_ErasePdtFlgVs = 1;
+//				pUmem_Sta_Mc_ErasePdtNoVs = gVs_PdtNo;
+// 			}
+
+//			if(gWs_Loop_Ena==0)
+//			{
+//				if(gTr_Sta_PdtBuf!=cPdtSta_Blk && gTr_Sta_Pdt==cPdtSta_Blk)
+//				{
+//					pUmem_Sta_Mc_ErasePdtFlgTr = 1;
+//					pUmem_Sta_Mc_ErasePdtNoTr = gTr_PdtNo;
+// 				}
+//			}
+
+			if(gVs_Sta_Pdt==cPdtSta_Blk)		gVs_Loop_Seq = cVsSeqNo_BfWt;
+			else if(gVs_Sta_Pdt==cPdtSta_Bvn)	gVs_Loop_Seq = cVsSeqNo_AfWt;
+			else if(gVs_Sta_Pdt==cPdtSta_Avn)	gVs_Loop_Seq = cVsSeqNo_Ud;
+			else if(gVs_Sta_Pdt==cPdtSta_Err)	gVs_Loop_Seq = cVsSeqNo_Rj;
+			else								gVs_Loop_Seq = 0;	// Unknown Status
+
+			gVs_Loop_Err = 0;
+			gVs_Loop_Sta = cSeqSta_Ing;
+			gVs_Loop_Ena = 1;
+		}
+	}
+
+////////////////////////////////////////////////////////////////////////
+// Abort
+////////////////////////////////////////////////////////////////////////
+	if(gMc_AutoRun_Abort==1)
+	{
+		gMc_AutoRun_Abort = 0;
+		gWs_Loop_Abort = 1;
+		gVs_Loop_Abort = 1;
+	}
+
+	if(gMc_AutoRun_Pause==1)
+	{
+		gMc_AutoRun_Pause = 0;
+		gWs_Loop_Pause = 1;
+		gVs_Loop_Pause = 1;
+	}
+
+	if(gWs_Loop_Abort==1)
+	{
+		gWs_Loop_Abort = 0;
+		call spAbortWsLoop();
+	}
+
+	if(gWs_Loop_Pause==1)
+	{
+		gWs_Loop_Pause = 0;
+		if(gWs_Load_Ena==1 && pUmem_Sta_Ws_2ndTransLdReq!=cPcReq_Idl)
+		{
+			// 로딩 대지 중 일시 Pause 안함
+		}
+		else if(gWs_Reject_Ena==1 && pUmem_Sta_Ws_1stTransRjReq!=cPcReq_Idl)
+		{
+			// 배출 대지 중 일시 Pause 안함
+		}
+		else
+		{
+			gWs_Loop_Ena = 0;
+		}
+	}
+
+	if(gVs_Loop_Abort==1)
+	{
+		gVs_Loop_Abort = 0;
+		call spAbortVsLoop();
+	}
+
+	if(gVs_Loop_Pause==1)
+	{
+		gVs_Loop_Pause = 0;
+		if(gVs_Unload_Ena==1 && (pUmem_Sta_Vs_3rdTransUdReq!=cPcReq_Idl || pUmem_Sta_Vs_3rdTransRjReq!=cPcReq_Idl))
+		{
+			// 언로딩 대지 중 일시 Pause 안함
+		}
+		else if(gVs_Reject_Ena==1 && pUmem_Sta_Vs_3rdTransRjReq!=cPcReq_Idl)
+		{
+			// 배출 대지 중 일시 Pause 안함
+		}
+		else
+		{
+			gVs_Loop_Ena = 0;
+		}
+	}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Machine Start Sequence
+////////////////////////////////////////////////////////////////////////////////////////////////////
+	if(gMc_AutoRun_Ena==1)
+	{
+		switch(gMc_AutoRun_Seq)
+		{
+			case 1:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				if(gMc_Home_Ena==0 && gMc_Home_Sta==cHomeSta_Fin)
+				{
+					gMc_AutoRun_Seq = 2;
+				}
+				else
+				{
+					gMc_AutoRun_Err = cErrCode_WsHome;
+					gMc_AutoRun_Sta = cSeqSta_Err;
+					gMc_AutoRun_Seq = 0;
+					gMc_AutoRun_Ena = 0;
+				}
+			break;
+
+			case 2:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				if(gTr_Sta_Pdt==cPdtSta_Blk)
+				{
+					gMc_AutoRun_Seq = 10;
+				}
+				else
+				{
+					gMc_AutoRun_Seq = 20;
+				}
+			break;
+
+			case 10:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				pUmem_Do14_TrGripCls = 0;
+				pUmem_Do16_TrGripOpn = 1;
+				gMc_AutoRun_Tmr = Sys.Time + 0.1;
+				gMc_AutoRun_Seq = 11;
+
+			break;
+
+			case 11:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				if(Sys.time > gMc_AutoRun_Tmr)
+				{
+					gMc_AutoRun_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_AutoRun_Seq = 12;
+				}
+			break;
+
+			case 12:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				if(gTr_CldIn_PickerOC==cOpn)
+				{
+					gMc_AutoRun_Seq = 20;
+				}
+				else if(Sys.time > gMc_AutoRun_Tmr)
+				{
+					gMc_AutoRun_Err = cErrCode_EtTrOpn;
+					gMc_AutoRun_Sta = cSeqSta_Err;
+					gMc_AutoRun_Seq = 0;
+					gMc_AutoRun_Ena = 0;
+				}
+			break;
+
+			case 20:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				pUmem_Do1A_TrPickDn = 0;
+				pUmem_Do18_TrPickUp = 1;
+				gMc_AutoRun_Tmr = Sys.Time + 0.1;
+				gMc_AutoRun_Seq = 21;
+			break;
+
+			case 21:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				if(Sys.time > gMc_AutoRun_Tmr)
+				{
+					gMc_AutoRun_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gMc_AutoRun_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				if(gTr_CldIn_PickerUD==cUp)
+				{
+					gMc_AutoRun_Seq = 30;
+				}
+				else if(Sys.time > gMc_AutoRun_Tmr)
+				{
+					gMc_AutoRun_Err = cErrCode_EtTrUp;
+					gMc_AutoRun_Sta = cSeqSta_Err;
+					gMc_AutoRun_Seq = 0;
+					gMc_AutoRun_Ena = 0;
+				}
+			break;
+
+			case 30:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				gMc_AutoRun_Tmr = Sys.Time + 3;
+				gMc_AutoRun_Seq = 31;
+			break;
+
+			case 31:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				if(gWs_Sta_Stg==cStgSta_Inp && gVs_Sta_Stg==cStgSta_Inp)
+				{
+					gVs_Loop_Start = 1;
+					gMc_AutoRun_Tmr = Sys.Time + 1;
+					gMc_AutoRun_Seq = 32;
+				}
+				else if(Sys.Time > gMc_AutoRun_Tmr)
+				{
+					if(gWs_Sta_Stg!=cStgSta_Inp)	gMc_AutoRun_Err = cErrCode_WsInPos;
+					if(gVs_Sta_Stg!=cStgSta_Inp)	gMc_AutoRun_Err = cErrCode_VsInPos;
+					gMc_AutoRun_Sta = cSeqSta_Err;
+					gMc_AutoRun_Seq = 0;
+					gMc_AutoRun_Ena = 0;
+				}
+			break;
+
+			case 32:
+				gMc_AutoRun_Buf = gMc_AutoRun_Seq;
+				if(Sys.Time > gMc_AutoRun_Tmr)
+				{
+					gWs_Loop_Start = 1;
+					gMc_AutoRun_Sta = cSeqSta_Fin;
+					gMc_AutoRun_Seq = 0;
+					gMc_AutoRun_Ena = 0;
+				}
+			break;
+
+			default:
+				gMc_AutoRun_Err = -1;
+				gMc_AutoRun_Sta = cSeqSta_Fin;
+				gMc_AutoRun_Seq = 0;
+				gMc_AutoRun_Ena = 0;
+			break;
+
+		}
+	}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Welding Stage Sequence Loop
+////////////////////////////////////////////////////////////////////////////////////////////////////
+	if(gWs_Loop_Ena==1)
+	{
+		switch(gWs_Loop_Seq)
+		{
+		//------------------------------------------------------------//
+		// Load
+		//------------------------------------------------------------//
+			case 1:		// Load Start
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gWs_Seq_Old = gWs_Seq_Cur;
+				gWs_Seq_Cur = cPos_Ld;
+
+				gWs_Loop_TimeBuf = Sys.Time;
+				gWs_Load_Sta = cSeqSta_Idl;
+				gWs_Load_Start = 1;
+
+				call spSetSeqBufQ(cSeqBuf_WsLdSrt, gWs_SeqBuf_Old, 0, 0, 0);	// 251230 수정
+				gWs_SeqBuf_Cur = cSeqBuf_WsLdSrt;
+
+//				gWs_Seq_Old = gWs_Seq_Cur;
+//				gWs_Seq_Cur = cPos_Ld;
+
+				gWs_Loop_Seq = 2;
+			break;
+
+			case 2:		// Load Finish
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_Load_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_WsLdEnd, gWs_SeqBuf_Old, gWs_PdtNo, 0, 0);	// 251230 수정
+					gWs_SeqBuf_Cur = cSeqBuf_WsLdEnd;
+					gWs_SeqBuf_Old = cSeqBuf_WsLdEnd & $3FFF;
+					gWs_Loop_Seq = 3;
+				}
+				else if(gWs_Load_Sta==cSeqSta_Err)
+				{
+					gWs_Loop_Sta = cSeqSta_Err;
+					gWs_Loop_Seq = 0;
+					gWs_Loop_Ena = 0;
+				}
+			break;
+
+			case 3:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gWs_Loop_Seq = 4;
+				else							gWs_Loop_Seq = 5;
+			break;
+
+			case 4:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_StepRun==1)
+				{
+					gWs_StepRun = 0;
+					gWs_Loop_Seq = 5;
+				}
+			break;
+
+			case 5:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_LdDir==cLdDir_Wd)			gWs_Loop_Seq = cWsSeqNo_Rd;
+				else if(gWs_LdDir==cLdDir_Rj)		gWs_Loop_Seq = cWsSeqNo_Rj;
+			break;
+		//------------------------------------------------------------//
+		// Ready
+		//------------------------------------------------------------//
+			case 10:	// Ready Start
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gWs_Seq_Old = gWs_Seq_Cur;
+				gWs_Seq_Cur = cPos_Rd;
+
+				gWs_Ready_Sta = cSeqSta_Idl;
+				gWs_Ready_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_WsRdSrt, gWs_SeqBuf_Old, gWs_PdtNo, 0, 0);	// 251230 수정
+				gWs_SeqBuf_Cur = cSeqBuf_WsRdSrt;
+
+//				gWs_Seq_Old = gWs_Seq_Cur;
+//				gWs_Seq_Cur = cPos_Rd;
+
+				gWs_Loop_Seq = 11;
+			break;
+
+			case 11:	// Ready Finish
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_Ready_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_WsRdEnd, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+					gWs_SeqBuf_Cur = cSeqBuf_WsRdEnd;
+					gWs_SeqBuf_Old = cSeqBuf_WsRdEnd & $3FFF;
+					gWs_Loop_Seq = 12;
+				}
+				else if(gWs_Ready_Sta==cSeqSta_Err)
+				{
+					gWs_Loop_Sta = cSeqSta_Err;
+					gWs_Loop_Seq = 0;
+					gWs_Loop_Ena = 0;
+				}
+			break;
+
+			case 12:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gWs_Loop_Seq = 13;
+				else							gWs_Loop_Seq = 14;
+			break;
+
+			case 13:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_StepRun==1)
+				{
+					gWs_StepRun = 0;
+					gWs_Loop_Seq = 14;
+				}
+			break;
+
+			case 14:	// 2D Vision Judge
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_Ready_VsnJudge==cVsnJudge_Ok)
+				{
+					gWs_Loop_Seq = 20;		// To Welding
+				}
+				else
+				{
+					if(gWs_RunOpt&cRunOpt_SkipWsRjReq==0)
+						gWs_Loop_Seq = 20;		// To Welding
+					else
+						gWs_Loop_Seq = 50;		// To Reject
+				}
+			break;
+		//------------------------------------------------------------//
+		// Welding
+		//------------------------------------------------------------//
+			case 20:	// Welding Start
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gWs_Seq_Old = gWs_Seq_Cur;
+				gWs_Seq_Cur = cPos_Wd;
+
+				gWs_Welding_Sta = cSeqSta_Idl;
+				gWs_Welding_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_WsWdSrt, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+				gWs_SeqBuf_Cur = cSeqBuf_WsWdSrt
+
+//				gWs_Seq_Old = gWs_Seq_Cur;
+//				gWs_Seq_Cur = cPos_Wd;
+
+				gWs_Loop_Seq = 21;
+			break;
+
+			case 21:	// Welding Finish
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_Welding_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_WsWdEnd, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+					gWs_SeqBuf_Cur = cSeqBuf_WsWdEnd;
+					gWs_SeqBuf_Old = cSeqBuf_WsWdEnd & $3FFF;
+					gWs_Loop_Seq = 22;
+				}
+				else if(gWs_Welding_Sta==cSeqSta_Err)
+				{
+					gWs_Loop_Sta = cSeqSta_Err;
+					gWs_Loop_Seq = 0;
+					gWs_Loop_Ena = 0;
+				}
+			break;
+
+			case 22:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gWs_Loop_Seq = 23;
+				else							gWs_Loop_Seq = 24;
+			break;
+
+			case 23:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_StepRun==1)
+				{
+					gWs_StepRun = 0;
+					gWs_Loop_Seq = 24;
+				}
+			break;
+
+			case 24:	// Unloading Crash Judge
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gTr_Sta_Pdt==cPdtSta_Blk && gVs_Seq_Cur!=cPos_Ld && gVs_Seq_Cur!=cPos_Vn)
+				{
+					if(pUmem_Sta_CmdPos(nvX)>=pUmem_Cmd_Vs_WtPosX)	gWs_Loop_Seq = 40;
+					else											gWs_Loop_Seq = 30;
+				}
+				else
+				{
+					gWs_Loop_Seq = 30;
+				}
+			break;
+		//------------------------------------------------------------//
+		// Wait
+		//------------------------------------------------------------//
+			case 30:	// Wait Start
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gWs_Seq_Old = gWs_Seq_Cur;
+				gWs_Seq_Cur = cPos_Wt;
+
+				gWs_Wait_Sta = cSeqSta_Idl;
+				gWs_Wait_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_WsWtSrt, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+				gWs_SeqBuf_Cur = cSeqBuf_WsWtSrt
+
+//				gWs_Seq_Old = gWs_Seq_Cur;
+//				gWs_Seq_Cur = cPos_Wt;
+
+				gWs_Loop_Seq = 31;
+			break;
+
+			case 31:	// Wait Finish
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_Wait_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_WsWtEnd, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+					gWs_SeqBuf_Cur = cSeqBuf_WsWtEnd;
+					gWs_SeqBuf_Old = cSeqBuf_WsWtEnd & $3FFF;
+					gWs_Loop_Seq = 32;
+				}
+				else if(gWs_Wait_Sta==cSeqSta_Err)
+				{
+					gWs_Loop_Sta = cSeqSta_Err;
+					gWs_Loop_Seq = 0;
+					gWs_Loop_Ena = 0;
+				}
+			break;
+
+			case 32:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gWs_Loop_Seq = 33;
+				else							gWs_Loop_Seq = 34;
+			break;
+
+			case 33:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_StepRun==1)
+				{
+					gWs_StepRun = 0;
+					gWs_Loop_Seq = 34;
+				}
+			break;
+
+			case 34:	// Unloading Crash Judge
+				gWs_Loop_Buf = gWs_Loop_Seq;
+
+				if(gTr_Sta_Pdt==cPdtSta_Blk && gVs_Seq_Cur!=cPos_Ld && gVs_Seq_Cur!=cPos_Vn)
+				{
+					if(pUmem_Sta_CmdPos(nvX)>=pUmem_Cmd_Vs_WtPosX)
+					{
+						gWs_Loop_Seq = 40;
+					}
+				}
+			break;
+		//------------------------------------------------------------//
+		// Unload
+		//------------------------------------------------------------//
+			case 40:	// Unload Start
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gWs_Seq_Old = gWs_Seq_Cur;
+				gWs_Seq_Cur = cPos_Ud;
+
+				gWs_Unload_Sta = cSeqSta_Idl;
+				gWs_Unload_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_WsUdSrt, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+				gWs_SeqBuf_Cur = cSeqBuf_WsUdSrt
+
+//				gWs_Seq_Old = gWs_Seq_Cur;
+//				gWs_Seq_Cur = cPos_Ud;
+
+				gWs_Loop_Seq = 41;
+			break;
+
+			case 41:	// Unload Finish
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_Unload_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_WsUdEnd, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+					gWs_PdtNo = 0;	//251230 추가
+
+					gWs_SeqBuf_Cur = cSeqBuf_WsUdEnd;
+					gWs_SeqBuf_Old = cSeqBuf_WsUdEnd & $3FFF;
+					gWs_Loop_Seq = 42
+
+				}
+				else if(gWs_Unload_Sta==cSeqSta_Err)
+				{
+					gWs_Loop_Sta = cSeqSta_Err;
+					gWs_Loop_Seq = 0;
+					gWs_Loop_Ena = 0;
+				}
+			break;
+
+			case 42:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gWs_Loop_Seq = 43;
+				else							gWs_Loop_Seq = 44;
+			break;
+
+			case 43:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_StepRun==1)
+				{
+					gWs_StepRun = 0;
+					gWs_Loop_Seq = 44;
+				}
+			break;
+
+			case 44:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Cycle!=0)	gWs_Loop_Seq = 80;
+				else							gWs_Loop_Seq = 90;
+			break;
+		//------------------------------------------------------------//
+		// Reject
+		//------------------------------------------------------------//
+			case 50:	// Reject Start
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gWs_Seq_Old = gWs_Seq_Cur;
+				gWs_Seq_Cur = cPos_Rj;
+
+				gWs_Reject_Sta = cSeqSta_Idl;
+				gWs_Reject_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_WsRjSrt, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+				gWs_SeqBuf_Cur = cSeqBuf_WsRjSrt
+
+//				gWs_Seq_Old = gWs_Seq_Cur;
+//				gWs_Seq_Cur = cPos_Rj;
+
+				gWs_Loop_Seq = 51;
+			break;
+
+			case 51:	// Reject Finish
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_Reject_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_WsRjEnd, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+					gWs_PdtNo = 0;	//251230 추가
+
+					gWs_SeqBuf_Cur = cSeqBuf_WsRjEnd;
+					gWs_SeqBuf_Old = cSeqBuf_WsRjEnd & $3FFF;
+					gWs_Loop_Seq = 52;
+				}
+				else if(gWs_Reject_Sta==cSeqSta_Err)
+				{
+					gWs_Loop_Sta = cSeqSta_Err;
+					gWs_Loop_Seq = 0;
+					gWs_Loop_Ena = 0;
+				}
+			break;
+
+			case 52:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gWs_Loop_Seq = 53;
+				else							gWs_Loop_Seq = 54;
+			break;
+
+			case 53:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_StepRun==1)
+				{
+					gWs_StepRun = 0;
+					gWs_Loop_Seq = 54;
+				}
+			break;
+
+			case 54:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Cycle!=0)	gWs_Loop_Seq = 80;
+				else							gWs_Loop_Seq = 90;
+			break;
+		//------------------------------------------------------------//
+		// Wait
+		//------------------------------------------------------------//
+			case 80:	// Wait Start
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gWs_Seq_Old = gWs_Seq_Cur;
+				gWs_Seq_Cur = cPos_Wt;
+
+				gWs_Wait_Sta = cSeqSta_Idl;
+				gWs_Wait_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_WsWtSrt, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+				gWs_SeqBuf_Cur = cSeqBuf_WsWtSrt;
+
+//				gWs_Seq_Old = gWs_Seq_Cur;
+//				gWs_Seq_Cur = cPos_Wt;
+
+				gWs_Loop_Seq = 81;
+			break;
+
+			case 81:	// Wait Finish
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_Wait_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_WsWtEnd, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+					gWs_SeqBuf_Cur = cSeqBuf_WsWtEnd;
+					gWs_SeqBuf_Old = cSeqBuf_WsWtEnd & $3FFF;
+					gWs_Loop_Seq = 82;
+				}
+				else if(gWs_Wait_Sta==cSeqSta_Err)
+				{
+					gWs_Loop_Sta = cSeqSta_Err;
+					gWs_Loop_Seq = 0;
+					gWs_Loop_Ena = 0;
+				}
+			break;
+
+			case 82:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gWs_Loop_Seq = 83;
+				else							gWs_Loop_Seq = 84;
+			break;
+
+			case 83:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				if(gWs_StepRun==1)
+				{
+					gWs_StepRun = 0;
+					gWs_Loop_Seq = 84;
+				}
+			break;
+
+			case 84:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				gWs_Loop_Seq = 90;
+			break;
+		//------------------------------------------------------------//
+		// Complete
+		//------------------------------------------------------------//
+			case 90:
+				gWs_Loop_Buf = gWs_Loop_Seq;
+				
+				gWs_Loop_Time = Sys.Time - gWs_Loop_TimeBuf;
+				if(gMc_RunOpt&cRunOpt_Cycle!=0)
+				{
+					gWs_Loop_Sta = cSeqSta_Fin;
+					gWs_Loop_Seq = 0;
+					gWs_Loop_Ena = 0;
+				}
+				else
+				{
+					gWs_Loop_Seq = 1;
+				}
+			break;
+
+			default:
+				gWs_Loop_Err = -1;
+				gWs_Loop_Sta = cSeqSta_Err;
+				gWs_Loop_Seq = 0;
+				gWs_Loop_Ena = 0;
+			break;
+		}
+	}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Vision Stage Sequence Loop
+////////////////////////////////////////////////////////////////////////////////////////////////////
+	if(gVs_Loop_Ena==1)
+	{
+		switch(gVs_Loop_Seq)
+		{
+		//------------------------------------------------------------//
+		// Befor Loading  Wait
+		//------------------------------------------------------------//
+			case 1:		// Wait Start
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gVs_Seq_Old = gVs_Seq_Cur;
+				gVs_Seq_Cur = cPos_Wt;
+
+				gVs_Wait_Sta = cSeqSta_Idl;
+				gVs_Wait_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_VsWtSrt, gVs_SeqBuf_Old, 0, gWs_Ready_VsnJudge, 0);	// 251230 수정
+				gVs_SeqBuf_Cur = cSeqBuf_VsWtSrt
+
+//				gVs_Seq_Old = gVs_Seq_Cur;
+//				gVs_Seq_Cur = cPos_Wt;
+
+				gVs_Loop_Seq = 2;
+			break;
+
+			case 2:		// Wait Finish
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_Wait_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_VsWtEnd, gVs_SeqBuf_Old, 0, gWs_Ready_VsnJudge, 0);	// 251230 수정
+					gVs_SeqBuf_Cur = cSeqBuf_VsWtEnd;
+					gVs_SeqBuf_Old = cSeqBuf_VsWtEnd & $3FFF;
+					gVs_Loop_Seq = 3;
+				}
+				else if(gVs_Wait_Sta==cSeqSta_Err)
+				{
+					gVs_Loop_Sta = cSeqSta_Err;
+					gVs_Loop_Seq = 0;
+					gVs_Loop_Ena = 0;
+				}
+			break;
+
+			case 3:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gVs_Loop_Seq = 4;
+				else							gVs_Loop_Seq = 5;
+			break;
+
+			case 4:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_StepRun==1)
+				{
+					gVs_StepRun = 0;
+					gVs_Loop_Seq = 5;
+				}
+			break;
+
+			case 5:		// Load Crash Judge
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gTr_Sta_Pdt!=cPdtSta_Blk && gWs_Seq_Cur!=cPos_Ud && Motor[nwX].DesVel<=0)
+				{
+					if(abs(Motor[nwX].DesVel) > abs(Motor[nvX].DesVel))
+					{
+						if(Motor[nwX].JogSpeed >= Motor[nvX].JogSpeed)
+						{
+							gVs_Loop_Seq = 10;
+						}
+					}
+					else if(pUmem_Sta_CmdPos(nwX)<=pUmem_Cmd_Ws_WtPosX)
+					{
+						gVs_Loop_Seq = 10;
+					}
+				}
+			break;
+		//------------------------------------------------------------//
+		// Load
+		//------------------------------------------------------------//
+			case 10:	// Load Start
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gVs_Seq_Old = gVs_Seq_Cur;
+				gVs_Seq_Cur = cPos_Ld;
+
+				gVs_Loop_TimeBuf = Sys.Time;
+				gVs_Load_Sta = cSeqSta_Idl;
+				gVs_Load_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_VsLdSrt, gVs_SeqBuf_Old, 0, gWs_Ready_VsnJudge, 0);	// 251230 수정
+				gVs_SeqBuf_Cur = cSeqBuf_VsLdSrt
+
+//				gVs_Seq_Old = gVs_Seq_Cur;
+//				gVs_Seq_Cur = cPos_Ld;
+
+				gVs_Loop_Seq = 11;
+			break;
+
+			case 11:	// Load Finish
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_Load_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_VsLdEnd, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+					gVs_SeqBuf_Cur = cSeqBuf_VsLdEnd;
+					gVs_SeqBuf_Old = cSeqBuf_VsLdEnd & $3FFF;
+					gVs_Loop_Seq = 12;
+				}
+				else if(gVs_Load_Sta==cSeqSta_Err)
+				{
+					gVs_Loop_Sta = cSeqSta_Err;
+					gVs_Loop_Seq = 0;
+					gVs_Loop_Ena = 0;
+				}
+			break;
+
+			case 12:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gVs_Loop_Seq = 13;
+				else							gVs_Loop_Seq = 14;
+			break;
+
+			case 13:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_StepRun==1)
+				{
+					gVs_StepRun = 0;
+					gVs_Loop_Seq = 14;
+				}
+			break;
+
+			case 14:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_Sta_Pdt==cPdtSta_Bvn)		gVs_Loop_Seq = 30;
+				else if(gVs_Sta_Pdt==cPdtSta_Avn)	gVs_Loop_Seq = 50;
+				else if(gVs_Sta_Pdt==cPdtSta_Err)	gVs_Loop_Seq = 60;
+			break;
+		//------------------------------------------------------------//
+		// After Loading  Wait
+		//------------------------------------------------------------//
+			case 20:		// Wait Start
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gVs_Seq_Old = gVs_Seq_Cur;
+				gVs_Seq_Cur = cPos_Wt;
+
+				gVs_Wait_Sta = cSeqSta_Idl;
+				gVs_Wait_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_VsWtSrt, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+				gVs_SeqBuf_Cur = cSeqBuf_VsWtSrt
+
+//				gVs_Seq_Old = gVs_Seq_Cur;
+//				gVs_Seq_Cur = cPos_Wt;
+
+				gVs_Loop_Seq = 21;
+			break;
+
+			case 21:		// Wait Finish
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_Wait_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_VsWtEnd, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+					gVs_SeqBuf_Cur = cSeqBuf_VsWtEnd;
+					gVs_SeqBuf_Old = cSeqBuf_VsWtEnd & $3FFF;
+					gVs_Loop_Seq = 22;
+				}
+				else if(gVs_Wait_Sta==cSeqSta_Err)
+				{
+					gVs_Loop_Sta = cSeqSta_Err;
+					gVs_Loop_Seq = 0;
+					gVs_Loop_Ena = 0;
+				}
+			break;
+
+			case 22:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gVs_Loop_Seq = 23;
+				else							gVs_Loop_Seq = 24;
+			break;
+
+			case 23:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_StepRun==1)
+				{
+					gVs_StepRun = 0;
+					gVs_Loop_Seq = 24;
+				}
+			break;
+
+			case 24:		// Load Crash Judge
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				//20260102 KJH - 제품이 있을때만 움직이도록 하면 Vision Stage에 제품 있을 경우 처리 하지 못하는 경우가 발생 되어 수정.
+				//if(gTr_Sta_Pdt!=cPdtSta_Blk && gWs_Seq_Cur!=cPos_Ud && Motor[nwX].DesVel<=0)
+				if(gWs_Seq_Cur!=cPos_Ud && Motor[nwX].DesVel<=0)
+				{
+					if(abs(Motor[nwX].DesVel) > abs(Motor[nvX].DesVel))
+					{
+						if(Motor[nwX].JogSpeed >= Motor[nvX].JogSpeed)
+						{
+							gVs_Loop_Seq = 30;
+						}
+					}
+					else if(pUmem_Sta_CmdPos(nwX)<=pUmem_Cmd_Ws_WtPosX)
+					{
+						gVs_Loop_Seq = 30;
+					}
+				}
+			break;
+		//------------------------------------------------------------//
+		// Ready
+		//------------------------------------------------------------//
+			case 30:	// Ready Start
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gVs_Seq_Old = gVs_Seq_Cur;
+				gVs_Seq_Cur = cPos_Rd;
+
+				gVs_Ready_Sta = cSeqSta_Idl;
+				gVs_Ready_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_VsRdSrt, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+				gVs_SeqBuf_Cur = cSeqBuf_VsRdSrt
+
+//				gVs_Seq_Old = gVs_Seq_Cur;
+//				gVs_Seq_Cur = cPos_Rd;
+
+				gVs_Loop_Seq = 31;
+			break;
+
+			case 31:	// Ready Finish
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_Ready_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_VsRdEnd, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+					gVs_SeqBuf_Cur = cSeqBuf_VsRdEnd;
+					gVs_SeqBuf_Old = cSeqBuf_VsRdEnd & $3FFF;
+					gVs_Loop_Seq = 32;
+				}
+				else if(gVs_Ready_Sta==cSeqSta_Err)
+				{
+					gVs_Loop_Sta = cSeqSta_Err;
+					gVs_Loop_Seq = 0;
+					gVs_Loop_Ena = 0;
+				}
+			break;
+
+			case 32:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gVs_Loop_Seq = 33;
+				else							gVs_Loop_Seq = 34;
+			break;
+
+			case 33:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_StepRun==1)
+				{
+					gVs_StepRun = 0;
+					gVs_Loop_Seq = 34;
+				}
+			break;
+
+			case 34:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				gVs_Loop_Seq = 40;
+			break;
+		//------------------------------------------------------------//
+		// Vision
+		//------------------------------------------------------------//
+			case 40:	// Vision Start
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gVs_Seq_Old = gVs_Seq_Cur;
+				gVs_Seq_Cur = cPos_Vn;
+
+				gVs_Vision_Sta = cSeqSta_Idl;
+				gVs_Vision_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_VsVnSrt, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
+				gVs_SeqBuf_Cur = cSeqBuf_VsVnSrt
+
+//				gVs_Seq_Old = gVs_Seq_Cur;
+//				gVs_Seq_Cur = cPos_Vn;
+
+				gVs_Loop_Seq = 41;
+			break;
+
+			case 41:	// Vision Finish
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_Vision_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_VsVnEnd, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, gVs_Vision_VsnJudge);	// 251230 수정
+					gVs_SeqBuf_Cur = cSeqBuf_VsVnEnd;
+					gVs_SeqBuf_Old = cSeqBuf_VsVnEnd & $3FFF;
+					gVs_Loop_Seq = 42;
+				}
+				else if(gVs_Vision_Sta==cSeqSta_Err)
+				{
+					gVs_Loop_Sta = cSeqSta_Err;
+					gVs_Loop_Seq = 0;
+					gVs_Loop_Ena = 0;
+				}
+			break;
+			
+//			case 42:		// Wait Start
+//				gVs_Loop_Buf = gVs_Loop_Seq;
+//				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+//				//시간차로 Crash 알람 현상 발생.
+//				gVs_Seq_Old = gVs_Seq_Cur;
+//				gVs_Seq_Cur = cPos_Wt;
+
+//				gVs_Wait_Sta = cSeqSta_Idl;
+//				gVs_Wait_Start = 1;
+//				call spSetSeqBufQ(cSeqBuf_VsWtSrt, gVs_SeqBuf_Old, 0, gWs_Ready_VsnJudge, 0);	// 251230 수정
+//				gVs_SeqBuf_Cur = cSeqBuf_VsWtSrt
+
+////				gVs_Seq_Old = gVs_Seq_Cur;
+////				gVs_Seq_Cur = cPos_Wt;
+
+//				gVs_Loop_Seq = 43;
+//			break;
+
+//			case 43:		// Wait Finish
+//				gVs_Loop_Buf = gVs_Loop_Seq;
+//				if(gVs_Wait_Sta==cSeqSta_Fin)
+//				{
+//					call spSetSeqBufQ(cSeqBuf_VsWtEnd, gVs_SeqBuf_Old, 0, gWs_Ready_VsnJudge, 0);	// 251230 수정
+//					gVs_SeqBuf_Cur = cSeqBuf_VsWtEnd;
+//					gVs_SeqBuf_Old = cSeqBuf_VsWtEnd & $3FFF;
+//					gVs_Loop_Seq = 44;
+//				}
+//				else if(gVs_Wait_Sta==cSeqSta_Err)
+//				{
+//					gVs_Loop_Sta = cSeqSta_Err;
+//					gVs_Loop_Seq = 0;
+//					gVs_Loop_Ena = 0;
+//				}
+//			break;
+
+			case 42:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gVs_Loop_Seq = 43;
+				else							gVs_Loop_Seq = 50;
+			break;
+
+			case 43:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_StepRun==1)
+				{
+					gVs_StepRun = 0;
+					gVs_Loop_Seq = 50;
+				}
+			break;
+
+//			case 44:	// Vision Resul Judge
+//				gVs_Loop_Buf = gVs_Loop_Seq;
+				//if(gVs_PostVisionED_Sta == cSeqSta_Fin)	//20260123 KJH - TactTime 작업.
+//				{
+//					gVs_Loop_Seq = 50;		// To Unload
+
+//					if(gVs_Vision_VsnJudge==cVsnJudge_Ok)
+//					{
+//						gVs_Loop_Seq = 50;		// To Unload
+//					}
+//					else
+//					{
+//						gVs_Loop_Seq = 60;		// To Reject
+//					}
+//				}
+//			break;
+
+		//------------------------------------------------------------//
+		// Unload
+		//------------------------------------------------------------//
+			case 50:	// Unload Start
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gVs_Seq_Old = gVs_Seq_Cur;
+				gVs_Seq_Cur = cPos_Ud;
+
+				gVs_Unload_Sta = cSeqSta_Idl;
+				gVs_Unload_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_VsUdSrt, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, gVs_Vision_VsnJudge);	// 251230 수정
+				gVs_SeqBuf_Cur = cSeqBuf_VsUdSrt
+
+//				gVs_Seq_Old = gVs_Seq_Cur;
+//				gVs_Seq_Cur = cPos_Ud;
+
+				gVs_Loop_Seq = 51;
+			break;
+
+			case 51:	// Unload Finish
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_Unload_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_VsUdEnd, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, gVs_Vision_VsnJudge);	// 251230 수정
+					gVs_PdtNo = 0;	//251230 추가
+
+					gVs_SeqBuf_Cur = cSeqBuf_VsUdEnd;
+					gVs_SeqBuf_Old = cSeqBuf_VsUdEnd & $3FFF;
+					gVs_Loop_Seq = 52;
+				}
+				else if(gVs_Unload_Sta==cSeqSta_Err)
+				{
+					gVs_Loop_Sta = cSeqSta_Err;
+					gVs_Loop_Seq = 0;
+					gVs_Loop_Ena = 0;
+				}
+			break;
+
+			case 52:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gVs_Loop_Seq = 53;
+				else							gVs_Loop_Seq = 54;
+			break;
+
+			case 53:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_StepRun==1)
+				{
+					gVs_StepRun = 0;
+					gVs_Loop_Seq = 54;
+				}
+			break;
+
+			case 54:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				gVs_Loop_Seq = 90;
+			break;
+		//------------------------------------------------------------//
+		// Reject
+		//------------------------------------------------------------//
+			case 60:	// Reject Start
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				//20260113 KJH - 현재 진행 위치를 나중에 변경 하게 되면 Welding Stage Unloading 위치로 먼저 움직이게 되었을때 
+				//시간차로 Crash 알람 현상 발생.
+				gVs_Seq_Old = gVs_Seq_Cur;
+				gVs_Seq_Cur = cPos_Rj;
+
+				gVs_Reject_Sta = cSeqSta_Idl;
+				gVs_Reject_Start = 1;
+				call spSetSeqBufQ(cSeqBuf_VsRjSrt, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, gVs_Vision_VsnJudge);	// 251230 수정
+				gVs_SeqBuf_Cur = cSeqBuf_VsRjSrt
+
+//				gVs_Seq_Old = gVs_Seq_Cur;
+//				gVs_Seq_Cur = cPos_Rj;
+
+				gVs_Loop_Seq = 61;
+			break;
+
+			case 61:	// Reject Finish
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_Reject_Sta==cSeqSta_Fin)
+				{
+					call spSetSeqBufQ(cSeqBuf_VsRjEnd, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, gVs_Vision_VsnJudge);	// 251230 수정
+					gVs_PdtNo = 0;	//251230 추가
+
+					gVs_SeqBuf_Cur = cSeqBuf_VsRjEnd;
+					gVs_SeqBuf_Old = cSeqBuf_VsRjEnd & $3FFF;
+					gVs_Loop_Seq = 62;
+				}
+				else if(gVs_Reject_Sta==cSeqSta_Err)
+				{
+					gVs_Loop_Sta = cSeqSta_Err;
+					gVs_Loop_Seq = 0;
+					gVs_Loop_Ena = 0;
+				}
+			break;
+
+			case 62:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Step!=0)	gVs_Loop_Seq = 63;
+				else							gVs_Loop_Seq = 64;
+			break;
+
+			case 63:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gVs_StepRun==1)
+				{
+					gVs_StepRun = 0;
+					gVs_Loop_Seq = 64;
+				}
+			break;
+
+			case 64:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				gVs_Loop_Seq = 90;
+			break;
+		//------------------------------------------------------------//
+		// Complete
+		//------------------------------------------------------------//
+			case 90:
+				gVs_Loop_Buf = gVs_Loop_Seq;
+				if(gMc_RunOpt&cRunOpt_Cycle!=0)
+				{
+					gVs_Loop_Sta = cSeqSta_Fin;
+					gVs_Loop_Time = Sys.Time - gVs_Loop_TimeBuf;
+					gVs_Loop_Seq = 0;
+					gVs_Loop_Ena = 0;
+				}
+				else
+				{
+					gVs_Loop_Time = Sys.Time - gVs_Loop_TimeBuf;
+					gVs_Loop_Seq = 1;
+				}
+			break;
+
+			default:
+				gVs_Loop_Err = -1;
+				gVs_Loop_Seq = cSeqSta_Err;
+				gVs_Loop_Seq = 0;
+				gVs_Loop_Ena = 0;
+			break;
+		}
+	}
+close
+

@@ -1,0 +1,36 @@
+//######################################################################################################
+// PLC 00 : RTI PLC
+//######################################################################################################
+
+
+open plc 0
+	local ret;
+
+	ret = CfromScript(cFncRti,nwX,nwY,nwC,nvX,nvY,nvC);
+
+	if(Motor[nsX].AmpEna==0 && gSc_InitSta==0)	// Stop Scanner Command Position Send when Servo Off
+	{
+		Motor[nsX].pDac = Sys.Udata[0].a;
+	}
+	else
+	{
+		Motor[nsX].pDac = Gate3[1].Chan[0].Dac[0].a
+	}
+
+	if(Motor[nsY].AmpEna==0 && gSc_InitSta==0)
+	{
+		Motor[nsY].pDac = Sys.Udata[0].a;
+	}
+	else
+	{
+		Motor[nsY].pDac = Gate3[1].Chan[1].Dac[0].a
+	}
+
+	if(gVs_EquEna==1)		// Count Equ(Trigger) Output (Counting Available Upto ServoFrq/2, But Trigger is Vailed Higher Frq Upto 15Mhz)
+	{
+		gVs_EquSta_Cur = Gate3[0].Chan[3].Equ;
+		if(gVs_EquSta_Cur==1 && gVs_EquSta_Old==0)	gVs_EquCnt++;
+		gVs_EquSta_Old = gVs_EquSta_Cur;
+	}
+close
+	

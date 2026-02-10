@@ -1,0 +1,14 @@
+
+
+open subprog spAbortVsLoop
+	gVs_Load_Abort = 1;			// Abort Load Sequence
+	gVs_Ready_Abort = 1;		// Abort Ready Sequence
+	gVs_Vision_Abort = 1;		// Abort Vision Sequence
+	gVs_Wait_Abort = 1;			// Abort Wait Sequence
+	gVs_Unload_Abort = 1;		// Abort Unload Sequence
+	gVs_Reject_Abort = 1;		// Abort Reject Sequence
+
+	if(gVs_Loop_Sta!=cSeqSta_Err)	gVs_Loop_Sta = cSeqSta_Idl;		// Clear Sequence Status Except Error
+	gVs_Loop_Seq = 0;			// Clear Sequence Number
+	gVs_Loop_Ena = 0;			// Disable Sequence
+close

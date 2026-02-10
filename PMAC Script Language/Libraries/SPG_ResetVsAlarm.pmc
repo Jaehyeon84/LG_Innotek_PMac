@@ -1,0 +1,47 @@
+
+
+open subprog spResetVsAlarm
+	// Reset EtherCat Amp Alaram : 6040.Bit7 Trigger
+	pEcat_AlarmReset(nvX) = 1;
+	pEcat_AlarmReset(nvY) = 1;
+	pEcat_AlarmReset(nvC) = 1;
+	call Timer.msec(10)
+
+	pEcat_AlarmReset(nvX) = 0;
+	pEcat_AlarmReset(nvY) = 0;
+	pEcat_AlarmReset(nvC) = 0;
+
+	// Error Status Clear
+	if(gVs_Home_Sta==cHomeSta_Err)				gVs_Home_Sta	  = cHomeSta_Idl;
+	if(gVs_Safety_Sta==cSafetySta_Err)			gVs_Safety_Sta	  = cHomeSta_Idl;
+	if(gMt_Home_Sta(nvX)==cHomeSta_Err)			gMt_Home_Sta(nvX) = cHomeSta_Idl;
+	if(gMt_Home_Sta(nvY)==cHomeSta_Err)			gMt_Home_Sta(nvY) = cHomeSta_Idl;
+	if(gMt_Home_Sta(nvC)==cHomeSta_Err)			gMt_Home_Sta(nvC) = cHomeSta_Idl;
+	if(gVs_Home_Sta!=cHomeSta_Fin)				gMc_Home_Sta	  = cHomeSta_Idl;
+
+	if(gVs_Loop_Sta==cSeqSta_Err)				gVs_Loop_Sta	= cSeqSta_Idl;
+	if(gVs_Load_Sta==cSeqSta_Err)				gVs_Load_Sta	= cSeqSta_Idl;
+	if(gVs_Ready_Sta==cSeqSta_Err)				gVs_Ready_Sta	= cSeqSta_Idl;
+	if(gVs_Vision_Sta==cSeqSta_Err)				gVs_Vision_Sta	= cSeqSta_Idl;
+	if(gVs_Wait_Sta==cSeqSta_Err)				gVs_Wait_Sta	= cSeqSta_Idl;
+	if(gVs_Unload_Sta==cSeqSta_Err)				gVs_Unload_Sta	= cSeqSta_Idl;
+	if(gVs_Reject_Sta==cSeqSta_Err)				gVs_Reject_Sta	= cSeqSta_Idl;
+
+	//해제 되지 않는 현상이 발생 되어 초기화 해주는 코드 추가.
+	//Welding Program 수정 후에 삭제 가능. 
+	//Request와 분리한 이유는 어느 부분에서 문제 생겼는지 확인 후에 클리어 하기 위에 여기에 추가.
+	if(gVs_Reject_Ena!=1)					pUmem_Cmd_Vs_3rdTransRjRsp = cPcRep_Idl;
+	if(gVs_Unload_Ena!=1)					pUmem_Cmd_Vs_3rdTransUdRsp = cPcRep_Idl;
+	if(gVs_Reject_Ena!=1)					pUmem_Cmd_Vs_3rdTransRjRsp = cPcRep_Idl;
+	if(gVs_Vision_Ena!=1){					pUmem_Cmd_Vs_3DVisionStRsp = cPcRep_Idl;
+								pUmem_Cmd_Vs_3DVisionEdRsp = cPcRep_Idl;}
+
+	gVs_Seq_Err = 0;
+	gVs_Error = 0;
+
+	if(gVs_Error_Old == 1)					gVs_Error_Old = 0;
+	else							gVs_Error_Old = 1;
+close
+
+
+

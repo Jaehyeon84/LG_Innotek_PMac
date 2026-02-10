@@ -1,0 +1,63 @@
+open subprog spInitScanner(sx_num, sy_num)
+	local home_cx, home_cy;
+	local home_mx, home_my;
+
+	gSc_InitSta = 1;
+
+	Motor[sx_num].pDac =Sys.Udata[0].a;		// Change Dac Output Address
+	Motor[sy_num].pDac =Sys.Udata[0].a;
+
+	Gate3[1].Chan[0].Dac[0]=0;				// Scanner Cmd Pos = 0
+	Gate3[1].Chan[1].Dac[0]=0;
+	call Timer.msec(200)
+
+	Gate3[1].SerialEncCtrl=$8E800			// Bit 15..13 = 111 : Gate3[i].Chan[j].Dac[0] Control Command Data
+	Gate3[1].Chan[0].Dac[0]=-2063532032;	// $85010000 : Origin Command
+	Gate3[1].Chan[1].Dac[0]=-2063532032;
+	call Timer.msec(200)
+
+	Gate3[1].Chan[0].Dac[0]=0;				// Scanner Cmd Pos = 0
+	Gate3[1].Chan[1].Dac[0]=0;
+	Motor[sx_num].pDac=Gate3[1].Chan[0].Dac[0].a	// Assign DAC Address to GC2100
+	Motor[sy_num].pDac=Gate3[1].Chan[1].Dac[0].a
+	Gate3[1].SerialEncCtrl=$82800			// Bit 15..13 = 001 : Command Position Data
+	call Timer.msec(200)
+	
+	disable 2								// Kill Coord 2
+	call Timer.msec(200)
+
+	EncTable[sx_num].ScaleFactor=0			// Prohibit Position Update (Change Cmd Position)
+	EncTable[sy_num].ScaleFactor=0
+	Motor[sx_num].HomePos=0
+	Motor[sy_num].HomePos=0
+	Motor[sx_num].Pos=0						// Make Current Position to Zero
+	Motor[sy_num].Pos=0
+	call Timer.msec(200)
+
+	EncTable[sx_num].ScaleFactor=1			// Enable Position Update
+	EncTable[sy_num].ScaleFactor=1
+
+	home_cx = pUmem_Cmd_HomeOffset(sx_num)/1000;	// Read Home Offset
+	home_cy = pUmem_Cmd_HomeOffset(sy_num)/1000;
+	home_mx = atand(home_cx/(gKin_Len1+sqrt(pow(gKin_Len2,2)+pow(home_cy,2))))/gKin_GalvoSfX;	// Change mm to Angle
+	home_my = atand(home_cy/gKin_Len2)/(-gKin_GalvoSfY);
+
+	Motor[sx_num].HomeOffset = -home_mx;	// Set Home Offset
+	Motor[sy_num].HomeOffset = -home_my;
+	call Timer.msec(200)
+
+	Ldata.motor = sx_num
+	homez									// Read Abs Position Include Home Offset
+	Ldata.motor = sy_num
+	homez
+	call Timer.msec(200)
+
+	Ldata.motor = sx_num
+	jog = 0;								// Move to Zero Position
+	Ldata.motor = sy_num
+	jog = 0;
+	call Timer.msec(200)
+
+	gSc_InitSta = 0;
+close
+

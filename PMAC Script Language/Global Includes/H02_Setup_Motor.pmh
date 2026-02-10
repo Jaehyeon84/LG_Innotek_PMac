@@ -1,0 +1,706 @@
+//######################################################################################################
+// Header 02 : Motor Setup
+//######################################################################################################
+
+
+#define cMtrNum		17		// Large Motor No.
+#define cMtrLow		5		// Small Motor No.
+
+//--------------------------------------------------------------------------------//
+// Motor No.
+//--------------------------------------------------------------------------------//
+#define nvS			4		// Vision Slave
+#define nsX			5		// Scanner X
+#define nsY			6		// Scanner Y
+
+#define nwX			9		// Welding X
+#define nwY			10		// Welding Y
+#define nwC			11		// Welding C
+#define nwZ			17		// Welding Z
+
+#define nvX			13		// Vision X
+#define nvY			14		// Vision Y
+#define nvC			15		// Vision C
+//--------------------------------------------------------------------------------//
+// Encoder Conversion Table No.
+//--------------------------------------------------------------------------------//
+#define evS			4		// Vision Trigger PFM
+#define esX			5		// Scanner X
+#define esY			6		// Scanner Y
+#define esM			7		// Welding Vector
+#define evM			8		// Vision Vector
+//--------------------------------------------------------------------------------//
+// Common Setup
+//--------------------------------------------------------------------------------//
+Gate3[0].EncClockDiv = 2
+Gate3[0].PfmClockDiv = 2
+Gate3[0].Chan[2].OutputMode = 15		// Electro Pneumatic Proportional Regulator
+Gate3[0].Chan[3].OutputMode = 15;		// A,B = Laser Out Dac, C = PFM
+
+Motor[nwX].InvAmax = 0.1;				// Motion Prog Acc Limit, 1/Motor[x].InvAmax, ex)0.1 -> 10mu/msec^2
+Motor[nwX].InvDmax = 0.1;				// Motion Prog Dec Limit
+Motor[nwX].InvJmax = 0;					// Motion Prog Jerk Limit
+Motor[nwX].jogTa = 100;					// Jog Ta Time
+Motor[nwX].jogTs = 100;					// Jog Ts Time
+Motor[nwX].JogSpeed = 10;				// Jog Speed
+Motor[nwX].MaxSpeed = 1000;				// Motion Program Max Speed
+Motor[nwX].InPosBand = 10;				// Inposition Range
+
+Motor[nwY].InvAmax = 0.1;
+Motor[nwY].InvDmax = 0.1;
+Motor[nwY].InvJmax = 0;
+Motor[nwY].jogTa = 100;
+Motor[nwY].jogTs = 100;
+Motor[nwY].JogSpeed = 10;
+Motor[nwY].MaxSpeed = 1000;
+Motor[nwY].InPosBand = 10;
+
+Motor[nwC].InvAmax = 0.1;
+Motor[nwC].InvDmax = 0.1;
+Motor[nwC].InvJmax = 0;
+Motor[nwC].jogTa = 100;
+Motor[nwC].jogTs = 100;
+Motor[nwC].JogSpeed = 10;
+Motor[nwC].MaxSpeed = 1000;
+Motor[nwC].InPosBand = 10;
+
+Motor[nwZ].InvAmax = 0.1;
+Motor[nwZ].InvDmax = 0.1;
+Motor[nwZ].InvJmax = 0;
+Motor[nwZ].jogTa = 100;
+Motor[nwZ].jogTs = 100;
+Motor[nwZ].JogSpeed = 5;
+Motor[nwZ].MaxSpeed = 1000;
+Motor[nwZ].InPosBand = 10;
+
+Motor[nvX].InvAmax = 0.1;
+Motor[nvX].InvDmax = 0.1;
+Motor[nvX].InvJmax = 0;
+Motor[nvX].jogTa = 100;
+Motor[nvX].jogTs = 100;
+Motor[nvX].JogSpeed = 10;
+Motor[nvX].MaxSpeed = 1000;
+Motor[nvX].InPosBand = 10;
+
+Motor[nvY].InvAmax = 0.1;
+Motor[nvY].InvDmax = 0.1;
+Motor[nvY].InvJmax = 0;
+Motor[nvY].jogTa = 100;
+Motor[nvY].jogTs = 100;
+Motor[nvY].JogSpeed = 10;
+Motor[nvY].MaxSpeed = 1000;
+Motor[nvY].InPosBand = 10;
+
+Motor[nvC].InvAmax = 0.1;
+Motor[nvC].InvDmax = 0.1;
+Motor[nvC].InvJmax = 0;
+Motor[nvC].jogTa = 100;
+Motor[nvC].jogTs = 100;
+Motor[nvC].JogSpeed = 10;
+Motor[nvC].MaxSpeed = 1000;
+Motor[nvC].InPosBand = 10;
+
+Motor[nsX].InvAMax = 1/EXP2(19);
+Motor[nsX].InvDMax = 1/EXP2(19);
+Motor[nsX].InvJMax = 1/EXP2(19);
+Motor[nsX].jogTa = 100;
+Motor[nsX].jogTs = 100;
+Motor[nsX].JogSpeed = 100;
+Motor[nsX].MaxSpeed = 0;
+Motor[nsX].InPosBand = 50;
+
+Motor[nsY].InvAMax = 1/EXP2(19);
+Motor[nsY].InvDMax = 1/EXP2(19);
+Motor[nsY].InvJMax = 1/EXP2(19);
+Motor[nsY].jogTa = 100;
+Motor[nsY].jogTs = 100;
+Motor[nsY].JogSpeed = 100;
+Motor[nsY].MaxSpeed = 0;
+Motor[nsY].InPosBand = 50;
+
+//--------------------------------------------------------------------------------//
+// Actual Macine Setup
+//--------------------------------------------------------------------------------//
+#if MACHINE_TYPE==1
+	Gate3[1].SerialEncCtrl = $82800			// SL2-100 Enable, CMD Pos Data,
+
+	Motor[nwX].PosSf = 0.05;				// 50nm
+	Motor[nwX].Pos2Sf = 0.05;
+
+	Motor[nwY].PosSf = 0.05;
+	Motor[nwY].Pos2Sf = 0.05;
+
+	Motor[nwC].PosSf = 360000/EXP2(24);		// 24bit/rev
+	Motor[nwC].Pos2Sf = 360000/EXP2(24);
+
+	Motor[nvX].PosSf = 0.05;				// 50nm
+	Motor[nvX].Pos2Sf = 0.05;
+
+	Motor[nvY].PosSf = 0.05;				// 50nm
+	Motor[nvY].Pos2Sf = 0.05;
+
+	Motor[nvC].PosSf = 360000/EXP2(24);		// 24bit/rev
+	Motor[nvC].Pos2Sf = 360000/EXP2(24);
+
+	Motor[nwZ].PosSf = 777/EXP2(23);		// 5000*tand(25)/3
+	Motor[nwZ].Pos2Sf = 777/EXP2(23);
+
+	Motor[nsX].PosSf = 1/EXP2(12);			// EncTable 32Bit, SL2100 Encoder 20Bit -> 12Bit Remove
+	Motor[nsX].Pos2Sf = 1/EXP2(12);
+
+	Motor[nsY].PosSf = 1/EXP2(12);
+	Motor[nsY].Pos2Sf = 1/EXP2(12);
+
+	//--------------------------------------------------------------------------------//
+	// Ethercat Motor Setup
+	//--------------------------------------------------------------------------------//
+	Motor[nwX].FatalFeLimit = 50000;												// Set Large Enough Error For EtherCat Delay
+	Motor[nwX].WarnFeLimit = 40000;              
+	Motor[nwX].pLimits = Slave_1004_MCDLN35BL_60FD_0_Digitalinputs.a;				// Read Limit from PDO 60FD
+	Motor[nwX].LimitBits = 21;														// Check Drive's 60FD Input Address
+	
+	// For Incremental Encoder
+	Motor[nwX].pCaptEna =  Slave_1004_MCDLN35BL_60B8_0_Touchprobefunction.a			// Use Drive's Position Capture Function
+	Motor[nwX].CaptEnaBit = 4;														// Check Drive's 60B8 Bit Fuction
+	Motor[nwX].pCaptFlag = Slave_1004_MCDLN35BL_60B9_0_Touchprobestatus.a;			// Read Capture Status from Drive
+	Motor[nwX].CaptFlagBit = 1;														// Check Drive's 60B9 Bit Fuction
+	Motor[nwX].pCaptPos = Slave_1004_MCDLN35BL_60BA_0_Touchprobepos1posvalue.a;		// Read Capture Position from Drive
+	Motor[nwX].CaptPosLeftShift = 0;
+	Motor[nwX].CaptPosRightShift = 0;
+	
+	// For Absolute Encoder
+	Motor[nwX].pAbsPos = Slave_1004_MCDLN35BL_6064_0_Positionactualvalue.a;			// Read Absolute Position From PDO 6064
+	Motor[nwX].AbsPosFormat = $01002000;											// Signed Intrger, 32Bit, Offset = 0
+	Motor[nwX].AbsPosSF = 0.05;														// 50nm
+
+
+	Motor[nwY].FatalFeLimit = 50000;               
+	Motor[nwY].WarnFeLimit = 40000;              
+	Motor[nwY].pLimits = Slave_1002_MADLN15BL_60FD_0_Digitalinputs.a;
+	Motor[nwY].LimitBits = 21;
+	Motor[nwY].pCaptEna =  Slave_1002_MADLN15BL_60B8_0_Touchprobefunction.a
+	Motor[nwY].CaptEnaBit = 4;
+	Motor[nwY].pCaptFlag = Slave_1002_MADLN15BL_60B9_0_Touchprobestatus.a; 
+	Motor[nwY].CaptFlagBit = 1;
+	Motor[nwY].pCaptPos = Slave_1002_MADLN15BL_60BA_0_Touchprobepos1posvalue.a;
+	Motor[nwY].CaptPosLeftShift = 0;                
+	Motor[nwY].CaptPosRightShift = 0;
+	Motor[nwY].pAbsPos = Slave_1002_MADLN15BL_6064_0_Positionactualvalue.a;
+	Motor[nwY].AbsPosFormat = $01002000;
+	Motor[nwY].AbsPosSF = 0.05;
+
+	Motor[nwC].FatalFeLimit = 50000;               
+	Motor[nwC].WarnFeLimit = 40000;              
+	Motor[nwC].pLimits = 0;//Slave_1003_MADLN15BL_60FD_0_Digitalinputs.a;			// DD Motor Don't have Limit Sensor
+	Motor[nwC].LimitBits = 16;
+	Motor[nwC].pCaptEna =  Slave_1003_MADLN15BL_60B8_0_Touchprobefunction.a
+	Motor[nwC].CaptEnaBit = 4;
+	Motor[nwC].pCaptFlag = Slave_1003_MADLN15BL_60B9_0_Touchprobestatus.a; 
+	Motor[nwC].CaptFlagBit = 1;
+	Motor[nwC].pCaptPos = Slave_1003_MADLN15BL_60BA_0_Touchprobepos1posvalue.a;
+	Motor[nwC].CaptPosLeftShift = 0;                
+	Motor[nwC].CaptPosRightShift = 0;
+	Motor[nwC].pAbsPos = Slave_1003_MADLN15BL_6064_0_Positionactualvalue.a;
+	//Motor[nwC].AbsPosFormat = $01002000;
+	Motor[nwC].AbsPosFormat = $00001800;
+	Motor[nwC].AbsPosSF = 360000/EXP2(24);
+
+	Motor[nvX].FatalFeLimit = 50000;               
+	Motor[nvX].WarnFeLimit = 40000;              
+	Motor[nvX].pLimits = Slave_1008_MCDLN35BL_60FD_0_Digitalinputs.a;
+	Motor[nvX].LimitBits = 21;
+	Motor[nvX].pCaptEna =  Slave_1008_MCDLN35BL_60B8_0_Touchprobefunction.a
+	Motor[nvX].CaptEnaBit = 4;
+	Motor[nvX].pCaptFlag = Slave_1008_MCDLN35BL_60B9_0_Touchprobestatus.a; 
+	Motor[nvX].CaptFlagBit = 1;
+	Motor[nvX].pCaptPos = Slave_1008_MCDLN35BL_60BA_0_Touchprobepos1posvalue.a;
+	Motor[nvX].CaptPosLeftShift = 0;                
+	Motor[nvX].CaptPosRightShift = 0;
+	Motor[nvX].pAbsPos = Slave_1008_MCDLN35BL_6064_0_Positionactualvalue.a;
+	Motor[nvX].AbsPosFormat = $01002000;
+	Motor[nvX].AbsPosSF = 0.05;
+
+	Motor[nvY].FatalFeLimit = 50000;               
+	Motor[nvY].WarnFeLimit = 40000;              
+	Motor[nvY].pLimits = Slave_1006_MADLN15BL_60FD_0_Digitalinputs.a;
+	Motor[nvY].LimitBits = 21;
+	Motor[nvY].pCaptEna =  Slave_1006_MADLN15BL_60B8_0_Touchprobefunction.a
+	Motor[nvY].CaptEnaBit = 4;
+	Motor[nvY].pCaptFlag = Slave_1006_MADLN15BL_60B9_0_Touchprobestatus.a; 
+	Motor[nvY].CaptFlagBit = 1;
+	Motor[nvY].pCaptPos = Slave_1006_MADLN15BL_60BA_0_Touchprobepos1posvalue.a;
+	Motor[nvY].CaptPosLeftShift = 0;                
+	Motor[nvY].CaptPosRightShift = 0;
+	Motor[nvY].pAbsPos = Slave_1006_MADLN15BL_6064_0_Positionactualvalue.a;
+	Motor[nvY].AbsPosFormat = $01002000;
+	Motor[nvY].AbsPosSF = 0.05;
+
+	Motor[nvC].FatalFeLimit = 50000;               
+	Motor[nvC].WarnFeLimit = 40000;              
+	Motor[nvC].pLimits = 0;//Slave_1007_MADLN15BL_60FD_0_Digitalinputs.a;
+	Motor[nvC].LimitBits = 21;
+	Motor[nvC].pCaptEna =  Slave_1007_MADLN15BL_60B8_0_Touchprobefunction.a
+	Motor[nvC].CaptEnaBit = 4;
+	Motor[nvC].pCaptFlag = Slave_1007_MADLN15BL_60B9_0_Touchprobestatus.a; 
+	Motor[nvC].CaptFlagBit = 1;
+	Motor[nvC].pCaptPos = Slave_1007_MADLN15BL_60BA_0_Touchprobepos1posvalue.a;
+	Motor[nvC].CaptPosLeftShift = 0;                
+	Motor[nvC].CaptPosRightShift = 0;
+	Motor[nvC].pAbsPos = Slave_1007_MADLN15BL_6064_0_Positionactualvalue.a;
+	//Motor[nvC].AbsPosFormat = $01002000;
+	Motor[nvC].AbsPosFormat = $00001800;
+	Motor[nvC].AbsPosSF = 360000/EXP2(24);
+
+	Motor[nwZ].FatalFeLimit = 50000;               
+	Motor[nwZ].WarnFeLimit = 40000;              
+	Motor[nwZ].pLimits = Slave_1005_MBDLN25BE_60FD_0_Digitalinputs.a;
+	Motor[nwZ].LimitBits = 21;
+	Motor[nwZ].pCaptEna =  Slave_1005_MBDLN25BE_60B8_0_Touchprobefunction.a
+	Motor[nwZ].CaptEnaBit = 4;
+	Motor[nwZ].pCaptFlag = Slave_1005_MBDLN25BE_60B9_0_Touchprobestatus.a; 
+	Motor[nwZ].CaptFlagBit = 1;
+	Motor[nwZ].pCaptPos = Slave_1005_MBDLN25BE_60BA_0_Touchprobepos1posvalue.a;
+	Motor[nwZ].CaptPosLeftShift = 0;                
+	Motor[nwZ].CaptPosRightShift = 0;
+	Motor[nwZ].pAbsPos = Slave_1005_MBDLN25BE_6064_0_Positionactualvalue.a;
+	Motor[nwZ].AbsPosFormat = $01002000;
+	Motor[nwZ].AbsPosSF = 777/EXP2(23);
+	//--------------------------------------------------------------------------------//
+	// Scanner Galvo Setup
+	//--------------------------------------------------------------------------------//
+	Motor[nsX].Ctrl=Sys.PosCtrl
+	Motor[nsX].pDac = Gate3[1].Chan[0].Dac[0].a	//31..8 : 24Bit CmdPos -> 31..12 : 20Bit Pos, 11..8 : 4bit sub cnt
+	Motor[nsX].pEnc = EncTable[esX].a
+	Motor[nsX].pEnc2 = EncTable[esX].a
+	Motor[nsX].pAmpFault = Gate3[1].Chan[0].SerialEncDataB.a
+	Motor[nsX].AmpFaultBit = 31					// Gate3[i].Chan[j].SerialEncDataB Bit 31 : TxRx_Error
+	Motor[nsX].AmpFaultLevel = 1
+	Motor[nsX].pLimits = 0
+	Motor[nsX].pAbsPos = Gate3[1].Chan[0].SerialEncDataA.a
+	//Motor[nsX].AbsPosFormat = $0100140b		//$aabbccdd : dd(Offset)=12, cc(length)=20, bb=0, aa(type)=01(signed numeric)
+	Motor[nsX].AbsPosFormat = $01002000			//$aabbccdd : dd(Offset)=0, cc(length)=32, bb=0, aa(type)=01(signed numeric)
+	Motor[nsX].AbsPosSf = Motor[nsX].PosSf
+	Motor[nsX].PowerOnMode=4
+	Motor[nsX].FatalFeLimit=0
+	Motor[nsX].WarnFeLimit=0
+	Motor[nsX].ServoCtrl = 1
+
+	Motor[nsY].Ctrl=Sys.PosCtrl
+	Motor[nsY].pDac = Gate3[1].Chan[1].Dac[0].a	//31..8 : 24Bit CmdPos -> 31..12 : 20Bit Pos, 11..8 : 4bit sub cnt
+	Motor[nsY].pEnc = EncTable[esY].a
+	Motor[nsY].pEnc2 = EncTable[esY].a
+	Motor[nsY].pAmpFault = Gate3[1].Chan[1].SerialEncDataB.a
+	Motor[nsY].AmpFaultBit = 31
+	Motor[nsY].AmpFaultLevel = 1
+	Motor[nsY].pLimits = 0
+	Motor[nsY].pAbsPos = Gate3[1].Chan[1].SerialEncDataA.a
+	//Motor[nsY].AbsPosFormat = $0100140b	//$aabbccdd : dd(Offset)=12, cc(length)=20, bb=0, aa(type)=01(signed numeric)
+	Motor[nsY].AbsPosFormat = $01002000		//$aabbccdd : dd(Offset)=0, cc(length)=32, bb=0, aa(type)=01(signed numeric)
+	Motor[nsY].AbsPosSf = Motor[nsY].PosSf
+	Motor[nsY].PowerOnMode=4
+	Motor[nsY].FatalFeLimit=0
+	Motor[nsY].WarnFeLimit=0
+	Motor[nsY].ServoCtrl = 1
+
+	Motor[nsX].MaxSpeed = EXP2(19)
+	Motor[nsX].MaxDac = EXP2(19)
+	Motor[nsX].MaxPos = EXP2(19)-1
+	Motor[nsX].MinPos = -EXP2(19)
+
+	Motor[nsY].MaxSpeed = EXP2(19)
+	Motor[nsY].MaxDac = EXP2(19)
+	Motor[nsY].MaxPos = EXP2(19)-1
+	Motor[nsY].MinPos = -EXP2(19)
+
+	// Motor[x]AbortTa= 0 : Immediately Stop Scanner about Abort command.(If Set Big Value then Galvo Mirror runaway when Abort Status)
+	Motor[nsX].AbortTa = 0
+	Motor[nsX].AbortTs = 0
+
+	Motor[nsY].AbortTa = 0
+	Motor[nsY].AbortTs = 0
+
+	//--------------------------------------------------------------------------------//
+	// Vision Following Slave
+	//--------------------------------------------------------------------------------//
+	Gate3[0].Chan[3].OutFlagD=1
+	Gate3[0].chan[3].packoutdata=0
+	Gate3[0].Chan[3].PackInData=0
+	Gate3[0].Chan[3].PfmWidth=3
+	Gate3[0].Chan[3].OutputMode=15
+	Gate3[0].Chan[3].EncCtrl=8
+	Gate3[0].Chan[3].TimerMode=0
+	Gate3[0].Chan[3].PfmFormat=0
+
+	// Setup PFM Motor for EQU Output
+	// PFM 설정축의 흔들림을 막기 위해 EncTable을 IqCmd로 설정했을 경우
+	// F_out = ServoOut/2^16*F_pfm
+	// EncTable[#].pEnc=Motor[MtrNo].IqCmd.a, 속도 1일 때 Servo Out = Sys.ServoPeriod
+	// F_pfm = 100/100000/2^(Gate3[i].PfmClockDiv)
+	// => F_out = Sys.ServoPeriod/exp2(16)*(100000/exp2(Gate3[i].PfmClockDiv))
+	Motor[nvS].pDac=Gate3[0].Chan[3].Pfm.a
+	Motor[nvS].pEnc=EncTable[evS].a
+	Motor[nvS].pEnc2=EncTable[evS].a
+	Motor[nvS].pAmpFault=0
+	Motor[nvS].pLimits=0
+	Motor[nvS].PosSf=(100/exp2(Gate3[0].PfmClockDiv))/65536*(1000*Sys.ServoPeriod)
+	Motor[nvS].Pos2Sf=(100/exp2(Gate3[0].PfmClockDiv))/65536*(1000*Sys.ServoPeriod)
+	
+	Motor[nvS].Servo.Kp = 1
+	Motor[nvS].Servo.Kvfb = 0
+	Motor[nvS].Servo.Kvff = 0
+	Motor[nvS].Servo.Ki = 0
+	Motor[nvS].Servo.Kaff = 0
+	Motor[nvS].ServoCtrl = 1
+
+	Motor[nvS].pMasterEnc = EncTable[evM].a
+	Motor[nvS].MasterPosSf = 1
+
+//--------------------------------------------------------------------------------//
+// Actual Macine Setup
+//--------------------------------------------------------------------------------//
+#elif MACHINE_TYPE==2
+	Gate3[1].SerialEncCtrl = $80000
+
+	Motor[nwX].PosSf = 10000/EXP2(24);
+	Motor[nwX].Pos2Sf = 10000/EXP2(24);
+
+	Motor[nwY].PosSf = 10000/EXP2(24);
+	Motor[nwY].Pos2Sf = 10000/EXP2(24);
+
+	Motor[nwC].PosSf = 360000/EXP2(24);
+	Motor[nwC].Pos2Sf = 360000/EXP2(24);
+
+	Motor[nvX].PosSf = 10000/EXP2(23);
+	Motor[nvX].Pos2Sf = 10000/EXP2(23);
+
+	Motor[nvY].PosSf = 10000/EXP2(23);
+	Motor[nvY].Pos2Sf = 10000/EXP2(23);
+
+	Motor[nvC].PosSf = 360000/EXP2(23);
+	Motor[nvC].Pos2Sf = 360000/EXP2(23);
+
+	Motor[nsX].PosSf = 1/EXP2(16);
+	Motor[nsX].Pos2Sf = 1/EXP2(16);
+
+	Motor[nsY].PosSf = 1/EXP2(16);
+	Motor[nsY].Pos2Sf = 1/EXP2(16);
+
+	Motor[nwX].HomeOffset = 0;
+	Motor[nwY].HomeOffset = 0;
+	Motor[nwC].HomeOffset = 0;
+
+	Motor[nvX].HomeOffset = 0;
+	Motor[nvY].HomeOffset = 0;
+	Motor[nvC].HomeOffset = 0;
+
+	//--------------------------------------------------------------------------------//
+	// Ethercat Motor Setup
+	//--------------------------------------------------------------------------------//
+	Motor[nwX].FatalFeLimit = 10000;               
+	Motor[nwX].WarnFeLimit = 5000;              
+	Motor[nwX].pLimits = 0.a;
+	Motor[nwX].LimitBits = 21;
+	Motor[nwX].pCaptEna =  Slave_1001_SGD7S_xxxxA0x_CoE_Drive_60B8_0_Touchprobefunction.a
+	Motor[nwX].CaptEnaBit = 4;
+	Motor[nwX].pCaptFlag = Slave_1001_SGD7S_xxxxA0x_CoE_Drive_60B9_0_Touchprobestatus.a; 
+	Motor[nwX].CaptFlagBit = 1;
+	Motor[nwX].pCaptPos = Slave_1001_SGD7S_xxxxA0x_CoE_Drive_60BA_0_Touchprobe1positionvalue.a;
+	Motor[nwX].CaptPosLeftShift = 0;                
+	Motor[nwX].CaptPosRightShift = 0;
+
+	Motor[nwY].FatalFeLimit = 10000;               
+	Motor[nwY].WarnFeLimit = 5000;              
+	Motor[nwY].pLimits = 0.a;
+	Motor[nwY].LimitBits = 21;
+	Motor[nwY].pCaptEna =  Slave_1002_SGD7S_xxxxA0x_CoE_Drive_60B8_0_Touchprobefunction.a
+	Motor[nwY].CaptEnaBit = 4;
+	Motor[nwY].pCaptFlag = Slave_1002_SGD7S_xxxxA0x_CoE_Drive_60B9_0_Touchprobestatus.a; 
+	Motor[nwY].CaptFlagBit = 1;
+	Motor[nwY].pCaptPos = Slave_1002_SGD7S_xxxxA0x_CoE_Drive_60BA_0_Touchprobe1positionvalue.a;
+	Motor[nwY].CaptPosLeftShift = 0;                
+	Motor[nwY].CaptPosRightShift = 0;
+
+	Motor[nwC].FatalFeLimit = 10000;               
+	Motor[nwC].WarnFeLimit = 5000;              
+	Motor[nwC].pLimits = 0;
+	Motor[nwC].LimitBits = 16;
+	Motor[nwC].pCaptEna =  Slave_1003_SGD7S_xxxxA0x_CoE_Drive_60B8_0_Touchprobefunction.a
+	Motor[nwC].CaptEnaBit = 4;
+	Motor[nwC].pCaptFlag = Slave_1003_SGD7S_xxxxA0x_CoE_Drive_60B9_0_Touchprobestatus.a; 
+	Motor[nwC].CaptFlagBit = 1;
+	Motor[nwC].pCaptPos = Slave_1003_SGD7S_xxxxA0x_CoE_Drive_60BA_0_Touchprobe1positionvalue.a;
+	Motor[nwC].CaptPosLeftShift = 0;                
+	Motor[nwC].CaptPosRightShift = 0;
+
+	Motor[nvX].FatalFeLimit = 10000;               
+	Motor[nvX].WarnFeLimit = 5000;              
+	Motor[nvX].pLimits = 0;
+	Motor[nvX].LimitBits = 21;
+	Motor[nvX].pCaptEna =  Slave_1004_R88D_1SN01H_ECT_60B8_0_Touchprobefunction.a
+	Motor[nvX].CaptEnaBit = 4;
+	Motor[nvX].pCaptFlag = Slave_1004_R88D_1SN01H_ECT_60B9_0_Touchprobestatus.a; 
+	Motor[nvX].CaptFlagBit = 1;
+	Motor[nvX].pCaptPos = Slave_1004_R88D_1SN01H_ECT_60BA_0_Touchprobepos1posvalue.a;
+	Motor[nvX].CaptPosLeftShift = 0;                
+	Motor[nvX].CaptPosRightShift = 0;
+
+	Motor[nvY].FatalFeLimit = 10000;               
+	Motor[nvY].WarnFeLimit = 5000;              
+	Motor[nvY].pLimits = 0;
+	Motor[nvY].LimitBits = 21;
+	Motor[nvY].pCaptEna =  Slave_1005_R88D_1SN01H_ECT_60B8_0_Touchprobefunction.a
+	Motor[nvY].CaptEnaBit = 4;
+	Motor[nvY].pCaptFlag = Slave_1005_R88D_1SN01H_ECT_60B9_0_Touchprobestatus.a; 
+	Motor[nvY].CaptFlagBit = 1;
+	Motor[nvY].pCaptPos = Slave_1005_R88D_1SN01H_ECT_60BA_0_Touchprobepos1posvalue.a;
+	Motor[nvY].CaptPosLeftShift = 0;                
+	Motor[nvY].CaptPosRightShift = 0;
+
+	Motor[nvC].FatalFeLimit = 10000;               
+	Motor[nvC].WarnFeLimit = 5000;              
+	Motor[nvC].pLimits = 0;
+	Motor[nvC].LimitBits = 21;
+	Motor[nvC].pCaptEna =  Slave_1006_R88D_1SN01H_ECT_60B8_0_Touchprobefunction.a
+	Motor[nvC].CaptEnaBit = 4;
+	Motor[nvC].pCaptFlag = Slave_1006_R88D_1SN01H_ECT_60B9_0_Touchprobestatus.a; 
+	Motor[nvC].CaptFlagBit = 1;
+	Motor[nvC].pCaptPos = Slave_1006_R88D_1SN01H_ECT_60BA_0_Touchprobepos1posvalue.a;
+	Motor[nvC].CaptPosLeftShift = 0;                
+	Motor[nvC].CaptPosRightShift = 0;
+	//--------------------------------------------------------------------------------//
+	// Scanner Galvo Setup
+	//--------------------------------------------------------------------------------//
+	Motor[nsX].Ctrl=Sys.PosCtrl
+	Motor[nsX].pDac = CK3WGC[1].Chan[0].Dac[0].a
+	Motor[nsX].pEnc = EncTable[esX].a
+	Motor[nsX].pEnc2 = EncTable[esX].a
+	Motor[nsX].pAmpFault = 0
+	Motor[nsX].AmpFaultBit = 31
+	Motor[nsX].AmpFaultLevel = 1
+	Motor[nsX].pLimits = 0
+	Motor[nsX].pAbsPos = 0
+	Motor[nsX].FatalFeLimit=0
+	Motor[nsX].WarnFeLimit=0
+	Motor[nsX].ServoCtrl = 1
+
+	Motor[nsY].Ctrl=Sys.PosCtrl
+	Motor[nsY].pDac = CK3WGC[1].Chan[1].Dac[0].a
+	Motor[nsY].pEnc = EncTable[esY].a
+	Motor[nsY].pEnc2 = EncTable[esY].a
+	Motor[nsY].pAmpFault = 0
+	Motor[nsY].AmpFaultBit = 31
+	Motor[nsY].AmpFaultLevel = 1
+	Motor[nsY].pLimits = 0
+	Motor[nsY].pAbsPos = 0
+	Motor[nsY].FatalFeLimit=0
+	Motor[nsY].WarnFeLimit=0
+	Motor[nsY].ServoCtrl = 1
+
+	Motor[nsX].MaxSpeed = EXP2(15)
+	Motor[nsX].MaxDac = EXP2(15)
+	Motor[nsX].MaxPos = EXP2(15)-1
+	Motor[nsX].MinPos = -EXP2(15)
+
+	Motor[nsY].MaxSpeed = EXP2(15)
+	Motor[nsY].MaxDac = EXP2(15)
+	Motor[nsY].MaxPos = EXP2(15)-1
+	Motor[nsY].MinPos = -EXP2(15)
+
+	// Abort Ta 클 경우 정지시 스캐너 미러 폭주 (리미트를 쳐벼림)
+	Motor[nsX].AbortTa = 0
+	Motor[nsX].AbortTs = 0
+
+	Motor[nsY].AbortTa = 0
+	Motor[nsY].AbortTs = 0
+
+	//--------------------------------------------------------------------------------//
+	// Vision Following Slave
+	//--------------------------------------------------------------------------------//
+	Gate3[0].Chan[3].OutFlagD=1	
+	Gate3[0].chan[3].packoutdata=0
+	Gate3[0].Chan[3].PackInData=0
+	Gate3[0].Chan[3].PfmWidth=3
+	Gate3[0].Chan[3].OutputMode=15
+	Gate3[0].Chan[3].EncCtrl=8
+	Gate3[0].Chan[3].TimerMode=0
+	Gate3[0].Chan[3].PfmFormat=0
+
+	Motor[nvS].pDac=Gate3[0].Chan[3].Pfm.a
+	Motor[nvS].pEnc=EncTable[evS].a
+	Motor[nvS].pEnc2=EncTable[evS].a
+	Motor[nvS].pAmpFault=0
+	Motor[nvS].pLimits=0
+	Motor[nvS].PosSf=(100/exp2(Gate3[0].PfmClockDiv))/65536*(1000*Sys.ServoPeriod)
+	Motor[nvS].Pos2Sf=(100/exp2(Gate3[0].PfmClockDiv))/65536*(1000*Sys.ServoPeriod)
+	
+	Motor[nvS].Servo.Kp = 1
+	Motor[nvS].Servo.Kvfb = 0
+	Motor[nvS].Servo.Kvff = 0
+	Motor[nvS].Servo.Ki = 0
+	Motor[nvS].Servo.Kaff = 0
+	Motor[nvS].ServoCtrl = 1
+
+	Motor[nvS].pMasterEnc = EncTable[evM].a
+	Motor[nvS].MasterPosSf = 1
+//--------------------------------------------------------------------------------//
+// Virtual Axis Setup
+//--------------------------------------------------------------------------------//
+#else
+	Motor[nwX].pDac=Sys.pushm
+	Motor[nwX].Ctrl=Sys.ServoCtrl
+	Motor[nwX].FatalFeLimit=0
+	Motor[nwX].pAmpFault=0
+	Motor[nwX].pAmpEnable=0
+	Motor[nwX].pLimits=0
+	Motor[nwX].PosSf=1
+	Motor[nwX].Pos2Sf=1
+	Motor[nwX].Servo.Kp=1
+	Motor[nwX].Servo.Kvfb=0
+	Motor[nwX].Servo.Kvff=0
+	Motor[nwX].Servo.Ki=0.1
+	Motor[nwX].ServoCtrl=1
+
+	Motor[nwY].pDac=Sys.pushm
+	Motor[nwY].Ctrl=Sys.ServoCtrl
+	Motor[nwY].FatalFeLimit=0
+	Motor[nwY].pAmpFault=0
+	Motor[nwY].pAmpEnable=0
+	Motor[nwY].pLimits=0
+	Motor[nwY].PosSf=1
+	Motor[nwY].Pos2Sf=1
+	Motor[nwY].Servo.Kp=1
+	Motor[nwY].Servo.Kvfb=0
+	Motor[nwY].Servo.Kvff=0
+	Motor[nwY].Servo.Ki=0.1
+	Motor[nwY].ServoCtrl=1
+
+	Motor[nwC].pDac=Sys.pushm
+	Motor[nwC].Ctrl=Sys.ServoCtrl
+	Motor[nwC].FatalFeLimit=0
+	Motor[nwC].pAmpFault=0
+	Motor[nwC].pAmpEnable=0
+	Motor[nwC].pLimits=0
+	Motor[nwC].PosSf=1
+	Motor[nwC].Pos2Sf=1
+	Motor[nwC].Servo.Kp=1
+	Motor[nwC].Servo.Kvfb=0
+	Motor[nwC].Servo.Kvff=0
+	Motor[nwC].Servo.Ki=0.1
+	Motor[nwC].ServoCtrl=1
+
+	Motor[nvX].pDac=Sys.pushm
+	Motor[nvX].Ctrl=Sys.ServoCtrl
+	Motor[nvX].FatalFeLimit=0
+	Motor[nvX].pAmpFault=0
+	Motor[nvX].pAmpEnable=0
+	Motor[nvX].pLimits=0
+	Motor[nvX].PosSf=1
+	Motor[nvX].Pos2Sf=1
+	Motor[nvX].Servo.Kp=1
+	Motor[nvX].Servo.Kvfb=0
+	Motor[nvX].Servo.Kvff=0
+	Motor[nvX].Servo.Ki=0.1
+	Motor[nvX].ServoCtrl=1
+
+	Motor[nvY].pDac=Sys.pushm
+	Motor[nvY].Ctrl=Sys.ServoCtrl
+	Motor[nvY].FatalFeLimit=0
+	Motor[nvY].pAmpFault=0
+	Motor[nvY].pAmpEnable=0
+	Motor[nvY].pLimits=0
+	Motor[nvY].PosSf=1
+	Motor[nvY].Pos2Sf=1
+	Motor[nvY].Servo.Kp=1
+	Motor[nvY].Servo.Kvfb=0
+	Motor[nvY].Servo.Kvff=0
+	Motor[nvY].Servo.Ki=0.1
+	Motor[nvY].ServoCtrl=1
+
+	Motor[nvC].pDac=Sys.pushm
+	Motor[nvC].Ctrl=Sys.ServoCtrl
+	Motor[nvC].FatalFeLimit=0
+	Motor[nvC].pAmpFault=0
+	Motor[nvC].pAmpEnable=0
+	Motor[nvC].pLimits=0
+	Motor[nvC].PosSf=1
+	Motor[nvC].Pos2Sf=1
+	Motor[nvC].Servo.Kp=1
+	Motor[nvC].Servo.Kvfb=0
+	Motor[nvC].Servo.Kvff=0
+	Motor[nvC].Servo.Ki=0.1
+	Motor[nvC].ServoCtrl=1
+
+	Motor[nwZ].pDac=Sys.pushm
+	Motor[nwZ].Ctrl=Sys.ServoCtrl
+	Motor[nwZ].FatalFeLimit=0
+	Motor[nwZ].pAmpFault=0
+	Motor[nwZ].pAmpEnable=0
+	Motor[nwZ].pLimits=0
+	Motor[nwZ].PosSf=1
+	Motor[nwZ].Pos2Sf=1
+	Motor[nwZ].Servo.Kp=1
+	Motor[nwZ].Servo.Kvfb=0
+	Motor[nwZ].Servo.Kvff=0
+	Motor[nwZ].Servo.Ki=0.1
+	Motor[nwZ].ServoCtrl=1
+
+	Motor[nsX].pDac=Sys.pushm
+	Motor[nsX].Ctrl=Sys.ServoCtrl
+	Motor[nsX].FatalFeLimit=0
+	Motor[nsX].pAmpFault=0
+	Motor[nsX].pAmpEnable=0
+	Motor[nsX].pLimits=0
+	Motor[nsX].PosSf=1
+	Motor[nsX].Pos2Sf=1
+	Motor[nsX].Servo.Kp=1
+	Motor[nsX].Servo.Kvfb=0
+	Motor[nsX].Servo.Kvff=0
+	Motor[nsX].Servo.Ki=0.1
+	Motor[nsX].ServoCtrl=1
+
+	Motor[nsY].pDac=Sys.pushm
+	Motor[nsY].Ctrl=Sys.ServoCtrl
+	Motor[nsY].FatalFeLimit=0
+	Motor[nsY].pAmpFault=0
+	Motor[nsY].pAmpEnable=0
+	Motor[nsY].pLimits=0
+	Motor[nsY].PosSf=1
+	Motor[nsY].Pos2Sf=1
+	Motor[nsY].Servo.Kp=1
+	Motor[nsY].Servo.Kvfb=0
+	Motor[nsY].Servo.Kvff=0
+	Motor[nsY].Servo.Ki=0.1
+	Motor[nsY].ServoCtrl=1
+
+	//--------------------------------------------------------------------------------//
+	// Vision Following Slave
+	//--------------------------------------------------------------------------------//
+	Gate3[0].Chan[3].OutFlagD=1	
+	Gate3[0].chan[3].packoutdata=0
+	Gate3[0].Chan[3].PackInData=0
+	Gate3[0].Chan[3].PfmWidth=3
+	Gate3[0].Chan[3].OutputMode=15
+	Gate3[0].Chan[3].EncCtrl=8
+	Gate3[0].Chan[3].TimerMode=0
+	Gate3[0].Chan[3].PfmFormat=0
+
+	// Setup PFM Motor for EQU Output
+	Motor[nvS].pDac=Gate3[0].Chan[3].Pfm.a
+	Motor[nvS].pEnc=EncTable[evS].a
+	Motor[nvS].pEnc2=EncTable[evS].a
+	Motor[nvS].pAmpFault=0
+	Motor[nvS].pLimits=0
+	Motor[nvS].PosSf=(100/exp2(Gate3[0].PfmClockDiv))/65536*(1000*Sys.ServoPeriod)
+	Motor[nvS].Pos2Sf=(100/exp2(Gate3[0].PfmClockDiv))/65536*(1000*Sys.ServoPeriod)
+
+	Motor[nvS].Servo.Kp = 1
+	Motor[nvS].Servo.Kvfb = 0
+	Motor[nvS].Servo.Kvff = 0
+	Motor[nvS].Servo.Ki = 0
+	Motor[nvS].Servo.Kaff = 0
+	Motor[nvS].ServoCtrl = 1
+
+	Motor[nvS].pMasterEnc = EncTable[evM].a
+	Motor[nvS].MasterPosSf = 1
+#endif
+

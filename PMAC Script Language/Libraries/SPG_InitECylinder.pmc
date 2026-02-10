@@ -1,0 +1,13 @@
+
+// 전동 실린더 Do(PMAC->Amp) 초기화
+open subprog spInitEcylinder
+	pEcat_EcldrDo_In0	= 0;
+	pEcat_EcldrDo_In1	= 0;
+	pEcat_EcldrDo_Setup	= 0;
+	pEcat_EcldrDo_Hold	= 0;
+	pEcat_EcldrDo_Drive	= 0;
+	pEcat_EcldrDo_Reset	= 0;
+	pEcat_EcldrDo_Svon	= 0;
+
+	return;
+close

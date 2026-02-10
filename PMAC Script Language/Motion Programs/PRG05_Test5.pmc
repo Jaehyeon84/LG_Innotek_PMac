@@ -1,0 +1,12 @@
+open prog 31
+	abs
+	linear
+	f(gVs_RefVel) ta(0.1) ts(0)
+	frax(c, x, y)
+
+	//Move to start pos. And Speed ///////////////////////
+//	gVs_RefVel=20
+	f(gVs_RefVel) // Pos-init speed
+	x10.500		y18.580		c(0.002) // start pos
+	dwell 0
+close

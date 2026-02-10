@@ -1,0 +1,23 @@
+open prog 3
+
+	abs
+	f(100) ta(0) ts(0)
+
+	linear
+	X0 Y0 C0
+	dwell 0
+	M40
+	M10
+
+	X100	Y0
+	dwell 0
+	X100	Y100
+	dwell 0
+	X0		Y100
+	dwell 0
+	X0		Y0
+	dwell 0
+	M41
+	M11
+close
+

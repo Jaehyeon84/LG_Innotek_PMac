@@ -1,0 +1,127 @@
+//######################################################################################################
+// PLC 05 : Ethercat PLC
+//######################################################################################################
+
+
+open plc 5
+	
+	if(ECAT[0].Slave[0].Online==1 && ECAT[0].Slave[0].State==8)	gEc_Com_Sta(1) = cEcComSta_Ok;
+	else														gEc_Com_Sta(1) = cEcComSta_Ng;
+
+	if(ECAT[0].Slave[1].Online==1 && ECAT[0].Slave[1].State==8)	gEc_Com_Sta(2) = cEcComSta_Ok;
+	else														gEc_Com_Sta(2) = cEcComSta_Ng;
+
+	if(ECAT[0].Slave[2].Online==1 && ECAT[0].Slave[2].State==8)	gEc_Com_Sta(3) = cEcComSta_Ok;
+	else														gEc_Com_Sta(3) = cEcComSta_Ng;
+
+	if(ECAT[0].Slave[3].Online==1 && ECAT[0].Slave[3].State==8)	gEc_Com_Sta(4) = cEcComSta_Ok;
+	else														gEc_Com_Sta(4) = cEcComSta_Ng;
+
+	if(ECAT[0].Slave[4].Online==1 && ECAT[0].Slave[4].State==8)	gEc_Com_Sta(5) = cEcComSta_Ok;
+	else														gEc_Com_Sta(5) = cEcComSta_Ng;
+
+	if(ECAT[0].Slave[5].Online==1 && ECAT[0].Slave[5].State==8)	gEc_Com_Sta(6) = cEcComSta_Ok;
+	else														gEc_Com_Sta(6) = cEcComSta_Ng;
+
+	if(ECAT[0].Slave[6].Online==1 && ECAT[0].Slave[6].State==8)	gEc_Com_Sta(7) = cEcComSta_Ok;
+	else														gEc_Com_Sta(7) = cEcComSta_Ng;
+
+	if(ECAT[0].Slave[7].Online==1 && ECAT[0].Slave[7].State==8)	gEc_Com_Sta(8) = cEcComSta_Ok;
+	else														gEc_Com_Sta(8) = cEcComSta_Ng;
+
+	if(ECAT[0].Slave[8].Online==1 && ECAT[0].Slave[8].State==8)	gEc_Com_Sta(9) = cEcComSta_Ok;
+	else														gEc_Com_Sta(9) = cEcComSta_Ng;
+
+
+	if(gMach_Type==0)
+	{
+		gEc_Com_Sta(0) = cEcComSta_Ok;
+	}
+	else if(gEc_Com_Sta(1)==cEcComSta_Ok && gEc_Com_Sta(2)==cEcComSta_Ok && gEc_Com_Sta(3)==cEcComSta_Ok && gEc_Com_Sta(4)==cEcComSta_Ok && gEc_Com_Sta(5)==cEcComSta_Ok && gEc_Com_Sta(6)==cEcComSta_Ok && gEc_Com_Sta(7)==cEcComSta_Ok && gEc_Com_Sta(8)==cEcComSta_Ok && gEc_Com_Sta(9)==cEcComSta_Ok)
+	{
+		gEc_Com_Sta(0) = cEcComSta_Ok;
+	}
+	else
+	{
+		gEc_Com_Sta(0) = cEcComSta_Ng;
+	}
+
+	if(gEc_Con_Start==1)
+	{
+		gEc_Con_Start = 0;
+		gEc_Con_Sta = cEcCon_Idl;
+		gEc_Con_Seq = 1;
+		gEc_Con_Ena = 1;
+	}
+
+	if(gEc_Con_Ena==1)
+	{
+		switch(gEc_Con_Seq)
+		{
+			case 1:
+				gEc_Con_Buf = 1;
+				gEc_Con_Sta = cEcCon_Ing;
+				if(ECAT[0].MasterReady==1 && ECAT[0].MasterState==2)
+				{
+					gEc_Con_Seq = 3;
+				}
+				else
+				{
+					gEc_Con_Buf = 1;
+					cmd"ecat reset"
+					gEc_Con_Tmr = Sys.Time + 10;
+					gEc_Con_Seq = 2;
+				}
+			break;
+
+			case 2:
+				gEc_Con_Buf = 2;
+				if(Sys.Time>gEc_Con_Tmr)
+				{
+					gEc_Con_Tmr = Sys.Time + 10;
+					gEc_Con_Seq = 3;
+				}
+			break;
+
+			case 3:
+				gEc_Con_Buf = 3;
+				if(ECAT[0].MasterReady==1 && ECAT[0].MasterState==2)
+				{
+					ECAT[0].Enable = 1;
+					gEc_Con_Tmr = Sys.Time + 10;
+					gEc_Con_Seq = 4;
+				}
+
+				if(Sys.Time>gEc_Con_Tmr)
+				{
+					gEc_Con_Sta = cEcCon_Err;
+					gEc_Con_Seq = 0;
+					gEc_Con_Ena = 0;
+				}
+			break;
+
+			case 4:
+				gEc_Con_Buf = 4;
+				if(ECAT[0].Slave[0].Online==1 && ECAT[0].Slave[0].State==8)
+				{
+					gEc_Con_Sta = cEcCon_Fin;
+					gEc_Con_Seq = 0;
+					gEc_Con_Ena = 0;
+				}
+
+				if(Sys.Time>gEc_Con_Tmr)
+				{
+					gEc_Con_Sta = cEcCon_Err;
+					gEc_Con_Seq = 0;
+					gEc_Con_Ena = 0;
+				}
+			break;
+
+			default:
+				gEc_Con_Buf = -1;
+				gEc_Con_Seq = 0;
+				gEc_Con_Ena = 0;
+			break;
+		}
+	}
+close

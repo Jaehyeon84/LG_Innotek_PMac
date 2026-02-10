@@ -1,0 +1,35 @@
+//######################################################################################################
+// Header 00 : System Setup
+//######################################################################################################
+//#define CE				0
+#define TG					1
+
+//#define MACHINE_TYPE		0		// MACHINE_TYPE = 0 : Simmulation Mode
+#define MACHINE_TYPE		1		// MACHINE_TYPE = 1 : Actual Machine
+//#define MACHINE_TYPE		2		// MACHINE_TYPE = 2 : Test Machine
+
+#define CfromScript_Use				// Use CfromScript to Kinematics (To Decrease CPU Load)
+
+#define sg		Gather.Enable=2		// Short Command for Plot Gather Start
+#define eg		Gather.Enable=0		// Short Command for Plot Garher Finish
+
+global gMach_Type;
+
+#if MACHINE_TYPE==0
+	gMach_Type = 0;					// Set gMach_Type = 1 to use simmulation config in source
+	Sys.SimConfigOk = 1;			// This configuration avoids the error caused by HW missmatch. 
+#elif MACHINE_TYPE==1
+	gMach_Type = 1;					// Set gMach_Type = 0 to use actual machine config in source
+#elif MACHINE_TYPE==2
+	gMach_Type = 2;
+#endif
+
+UserAlgo.CFunc = 1;					// It allow call CfromScrit fucntion in background cycle
+Sys.ZeroVelSetPoint = 0.0001;
+Sys.RtIntPeriod = 0;				// Real time interrup period = Sys.RtIntPeriod + 1
+
+Sys.WpKey = $AAAAAAAA;				// Unlock Gate3 variable protection
+
+DART.Enable = 0;
+
+global gTest_Cnt = 0;				// Rti Excute Count

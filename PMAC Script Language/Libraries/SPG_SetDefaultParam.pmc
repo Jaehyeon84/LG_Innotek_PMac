@@ -1,0 +1,152 @@
+
+// Set Default Parameters
+open subprog spSetDefaultParam
+	pUmem_Cmd_Ws_AccLimitX		= 10;
+	pUmem_Cmd_Ws_AccLimitY		= 10;
+	pUmem_Cmd_Ws_AccLimitC		= 10;
+	pUmem_Cmd_Ws_VelLimitC		= 350;
+	pUmem_Cmd_Ws_RotOffsetX		= 0;
+	pUmem_Cmd_Ws_RotOffsetY		= 0;
+	pUmem_Cmd_Ws_ShotTime		= 100;
+
+	pUmem_Cmd_Vs_AccLimitX		= 10;
+	pUmem_Cmd_Vs_AccLimitY		= 10;
+	pUmem_Cmd_Vs_AccLimitC		= 10;
+	pUmem_Cmd_Vs_VelLimitC		= 350;
+	pUmem_Cmd_Vs_RotOffsetX		= 0;
+	pUmem_Cmd_Vs_RotOffsetY		= 0;
+	pUmem_Cmd_Vs_ShotTime		= 100;
+
+	pUmem_Cmd_Ws_OutMode		= 1;
+	pUmem_Cmd_Ws_RefVel			= 40;
+	pUmem_Cmd_Ws_PfmPeriod		= 200;
+	pUmem_Cmd_Ws_PfmOnTime		= 1;
+
+	pUmem_Cmd_Ws_CorePowerSf	= 200;
+	pUmem_Cmd_Ws_CoreRefPower	= 200;
+	pUmem_Cmd_Ws_CoreMinPower	= 0;
+	pUmem_Cmd_Ws_CoreMaxPower	= 1200;
+	pUmem_Cmd_Ws_CorePfmEna		= 1;
+
+	pUmem_Cmd_Ws_RingPowerSf	= 200;
+	pUmem_Cmd_Ws_RingRefPower	= 200;
+	pUmem_Cmd_Ws_RingMinPower	= 0;
+	pUmem_Cmd_Ws_RingMaxPower	= 2000;
+	pUmem_Cmd_Ws_RingPfmEna		= 1;
+
+	pUmem_Cmd_Vs_RefVel			= 25;
+	pUmem_Cmd_Vs_PfmPeriod		= 10;
+	pUmem_Cmd_Vs_PfmDuty		= 5;
+
+	pUmem_Cmd_Sc_WblEna			= 0; //1;
+	pUmem_Cmd_Sc_WblLen			= 500;
+	pUmem_Cmd_Sc_WblDist		= 100;
+	pUmem_Cmd_Sc_WblType		= 0;
+	pUmem_Cmd_Sc_WblRatioW		= 100;
+	pUmem_Cmd_Sc_WblRatioL		= 100;
+	pUmem_Cmd_Sc_WblOffsetX		= 0;
+	pUmem_Cmd_Sc_WblOffsetY		= 0;
+
+	pUmem_Cmd_Ws_LdVelX = gTest_Vel
+	pUmem_Cmd_Ws_LdVelY = gTest_Vel
+	pUmem_Cmd_Ws_LdVelC = 750000
+
+	pUmem_Cmd_Ws_LdPosX = 670000
+	pUmem_Cmd_Ws_LdPosY = 0
+	pUmem_Cmd_Ws_LdPosC = 0
+
+	pUmem_Cmd_Ws_RdVelX = gTest_Vel
+	pUmem_Cmd_Ws_RdVelY = gTest_Vel
+	pUmem_Cmd_Ws_RdVelC = 750000
+
+	pUmem_Cmd_Ws_RdPosX = 0
+	pUmem_Cmd_Ws_RdPosY = 0
+	pUmem_Cmd_Ws_RdPosC = 0
+
+	pUmem_Cmd_Ws_WdVelX = gTest_Vel
+	pUmem_Cmd_Ws_WdVelY = gTest_Vel
+	pUmem_Cmd_Ws_WdVelC = 750000
+
+	pUmem_Cmd_Ws_WdPosX = 0
+	pUmem_Cmd_Ws_WdPosY = 0
+	pUmem_Cmd_Ws_WdPosC = 0
+
+	pUmem_Cmd_Ws_WtVelX = gTest_Vel
+	pUmem_Cmd_Ws_WtVelY = gTest_Vel
+	pUmem_Cmd_Ws_WtVelC = 750000
+
+	pUmem_Cmd_Ws_WtPosX = 800000
+	pUmem_Cmd_Ws_WtPosY = 0
+	pUmem_Cmd_Ws_WtPosC = -90000
+
+	pUmem_Cmd_Ws_UdVelX = gTest_Vel
+	pUmem_Cmd_Ws_UdVelY = gTest_Vel
+	pUmem_Cmd_Ws_UdVelC = 750000
+
+	pUmem_Cmd_Ws_UdPosX = 1326727
+	pUmem_Cmd_Ws_UdPosY = 1477
+	pUmem_Cmd_Ws_UdPosC = -90000
+
+	pUmem_Cmd_Ws_RjVelX = gTest_Vel
+	pUmem_Cmd_Ws_RjVelY = gTest_Vel
+	pUmem_Cmd_Ws_RjVelC = 750000
+
+	pUmem_Cmd_Ws_RjPosX = 0
+	pUmem_Cmd_Ws_RjPosY = 0
+	pUmem_Cmd_Ws_RjPosC = 0
+
+	pUmem_Cmd_Vs_LdVelX = gTest_Vel
+	pUmem_Cmd_Vs_LdVelY = gTest_Vel
+	pUmem_Cmd_Vs_LdVelC = 750000
+
+	pUmem_Cmd_Vs_LdPosX = -234919
+	pUmem_Cmd_Vs_LdPosY = -6564
+	pUmem_Cmd_Vs_LdPosC = -90000
+
+	pUmem_Cmd_Vs_RdVelX = gTest_Vel
+	pUmem_Cmd_Vs_RdVelY = gTest_Vel
+	pUmem_Cmd_Vs_RdVelC = 750000
+
+	pUmem_Cmd_Vs_RdPosX = 0
+	pUmem_Cmd_Vs_RdPosY = 0
+	pUmem_Cmd_Vs_RdPosC = 0
+
+	pUmem_Cmd_Vs_VnVelX = gTest_Vel
+	pUmem_Cmd_Vs_VnVelY = gTest_Vel
+	pUmem_Cmd_Vs_VnVelC = 750000
+
+	pUmem_Cmd_Vs_VnPosX = 0
+	pUmem_Cmd_Vs_VnPosY = 0
+	pUmem_Cmd_Vs_VnPosC = 0
+
+	pUmem_Cmd_Vs_WtVelX = gTest_Vel
+	pUmem_Cmd_Vs_WtVelY = gTest_Vel
+	pUmem_Cmd_Vs_WtVelC = 750000
+
+	pUmem_Cmd_Vs_WtPosX = 300000
+	pUmem_Cmd_Vs_WtPosY = 0
+	pUmem_Cmd_Vs_WtPosC = 0
+
+	pUmem_Cmd_Vs_UdVelX = gTest_Vel
+	pUmem_Cmd_Vs_UdVelY = gTest_Vel
+	pUmem_Cmd_Vs_UdVelC = 750000
+
+	pUmem_Cmd_Vs_UdPosX = 300000
+	pUmem_Cmd_Vs_UdPosY = 0
+	pUmem_Cmd_Vs_UdPosC = 0
+
+	pUmem_Cmd_Vs_RjVelX = gTest_Vel
+	pUmem_Cmd_Vs_RjVelY = gTest_Vel
+	pUmem_Cmd_Vs_RjVelC = 750000
+
+	pUmem_Cmd_Vs_RjPosX = 300000
+	pUmem_Cmd_Vs_RjPosY = 0
+	pUmem_Cmd_Vs_RjPosC = 0
+
+	pUmem_Cmd_Ws_CoverFwdPos = 180		// 251230 추가
+	pUmem_Cmd_Ws_CoverBwdPos = 7500		// 251230 추가
+	return;
+close
+
+
+

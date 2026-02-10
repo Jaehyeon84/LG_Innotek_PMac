@@ -1,0 +1,161 @@
+//######################################################################################################
+// PLC 11 : Jog Move
+//######################################################################################################
+
+
+open plc 11
+	local jog_idx = 0;
+
+	gJog_Idx++;										// Polling Motor Index
+	if(gJog_Idx > cMtrNum)	gJog_Idx = cMtrLow;
+	jog_idx = gJog_Idx;
+
+//--------------------------------------------------------------------------------------------//
+// Basic Jog Move
+//--------------------------------------------------------------------------------------------//
+	if(gMc_ServoOn_Ena==1)
+	{
+		gMc_ServoOn_Ena = 0;
+		jog/ nwX,nwY,nwC,nvX,nvY,nvC,nwZ
+		jog/ nsX
+		jog/ nsY
+	}
+	else if(gMc_ServoOff_Ena==1)
+	{
+		gMc_ServoOff_Ena = 0;
+		if(Coord[1].DesVelZero!=0 || Coord[3].DesVelZero!=0)
+		{
+			abort 1,3
+			call Timer.msec(100)
+		}
+		disable 0..16
+	}
+
+	if(gWs_ServoOn_Ena==1)
+	{
+		gWs_ServoOn_Ena = 0;
+		jog/ nwX,nwY,nwC,nwZ
+	}
+	else if(gWs_ServoOff_Ena==1)
+	{
+		gWs_ServoOff_Ena = 0;
+		if(Coord[1].DesVelZero!=0)
+		{
+			abort 1
+			call Timer.msec(100)
+		}
+		disable 1
+		kill nwZ
+	}
+
+	if(gVs_ServoOn_Ena==1)
+	{
+		gVs_ServoOn_Ena = 0;
+		jog/ nvX,nvY,nvC
+	}
+	else if(gVs_ServoOff_Ena==1)
+	{
+		gVs_ServoOff_Ena = 0;
+		if(Coord[3].DesVelZero!=0)
+		{
+			abort 3
+			call Timer.msec(100)
+		}
+		disable 3
+	}
+
+	if(gSc_ServoOn_Ena==1)
+	{
+		gSc_ServoOn_Ena = 0;
+		jog/ nsX
+		jog/ nsY
+	}
+	else if(gSc_ServoOff_Ena==1)
+	{
+		gSc_ServoOff_Ena = 0;
+		if(Coord[2].DesVelZero!=0)
+		{
+			abort 2
+			call Timer.msec(100)
+		}
+		disable 2
+	}
+
+	if(gMt_ServoOn_Ena(jog_idx)==1)
+	{
+		gMt_ServoOn_Ena(jog_idx) = 0;
+
+		Ldata.motor = jog_idx;
+		jog/
+	}
+	else if(gMt_ServoOff_Ena(jog_idx)==1)
+	{
+		gMt_ServoOff_Ena(jog_idx) = 0;
+
+		if(Motor[jog_idx].DesVel!=0)
+		{
+			Ldata.coord = Motor[jog_idx].Coord;
+			abort
+			call Timer.msec(100)
+		}
+
+		Ldata.motor = jog_idx;
+		kill
+	}
+
+	if(gJog_Stop_Ena(jog_idx)==1)
+	{
+		gJog_Stop_Ena(jog_idx) = 0;
+		Ldata.motor = jog_idx;
+		jog/
+	}
+	else if(gJog_ContPlus_Ena(jog_idx)==1)
+	{
+		gJog_ContPlus_Ena(jog_idx) = 0;
+		Motor[jog_idx].JogSpeed = pUmem_Cmd_JogSpeed(jog_idx)/1000;
+		Motor[jog_idx].JogTa = pUmem_Cmd_JogTa(jog_idx);
+		Motor[jog_idx].JogTs = pUmem_Cmd_JogTs(jog_idx);
+
+		Ldata.motor = jog_idx;
+		jog+
+	}
+	else if(gJog_ContMinus_Ena(jog_idx)==1)
+	{
+		gJog_ContMinus_Ena(jog_idx) = 0;
+		Motor[jog_idx].JogSpeed = pUmem_Cmd_JogSpeed(jog_idx)/1000;
+		Motor[jog_idx].JogTa = pUmem_Cmd_JogTa(jog_idx);
+		Motor[jog_idx].JogTs = pUmem_Cmd_JogTs(jog_idx);
+
+		Ldata.motor = jog_idx;
+		jog-
+	}
+	else if(gJog_AbsMove_Ena(jog_idx)==1)
+	{
+		gJog_AbsMove_Ena(jog_idx) = 0;
+		Motor[jog_idx].JogSpeed = pUmem_Cmd_JogSpeed(jog_idx)/1000;
+		Motor[jog_idx].JogTa = pUmem_Cmd_JogTa(jog_idx);
+		Motor[jog_idx].JogTs = pUmem_Cmd_JogTs(jog_idx);
+		//20260204 KJH -360 Move 관련
+		if(jog_idx == nwC)
+			call spReadWsThPos(nwC, pUmem_Cmd_JogAbsPos(jog_idx), &gWs_ThTargetPos_Old);
+		else if(jog_idx == nvC)
+			call spReadWsThPos(nvC, pUmem_Cmd_JogAbsPos(jog_idx), &gVs_ThTargetPos_Old);
+		else
+			Motor[jog_idx].ProgJogPos = pUmem_Cmd_JogAbsPos(jog_idx);
+
+		Ldata.motor = jog_idx;
+		jog=*
+	}	
+	else if(gJog_IncMove_Ena(jog_idx)==1)
+	{
+		gJog_IncMove_Ena(jog_idx) = 0;
+		Motor[jog_idx].JogSpeed = pUmem_Cmd_JogSpeed(jog_idx)/1000;
+		Motor[jog_idx].JogTa = pUmem_Cmd_JogTa(jog_idx);
+		Motor[jog_idx].JogTs = pUmem_Cmd_JogTs(jog_idx);
+		Motor[jog_idx].ProgJogPos = pUmem_Cmd_JogIncDist(jog_idx);
+
+		Ldata.motor = jog_idx;
+		jog:*
+	}
+close
+

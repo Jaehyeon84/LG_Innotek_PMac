@@ -1,0 +1,13 @@
+
+
+open subprog spAbortVsHome
+	gVs_Loop_Abort = 1;				// Abort Vision Sequence Loop
+
+	gMt_Home_Abort(nvX) = 1;		// Abort Vision Stage X Motor Home
+	gMt_Home_Abort(nvY) = 1;		// Abort Vision Stage Y Motor Home
+	gMt_Home_Abort(nvC) = 1;		// Abort Vision Stage C Motor Home
+
+	gVs_Home_Sta = cHomeSta_Idl;	// Clear Home Sequence Status
+	gVs_Home_Seq = 0;				// Clear Home Sequence Number
+	gVs_Home_Ena = 0;				// Disable Home Sequence
+close

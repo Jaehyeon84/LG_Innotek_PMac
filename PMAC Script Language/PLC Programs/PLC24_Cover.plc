@@ -1,0 +1,1099 @@
+//######################################################################################################
+// PLC 24 : Cover Opne/Close
+//######################################################################################################
+
+
+open plc 24
+/////////////////////////////////////////////////////////////////////////
+// Welding Stage Cover Open
+/////////////////////////////////////////////////////////////////////////
+	if(gWs_CoverOpn_Start==1)
+	{
+		if(gWs_CoverCls_Ena)
+			gWs_CoverCls_Abort = 0;
+
+		gWs_CoverMoving_Sta = 1;
+
+		gWs_CoverOpn_Start = 0;
+		gWs_CoverOpn_Sta = cSeqSta_Idl;
+		gWs_CoverCls_Sta = cSeqSta_Idl;
+		gWs_CoverOpn_Seq = 1;
+		gWs_CoverOpn_Ena = 1;
+
+		gWs_ThCoverPos_Old = 0;
+	}
+
+	if(gWs_CoverOpn_Abort==1)
+	{
+		gWs_CoverOpn_Abort = 0;
+		gWs_CoverOpn_Seq = 0;
+		gWs_CoverOpn_Ena = 0;
+	}
+
+	if(gWs_CoverOpn_Ena)
+	{
+		switch(gWs_CoverOpn_Seq)
+		{
+			case 1:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				gWs_CoverOpn_Sta = cSeqSta_Ing;
+				if(gWs_CldIn_CoverFB==cBwd && gWs_CldIn_CoverUD==cUp)
+				{
+					gWs_CoverOpn_Seq = 90;
+				}
+				else
+				{
+					gWs_CoverOpn_Seq = 10;
+				}
+			break;
+		//------------------------------------------------------//
+			case 10:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				//if(pUmem_Sta_CmdPos(nwC) % 360000 == cWs_Cover_MoveAng)
+				if(pUmem_Sta_CmdPos(nwC) == cWs_Cover_MoveAng)
+				{
+					gWs_CoverOpn_Seq = 20;
+				}
+				else
+				{
+					gWs_CoverOpn_Seq = 11;
+				}
+			break;
+
+
+			case 11:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(Motor[nwC].AmpEna==1)
+				{
+					//20260126 KJH - 최단 거리 Open과 Close 하기 위함.
+//					gPosCBuf = pUmem_Sta_ActPos(nwC) / 360000;
+//					if(gPosCBuf > 0)
+//					{
+//						gPosCBuf = 0 - (pUmem_Sta_ActPos(nwC) % 360000);
+//						if(pUmem_Sta_ActPos(nwC) < 0 )
+//							Motor[nwC].ProgJogPos = pUmem_Sta_ActPos(nwC) + gPosCBuf;
+//						else
+//							Motor[nwC].ProgJogPos = pUmem_Sta_ActPos(nwC) - gPosCBuf;
+//					}
+//					else
+//						Motor[nwC].ProgJogPos = cWs_Cover_MoveAng;
+					call spReadWsThPos(nwC, cWs_Cover_MoveAng, &gWs_ThCoverPos_Old);
+					//gWs_ThCoverPos_Old = Motor[nwC].ProgJogPos;
+					//Motor[nwC].ProgJogPos = cWs_Cover_MoveAng;
+					//Motor[nwC].ProgJogPos = outc_pos;
+
+					//jog nwC =*
+					jog nwC :*
+					gWs_CoverOpn_Tmr = Sys.Time + 0.1;
+					gWs_CoverOpn_Seq = 12;
+				}
+				else
+				{
+					gWs_CoverOpn_Sta = cSeqSta_Err;
+					gWs_CoverOpn_Seq = 0;
+					gWs_CoverOpn_Ena = 0;
+				}
+			break;
+
+			case 12:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(Sys.time > gWs_CoverOpn_Tmr)
+				{
+					gWs_CoverOpn_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gWs_CoverOpn_Seq = 13;
+				}
+			break;
+
+			case 13:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(Motor[nwC].InPos==1)
+				{
+					gWs_CoverOpn_Seq = 20;
+				}
+				if(Sys.time > gWs_CoverOpn_Tmr)
+				{
+					gWs_CoverOpn_Sta = cSeqSta_Err;
+					gWs_CoverOpn_Seq = 0;
+					gWs_CoverOpn_Ena = 0;
+				}
+			break;
+		//------------------------------------------------------//
+			case 20:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(gWs_CldIn_CoverUD==cUp)
+				{
+					gWs_CoverOpn_Seq = 30;
+				}
+				else
+				{
+					pUmem_Do12_WsTbFixDn = 0;
+					pUmem_Do10_WsTbFixUp = 1;
+					gWs_CoverOpn_Tmr = Sys.Time + 0.1;
+					gWs_CoverOpn_Seq = 21;
+				}
+			break;
+
+			case 21:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(Sys.time > gWs_CoverOpn_Tmr)
+				{
+					gWs_CoverOpn_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gWs_CoverOpn_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(gWs_CldIn_CoverUD==cUp)
+				{
+					gWs_CoverOpn_Tmr = Sys.Time + gWs_CldInpos_Delay;
+					gWs_CoverOpn_Seq = 23;
+				}
+				else if(Sys.time > gWs_CoverOpn_Tmr)
+				{
+					gWs_CoverOpn_Sta = cSeqSta_Err;
+					gWs_CoverOpn_Seq = 0;
+					gWs_CoverOpn_Ena = 0;
+				}
+			break;
+
+			case 23:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(Sys.time > gWs_CoverOpn_Tmr)
+				{
+					gWs_CoverOpn_Seq = 30;
+				}
+			break;
+		//------------------------------------------------------//
+			case 30:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(gWs_CldIn_CoverFB==cBwd)
+				{
+					gWs_CoverOpn_Seq = 90;
+				}
+				else
+				{
+					gWs_CoverOpn_Tmr = Sys.Time + 0.1;
+					gWs_CoverOpn_Seq = 31;
+				}
+			break;
+
+			case 31:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(Sys.time > gWs_CoverOpn_Tmr)
+				{
+					gWs_EcldBwd_Sta = cEcldSta_Idl;
+					pUmem_Do30_EcldFwd = 0;
+					pUmem_Do31_EcldBwd = 1;
+					gWs_CoverOpn_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gWs_CoverOpn_Seq = 32;
+				}
+			break;
+
+			case 32:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(gWs_CldIn_CoverFB==cBwd)
+				{
+					gWs_CoverOpn_Tmr = Sys.Time + gWs_CldInpos_Delay;
+					gWs_CoverOpn_Seq = 33;
+				}
+				else if(Sys.time > gWs_CoverOpn_Tmr)
+				{
+					gWs_CoverOpn_Sta = cSeqSta_Err;
+					gWs_CoverOpn_Seq = 0;
+					gWs_CoverOpn_Ena = 0;
+				}
+			break;
+
+			case 33:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				if(Sys.time > gWs_CoverOpn_Tmr)
+				{
+					gWs_CoverOpn_Seq = 90;
+				}
+			break;
+		//------------------------------------------------------//
+			case 90:
+				gWs_CoverOpn_Buf = gWs_CoverOpn_Seq;
+				gWs_CoverOpn_Sta = cSeqSta_Fin;
+				gWs_CoverOpn_Seq = 0;
+				gWs_CoverOpn_Ena = 0;
+			break;
+
+			default:
+				gWs_CoverOpn_Err = -1;
+				gWs_CoverOpn_Sta = cSeqSta_Err;
+				gWs_CoverOpn_Seq = 0;
+				gWs_CoverOpn_Ena = 0;
+			break;
+		}
+	}
+
+/////////////////////////////////////////////////////////////////////////
+// Welding Stage Cover Close
+/////////////////////////////////////////////////////////////////////////	
+	if(gWs_CoverCls_Start==1)
+	{
+		if(gWs_CoverOpn_Ena)
+			gWs_CoverOpn_Abort = 0;
+
+		gWs_CoverMoving_Sta = 2;
+
+		gWs_CoverCls_Start = 0;
+		gWs_CoverOpn_Sta = cSeqSta_Idl;
+		gWs_CoverCls_Sta = cSeqSta_Idl;
+		gWs_CoverCls_Seq = 1;
+		gWs_CoverCls_Ena = 1;
+
+		gWs_ThCoverPos_Old = 0;
+	}
+
+	if(gWs_CoverCls_Abort==1)
+	{
+		gWs_CoverCls_Abort = 0;
+		gWs_CoverCls_Seq = 0;
+		gWs_CoverCls_Ena = 0;
+	}
+
+	if(gWs_CoverCls_Ena)
+	{
+		switch(gWs_CoverCls_Seq)
+		{
+			case 1:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				gWs_CoverCls_Sta = cSeqSta_Ing;
+				if(gWs_CldIn_CoverFB==cFwd && gWs_CldIn_CoverUD==cDn)
+				{
+					gWs_CoverCls_Seq = 90;
+				}
+				else
+				{
+					gWs_CoverCls_Seq = 10;
+				}
+			break;
+		//------------------------------------------------------//
+			case 10:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				//if(pUmem_Sta_CmdPos(nwC) % 360000 == cWs_Cover_MoveAng)
+				if(pUmem_Sta_CmdPos(nwC) == cWs_Cover_MoveAng)
+				{
+					gWs_CoverCls_Seq = 20;
+				}
+				else
+				{
+					gWs_CoverCls_Seq = 11;
+				}
+			break;
+
+			case 11:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(Motor[nwC].AmpEna==1)
+				{
+					//20260126 KJH - 최단 거리 Open과 Close 하기 위함.
+//					gPosCBuf = pUmem_Sta_ActPos(nwC) / 360000;
+//					if(gPosCBuf > 0)
+//					{
+//						gPosCBuf = 0 - (pUmem_Sta_ActPos(nwC) % 360000);
+//						if(pUmem_Sta_ActPos(nwC) < 0 )
+//							Motor[nwC].ProgJogPos = pUmem_Sta_ActPos(nwC) + gPosCBuf;
+//						else
+//							Motor[nwC].ProgJogPos = pUmem_Sta_ActPos(nwC) - gPosCBuf;
+//					}
+//					else
+//						Motor[nwC].ProgJogPos = cWs_Cover_MoveAng;
+					call spReadWsThPos(nwC, cWs_Cover_MoveAng, &gWs_ThCoverPos_Old);
+					//gWs_ThCoverPos_Old = Motor[nwC].ProgJogPos;
+					//Motor[nwC].ProgJogPos = cWs_Cover_MoveAng;
+					//Motor[nwC].ProgJogPos = outc_pos;
+
+					//jog nwC =*
+					jog nwC :*
+					gWs_CoverCls_Tmr = Sys.Time + 0.1;
+					gWs_CoverCls_Seq = 12;
+				}
+				else
+				{
+					gWs_CoverCls_Sta = cSeqSta_Err;
+					gWs_CoverCls_Seq = 0;
+					gWs_CoverCls_Ena = 0;
+				}
+			break;
+
+			case 12:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_CoverCls_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gWs_CoverCls_Seq = 13;
+				}
+			break;
+
+			case 13:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(Motor[nwC].InPos==1)
+				{
+					gWs_CoverCls_Seq = 20;
+				}
+				if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_CoverCls_Sta = cSeqSta_Err;
+					gWs_CoverCls_Seq = 0;
+					gWs_CoverCls_Ena = 0;
+				}
+			break;
+		//------------------------------------------------------//
+			case 20:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(gWs_CldIn_CoverUD==cUp)
+				{
+					gWs_CoverCls_Seq = 30;
+				}
+				else
+				{
+					pUmem_Do12_WsTbFixDn = 0;
+					pUmem_Do10_WsTbFixUp = 1;
+					gWs_CoverCls_Tmr = Sys.Time + 0.1;
+					gWs_CoverCls_Seq = 21;
+				}
+			break;
+
+			case 21:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_CoverCls_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gWs_CoverCls_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(gWs_CldIn_CoverUD==cUp)
+				{
+					gWs_CoverCls_Tmr = Sys.Time + gWs_CldInpos_Delay;
+					gWs_CoverCls_Seq = 23;
+				}
+				else if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_CoverCls_Sta = cSeqSta_Err;
+					gWs_CoverCls_Seq = 0;
+					gWs_CoverCls_Ena = 0;
+				}
+			break;
+
+			case 23:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_CoverCls_Seq = 30;
+				}
+			break;
+		//------------------------------------------------------//		
+			case 30:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(gWs_CldIn_CoverFB==cFwd)
+				{
+					gWs_CoverCls_Seq = 40;
+				}
+				else
+				{
+					gWs_CoverCls_Tmr = Sys.Time + 0.1;
+					gWs_CoverCls_Seq = 31;
+				}
+			break;
+
+			case 31:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_EcldFwd_Sta = cEcldSta_Idl;
+					pUmem_Do31_EcldBwd = 0;
+					pUmem_Do30_EcldFwd = 1;
+					gWs_CoverCls_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gWs_CoverCls_Seq = 32;
+				}
+			break;
+
+			case 32:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(gWs_CldIn_CoverFB==cFwd)
+				{
+					gWs_CoverCls_Tmr = Sys.Time + gWs_CldInpos_Delay;
+					gWs_CoverCls_Seq = 33;
+				}
+				else if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_CoverCls_Sta = cSeqSta_Err;
+					gWs_CoverCls_Seq = 0;
+					gWs_CoverCls_Ena = 0;
+				}
+			break;
+
+			case 33:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_CoverCls_Seq = 40;
+				}
+			break;
+		//------------------------------------------------------//
+			case 40:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				pUmem_Do10_WsTbFixUp = 0;
+				pUmem_Do12_WsTbFixDn = 1;
+				gWs_CoverCls_Tmr = Sys.Time + 0.1;
+				gWs_CoverCls_Seq = 41;
+			break;
+
+			case 41:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_CoverCls_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gWs_CoverCls_Seq = 42;
+				}
+			break;
+
+			case 42:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(gWs_CldIn_CoverUD==cDn)
+				{
+					gWs_CoverCls_Tmr = Sys.Time + gWs_CldInpos_Delay;
+					gWs_CoverCls_Seq = 43;
+				}
+				else if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_CoverCls_Sta = cSeqSta_Err;
+					gWs_CoverCls_Seq = 0;
+					gWs_CoverCls_Ena = 0;
+				}
+			break;
+
+			case 43:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				if(Sys.time > gWs_CoverCls_Tmr)
+				{
+					gWs_CoverCls_Seq = 90;
+				}
+			break;
+		//------------------------------------------------------//
+			case 90:
+				gWs_CoverCls_Buf = gWs_CoverCls_Seq;
+				gWs_CoverCls_Sta = cSeqSta_Fin;
+				gWs_CoverCls_Seq = 0;
+				gWs_CoverCls_Ena = 0;
+			break;
+
+			default:
+				gWs_CoverCls_Err = -1;
+				gWs_CoverCls_Sta = cSeqSta_Err;
+				gWs_CoverCls_Seq = 0;
+				gWs_CoverCls_Ena = 0;
+			break;
+		}
+	}
+
+/////////////////////////////////////////////////////////////////////////
+// Welding Vision Camera Cover Open
+/////////////////////////////////////////////////////////////////////////
+	if(gWsV_CoverOpn_Start==1)
+	{
+		gWsV_CoverOpn_Start = 0;
+		gWsV_CoverOpn_Seq = 1;
+		gWsV_CoverOpn_Ena = 1;
+	}
+
+	if(gWsV_CoverOpn_Abort==1)
+	{
+		gWsV_CoverOpn_Abort = 0;
+		gWsV_CoverOpn_Seq = 0;
+		gWsV_CoverOpn_Ena = 0;
+	}
+
+	if(gWsV_CoverOpn_Ena)
+	{
+		switch(gWsV_CoverOpn_Seq)
+		{
+			case 1:
+				gWsV_CoverOpn_Buf = gWsV_CoverOpn_Seq;
+				gWsV_CoverOpn_Sta = cSeqSta_Ing;
+				if(gWsV_Cover_Cur == cOpn)
+				{
+					gWsV_Cover_Cur = cOpn;
+					gWsV_CoverOpn_Seq = 90;
+				}
+				else
+				{
+					gWsV_CoverOpn_Seq = 10;
+				}
+			break;
+		//------------------------------------------------------//
+			case 10:
+				gWsV_CoverOpn_Buf = gWsV_CoverOpn_Seq;
+
+				pUmem_Do1C_WsVsStrCls = 0;
+				pUmem_Do1E_WsVsStrOpn = 1;
+
+				gWsV_CoverOpn_Tmr = Sys.Time + cSeq_CldTimeOut;
+				gWsV_CoverOpn_Seq = 11;
+			break;
+
+			case 11:
+				gWsV_CoverOpn_Buf = gWsV_CoverOpn_Seq;
+
+				if(gWsV_Cover_Cur == cOpn)
+				{
+					gWsV_CoverOpn_Seq = 90;
+				}
+				else if(Sys.time > gWsV_CoverOpn_Tmr)
+				{
+					gWsV_CoverOpn_Sta = cSeqSta_Err;
+					gWsV_CoverOpn_Seq = 0;
+					gWsV_CoverOpn_Ena = 0;
+				}
+			break;
+
+		//------------------------------------------------------//
+			case 90:
+				gWsV_CoverOpn_Buf = gWsV_CoverOpn_Seq;
+				gWsV_CoverOpn_Sta = cSeqSta_Fin;
+				gWsV_CoverOpn_Seq = 0;
+				gWsV_CoverOpn_Ena = 0;
+			break;
+
+			default:
+				gWsV_CoverOpn_Err = -1;
+				gWsV_CoverOpn_Sta = cSeqSta_Err;
+				gWsV_CoverOpn_Seq = 0;
+				gWsV_CoverOpn_Ena = 0;
+			break;
+		}
+	}
+
+/////////////////////////////////////////////////////////////////////////
+// Welding Vision Camera Cover Close
+/////////////////////////////////////////////////////////////////////////	
+	if(gWsV_CoverCls_Start==1)
+	{
+		gWsV_CoverCls_Start = 0;
+		gWsV_CoverCls_Seq = 1;
+		gWsV_CoverCls_Ena = 1;
+	}
+
+	if(gWsV_CoverCls_Abort==1)
+	{
+		gWsV_CoverCls_Abort = 0;
+		gWsV_CoverCls_Seq = 0;
+		gWsV_CoverCls_Ena = 0;
+	}
+
+	if(gWsV_CoverCls_Ena)
+	{
+		switch(gWsV_CoverCls_Seq)
+		{
+			case 1:
+				gWsV_CoverCls_Buf = gWsV_CoverCls_Seq;
+				gWsV_CoverCls_Sta = cSeqSta_Ing;
+				if(gWsV_Cover_Cur == cCls)
+				{
+					gWsV_CoverCls_Seq = 90;
+				}
+				else
+				{
+					gWsV_CoverCls_Seq = 10;
+				}
+			break;
+		//------------------------------------------------------//
+			case 10:
+				gWsV_CoverCls_Buf = gWsV_CoverCls_Seq;
+
+				pUmem_Do1C_WsVsStrCls = 1;
+				pUmem_Do1E_WsVsStrOpn = 0;
+
+				gWsV_CoverCls_Tmr = Sys.Time + cSeq_CldTimeOut;
+				gWsV_CoverCls_Seq = 11;
+			break;
+
+			case 11:
+				gWsV_CoverCls_Buf = gWsV_CoverCls_Seq;
+
+				if(gWsV_Cover_Cur == cCls)
+				{
+					gWsV_CoverCls_Seq = 90;
+				}
+				else if(Sys.time > gWsV_CoverCls_Tmr)
+				{
+					gWsV_CoverCls_Sta = cSeqSta_Err;
+					gWsV_CoverCls_Seq = 0;
+					gWsV_CoverCls_Ena = 0;
+				}
+			break;
+
+		//------------------------------------------------------//
+			case 90:
+				gWsV_CoverCls_Buf = gWsV_CoverCls_Seq;
+				gWsV_CoverCls_Sta = cSeqSta_Fin;
+				gWsV_CoverCls_Seq = 0;
+				gWsV_CoverCls_Ena = 0;
+			break;
+
+			default:
+				gWsV_CoverCls_Err = -1;
+				gWsV_CoverCls_Sta = cSeqSta_Err;
+				gWsV_CoverCls_Seq = 0;
+				gWsV_CoverCls_Ena = 0;
+			break;
+		}
+	}
+
+/////////////////////////////////////////////////////////////////////////
+// Vision Stage Cover Open
+/////////////////////////////////////////////////////////////////////////
+	if(gVs_CoverOpn_Start==1)
+	{
+		if(gVs_CoverCls_Ena)
+			gVs_CoverCls_Abort = 0;
+
+		gVs_CoverMoving_Sta = 1;
+
+		gVs_CoverOpn_Start = 0;
+		gVs_CoverOpn_Seq = 1;
+		gVs_CoverOpn_Ena = 1;
+
+		gVs_ThCoverPos_Old = 0;
+	}
+
+	if(gVs_CoverOpn_Abort==1)
+	{
+		gVs_CoverOpn_Abort = 0;
+		gVs_CoverOpn_Seq = 0;
+		gVs_CoverOpn_Ena = 0;
+	}
+
+	if(gVs_CoverOpn_Ena)
+	{
+		switch(gVs_CoverOpn_Seq)
+		{
+			case 1:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				gVs_CoverOpn_Sta = cSeqSta_Ing;
+				if(gVs_CldIn_CoverFB==cBwd && gVs_CldIn_CoverUD==cUp)
+				{
+					gVs_CoverOpn_Seq = 90;
+				}
+				else
+				{
+					gVs_CoverOpn_Seq = 11;
+				}
+			break;
+		//------------------------------------------------------//
+			case 10:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				//if(pUmem_Sta_CmdPos(nvC) % 360000 == cVs_Cover_MoveAng)
+				if(pUmem_Sta_CmdPos(nvC) == cVs_Cover_MoveAng)
+				{
+					gVs_CoverOpn_Seq = 20;
+				}
+				else
+				{
+					gVs_CoverOpn_Seq = 11;
+				}
+			break;
+
+			case 11:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				if(Motor[nvC].AmpEna==1)
+				{
+					//Motor[nvC].ProgJogPos = cVs_Cover_MoveAng;
+					//20260127 KJH - Theta Coord 관련 작업.
+					call spReadVsThPos(nvC, cVs_Cover_MoveAng, &gVs_ThCoverPos_Old);
+					//gVs_ThCoverPos_Old = Motor[nvC].ProgJogPos;
+
+					//jog nvC =*
+					jog nvC :*
+
+					gVs_CoverOpn_Tmr = Sys.Time + 0.1;
+					gVs_CoverOpn_Seq = 12;
+				}
+				else
+				{
+					gVs_CoverOpn_Sta = cSeqSta_Err;
+					gVs_CoverOpn_Seq = 0;
+					gVs_CoverOpn_Ena = 0;
+				}
+			break;
+
+			case 12:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				if(Sys.time > gVs_CoverOpn_Tmr)
+				{
+					gVs_CoverOpn_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gVs_CoverOpn_Seq = 13;
+				}
+			break;
+
+			case 13:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				if(Motor[nvC].InPos==1)
+				{
+					gVs_CoverOpn_Seq = 20;
+				}
+				if(Sys.time > gVs_CoverOpn_Tmr)
+				{
+					gVs_CoverOpn_Sta = cSeqSta_Err;
+					gVs_CoverOpn_Seq = 0;
+					gVs_CoverOpn_Ena = 0;
+				}
+			break;
+		//------------------------------------------------------//
+			case 20:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				if(gVs_CldIn_CoverUD==cUp)
+				{
+					gVs_CoverOpn_Seq = 30;
+				}
+				else
+				{
+					pUmem_Do1B_VsTbFixDn = 0;
+					pUmem_Do19_VsTbFixUp = 1;
+					gVs_CoverOpn_Tmr = Sys.Time + 0.1;
+					gVs_CoverOpn_Seq = 21;
+				}
+			break;
+
+			case 21:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				if(Sys.time > gVs_CoverOpn_Tmr)
+				{
+					gVs_CoverOpn_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gVs_CoverOpn_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				if(gVs_CldIn_CoverUD==cUp)
+				{
+					gVs_CoverOpn_Tmr = Sys.Time + gVs_CldInpos_Delay;
+					gVs_CoverOpn_Seq = 23;
+				}
+				else if(Sys.time > gVs_CoverOpn_Tmr)
+				{
+					gVs_CoverOpn_Sta = cSeqSta_Err;
+					gVs_CoverOpn_Seq = 0;
+					gVs_CoverOpn_Ena = 0;
+				}
+			break;
+
+			case 23:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				if(Sys.time > gVs_CoverOpn_Tmr)
+				{
+					gVs_CoverOpn_Seq = 30;
+				}
+			break;
+		//------------------------------------------------------//
+			case 30:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				if(gVs_CldIn_CoverFB==cBwd)
+				{
+					gVs_CoverOpn_Seq = 90;
+				}
+				else
+				{
+					pUmem_Do17_VsTbFixFwd = 0;
+					pUmem_Do15_VsTbFixBwd = 1;
+					gVs_CoverOpn_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gVs_CoverOpn_Seq = 31;
+				}
+			break;
+
+			case 31:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				if(gVs_CldIn_CoverFB==cBwd)
+				{
+					gVs_CoverOpn_Tmr = Sys.Time + gVs_CldInpos_Delay;
+					gVs_CoverOpn_Seq = 32;
+				}
+				else if(Sys.time > gVs_CoverOpn_Tmr)
+				{
+					gVs_CoverOpn_Sta = cSeqSta_Err;
+					gVs_CoverOpn_Seq = 0;
+					gVs_CoverOpn_Ena = 0;
+				}
+			break;
+
+			case 32:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				if(Sys.time > gVs_CoverOpn_Tmr)
+				{
+					gVs_CoverOpn_Seq = 90;
+				}
+			break;
+		//------------------------------------------------------//
+			case 90:
+				gVs_CoverOpn_Buf = gVs_CoverOpn_Seq;
+				gVs_CoverOpn_Sta = cSeqSta_Fin;
+				gVs_CoverOpn_Seq = 0;
+				gVs_CoverOpn_Ena = 0;
+			break;
+
+			default:
+				gVs_CoverOpn_Err = -1;
+				gVs_CoverOpn_Sta = cSeqSta_Err;
+				gVs_CoverOpn_Seq = 0;
+				gVs_CoverOpn_Ena = 0;
+			break;
+		}
+	}
+
+/////////////////////////////////////////////////////////////////////////
+// Vision Stage Cover Close
+/////////////////////////////////////////////////////////////////////////	
+	if(gVs_CoverCls_Start==1)
+	{
+		if(gVs_CoverOpn_Ena)
+			gVs_CoverOpn_Abort = 0;
+
+		gVs_CoverMoving_Sta = 2;
+
+		gVs_CoverCls_Start = 0;
+		gVs_CoverCls_Seq = 1;
+		gVs_CoverCls_Ena = 1;
+
+		gVs_ThCoverPos_Old = 0;
+	}
+
+	if(gVs_CoverCls_Abort==1)
+	{
+		gVs_CoverCls_Abort = 0;
+		gVs_CoverCls_Seq = 0;
+		gVs_CoverCls_Ena = 0;
+	}
+
+	if(gVs_CoverCls_Ena)
+	{
+		switch(gVs_CoverCls_Seq)
+		{
+			case 1:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				gVs_CoverCls_Sta = cSeqSta_Ing;
+				if(gVs_CldIn_CoverFB==cFwd && gVs_CldIn_CoverUD==cDn)
+				{
+					gVs_CoverCls_Seq = 90;
+				}
+				else
+				{
+					gVs_CoverCls_Seq = 11;
+				}
+			break;
+		//------------------------------------------------------//
+			case 10:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				//if(pUmem_Sta_CmdPos(nvC) % 360000 == cVs_Cover_MoveAng)
+				if(pUmem_Sta_CmdPos(nvC) == cVs_Cover_MoveAng)
+				{
+					gVs_CoverCls_Seq = 20;
+				}
+				else
+				{
+					gVs_CoverCls_Seq = 11;
+				}
+			break;
+
+			case 11:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(Motor[nvC].AmpEna==1)
+				{
+					//Motor[nvC].ProgJogPos = cVs_Cover_MoveAng;
+					//20260127 KJH - Theta Coord 관련 작업.
+					call spReadVsThPos(nvC, cVs_Cover_MoveAng, &gVs_ThCoverPos_Old);
+					//gVs_ThCoverPos_Old = Motor[nvC].ProgJogPos;
+
+					//jog nvC =*
+					jog nvC :*
+
+					gVs_CoverCls_Tmr = Sys.Time + 0.1;
+					gVs_CoverCls_Seq = 12;
+				}
+				else
+				{
+					gVs_CoverCls_Sta = cSeqSta_Err;
+					gVs_CoverCls_Seq = 0;
+					gVs_CoverCls_Ena = 0;
+				}
+			break;
+
+			case 12:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gVs_CoverCls_Seq = 13;
+				}
+			break;
+
+			case 13:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(Motor[nvC].InPos==1)
+				{
+					gVs_CoverCls_Seq = 20;
+				}
+				if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Sta = cSeqSta_Err;
+					gVs_CoverCls_Seq = 0;
+					gVs_CoverCls_Ena = 0;
+				}
+			break;
+		//------------------------------------------------------//
+			case 20:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(gVs_CldIn_CoverUD==cUp)
+				{
+					gVs_CoverCls_Seq = 30;
+				}
+				else
+				{
+					pUmem_Do1B_VsTbFixDn = 0;
+					pUmem_Do19_VsTbFixUp = 1;
+					gVs_CoverCls_Tmr = Sys.Time + 0.1;
+					gVs_CoverCls_Seq = 21;
+				}
+			break;
+
+			case 21:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gVs_CoverCls_Seq = 22;
+				}
+			break;
+
+			case 22:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(gVs_CldIn_CoverUD==cUp)
+				{
+					gVs_CoverCls_Tmr = Sys.Time + gVs_CldInpos_Delay;
+					gVs_CoverCls_Seq = 23;
+				}
+				else if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Sta = cSeqSta_Err;
+					gVs_CoverCls_Seq = 0;
+					gVs_CoverCls_Ena = 0;
+				}
+			break;
+
+			case 23:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Seq = 30;
+				}
+			break;
+		//------------------------------------------------------//		
+			case 30:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(gVs_CldIn_CoverFB==cFwd)
+				{
+					gVs_CoverCls_Seq = 40;
+				}
+				else
+				{
+					pUmem_Do15_VsTbFixBwd = 0;
+					pUmem_Do17_VsTbFixFwd = 1;
+					gVs_CoverCls_Tmr = Sys.Time + 0.1;
+					gVs_CoverCls_Seq = 31;
+				}
+			break;
+
+			case 31:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gVs_CoverCls_Seq = 32;
+				}
+			break;
+
+			case 32:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(gVs_CldIn_CoverFB==cFwd)
+				{
+					gVs_CoverCls_Tmr = Sys.Time + gVs_CldInpos_Delay;
+					gVs_CoverCls_Seq = 33;
+				}
+				else if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Sta = cSeqSta_Err;
+					gVs_CoverCls_Seq = 0;
+					gVs_CoverCls_Ena = 0;
+				}
+			break;
+
+			case 33:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Seq = 40;
+				}
+			break;
+		//------------------------------------------------------//
+			case 40:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				pUmem_Do19_VsTbFixUp = 0;
+				pUmem_Do1B_VsTbFixDn = 1;
+				gVs_CoverCls_Tmr = Sys.Time + 0.1;
+				gVs_CoverCls_Seq = 41;
+			break;
+
+			case 41:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Tmr = Sys.Time + cSeq_CldTimeOut;
+					gVs_CoverCls_Seq = 42;
+				}
+			break;
+
+			case 42:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(gVs_CldIn_CoverUD==cDn)
+				{
+					gVs_CoverCls_Tmr = Sys.Time + gVs_CldInpos_Delay;
+					gVs_CoverCls_Seq = 43;
+				}
+				else if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Sta = cSeqSta_Err;
+					gVs_CoverCls_Seq = 0;
+					gVs_CoverCls_Ena = 0;
+				}
+			break;
+
+			case 43:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				if(Sys.time > gVs_CoverCls_Tmr)
+				{
+					gVs_CoverCls_Seq = 90;
+				}
+			break;
+		//------------------------------------------------------//
+			case 90:
+				gVs_CoverCls_Buf = gVs_CoverCls_Seq;
+				gVs_CoverCls_Sta = cSeqSta_Fin;
+				gVs_CoverCls_Seq = 0;
+				gVs_CoverCls_Ena = 0;
+			break;
+
+			default:
+				gVs_CoverCls_Err = -1;
+				gVs_CoverCls_Sta = cSeqSta_Err;
+				gVs_CoverCls_Seq = 0;
+				gVs_CoverCls_Ena = 0;
+			break;
+		}
+	}
+close
