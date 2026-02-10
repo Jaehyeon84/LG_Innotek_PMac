@@ -1,8 +1,0 @@
-[PMAC_HARDWARE]
-[PMAC_CONFIG]
-[PMAC_PROJECT]
-[PMAC_PROJECT]
-[PMAC_PROJECT]
-/var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh:29:19: error #70: Struct Write Data Error:  EncTable[1].pEnc=CK3WAX[0].Chan[0].ServoCapt.a
-Error: downloading preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
-[PMAC_PROJECT]
