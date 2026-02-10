@@ -1,17 +1,17 @@
 open prog 30
 	abs
 	linear
-	f(gVs_RefVel) ta(0.1) ts(0)
 	frax(c, x, y)
-
+	f(400) ta(0.1) ts(0)
 	//Triggert off ///////////////////////
 	M41 
 	//Move to start pos. And Speed ///////////////////////
-	gVs_RefVel=30
-	f(gVs_RefVel) // Pos-init speed
 	x0.000		y11.998		c(0.000) // start pos
 	dwell 0
 
+	gVs_RefVel=30
+	//f(gVs_RefVel) // Pos-init speed
+	f(gVs_RefVel) ta(0.1) ts(0)
 	//Trigger setting ///////////////////////
 	M40 P10 D5//P:period(um), D:Duty(um) 
 

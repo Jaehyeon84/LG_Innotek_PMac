@@ -1,7 +1,7 @@
 open prog 20
 	abs
 	linear
-	f(gWs_RefVel) ta(0.1) ts(0)
+	f(400) ta(0.1) ts(0)
 	frax(c, x, y)
 
 	//Laser & wobble off ///////////////////////
@@ -10,10 +10,12 @@ open prog 20
 	M21 // wobble off
 
 	//Move to start pos. And Speed ///////////////////////
-	f(40) // Pos-init speed
+	//f(40) // Pos-init speed
 	x-11.998		y11.998		c(0.000) // start pos
 	dwell 0
 
+	gWs_RefVel = 40
+	f(gWs_RefVel) ta(0.1) ts(0)
 	//Core Laswr ///////////////////////
 	M12 W0//core power
 

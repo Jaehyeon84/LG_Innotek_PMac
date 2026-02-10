@@ -1,0 +1,11 @@
+diff a/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc b/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc	(rejected hunks)
+@@ -112,8 +112,7 @@
+ 
+ 					jog nwX=*
+ 					jog nwY=*
+-					//jog nwC=*
+-					jog nwC:*
++					jog nwC=*
+ 
+ 					gWs_TgtMov_Tmr = Sys.Time + 0.1;
+ 					gWs_TgtMov_Seq = 21;

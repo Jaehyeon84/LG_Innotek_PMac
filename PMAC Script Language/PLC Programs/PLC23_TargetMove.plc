@@ -112,7 +112,8 @@ open plc 23
 
 					jog nwX=*
 					jog nwY=*
-					jog nwC=*
+					//jog nwC=*
+					jog nwC:*
 
 					gWs_TgtMov_Tmr = Sys.Time + 0.1;
 					gWs_TgtMov_Seq = 21;
@@ -272,7 +273,8 @@ open plc 23
 
 					jog nvX=*
 					jog nvY=*
-					jog nvC=*
+					//jog nvC=*
+					jog nvC:*
 
 					gVs_TgtMov_Tmr = Sys.Time + 0.1;
 					gVs_TgtMov_Seq = 21;

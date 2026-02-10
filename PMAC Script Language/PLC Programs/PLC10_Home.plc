@@ -370,7 +370,10 @@ open plc 10
 				{
 					gWs_ThTargetPos_Old = -1;
 					call spReadWsThPos(nwC, 0, &gWs_ThTargetPos_Old);
-					jog nwC=*
+//					Motor[nwC].JogSpeed = 700;
+//					Motor[nwC].JogPos = 0; 
+//					jog nwC=*
+					jog nwC:*
 
 					gWs_Home_Seq = 22;
 				}
@@ -390,11 +393,11 @@ open plc 10
 				{
 					call spInitMotor(nwC);
 					
-					homez nwC
+					//homez nwC
 
-					gMt_Home_Sta(nwC) = cHomeSta_Fin;
-					//gMt_Home_Sta(nwC) = cHomeSta_Idl;
-					//gMt_Home_Start(nwC) = 1;
+					//gMt_Home_Sta(nwC) = cHomeSta_Fin;
+					gMt_Home_Sta(nwC) = cHomeSta_Idl;
+					gMt_Home_Start(nwC) = 1;
 					gWs_Home_Seq = 23;
 				}
 				else if(gMt_Home_Sta(nwC)==cHomeSta_Err)
@@ -737,7 +740,10 @@ open plc 10
 				{
 					gVs_ThTargetPos_Old = -1;
 					call spReadVsThPos(nvC, 0, &gVs_ThTargetPos_Old);
-					jog nvC =*;
+//					Motor[nvC].JogSpeed = 700;
+//					Motor[nvC].JogPos = 0; 
+//					jog nvC =*;
+					jog nvC:*
 
 					gVs_Home_Seq = 12;
 				}
@@ -757,10 +763,10 @@ open plc 10
 				{
 					call spInitMotor(nvC);
 
-					homez nvC
-					gMt_Home_Sta(nvC) = cHomeSta_Fin;
-					//gMt_Home_Sta(nvC) = cHomeSta_Idl;
-					//gMt_Home_Start(nvC) = 1;
+					//homez nvC
+					//gMt_Home_Sta(nvC) = cHomeSta_Fin;
+					gMt_Home_Sta(nvC) = cHomeSta_Idl;
+					gMt_Home_Start(nvC) = 1;
 					gVs_Home_Seq = 13;
 				}
 				else if(gMt_Home_Sta(nvC)==cHomeSta_Err)

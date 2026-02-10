@@ -1,0 +1,16 @@
+diff a/PMAC Script Language/PLC Programs/PLC10_Home.plc b/PMAC Script Language/PLC Programs/PLC10_Home.plc	(rejected hunks)
+@@ -757,10 +757,10 @@
+ 				{
+ 					call spInitMotor(nvC);
+ 
+-					//homez nvC
+-					//gMt_Home_Sta(nvC) = cHomeSta_Fin;
+-					gMt_Home_Sta(nvC) = cHomeSta_Idl;
+-					gMt_Home_Start(nvC) = 1;
++					homez nvC
++					gMt_Home_Sta(nvC) = cHomeSta_Fin;
++					//gMt_Home_Sta(nvC) = cHomeSta_Idl;
++					//gMt_Home_Start(nvC) = 1;
+ 					gVs_Home_Seq = 13;
+ 				}
+ 				else if(gMt_Home_Sta(nvC)==cHomeSta_Err)

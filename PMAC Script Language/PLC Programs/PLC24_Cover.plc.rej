@@ -1,0 +1,11 @@
+diff a/PMAC Script Language/PLC Programs/PLC24_Cover.plc b/PMAC Script Language/PLC Programs/PLC24_Cover.plc	(rejected hunks)
+@@ -82,8 +82,7 @@
+ 					//Motor[nwC].ProgJogPos = cWs_Cover_MoveAng;
+ 					//Motor[nwC].ProgJogPos = outc_pos;
+ 
+-					//jog nwC =*
+-					jog nwC :*
++					jog nwC =*
+ 					gWs_CoverOpn_Tmr = Sys.Time + 0.1;
+ 					gWs_CoverOpn_Seq = 12;
+ 				}
