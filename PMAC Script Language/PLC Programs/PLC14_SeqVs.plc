@@ -412,7 +412,7 @@ Open plc 14
 					gVs_Load_Seq = 63;
 
 					//20260123 KJH - TactTime ÀÛ¾÷.
-					if(gVs_CoverMoving_Sta != 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+					if(gVs_CoverMoving_Sta != 2)
 						gVs_CoverCls_Start = 1;
 				}
 				else if(Sys.time > gVs_Load_Tmr)
