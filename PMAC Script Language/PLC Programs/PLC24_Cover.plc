@@ -82,8 +82,7 @@ open plc 24
 					//Motor[nwC].ProgJogPos = cWs_Cover_MoveAng;
 					//Motor[nwC].ProgJogPos = outc_pos;
 
-					//jog nwC =*
-					jog nwC :*
+					jog nwC=*
 					gWs_CoverOpn_Tmr = Sys.Time + 0.1;
 					gWs_CoverOpn_Seq = 12;
 				}
@@ -306,8 +305,7 @@ open plc 24
 					//Motor[nwC].ProgJogPos = cWs_Cover_MoveAng;
 					//Motor[nwC].ProgJogPos = outc_pos;
 
-					//jog nwC =*
-					jog nwC :*
+					jog nwC=*
 					gWs_CoverCls_Tmr = Sys.Time + 0.1;
 					gWs_CoverCls_Seq = 12;
 				}
@@ -709,8 +707,7 @@ open plc 24
 					call spReadVsThPos(nvC, cVs_Cover_MoveAng, &gVs_ThCoverPos_Old);
 					//gVs_ThCoverPos_Old = Motor[nvC].ProgJogPos;
 
-					//jog nvC =*
-					jog nvC :*
+					jog nvC =*
 
 					gVs_CoverOpn_Tmr = Sys.Time + 0.1;
 					gVs_CoverOpn_Seq = 12;
@@ -910,8 +907,7 @@ open plc 24
 					call spReadVsThPos(nvC, cVs_Cover_MoveAng, &gVs_ThCoverPos_Old);
 					//gVs_ThCoverPos_Old = Motor[nvC].ProgJogPos;
 
-					//jog nvC =*
-					jog nvC :*
+					jog nvC =*
 
 					gVs_CoverCls_Tmr = Sys.Time + 0.1;
 					gVs_CoverCls_Seq = 12;

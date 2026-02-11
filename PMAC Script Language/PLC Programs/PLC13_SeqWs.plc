@@ -191,8 +191,7 @@ Open plc 13
 					{
 						call spReadWsThPos(nwC, gWs_Load_PosC, &gWs_ThTargetPos_Old);
 
-						//jog nwC=*
-						jog nwC:*
+						jog nwC=*
 					}
 					else if(gWs_CoverMoving_Sta != 1)
 						gWs_CoverOpn_Start = 1;
@@ -232,8 +231,7 @@ Open plc 13
 				{
 					call spReadWsThPos(nwC, gWs_Load_PosC, &gWs_ThTargetPos_Old);
 
-					//jog nwC=*
-					jog nwC:*
+					jog nwC=*
 				}
 				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 				{
@@ -822,8 +820,7 @@ Open plc 13
 					{
 						call spReadWsThPos(nwC, gWs_Ready_PosC, &gWs_ThTargetPos_Old);
 
-						//jog nwC=*
-						jog nwC:*
+						jog nwC=*
 					}
 					else if(gWs_CoverMoving_Sta != 2)
 						gWs_CoverCls_Start = 1;
@@ -860,8 +857,7 @@ Open plc 13
 				{
 					call spReadWsThPos(nwC, gWs_Ready_PosC, &gWs_ThTargetPos_Old);
 
-					//jog nwC=*
-					jog nwC:*
+					jog nwC=*
 				}
 				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 2 && gWs_CoverCls_Sta == cSeqSta_Fin && gWsV_Cover_Cur == cOpn)
 				{					
@@ -1324,8 +1320,7 @@ Open plc 13
 					{
 						call spReadWsThPos(nwC, gWs_Welding_PosC, &gWs_ThTargetPos_Old);
 
-						//jog nwC=*
-						jog nwC:*
+						jog nwC=*
 					}
 					else if(gWs_CoverMoving_Sta != 2)
 						gWs_CoverCls_Start = 1;
@@ -1437,8 +1432,7 @@ Open plc 13
 				{
 					call spReadWsThPos(nwC, gWs_Welding_PosC, &gWs_ThTargetPos_Old);
 
-					//jog nwC=*
-					jog nwC:*
+					jog nwC=*
 				}
 				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 2 && gWs_CoverCls_Sta == cSeqSta_Fin && gN2BlowState == 1 && gWsV_Cover_Cur == cCls)
 				{
@@ -1873,8 +1867,7 @@ Open plc 13
 					{
 						call spReadWsThPos(nwC, gWs_Wait_PosC, &gWs_ThTargetPos_Old);
 
-						//jog nwC=*
-						jog nwC:*
+						jog nwC=*
 					}
 					else if(gWs_CoverMoving_Sta != 1)
 						gWs_CoverOpn_Start = 1;
@@ -1912,8 +1905,7 @@ Open plc 13
 				{
 					call spReadWsThPos(nwC, gWs_Wait_PosC, &gWs_ThTargetPos_Old);
 
-					//jog nwC=*
-					jog nwC:*
+					jog nwC=*
 				}
 				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 				{
@@ -2237,8 +2229,7 @@ Open plc 13
 					{
 						call spReadWsThPos(nwC, gWs_Unload_PosC, &gWs_ThTargetPos_Old);
 
-						//jog nwC=*
-						jog nwC:*
+						jog nwC=*
 					}
 					else if(gWs_CoverMoving_Sta != 1)
 						gWs_CoverOpn_Start = 1;
@@ -2275,8 +2266,7 @@ Open plc 13
 				{
 					call spReadWsThPos(nwC, gWs_Unload_PosC, &gWs_ThTargetPos_Old);
 
-					//jog nwC=*
-					jog nwC:*
+					jog nwC=*
 				}
 				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 				{
@@ -2807,8 +2797,7 @@ Open plc 13
 					{
 						call spReadWsThPos(nwC, gWs_Reject_PosC, &gWs_ThTargetPos_Old);
 
-						//jog nwC=*
-						jog nwC:*
+						jog nwC=*
 					}
 					else if(gWs_CoverMoving_Sta != 1)
 						gWs_CoverOpn_Start = 1;
@@ -2849,8 +2838,7 @@ Open plc 13
 				{
 					call spReadWsThPos(nwC, gWs_Reject_PosC, &gWs_ThTargetPos_Old);
 
-					//jog nwC=*
-					jog nwC:*
+					jog nwC=*
 				}
 				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 				{
