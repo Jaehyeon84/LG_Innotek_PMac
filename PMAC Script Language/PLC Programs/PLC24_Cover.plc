@@ -12,8 +12,6 @@ open plc 24
 		if(gWs_CoverCls_Ena)
 			gWs_CoverCls_Abort = 0;
 
-		gWs_CoverMoving_Sta = 1;
-
 		gWs_CoverOpn_Start = 0;
 		gWs_CoverOpn_Sta = cSeqSta_Idl;
 		gWs_CoverCls_Sta = cSeqSta_Idl;
@@ -32,6 +30,8 @@ open plc 24
 
 	if(gWs_CoverOpn_Ena)
 	{
+		gWs_CoverMoving_Sta = 1;
+
 		switch(gWs_CoverOpn_Seq)
 		{
 			case 1:
@@ -237,8 +237,6 @@ open plc 24
 		if(gWs_CoverOpn_Ena)
 			gWs_CoverOpn_Abort = 0;
 
-		gWs_CoverMoving_Sta = 2;
-
 		gWs_CoverCls_Start = 0;
 		gWs_CoverOpn_Sta = cSeqSta_Idl;
 		gWs_CoverCls_Sta = cSeqSta_Idl;
@@ -257,6 +255,8 @@ open plc 24
 
 	if(gWs_CoverCls_Ena)
 	{
+		gWs_CoverMoving_Sta = 2;
+
 		switch(gWs_CoverCls_Seq)
 		{
 			case 1:
@@ -653,9 +653,7 @@ open plc 24
 	{
 		if(gVs_CoverCls_Ena)
 			gVs_CoverCls_Abort = 0;
-
-		gVs_CoverMoving_Sta = 1;
-
+			
 		gVs_CoverOpn_Start = 0;
 		gVs_CoverOpn_Seq = 1;
 		gVs_CoverOpn_Ena = 1;
@@ -672,6 +670,8 @@ open plc 24
 
 	if(gVs_CoverOpn_Ena)
 	{
+		gVs_CoverMoving_Sta = 1;
+
 		switch(gVs_CoverOpn_Seq)
 		{
 			case 1:
@@ -854,9 +854,7 @@ open plc 24
 	{
 		if(gVs_CoverOpn_Ena)
 			gVs_CoverOpn_Abort = 0;
-
-		gVs_CoverMoving_Sta = 2;
-
+			
 		gVs_CoverCls_Start = 0;
 		gVs_CoverCls_Seq = 1;
 		gVs_CoverCls_Ena = 1;
@@ -873,6 +871,8 @@ open plc 24
 
 	if(gVs_CoverCls_Ena)
 	{
+		gVs_CoverMoving_Sta = 2;
+
 		switch(gVs_CoverCls_Seq)
 		{
 			case 1:
