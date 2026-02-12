@@ -372,8 +372,7 @@ open plc 10
 					call spReadWsThPos(nwC, 0, &gWs_ThTargetPos_Old);
 //					Motor[nwC].JogSpeed = 700;
 //					Motor[nwC].JogPos = 0; 
-//					jog nwC=*
-					jog nwC:*
+					jog nwC=*
 
 					gWs_Home_Seq = 22;
 				}
@@ -742,8 +741,7 @@ open plc 10
 					call spReadVsThPos(nvC, 0, &gVs_ThTargetPos_Old);
 //					Motor[nvC].JogSpeed = 700;
 //					Motor[nvC].JogPos = 0; 
-//					jog nvC =*;
-					jog nvC:*
+					jog nvC=*
 
 					gVs_Home_Seq = 12;
 				}
