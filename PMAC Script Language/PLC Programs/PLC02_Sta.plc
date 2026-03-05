@@ -29,8 +29,21 @@ open plc 2
 	{
 		if(sta_idx == nwC || sta_idx == nvC)
 		{
-			pUmem_Sta_CmdPos(sta_idx)	= rint((Motor[sta_idx].DesPos - Motor[sta_idx].HomePos) % 360000);			// Motor Command Position	[um]
-			pUmem_Sta_ActPos(sta_idx)	= rint((Motor[sta_idx].ActPos - Motor[sta_idx].HomePos) % 360000);			// Motor Actual Position	[um]
+			LOCAL lCmdPos = 0;
+			LOCAL lActPos = 0;
+
+			lCmdPos	= rint((Motor[sta_idx].DesPos - Motor[sta_idx].HomePos) % 360000);			// Motor Command Position	[um]
+			lActPos = rint((Motor[sta_idx].ActPos - Motor[sta_idx].HomePos) % 360000);			// Motor Actual Position	[um]
+
+			if(lCmdPos < 0)
+				pUmem_Sta_CmdPos(sta_idx) = lCmdPos + 360000;
+			else
+				pUmem_Sta_CmdPos(sta_idx) = lCmdPos;
+
+			if(lActPos < 0)
+				pUmem_Sta_ActPos(sta_idx) = lActPos + 360000;
+			else
+				pUmem_Sta_ActPos(sta_idx) = lActPos;
 		}
 		else
 		{

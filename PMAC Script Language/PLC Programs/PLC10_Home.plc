@@ -361,34 +361,35 @@ open plc 10
 				call spInitMotor(nwY);
 				gMt_Home_Sta(nwY) = cHomeSta_Idl;
 				gMt_Home_Start(nwY) = 1;
-				gWs_Home_Seq = 21;
+				gWs_Home_Seq = 22;
 			break;
 
-			case 21:
-				gWs_Home_Buf = gWs_Home_Seq;
-				if(gMt_Home_Sta(nwY)==cHomeSta_Fin)
-				{
-					gWs_ThTargetPos_Old = -1;
-					call spReadWsThPos(nwC, 0, &gWs_ThTargetPos_Old);
-//					Motor[nwC].JogSpeed = 700;
-//					Motor[nwC].JogPos = 0; 
-					jog nwC=*
+//			case 21:
+//				gWs_Home_Buf = gWs_Home_Seq;
+//				if(gMt_Home_Sta(nwY)==cHomeSta_Fin)
+//				{
+//					gWs_ThTargetPos_Old = -1;
+//					call spReadWsThPos(nwC, cWs_Cover_MoveAng, &gWs_ThTargetPos_Old);
+////					Motor[nwC].JogSpeed = 700;
+////					Motor[nwC].JogPos = 0; 
+//					jog nwC=*
 
-					gWs_Home_Seq = 22;
-				}
-				else if(gMt_Home_Sta(nwY)==cHomeSta_Err)
-				{
-					disable 0..2
-					gWs_Home_Err = cErrCode_WsHome;
-					gWs_Home_Sta = cHomeSta_Err;
-					gWs_Home_Seq = 0;
-					gWs_Home_Ena = 0;
-				}
-			break;
+//					gWs_Home_Seq = 22;
+//				}
+//				else if(gMt_Home_Sta(nwY)==cHomeSta_Err)
+//				{
+//					disable 0..2
+//					gWs_Home_Err = cErrCode_WsHome;
+//					gWs_Home_Sta = cHomeSta_Err;
+//					gWs_Home_Seq = 0;
+//					gWs_Home_Ena = 0;
+//				}
+//			break;
 
 			case 22:
 				gWs_Home_Buf = gWs_Home_Seq;
-				if(Motor[nwC].InPos == 1)
+				//if(Motor[nwC].InPos == 1)
+				if(gMt_Home_Sta(nwY)==cHomeSta_Fin)
 				{
 					call spInitMotor(nwC);
 					
@@ -730,34 +731,35 @@ open plc 10
 				call spInitMotor(nvY);
 				gMt_Home_Sta(nvY) = cHomeSta_Idl;
 				gMt_Home_Start(nvY) = 1;
-				gVs_Home_Seq = 11;
+				gVs_Home_Seq = 12;
 			break;
 
-			case 11:
-				gVs_Home_Buf = gVs_Home_Seq;
-				if(gMt_Home_Sta(nvY)==cHomeSta_Fin)
-				{
-					gVs_ThTargetPos_Old = -1;
-					call spReadVsThPos(nvC, 0, &gVs_ThTargetPos_Old);
-//					Motor[nvC].JogSpeed = 700;
-//					Motor[nvC].JogPos = 0; 
-					jog nvC=*
+//			case 11:
+//				gVs_Home_Buf = gVs_Home_Seq;
+//				if(gMt_Home_Sta(nvY)==cHomeSta_Fin)
+//				{
+//					gVs_ThTargetPos_Old = -1;
+//					call spReadVsThPos(nvC, cVs_Cover_MoveAng, &gVs_ThTargetPos_Old);
+////					Motor[nvC].JogSpeed = 700;
+////					Motor[nvC].JogPos = 0; 
+//					jog nvC=*
 
-					gVs_Home_Seq = 12;
-				}
-				else if(gMt_Home_Sta(nvY)==cHomeSta_Err)
-				{
-					disable 3
-					gVs_Home_Err = cErrCode_VsHome;
-					gVs_Home_Sta = cHomeSta_Err;
-					gVs_Home_Seq = 0;
-					gVs_Home_Ena = 0;
-				}
-			break;
+//					gVs_Home_Seq = 12;
+//				}
+//				else if(gMt_Home_Sta(nvY)==cHomeSta_Err)
+//				{
+//					disable 3
+//					gVs_Home_Err = cErrCode_VsHome;
+//					gVs_Home_Sta = cHomeSta_Err;
+//					gVs_Home_Seq = 0;
+//					gVs_Home_Ena = 0;
+//				}
+//			break;
 
 			case 12:
 				gVs_Home_Buf = gVs_Home_Seq;
-				if(Motor[nvC].InPos == 1)
+				//if(Motor[nvC].InPos == 1)
+				if(gMt_Home_Sta(nvY)==cHomeSta_Fin)
 				{
 					call spInitMotor(nvC);
 
@@ -777,7 +779,6 @@ open plc 10
 				}
 			break;
 
-			break;
 			case 13:
 				gVs_Home_Buf = gVs_Home_Seq;
 				if(gMt_Home_Sta(nvC)==cHomeSta_Fin)

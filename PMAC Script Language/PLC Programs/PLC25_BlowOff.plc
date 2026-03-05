@@ -102,6 +102,8 @@ open plc 25
 //--------------------------------------------------------------------------------------------//
 	if(gVs_PostVisionED_Start==1)
 	{
+		gVs_Vision_VsnJudge = 0;
+
 		gVs_PostVisionED_Start = 0;
 		gVs_PostVisionED_Sta = cSeqSta_Idl;
 		gVs_PostVisionED_Seq = 1;

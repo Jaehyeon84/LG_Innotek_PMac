@@ -3335,7 +3335,7 @@
 3335	Global	gVs_TgtMov_PosX	9981	1
 3336	Global	gVs_TgtMov_PosY	9982	1
 3337	Global	gVs_TgtMov_PosC	9983	1
-3338	UserDefine	cWs_Cover_MoveAng	0	1
+3338	UserDefine	cWs_Cover_MoveAng	90000	1
 3339	UserDefine	cVs_Cover_MoveAng	-90000	1
 3340	Global	gWs_CoverOpn_TgtAng	9984	1
 3341	Global	gWs_CoverOpn_Start	9985	1

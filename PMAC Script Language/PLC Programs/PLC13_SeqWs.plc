@@ -63,7 +63,7 @@ Open plc 13
 				}
 				else
 				{
-					gWs_Load_Err = cErrCode_WsHome;;
+					gWs_Load_Err = cErrCode_WsHome;
 					gWs_Load_Sta = cSeqSta_Err;
 					gWs_Load_Seq = 0;
 					gWs_Load_Ena = 0;
