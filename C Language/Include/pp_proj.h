@@ -2113,7 +2113,7 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Di19_TrPickUp=10631
 ,pUmem_Di1A_WsTempFwd=10632
 ,pUmem_Di1B_TrPickDn=10633
-,pUmem_Di1C_WsTbDet=10634
+,pUmem_Di1C_WsTbOutOfRange=10634
 ,pUmem_Di1D_TrGripCls=10635
 ,pUmem_Di1E=10636
 ,pUmem_Di1F_TrGripOpn=10637
@@ -2125,11 +2125,11 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Di25=10643
 ,pUmem_Di26_VsTbFixDn=10644
 ,pUmem_Di27=10645
-,pUmem_Di28=10646
+,pUmem_Di28_WsTbDet=10646
 ,pUmem_Di29=10647
-,pUmem_Di2A=10648
+,pUmem_Di2A_VsTbDet=10648
 ,pUmem_Di2B=10649
-,pUmem_Di2C_VsTbDet=10650
+,pUmem_Di2C_VsTbOutOfRange=10650
 ,pUmem_Di2D=10651
 ,pUmem_Di2E=10652
 ,pUmem_Di2F=10653
@@ -6121,7 +6121,7 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Di19_TrPickUp=10631
 ,pUmem_Di1A_WsTempFwd=10632
 ,pUmem_Di1B_TrPickDn=10633
-,pUmem_Di1C_WsTbDet=10634
+,pUmem_Di1C_WsTbOutOfRange=10634
 ,pUmem_Di1D_TrGripCls=10635
 ,pUmem_Di1E=10636
 ,pUmem_Di1F_TrGripOpn=10637
@@ -6133,11 +6133,11 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Di25=10643
 ,pUmem_Di26_VsTbFixDn=10644
 ,pUmem_Di27=10645
-,pUmem_Di28=10646
+,pUmem_Di28_WsTbDet=10646
 ,pUmem_Di29=10647
-,pUmem_Di2A=10648
+,pUmem_Di2A_VsTbDet=10648
 ,pUmem_Di2B=10649
-,pUmem_Di2C_VsTbDet=10650
+,pUmem_Di2C_VsTbOutOfRange=10650
 ,pUmem_Di2D=10651
 ,pUmem_Di2E=10652
 ,pUmem_Di2F=10653
@@ -8480,7 +8480,7 @@ enum ptrMarray {_ptrMarray_=-1
 #define pUmem_Di19_TrPickUp 10631
 #define pUmem_Di1A_WsTempFwd 10632
 #define pUmem_Di1B_TrPickDn 10633
-#define pUmem_Di1C_WsTbDet 10634
+#define pUmem_Di1C_WsTbOutOfRange 10634
 #define pUmem_Di1D_TrGripCls 10635
 #define pUmem_Di1E 10636
 #define pUmem_Di1F_TrGripOpn 10637
@@ -8492,11 +8492,11 @@ enum ptrMarray {_ptrMarray_=-1
 #define pUmem_Di25 10643
 #define pUmem_Di26_VsTbFixDn 10644
 #define pUmem_Di27 10645
-#define pUmem_Di28 10646
+#define pUmem_Di28_WsTbDet 10646
 #define pUmem_Di29 10647
-#define pUmem_Di2A 10648
+#define pUmem_Di2A_VsTbDet 10648
 #define pUmem_Di2B 10649
-#define pUmem_Di2C_VsTbDet 10650
+#define pUmem_Di2C_VsTbOutOfRange 10650
 #define pUmem_Di2D 10651
 #define pUmem_Di2E 10652
 #define pUmem_Di2F 10653

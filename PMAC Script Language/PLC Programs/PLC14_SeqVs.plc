@@ -428,7 +428,7 @@ Open plc 14
 				{
 					gVs_Load_Seq = 90;
 				}
-				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				else if(pUmem_Di2C_VsTbOutOfRange==cDet_Off)
 				{
 					//gVs_Sta_Pdt = cPdtSta_Bvn;
 					gVs_Load_Seq = 90;
@@ -935,6 +935,7 @@ Open plc 14
 				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
 				{
 					gVs_Vision_Seq = 30;
+					gVs_Vision_Tmr = Sys.Time + cSeq_VsnTimeOut;
 				}
 				else if(Sys.time > gVs_Vision_Tmr)
 				{
@@ -1569,6 +1570,7 @@ Open plc 14
 							pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Mov;
 					}
 
+					gVs_Unload_Tmr = Sys.Time + cSeq_MtrTimeOut;
 					gVs_Unload_Seq = 23;
 				}
 				else if(Sys.time > gVs_Unload_Tmr)
@@ -1780,7 +1782,7 @@ Open plc 14
 					gVs_Sta_Pdt = cPdtSta_Blk;
 					gVs_Unload_Seq = 90;
 				}
-				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				else if(pUmem_Di2C_VsTbOutOfRange==cDet_Off)
 				{
 					gVs_Sta_Pdt = cPdtSta_Blk;
 					gVs_Unload_Seq = 90;

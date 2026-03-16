@@ -331,9 +331,10 @@ open plc 2
 	pUmem_Ti00_WsTempSen1 = gTi00_Ws_TempSen1;
 	pUmem_Ti01_WsTempSen2 = gTi01_Ws_TempSen2;
 
-	if(pUmem_Do23_WsN2Blow == 1 && pUmem_Do23_WsN2Blow == 1)
+	//Welding 종료 되면 N2Blow 종료 하기 위함.
+	if(gWs_Welding_Ena == 0 && pUmem_Do23_WsN2Blow == 1)
 	{
-		pUmem_Do23_WsN2Blow = 1;
+		pUmem_Do23_WsN2Blow = 0;
 	}
 
 	//Welding Vision Camera Shutter

@@ -475,7 +475,7 @@ Open plc 13
 					//gWs_Sta_Pdt = cPdtSta_Bwd;
 					gWs_Load_Seq = 80;
 				}
-				else if(pUmem_Di1C_WsTbDet==cDet_Off) //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				else if(pUmem_Di1C_WsTbOutOfRange==cDet_Off) //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 				{
 					//gWs_Sta_Pdt = cPdtSta_Bwd;
 					gWs_Load_Seq = 80;
@@ -2522,7 +2522,7 @@ Open plc 13
 				{
 					gWs_Unload_Seq = 90;
 				}
-				else if(pUmem_Di1C_WsTbDet==cDet_Off)
+				else if(pUmem_Di1C_WsTbOutOfRange==cDet_Off)
 				{
 					//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 					gWs_Sta_Pdt = cPdtSta_Blk;
@@ -2996,7 +2996,7 @@ Open plc 13
 					gWs_Sta_Pdt = cPdtSta_Blk;
 					gWs_Reject_Seq = 90;
 				}
-				else if(pUmem_Di1C_WsTbDet==cDet_Off)
+				else if(pUmem_Di1C_WsTbOutOfRange==cDet_Off)
 				{
 					gWs_Sta_Pdt = cPdtSta_Blk;
 					gWs_Reject_Seq = 90;

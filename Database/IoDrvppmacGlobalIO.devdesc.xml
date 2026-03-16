@@ -39181,8 +39181,8 @@
 				</Parameter>
 				</ParameterSection>
 				<ParameterSection>
-				<Name name="local:ps1">pUmem_Di1C_WsTbDet</Name>
-				<Description name="local:ps1.Desc">ptr(M) pUmem_Di1C_WsTbDet</Description>
+				<Name name="local:ps1">pUmem_Di1C_WsTbOutOfRange</Name>
+				<Description name="local:ps1.Desc">ptr(M) pUmem_Di1C_WsTbOutOfRange</Description>
 				<Parameter ParameterId="85073" type="std:LREAL">
 				<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
 				<Default>0</Default>
@@ -39373,8 +39373,8 @@
 				</Parameter>
 				</ParameterSection>
 				<ParameterSection>
-				<Name name="local:ps1">pUmem_Di28</Name>
-				<Description name="local:ps1.Desc">ptr(M) pUmem_Di28</Description>
+				<Name name="local:ps1">pUmem_Di28_WsTbDet</Name>
+				<Description name="local:ps1.Desc">ptr(M) pUmem_Di28_WsTbDet</Description>
 				<Parameter ParameterId="85169" type="std:LREAL">
 				<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
 				<Default>0</Default>
@@ -39405,8 +39405,8 @@
 				</Parameter>
 				</ParameterSection>
 				<ParameterSection>
-				<Name name="local:ps1">pUmem_Di2A</Name>
-				<Description name="local:ps1.Desc">ptr(M) pUmem_Di2A</Description>
+				<Name name="local:ps1">pUmem_Di2A_VsTbDet</Name>
+				<Description name="local:ps1.Desc">ptr(M) pUmem_Di2A_VsTbDet</Description>
 				<Parameter ParameterId="85185" type="std:LREAL">
 				<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
 				<Default>0</Default>
@@ -39437,8 +39437,8 @@
 				</Parameter>
 				</ParameterSection>
 				<ParameterSection>
-				<Name name="local:ps1">pUmem_Di2C_VsTbDet</Name>
-				<Description name="local:ps1.Desc">ptr(M) pUmem_Di2C_VsTbDet</Description>
+				<Name name="local:ps1">pUmem_Di2C_VsTbOutOfRange</Name>
+				<Description name="local:ps1.Desc">ptr(M) pUmem_Di2C_VsTbOutOfRange</Description>
 				<Parameter ParameterId="85201" type="std:LREAL">
 				<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
 				<Default>0</Default>

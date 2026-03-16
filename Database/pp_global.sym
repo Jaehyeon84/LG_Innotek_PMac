@@ -2315,7 +2315,7 @@
 2315	Ptr	pUmem_Di19_TrPickUp	10631	1
 2316	Ptr	pUmem_Di1A_WsTempFwd	10632	1
 2317	Ptr	pUmem_Di1B_TrPickDn	10633	1
-2318	Ptr	pUmem_Di1C_WsTbDet	10634	1
+2318	Ptr	pUmem_Di1C_WsTbOutOfRange	10634	1
 2319	Ptr	pUmem_Di1D_TrGripCls	10635	1
 2320	Ptr	pUmem_Di1E	10636	1
 2321	Ptr	pUmem_Di1F_TrGripOpn	10637	1
@@ -2327,11 +2327,11 @@
 2327	Ptr	pUmem_Di25	10643	1
 2328	Ptr	pUmem_Di26_VsTbFixDn	10644	1
 2329	Ptr	pUmem_Di27	10645	1
-2330	Ptr	pUmem_Di28	10646	1
+2330	Ptr	pUmem_Di28_WsTbDet	10646	1
 2331	Ptr	pUmem_Di29	10647	1
-2332	Ptr	pUmem_Di2A	10648	1
+2332	Ptr	pUmem_Di2A_VsTbDet	10648	1
 2333	Ptr	pUmem_Di2B	10649	1
-2334	Ptr	pUmem_Di2C_VsTbDet	10650	1
+2334	Ptr	pUmem_Di2C_VsTbOutOfRange	10650	1
 2335	Ptr	pUmem_Di2D	10651	1
 2336	Ptr	pUmem_Di2E	10652	1
 2337	Ptr	pUmem_Di2F	10653	1

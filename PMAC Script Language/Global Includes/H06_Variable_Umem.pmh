@@ -2118,7 +2118,7 @@ ptr	pUmem_Di18_WsTempBwd				->u.user:$7590
 ptr	pUmem_Di19_TrPickUp					->u.user:$7594
 ptr	pUmem_Di1A_WsTempFwd				->u.user:$7598
 ptr	pUmem_Di1B_TrPickDn					->u.user:$759C
-ptr	pUmem_Di1C_WsTbDet					->u.user:$75A0
+ptr	pUmem_Di1C_WsTbOutOfRange			->u.user:$75A0
 ptr	pUmem_Di1D_TrGripCls				->u.user:$75A4
 ptr	pUmem_Di1E							->u.user:$75A8
 ptr	pUmem_Di1F_TrGripOpn				->u.user:$75AC
@@ -2131,11 +2131,11 @@ ptr	pUmem_Di24_VsTbFixUp				->u.user:$75C0
 ptr	pUmem_Di25							->u.user:$75C4
 ptr	pUmem_Di26_VsTbFixDn				->u.user:$75C8
 ptr	pUmem_Di27							->u.user:$75CC
-ptr	pUmem_Di28							->u.user:$75D0
+ptr	pUmem_Di28_WsTbDet					->u.user:$75D0
 ptr	pUmem_Di29							->u.user:$75D4
-ptr	pUmem_Di2A							->u.user:$75D8
+ptr	pUmem_Di2A_VsTbDet					->u.user:$75D8
 ptr	pUmem_Di2B							->u.user:$75DC
-ptr	pUmem_Di2C_VsTbDet					->u.user:$75E0
+ptr	pUmem_Di2C_VsTbOutOfRange			->u.user:$75E0
 ptr	pUmem_Di2D							->u.user:$75E4
 ptr	pUmem_Di2E							->u.user:$75E8
 ptr	pUmem_Di2F							->u.user:$75EC
