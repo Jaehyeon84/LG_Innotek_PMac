@@ -5,7 +5,10 @@
 
 #define cDistX_Limit		-623000		// Ws-Vs Distance, Small -> Narrow
 
-
+global gWs_Error_Cur2 = 0;	// 260325 추가
+global gWs_Error_Old2 = 0;
+global gVs_Error_Cur2 = 0;
+global gVs_Error_Old2 = 0;
 open plc 4
 //-------------------------------------------------------------//
 // Safety Alarm
@@ -39,45 +42,55 @@ open plc 4
 	else
 	{
 		// Stage Crash Detect
+		// 오른쪽 스테이지(nwX) 원점 기준으로, 왼쪽 스테이지(nvX) 원점이 얼마나 더 왼쪽(+)에 있는지 거리
+		// 추후 파라미터 값으로 작업 예정.... 
+		local OriginOffset = 0.0;
+		switch(cMachineID)
+		{
+		case 1:
+			OriginOffset = -1872811; //OriginOffset = (nwX_ActPos+Homoffset + 190) - (nvX\_ActPos+Homeoffset - 150) // 2Line
+			break;
+		case 2:
+			OriginOffset = -1865948; //OriginOffset = (nwX_ActPos+Homoffset + 190) - (nvX\_ActPos+Homeoffset - 150) // 1Line
+			break;
+		case 3:
+			OriginOffset = -1865948; //OriginOffset = (nwX_ActPos+Homoffset + 190) - (nvX\_ActPos+Homeoffset - 150) // 3Line
+			break;
+		default:
+		break;
+		}
+		
+		// 각 스테이지 원점에서 마주보는 끝단(센서/도그 끝)까지의 돌출 거리 (mm)
+		local nvX_HalfSize = 150;  // 왼쪽 스테이지(nvX)의 우측 끝단(센서) 돌출량
+		local nwX_HalfSize = 190;  // 오른쪽 스테이지(nwX)의 좌측 끝단(도그) 돌출량
+
+		local AccelTime = 0.1;      // 가감속 시간 (sec)
+		local RespTime = 0.05;      // 시스템 반응 시간 (sec)
+		local SafetyMargin = 20.0;  // 기구적 여유 간격 (mm)
+
+		local V_nvX, V_nwX, P_nvX_Abs, P_nwX_Abs;
+		local nvX_RightEdge, nwX_LeftEdge, RealGap, gMc_SafeDist;
+		local StopD_nvX, StopD_nwX;
+
 		if(Motor[nwX].HomeComplete==1 && Motor[nvX].HomeComplete==1)
 		{
-			//20260111 KJH - Home Position 계산 후에 계산 하게 되면 서로 Home 위치가 다르기 때문에 비교가 되지 않는 현상 발생.
-			//gMc_DistX_Cur = pUmem_Sta_ActPos(nvX) -  pUmem_Sta_ActPos(nwX); 
+			V_nvX = abs(Motor[nvX].ActVel * 1000); 
+			V_nwX = abs(Motor[nwX].ActVel * 1000); 
 
-//			if((gMc_DistX_Cur) < (cDistX_Limit))
-//			{
-//				gMc_DistX_Err = 1;
-//			}
-//			else
-//			{
-//				gMc_DistX_Err = 0;
-//			}
+			P_nwX_Abs = Motor[nwX].ActPos + Motor[nwX].HomePos;
+			P_nvX_Abs = (Motor[nvX].ActPos + Motor[nvX].HomePos) + OriginOffset;
 
-			// 전역 변수 설정 (단위: mm, sec)
-			local AccelTime = 0.1;      // 가감속 시간 (s)
-			local RespTime = 0.05;      // 시스템 반응 시간 (s)
-			local SafetyMargin = 20.0;  // 최소 유지 여유 (mm)
+			nvX_RightEdge = P_nvX_Abs - nvX_HalfSize; 
+			nwX_LeftEdge  = P_nwX_Abs + nwX_HalfSize; 
 
-			local V1, V2, P1, P2, gMc_SafeDist;
-			local StopD1, StopD2;
+			RealGap = nvX_RightEdge - nwX_LeftEdge;
+			gMc_DistX_Cur = RealGap;
 
-			// 1. 현재 속도 및 위치 데이터 취득 (절대값 및 단위 환산)
-			V1 = abs(Motor[nwX].ActVel * 1000); // mm/s
-			V2 = abs(Motor[nvX].ActVel * 1000); // mm/s
-    
-			// 2. 물리적 절대 좌표로 통일 (Normalization)
-			P1 = Motor[nwX].ActPos + Motor[nwX].HomePos; // mm/s
-			P2 = Motor[nvX].ActPos + Motor[nvX].HomePos; // mm/s
-			gMc_DistX_Cur = abs(P1 - P2);
+			StopD_nvX = (V_nvX * AccelTime / 2.0) + (V_nvX * RespTime);
+			StopD_nwX = (V_nwX * AccelTime / 2.0) + (V_nwX * RespTime);
+			gMc_SafeDist = StopD_nvX + StopD_nwX + SafetyMargin;
 
-			// 3. 동적 안전 거리 계산 (각자의 제동 거리 합산)
-			// 수식: (V * T_acc / 2) + (V * T_resp)
-			StopD1 = (V1 * AccelTime / 2.0) + (V1 * RespTime);
-			StopD2 = (V2 * AccelTime / 2.0) + (V2 * RespTime);
-			gMc_SafeDist = StopD1 + StopD2 + SafetyMargin;
-
-			// 4. 충돌 위험 판단 및 정지 시퀀스
-			if (gMc_DistX_Cur < gMc_SafeDist)
+			if (RealGap < gMc_SafeDist)
 			{
 				gMc_DistX_Err = 1;
 			}
@@ -86,13 +99,14 @@ open plc 4
 				gMc_DistX_Err = 0;
 			}
 
-			if(gMc_DistX_Err==1)
+			if(gMc_DistX_Err == 1)
 			{
-				Motor[nwX].MaxPos = Motor[nwX].DesPos - Motor[nwX].HomePos;
-				Motor[nwX].MinPos = Motor[nwX].MaxPos - 5000000;
 				Motor[nvX].MinPos = Motor[nvX].DesPos - Motor[nvX].HomePos;
-				Motor[nvX].MaxPos = Motor[nvX].MinPos + 5000000;
-			
+				Motor[nvX].MaxPos = Motor[nvX].MinPos + 5000000; // 왼쪽(+) 대피는 허용
+        
+				Motor[nwX].MaxPos = Motor[nwX].DesPos - Motor[nwX].HomePos;
+				Motor[nwX].MinPos = Motor[nwX].MaxPos - 5000000; // 오른쪽(-) 대피는 허용
+        
 				gWs_Safety_Sta = cSafetySta_Err;
 				gVs_Safety_Sta = cSafetySta_Err;
 				gWs_Safety_Err = cErrCode_EtCrash;
@@ -230,6 +244,30 @@ open plc 4
 	{
 		gVs_Error = 0;
 	}
+
+	///////////////////////////////////////////////////////	// 260325 추가
+	gWs_Error_Cur2 = gWs_Error;
+	if(gWs_Error_Cur2==1 && gWs_Error_Old2==0)
+	{
+		call spSetSeqBufQ(cEffSta_WsErr,0,0,0,0);		
+	}
+	else if(gWs_Error_Cur2==0 && gWs_Error_Old2==1)
+	{
+		call spSetSeqBufQ(cEffSta_WsIdl,0,0,0,0);		
+	}
+	gWs_Error_Old2 = gWs_Error_Cur2;
+
+	gVs_Error_Cur2 = gVs_Error;
+	if(gVs_Error_Cur2==1 && gVs_Error_Old2==0)
+	{
+		call spSetSeqBufQ(cEffSta_VsErr,0,0,0,0);		
+	}
+	else if(gVs_Error_Cur2==0 && gVs_Error_Old2==1)
+	{
+		call spSetSeqBufQ(cEffSta_VsIdl,0,0,0,0);		
+	}
+	gVs_Error_Old2 = gVs_Error_Cur2;
+	///////////////////////////////////////////////////////
 
 //-------------------------------------------------------------//
 // Alarm Reset

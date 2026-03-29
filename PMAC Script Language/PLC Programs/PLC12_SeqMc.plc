@@ -217,6 +217,7 @@ open plc 12
 			else if(gWs_Sta_Pdt==cPdtSta_Err)		gWs_Loop_Seq = cWsSeqNo_Rj;
 			else									gWs_Loop_Seq = 0;	// Unknown Status
 
+			call spSetSeqBufQ(cEffSta_WsRun,0,0,0,0);		// 260325 추가
 			gWs_Loop_Err = 0;
 			gWs_Loop_Sta = cSeqSta_Ing;
 			gWs_Loop_Ena = 1;
@@ -266,6 +267,7 @@ open plc 12
 			else if(gVs_Sta_Pdt==cPdtSta_Err)	gVs_Loop_Seq = cVsSeqNo_Rj;
 			else								gVs_Loop_Seq = 0;	// Unknown Status
 
+			call spSetSeqBufQ(cEffSta_VsRun,0,0,0,0);		// 260325 추가
 			gVs_Loop_Err = 0;
 			gVs_Loop_Sta = cSeqSta_Ing;
 			gVs_Loop_Ena = 1;
@@ -292,12 +294,14 @@ open plc 12
 	if(gWs_Loop_Abort==1)
 	{
 		gWs_Loop_Abort = 0;
+		call spSetSeqBufQ(cEffSta_WsIdl,0,0,0,0);		// 260325 추가
 		call spAbortWsLoop();
 	}
 
 	if(gWs_Loop_Pause==1)
 	{
 		gWs_Loop_Pause = 0;
+		call spSetSeqBufQ(cEffSta_WsIdl,0,0,0,0);		// 260325 추가
 		if(gWs_Load_Ena==1 && pUmem_Sta_Ws_2ndTransLdReq!=cPcReq_Idl)
 		{
 			// 로딩 대지 중 일시 Pause 안함
@@ -315,12 +319,14 @@ open plc 12
 	if(gVs_Loop_Abort==1)
 	{
 		gVs_Loop_Abort = 0;
+		call spSetSeqBufQ(cEffSta_VsIdl,0,0,0,0);		// 260325 추가
 		call spAbortVsLoop();
 	}
 
 	if(gVs_Loop_Pause==1)
 	{
 		gVs_Loop_Pause = 0;
+		call spSetSeqBufQ(cEffSta_VsIdl,0,0,0,0);		// 260325 추가
 		if(gVs_Unload_Ena==1 && (pUmem_Sta_Vs_3rdTransUdReq!=cPcReq_Idl || pUmem_Sta_Vs_3rdTransRjReq!=cPcReq_Idl))
 		{
 			// 언로딩 대지 중 일시 Pause 안함
@@ -702,6 +708,7 @@ open plc 12
 				gWs_Loop_Buf = gWs_Loop_Seq;
 				if(gWs_Wait_Sta==cSeqSta_Fin)
 				{
+					call spSetSeqBufQ(cEffSta_WsIdl,0,0,0,0);		// 260325 추가
 					call spSetSeqBufQ(cSeqBuf_WsWtEnd, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
 					gWs_SeqBuf_Cur = cSeqBuf_WsWtEnd;
 					gWs_SeqBuf_Old = cSeqBuf_WsWtEnd & $3FFF;
@@ -753,8 +760,9 @@ open plc 12
 
 				gWs_Unload_Sta = cSeqSta_Idl;
 				gWs_Unload_Start = 1;
+				call spSetSeqBufQ(cEffSta_WsRun,0,0,0,0);		// 260325 추가
 				call spSetSeqBufQ(cSeqBuf_WsUdSrt, gWs_SeqBuf_Old, gWs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
-				gWs_SeqBuf_Cur = cSeqBuf_WsUdSrt
+				gWs_SeqBuf_Cur = cSeqBuf_WsUdSrt;
 
 //				gWs_Seq_Old = gWs_Seq_Cur;
 //				gWs_Seq_Cur = cPos_Ud;
@@ -979,6 +987,7 @@ open plc 12
 				gVs_Loop_Buf = gVs_Loop_Seq;
 				if(gVs_Wait_Sta==cSeqSta_Fin)
 				{
+					call spSetSeqBufQ(cEffSta_VsIdl,0,0,0,0);		// 260325 추가
 					call spSetSeqBufQ(cSeqBuf_VsWtEnd, gVs_SeqBuf_Old, 0, gWs_Ready_VsnJudge, 0);	// 251230 수정
 					gVs_SeqBuf_Cur = cSeqBuf_VsWtEnd;
 					gVs_SeqBuf_Old = cSeqBuf_VsWtEnd & $3FFF;
@@ -1037,6 +1046,7 @@ open plc 12
 				gVs_Loop_TimeBuf = Sys.Time;
 				gVs_Load_Sta = cSeqSta_Idl;
 				gVs_Load_Start = 1;
+				call spSetSeqBufQ(cEffSta_VsRun,0,0,0,0);		// 260325 추가
 				call spSetSeqBufQ(cSeqBuf_VsLdSrt, gVs_SeqBuf_Old, 0, gWs_Ready_VsnJudge, 0);	// 251230 수정
 				gVs_SeqBuf_Cur = cSeqBuf_VsLdSrt
 
@@ -1097,7 +1107,7 @@ open plc 12
 				gVs_Wait_Sta = cSeqSta_Idl;
 				gVs_Wait_Start = 1;
 				call spSetSeqBufQ(cSeqBuf_VsWtSrt, gVs_SeqBuf_Old, gVs_PdtNo, gWs_Ready_VsnJudge, 0);	// 251230 수정
-				gVs_SeqBuf_Cur = cSeqBuf_VsWtSrt
+				gVs_SeqBuf_Cur = cSeqBuf_VsWtSrt;
 
 //				gVs_Seq_Old = gVs_Seq_Cur;
 //				gVs_Seq_Cur = cPos_Wt;

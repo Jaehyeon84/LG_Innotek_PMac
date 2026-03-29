@@ -170,6 +170,7 @@ open plc 10
 
 			case 10:
 				gMc_Home_Buf = gMc_Home_Seq;
+				call spSetSeqBufQ(cEffSta_WsRun,0,0,0,0);		// 260325 추가
 				gWs_Home_Start = 1;
 				gMc_Home_Tmr = Sys.Time + 5;
 				gMc_Home_Seq = 11;
@@ -179,6 +180,7 @@ open plc 10
 				gMc_Home_Buf = gMc_Home_Seq;
 				if(Sys.Time > gMc_Home_Tmr)
 				{
+					call spSetSeqBufQ(cEffSta_VsRun,0,0,0,0);		// 260325 추가
 					gVs_Home_Start = 1;
 					gMc_Home_Seq = 12;
 				}
@@ -188,6 +190,8 @@ open plc 10
 				gMc_Home_Buf = gMc_Home_Seq;
 				if(gWs_Home_Sta==cHomeSta_Fin && gVs_Home_Sta==cHomeSta_Fin)
 				{
+					call spSetSeqBufQ(cEffSta_WsIdl,0,0,0,0);		// 260325 추가
+					call spSetSeqBufQ(cEffSta_VsIdl,0,0,0,0);		// 260325 추가
 					gMc_Home_Seq = 90;
 				}
 				else if(gWs_Home_Sta==cHomeSta_Err || gVs_Home_Sta==cHomeSta_Err)

@@ -30,6 +30,6 @@ Sys.RtIntPeriod = 0;				// Real time interrup period = Sys.RtIntPeriod + 1
 
 Sys.WpKey = $AAAAAAAA;				// Unlock Gate3 variable protection
 
-DART.Enable = 0;
+//DART.Enable = 0;
 
 global gTest_Cnt = 0;				// Rti Excute Count
