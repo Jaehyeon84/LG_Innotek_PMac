@@ -234,15 +234,15 @@ Open plc 13
 				{
 					gWs_CoverOpn_Start = 1;
 				}
+				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					gWs_Load_Seq = 32;
+				}
 				else if(gIsWsCoverComplete == 1 &&  gWs_CoverMoving_Sta == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 				{
 					call spReadWsThPos(nwC, gWs_Load_PosC, &gWs_ThTargetPos_Old);
 
 					//jog nwC=*
-				}
-				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					gWs_Load_Seq = 32;
 				}
 				else if(Sys.time > gWs_Load_Tmr)
 				{
@@ -867,15 +867,15 @@ Open plc 13
 				{
 					gWs_CoverCls_Start = 1;
 				}
+				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 2 && gWs_CoverCls_Sta == cSeqSta_Fin && gWsV_Cover_Cur == cOpn)
+				{					
+					gWs_Ready_Seq = 33;
+				}
 				else if(gIsWsCoverComplete == 1 &&  gWs_CoverMoving_Sta == 2 && gWs_CoverCls_Sta == cSeqSta_Fin)
 				{
 					call spReadWsThPos(nwC, gWs_Ready_PosC, &gWs_ThTargetPos_Old);
 
 					//jog nwC=*
-				}
-				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 2 && gWs_CoverCls_Sta == cSeqSta_Fin && gWsV_Cover_Cur == cOpn)
-				{					
-					gWs_Ready_Seq = 33;
 				}
 				else if(Sys.time > gWs_Ready_Tmr)
 				{
@@ -1442,15 +1442,15 @@ Open plc 13
 				{
 					gWs_CoverCls_Start = 1;
 				}
+				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 2 && gWs_CoverCls_Sta == cSeqSta_Fin && gN2BlowState == 1 && gWsV_Cover_Cur == cCls)
+				{
+					gWs_Welding_Seq = 40;
+				}
 				else if(gIsWsCoverComplete == 1 &&  gWs_CoverMoving_Sta == 2 && gWs_CoverCls_Sta == cSeqSta_Fin)
 				{
 					call spReadWsThPos(nwC, gWs_Welding_PosC, &gWs_ThTargetPos_Old);
 
 					//jog nwC=*
-				}
-				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 2 && gWs_CoverCls_Sta == cSeqSta_Fin && gN2BlowState == 1 && gWsV_Cover_Cur == cCls)
-				{
-					gWs_Welding_Seq = 40;
 				}
 				else if(Sys.time > gWs_Welding_Tmr)
 				{
@@ -1915,15 +1915,15 @@ Open plc 13
 				{
 					gWs_CoverOpn_Start = 1;
 				}
+				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					gWs_Wait_Seq = 90;
+				}
 				else if(gIsWsCoverComplete == 1 &&  gWs_CoverMoving_Sta == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 				{
 					call spReadWsThPos(nwC, gWs_Wait_PosC, &gWs_ThTargetPos_Old);
 
 					//jog nwC=*
-				}
-				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					gWs_Wait_Seq = 90;
 				}
 				else if(Sys.time > gWs_Wait_Tmr)
 				{
@@ -2276,15 +2276,15 @@ Open plc 13
 				{
 					gWs_CoverOpn_Start = 1;
 				}
+				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					gWs_Unload_Seq = 44;
+				}
 				else if(gIsWsCoverComplete == 1 &&  gWs_CoverMoving_Sta == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 				{
 					call spReadWsThPos(nwC, gWs_Unload_PosC, &gWs_ThTargetPos_Old);
 
 					//jog nwC=*
-				}
-				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					gWs_Unload_Seq = 44;
 				}
 				else if(Sys.time > gWs_Unload_Tmr)
 				{
@@ -2864,15 +2864,15 @@ Open plc 13
 				{
 					gWs_CoverOpn_Start = 1;
 				}
+				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
+				{
+					gWs_Reject_Seq = 35;
+				}
 				else if(gIsWsCoverComplete == 1 &&  gWs_CoverMoving_Sta == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 				{
 					call spReadWsThPos(nwC, gWs_Reject_PosC, &gWs_ThTargetPos_Old);
 
 					//jog nwC=*
-				}
-				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					gWs_Reject_Seq = 35;
 				}
 				else if(Sys.time > gWs_Reject_Tmr)
 				{
