@@ -176,6 +176,10 @@ open plc 2
 	//20260209 KJH - N2 Blow Skip 기능 추가.
 	if(pUmem_Di05_LaserProgRun == 0)
 	{
+		gWs_Skip_N2 = 1;
+	}
+	else
+	{
 		gWs_Skip_N2 = 0;
 	}
 	
