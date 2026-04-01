@@ -102,17 +102,21 @@ Open plc 14
 
 			case 5:	// Detect
 				gVs_Load_Buf = gVs_Load_Seq;
-//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
-//				{
-//					gVs_Sta_Pdt = cPdtSta_Blk;
-//					gVs_Load_Seq = 20;
-//				}
-//				else if(pUmem_Di2C_VsTbDet==cDet_Off)
-				if(gVs_Sta_Pdt == cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
 				{
-					//gVs_Sta_Pdt = cPdtSta_Blk;
+					gVs_Sta_Pdt = cPdtSta_Blk;
 					gVs_Load_Seq = 20;
 				}
+				else if(pUmem_Di2A_VsTbDet == cDet_Off)
+				//if(gVs_Sta_Pdt == cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				{
+					gVs_Sta_Pdt = cPdtSta_Blk;
+					gVs_Load_Seq = 20;
+				}
+//				else if(gVs_Sta_Pdt != cPdtSta_Blk && pUmem_Di2A_VsTbDet == cDet_On)
+//				{
+//					gVs_Load_Seq = 53;
+//				}
 				else
 				{
 //					gVs_Sta_Pdt = cPdtSta_Bvn;
@@ -180,15 +184,23 @@ Open plc 14
 					//20260127 KJH - Theta Coord 관련 작업.
 //					call spReadVsThPos(nvC, gVs_Load_PosC);
 
-					//20260123 KJH - TactTime 작업.
-					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-					{
+					#ifdef CE
 						call spReadVsThPos(nvC, gVs_Load_PosC, &gVs_ThTargetPos_Old);
+						//jog nvC=*
 
-						jog nvC=*
-					}
-					else if(gVs_CoverMoving_Sta != 1)
-						gVs_CoverOpn_Start = 1;
+						if(gVs_CoverMoving_Sta != 1)
+							gVs_CoverOpn_Start = 1;
+					#elif TG				
+						//20260123 KJH - TactTime 작업.
+						if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+						{
+							call spReadVsThPos(nvC, gVs_Load_PosC, &gVs_ThTargetPos_Old);
+
+							//jog nvC=*
+						}
+						else if(gVs_CoverMoving_Sta != 1)
+							gVs_CoverOpn_Start = 1;
+					#endif
 
 					gVs_Load_Tmr = Sys.Time + 0.1;
 					gVs_Load_Seq = 31;
@@ -213,28 +225,47 @@ Open plc 14
 
 			case 32:
 				gVs_Load_Buf = gVs_Load_Seq;
-				//20260123 KJH - TactTime 작업.
-				if(gVs_CoverMoving_Sta != 1)
-				{
-					gVs_CoverOpn_Start = 1;
-				}
-				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					call spReadVsThPos(nvC, gVs_Load_PosC, &gVs_ThTargetPos_Old);
 
-					jog nvC=*
-				}
-				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					gVs_Load_Seq = 50;
-				}
-				else if(Sys.time > gVs_Load_Tmr)
-				{
-					gVs_Load_Err = cErrCode_VsMoveTime;
-					gVs_Load_Sta = cSeqSta_Err;
-					gVs_Load_Seq = 0;
-					gVs_Load_Ena = 0;
-				}
+				#ifdef CE
+					if(gVs_CoverMoving_Sta != 1)
+					{
+						gVs_CoverOpn_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						gVs_Load_Seq = 50;
+					}
+					else if(Sys.time > gVs_Load_Tmr)
+					{
+						gVs_Load_Err = cErrCode_VsCoverOpen;
+						gVs_Load_Sta = cSeqSta_Err;
+						gVs_Load_Seq = 0;
+						gVs_Load_Ena = 0;
+					}
+				#elif TG				
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta != 1)
+					{
+						gVs_CoverOpn_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						gVs_Load_Seq = 50;
+					}
+					else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Load_PosC, &gVs_ThTargetPos_Old);
+
+						//jog nvC=*
+					}
+					else if(Sys.time > gVs_Load_Tmr)
+					{
+						gVs_Load_Err = cErrCode_VsCoverOpen;
+						gVs_Load_Sta = cSeqSta_Err;
+						gVs_Load_Seq = 0;
+						gVs_Load_Ena = 0;
+					}
+				#endif
 			break;
 		//------------------------------------------------//
 		// Cover Open
@@ -354,14 +385,14 @@ Open plc 14
 				gVs_Load_Buf = gVs_Load_Seq;
 				if(gTr_CldIn_PickerOC==cOpn)
 				{
-					gVs_PdtNo = gTr_PdtNo;
-					gTr_PdtNo = 0;
+//					gVs_PdtNo = gTr_PdtNo;
+//					gTr_PdtNo = 0;
 
-					if(gTr_Sta_Pdt==cPdtSta_Awd)	gVs_Sta_Pdt = cPdtSta_Bvn;
-					else							gVs_Sta_Pdt = cPdtSta_Err;
-					gTr_Sta_Pdt = cPdtSta_Blk;
+//					if(gTr_Sta_Pdt==cPdtSta_Awd)	gVs_Sta_Pdt = cPdtSta_Bvn;
+//					else							gVs_Sta_Pdt = cPdtSta_Err;
+//					gTr_Sta_Pdt = cPdtSta_Blk;
 
-					pUmem_Sta_Vs_PdtNo = gVs_PdtNo;
+//					pUmem_Sta_Vs_PdtNo = gVs_PdtNo;
 
 					gVs_Load_Tmr = Sys.Time + gVs_CldInpos_Delay;
 					gVs_Load_Seq = 56;
@@ -406,12 +437,43 @@ Open plc 14
 				gVs_Load_Buf = gVs_Load_Seq;
 				if(gTr_CldIn_PickerUD==cUp)
 				{
-					gVs_Load_Tmr = Sys.Time + 2;
-					gVs_Load_Seq = 63;
+					if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+					{
+						gVs_PdtNo = gTr_PdtNo;
+						gTr_PdtNo = 0;
 
-					//20260123 KJH - TactTime 작업.
-					if(gVs_CoverMoving_Sta != 2)
-						gVs_CoverCls_Start = 1;
+						if(gTr_Sta_Pdt==cPdtSta_Awd)	gVs_Sta_Pdt = cPdtSta_Bvn;
+						else							gVs_Sta_Pdt = cPdtSta_Err;
+						gTr_Sta_Pdt = cPdtSta_Blk;
+
+						pUmem_Sta_Vs_PdtNo = gVs_PdtNo;
+
+						gVs_Load_Tmr = Sys.Time + 2;
+						gVs_Load_Seq = 90;
+
+						//20260123 KJH - TactTime 작업.
+						if(gVs_CoverMoving_Sta != 2)
+							gVs_CoverCls_Start = 1;
+					}
+					else if(pUmem_Di2A_VsTbDet == cDet_On && pUmem_Di2C_VsTbOutOfRange==cDet_Off)
+					{
+
+						gVs_PdtNo = gTr_PdtNo;
+						gTr_PdtNo = 0;
+
+						if(gTr_Sta_Pdt==cPdtSta_Awd)	gVs_Sta_Pdt = cPdtSta_Bvn;
+						else							gVs_Sta_Pdt = cPdtSta_Err;
+						gTr_Sta_Pdt = cPdtSta_Blk;
+
+						pUmem_Sta_Vs_PdtNo = gVs_PdtNo;
+
+						gVs_Load_Tmr = Sys.Time + 2;
+						gVs_Load_Seq = 90;
+
+						//20260123 KJH - TactTime 작업.
+						if(gVs_CoverMoving_Sta != 2)
+							gVs_CoverCls_Start = 1;
+					}
 				}
 				else if(Sys.time > gVs_Load_Tmr)
 				{
@@ -422,25 +484,27 @@ Open plc 14
 				}
 			break;
 
-			case 63:
-				gVs_Load_Buf = gVs_Load_Seq;
-				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
-				{
-					gVs_Load_Seq = 90;
-				}
-				else if(pUmem_Di2C_VsTbDet==cDet_Off)
-				{
-					//gVs_Sta_Pdt = cPdtSta_Bvn;
-					gVs_Load_Seq = 90;
-				}
-				else if(Sys.time > gVs_Load_Tmr)
-				{
-					gVs_Load_Err = cErrCode_VsPdtDetect;
-					gVs_Load_Sta = cSeqSta_Err;
-					gVs_Load_Seq = 0;
-					gVs_Load_Ena = 0;
-				}
-			break;
+//			case 63:
+//				gVs_Load_Buf = gVs_Load_Seq;
+//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+//				{
+//					gVs_Sta_Pdt = cPdtSta_Bvn;
+//					gVs_Load_Seq = 90;
+//				}
+//				else if(pUmem_Di2A_VsTbDet == cDet_On && pUmem_Di2C_VsTbOutOfRange==cDet_Off)
+//				{
+//					gVs_Sta_Pdt = cPdtSta_Bvn;
+//					gVs_Load_Seq = 90;
+//				}
+//				else if(Sys.time > gVs_Load_Tmr)
+//				{
+//					gVs_Load_Err = cErrCode_VsPdtDetect;
+//					gVs_Load_Sta = cSeqSta_Err;
+//					gVs_Load_Seq = 0;
+//					gVs_Load_Ena = 0;
+//				}
+//			break;
+
 		//------------------------------------------------//
 		// Cover Close
 		//------------------------------------------------//
@@ -579,13 +643,13 @@ Open plc 14
 
 			case 5:	// Detect
 				gVs_Ready_Buf = gVs_Ready_Seq;
-//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
-//				{
-//					gVs_Sta_Pdt = cPdtSta_Bvn;
-//					gVs_Ready_Seq = 20;
-//				}
-//				else if(pUmem_Di2C_VsTbDet==cDet_On)
-				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+				{
+					gVs_Sta_Pdt = cPdtSta_Bvn;
+					gVs_Ready_Seq = 20;
+				}
+				else if(pUmem_Di2A_VsTbDet == cDet_On)
+//				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 				{
 					gVs_Sta_Pdt = cPdtSta_Bvn;
 					gVs_Ready_Seq = 20;
@@ -643,15 +707,24 @@ Open plc 14
 
 					jog nvX=*
 					jog nvY=*
-					//20260123 KJH - TactTime 작업.
-					if(gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
-					{
-						call spReadVsThPos(nvC, gVs_Ready_PosC, &gVs_ThTargetPos_Old);
 
-						jog nvC=*
-					}
-					else if(gVs_CoverMoving_Sta != 2)
-						gVs_CoverCls_Start = 1;
+					#ifdef CE
+						call spReadVsThPos(nvC, gVs_Ready_PosC, &gVs_ThTargetPos_Old);
+						//jog nvC=*
+
+						if(gVs_CoverMoving_Sta != 2)
+							gVs_CoverCls_Start = 1;
+					#elif TG				
+						//20260123 KJH - TactTime 작업.
+						if(gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+						{
+							call spReadVsThPos(nvC, gVs_Ready_PosC, &gVs_ThTargetPos_Old);
+
+							//jog nvC=*
+						}
+						else if(gVs_CoverMoving_Sta != 2)
+							gVs_CoverCls_Start = 1;
+					#endif
 
 					gVs_Ready_Tmr = Sys.Time + 0.1;
 					gVs_Ready_Seq = 21;
@@ -676,28 +749,48 @@ Open plc 14
 
 			case 22:
 				gVs_Ready_Buf = gVs_Ready_Seq;
-				//20260123 KJH - TactTime 작업.
-				if(gVs_CoverMoving_Sta != 2)
-				{
-					gVs_CoverCls_Start = 1;
-				}
-				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
-				{
-					call spReadVsThPos(nvC, gVs_Ready_PosC, &gVs_ThTargetPos_Old);
 
-					jog nvC=*
-				}
-				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
-				{
-					gVs_Ready_Seq = 90;
-				}
-				else if(Sys.time > gVs_Ready_Tmr)
-				{
-					gVs_Ready_Err = cErrCode_VsMoveTime;
-					gVs_Ready_Sta = cSeqSta_Err;
-					gVs_Ready_Seq = 0;
-					gVs_Ready_Ena = 0;
-				}
+				#ifdef CE
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta != 2)
+					{
+						gVs_CoverCls_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+					{
+						gVs_Ready_Seq = 90;
+					}
+					else if(Sys.time > gVs_Ready_Tmr)
+					{
+						gVs_Ready_Err = cErrCode_VsCoverClose;
+						gVs_Ready_Sta = cSeqSta_Err;
+						gVs_Ready_Seq = 0;
+						gVs_Ready_Ena = 0;
+					}
+				#elif TG				
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta != 2)
+					{
+						gVs_CoverCls_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+					{
+						gVs_Ready_Seq = 90;
+					}
+					else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Ready_PosC, &gVs_ThTargetPos_Old);
+
+						//jog nvC=*
+					}
+					else if(Sys.time > gVs_Ready_Tmr)
+					{
+						gVs_Ready_Err = cErrCode_VsCoverClose;
+						gVs_Ready_Sta = cSeqSta_Err;
+						gVs_Ready_Seq = 0;
+						gVs_Ready_Ena = 0;
+					}
+				#endif
 			break;
 		//------------------------------------------------//
 		// Completes
@@ -816,15 +909,16 @@ Open plc 14
 
 			case 5:	// Detect
 				gVs_Vision_Buf = gVs_Vision_Seq;
-//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
-//				{
-//					gVs_Sta_Pdt = cPdtSta_Bvn;
-//					gVs_Vision_Seq = 20;
+				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+				{
+					gVs_Sta_Pdt = cPdtSta_Bvn;
+					gVs_Vision_Seq = 20;
+
 					//20260123 KJH - TactTime 작업.
-//					gVs_PostVisionST_Start = 1;
-//				}
-//				else if(pUmem_Di2C_VsTbDet==cDet_On)
-				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gVs_PostVisionST_Start = 1;
+				}
+				else if(pUmem_Di2A_VsTbDet == cDet_On)
+				//if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 				{
 					gVs_Sta_Pdt = cPdtSta_Bvn;
 					gVs_Vision_Seq = 20;
@@ -887,15 +981,24 @@ Open plc 14
 
 					jog nvX=*
 					jog nvY=*
-					//20260123 KJH - TactTime 작업.
-					if(gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
-					{
-						call spReadVsThPos(nvC, gVs_Vision_PosC, &gVs_ThTargetPos_Old);
 
-						jog nvC=*
-					}
-					else if(gVs_CoverMoving_Sta != 2)
-						gVs_CoverCls_Start = 1;
+					#ifdef CE
+						call spReadVsThPos(nvC, gVs_Vision_PosC, &gVs_ThTargetPos_Old);
+						//jog nvC=*
+
+						if(gVs_CoverMoving_Sta != 2)
+							gVs_CoverCls_Start = 1;
+					#elif TG				
+						//20260123 KJH - TactTime 작업.
+						if(gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+						{
+							call spReadVsThPos(nvC, gVs_Vision_PosC, &gVs_ThTargetPos_Old);
+
+							//jog nvC=*
+						}
+						else if(gVs_CoverMoving_Sta != 2)
+							gVs_CoverCls_Start = 1;
+					#endif
 
 					gVs_Vision_Tmr = Sys.Time + 0.1;
 					gVs_Vision_Seq = 21;
@@ -921,28 +1024,50 @@ Open plc 14
 
 			case 22:
 				gVs_Vision_Buf = gVs_Vision_Seq;
-				//20260123 KJH - TactTime 작업.
-				if(gVs_CoverMoving_Sta != 2 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					gVs_CoverCls_Start = 1;
-				}
-				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
-				{
-					call spReadVsThPos(nvC, gVs_Vision_PosC, &gVs_ThTargetPos_Old);
 
-					jog nvC=*
-				}
-				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
-				{
-					gVs_Vision_Seq = 30;
-				}
-				else if(Sys.time > gVs_Vision_Tmr)
-				{
-					gVs_Vision_Err = cErrCode_VsMoveTime;
-					gVs_Vision_Sta = cSeqSta_Err;
-					gVs_Vision_Seq = 0;
-					gVs_Vision_Ena = 0;
-				}
+				#ifdef CE
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta != 2 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						gVs_CoverCls_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+					{
+						gVs_Vision_Seq = 30;
+						gVs_Vision_Tmr = Sys.Time + cErrCode_VsCoverClose;
+					}
+					else if(Sys.time > gVs_Vision_Tmr)
+					{
+						gVs_Vision_Err = cErrCode_VsMoveTime;
+						gVs_Vision_Sta = cSeqSta_Err;
+						gVs_Vision_Seq = 0;
+						gVs_Vision_Ena = 0;
+					}
+				#elif TG				
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta != 2 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						gVs_CoverCls_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+					{
+						gVs_Vision_Seq = 30;
+						gVs_Vision_Tmr = Sys.Time + cSeq_VsnTimeOut;
+					}
+					else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Vision_PosC, &gVs_ThTargetPos_Old);
+
+						//jog nvC=*
+					}
+					else if(Sys.time > gVs_Vision_Tmr)
+					{
+						gVs_Vision_Err = cErrCode_VsCoverClose;
+						gVs_Vision_Sta = cSeqSta_Err;
+						gVs_Vision_Seq = 0;
+						gVs_Vision_Ena = 0;
+					}
+				#endif
 			break;
 		//------------------------------------------------//
 		// Vision Start
@@ -1269,15 +1394,24 @@ Open plc 14
 
 					jog nvX=*
 					jog nvY=*
-					//20260123 KJH - TactTime 작업.
-					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-					{
-						call spReadVsThPos(nvC, gVs_Wait_PosC, &gVs_ThTargetPos_Old);
 
-						jog nvC=*
-					}
-					else if(gVs_CoverMoving_Sta != 1)
-						gVs_CoverOpn_Start = 1;
+					#ifdef CE
+						call spReadVsThPos(nvC, gVs_Wait_PosC, &gVs_ThTargetPos_Old);
+						//jog nvC=*
+
+						if(gVs_CoverMoving_Sta != 1)
+							gVs_CoverOpn_Start = 1;
+					#elif TG				
+						//20260123 KJH - TactTime 작업.
+						if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+						{
+							call spReadVsThPos(nvC, gVs_Wait_PosC, &gVs_ThTargetPos_Old);
+
+							//jog nvC=*
+						}
+						else if(gVs_CoverMoving_Sta != 1)
+							gVs_CoverOpn_Start = 1;
+					#endif
 
 					gVs_Wait_Tmr = Sys.Time + 0.1;
 					gVs_Wait_Seq = 21;
@@ -1302,27 +1436,46 @@ Open plc 14
 
 			case 22:
 				gVs_Wait_Buf = gVs_Wait_Seq;
-				if(gVs_CoverMoving_Sta != 1)
-				{
-					gVs_CoverOpn_Start = 1;
-				}
-				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					call spReadVsThPos(nvC, gVs_Wait_PosC, &gVs_ThTargetPos_Old);
 
-					jog nvC=*
-				}
-				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					gVs_Wait_Seq = 90;
-				}
-				else if(Sys.time > gVs_Wait_Tmr)
-				{
-					gVs_Wait_Err = cErrCode_VsMoveTime;
-					gVs_Wait_Sta = cSeqSta_Err;
-					gVs_Wait_Seq = 0;
-					gVs_Wait_Ena = 0;
-				}
+				#ifdef CE
+					if(gVs_CoverMoving_Sta != 1)
+					{
+						gVs_CoverOpn_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						gVs_Wait_Seq = 90;
+					}
+					else if(Sys.time > gVs_Wait_Tmr)
+					{
+						gVs_Wait_Err = cErrCode_VsCoverOpen;
+						gVs_Wait_Sta = cSeqSta_Err;
+						gVs_Wait_Seq = 0;
+						gVs_Wait_Ena = 0;
+					}
+				#elif TG				
+					if(gVs_CoverMoving_Sta != 1)
+					{
+						gVs_CoverOpn_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						gVs_Wait_Seq = 90;
+					}
+					else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Wait_PosC, &gVs_ThTargetPos_Old);
+
+						//jog nvC=*
+					}
+					else if(Sys.time > gVs_Wait_Tmr)
+					{
+						gVs_Wait_Err = cErrCode_VsCoverOpen;
+						gVs_Wait_Sta = cSeqSta_Err;
+						gVs_Wait_Seq = 0;
+						gVs_Wait_Ena = 0;
+					}
+				#endif
 			break;
 		//------------------------------------------------//
 		// Completes
@@ -1426,7 +1579,7 @@ Open plc 14
 				//if(Coord[3].InPos==1)
 				if(Motor[nvX].InPos==1 && Motor[nvY].InPos==1)
 				{
-					gVs_Unload_Seq = 20;
+					gVs_Unload_Seq = 5;
 				}
 				else if(Sys.time > gVs_Unload_Tmr)
 				{
@@ -1437,31 +1590,29 @@ Open plc 14
 				}
 			break;
 
-//			case 5:	// Detect
-//				gVs_Unload_Buf = gVs_Unload_Seq;
-////				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
-////				{
-////					gVs_Sta_Pdt = cPdtSta_Avn;
-////					gVs_Unload_Seq = 10;
-////				}
-////				else if(pUmem_Di2C_VsTbDet==cDet_On)
-//				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
-//				{
-//					if(gVs_Vision_VsnJudge==cVsnJudge_Ok)
-//						gVs_Sta_Pdt = cPdtSta_Avn;
-//					else 
-//						gVs_Sta_Pdt = cPdtSta_Err;
-
-//					gVs_Unload_Seq = 20;
-//				}
-//				else
-//				{
-//					gVs_Unload_Err = cErrCode_VsPdtDetect;
-//					gVs_Unload_Sta = cSeqSta_Err;
-//					gVs_Unload_Seq = 0;
-//					gVs_Unload_Ena = 0;
-//				}
-//			break;
+			case 5:	// Detect
+				gVs_Unload_Buf = gVs_Unload_Seq;
+				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+				{
+					if(gVs_Sta_Pdt == cPdtSta_Blk)
+						gVs_Sta_Pdt = cPdtSta_Avn;
+					gVs_Unload_Seq = 20;
+				}
+				else if(pUmem_Di2A_VsTbDet == cDet_On)
+				//if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				{
+					if(gVs_Sta_Pdt == cPdtSta_Blk)
+						gVs_Sta_Pdt = cPdtSta_Avn;
+					gVs_Unload_Seq = 20;
+				}
+				else
+				{
+					gVs_Unload_Err = cErrCode_VsPdtDetect;
+					gVs_Unload_Sta = cSeqSta_Err;
+					gVs_Unload_Seq = 0;
+					gVs_Unload_Ena = 0;
+				}
+			break;
 
 		//------------------------------------------------//
 		// Cover Close
@@ -1509,15 +1660,25 @@ Open plc 14
 
 					jog nvX=*
 					jog nvY=*
-					//20260123 KJH - TactTime 작업.
-					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-					{
-						call spReadVsThPos(nvC, gVs_Unload_PosC, &gVs_ThTargetPos_Old);
 
-						jog nvC=*
-					}
-					else if(gVs_CoverMoving_Sta != 1)
-						gVs_CoverOpn_Start = 1;
+					#ifdef CE
+						call spReadVsThPos(nvC, gVs_Unload_PosC, &gVs_ThTargetPos_Old);
+						//jog nvC=*
+
+						if(gVs_CoverMoving_Sta != 1)
+							gVs_CoverOpn_Start = 1;
+					#elif TG				
+						//20260123 KJH - TactTime 작업.
+						if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+						{
+							call spReadVsThPos(nvC, gVs_Unload_PosC, &gVs_ThTargetPos_Old);
+
+							//jog nvC=*
+						}
+						else if(gVs_CoverMoving_Sta != 1)
+							gVs_CoverOpn_Start = 1;
+					#endif
+
 
 					gVs_Unload_Tmr = Sys.Time + 0.1;
 					gVs_Unload_Seq = 21;
@@ -1569,6 +1730,7 @@ Open plc 14
 							pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Mov;
 					}
 
+					gVs_Unload_Tmr = Sys.Time + cSeq_MtrTimeOut;
 					gVs_Unload_Seq = 23;
 				}
 				else if(Sys.time > gVs_Unload_Tmr)
@@ -1588,32 +1750,55 @@ Open plc 14
 				gVs_Unload_Buf = gVs_Unload_Seq;
 				//20260123 KJH - TactTime 작업.if()
 
-				if(gVs_CoverMoving_Sta != 1)
-				{
-					gVs_CoverOpn_Start = 1;
-				}
-				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					call spReadVsThPos(nvC, gVs_Unload_PosC, &gVs_ThTargetPos_Old);
+				#ifdef CE
+					if(gVs_CoverMoving_Sta != 1)
+					{
+						gVs_CoverOpn_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin && gVs_PostVisionED_Sta == cSeqSta_Fin)				
+					{
+						gVs_Unload_Seq = 40;
+					}
+					else if(Sys.time > gVs_Unload_Tmr)
+					{
+						//if(Coord[3].InPos!=1 && pUmem_Sta_ActPos(nvC) == gVs_Unload_PosC)
+						//if((Motor[nvX].InPos != 1 || Motor[nvY].InPos != 1) && pUmem_Sta_ActPos(nvC) == gVs_Unload_PosC)
+						if(gIsVStationReady != 1)
+							gVs_Unload_Err = cErrCode_VsMoveTime;
+						else if(gVs_PostVisionED_Sta != cSeqSta_Fin)
+							gVs_Unload_Err = cErrCode_Vs3DVnEdReadyRsp;
+						gVs_Unload_Sta = cSeqSta_Err;
+						gVs_Unload_Seq = 0;
+						gVs_Unload_Ena = 0;
+					}
+				#elif TG
+					if(gVs_CoverMoving_Sta != 1)
+					{
+						gVs_CoverOpn_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin && gVs_PostVisionED_Sta == cSeqSta_Fin)				
+					{
+						gVs_Unload_Seq = 40;
+					}
+					else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Unload_PosC, &gVs_ThTargetPos_Old);
 
-					jog nvC=*
-				}
-				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin && gVs_PostVisionED_Sta == cSeqSta_Fin)				
-				{
-					gVs_Unload_Seq = 40;
-				}
-				else if(Sys.time > gVs_Unload_Tmr)
-				{
-					//if(Coord[3].InPos!=1 && pUmem_Sta_ActPos(nvC) == gVs_Unload_PosC)
-					//if((Motor[nvX].InPos != 1 || Motor[nvY].InPos != 1) && pUmem_Sta_ActPos(nvC) == gVs_Unload_PosC)
-					if(gIsVStationReady != 1)
-						gVs_Unload_Err = cErrCode_VsMoveTime;
-					else if(gVs_PostVisionED_Sta != cSeqSta_Fin)
-						gVs_Unload_Err = cErrCode_Vs3DVnEdReadyRsp;
-					gVs_Unload_Sta = cSeqSta_Err;
-					gVs_Unload_Seq = 0;
-					gVs_Unload_Ena = 0;
-				}
+						//jog nvC=*
+					}
+					else if(Sys.time > gVs_Unload_Tmr)
+					{
+						//if(Coord[3].InPos!=1 && pUmem_Sta_ActPos(nvC) == gVs_Unload_PosC)
+						//if((Motor[nvX].InPos != 1 || Motor[nvY].InPos != 1) && pUmem_Sta_ActPos(nvC) == gVs_Unload_PosC)
+						if(gIsVStationReady != 1)
+							gVs_Unload_Err = cErrCode_VsMoveTime;
+						else if(gVs_PostVisionED_Sta != cSeqSta_Fin)
+							gVs_Unload_Err = cErrCode_Vs3DVnEdReadyRsp;
+						gVs_Unload_Sta = cSeqSta_Err;
+						gVs_Unload_Seq = 0;
+						gVs_Unload_Ena = 0;
+					}
+				#endif
 			break;
 
 		//------------------------------------------------//
@@ -1692,6 +1877,7 @@ Open plc 14
 					{
 						pUmem_Sta_Vs_3rdTransPtdNo = gVs_PdtNo;
 						pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Opn;
+						call spSetSeqBufQ(cEffSta_VsIdl,0,0,0,0);		// 260325 추가
 					}
 					else
 					{
@@ -1719,6 +1905,7 @@ Open plc 14
 					{
 						pUmem_Sta_Vs_3rdTransPtdNo = gVs_PdtNo;
 						pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Opn;
+						call spSetSeqBufQ(cEffSta_VsIdl,0,0,0,0);		// 260325 추가
 					}
 					else
 					{
@@ -1744,6 +1931,7 @@ Open plc 14
 					{
 						//gVs_PdtNo = 0;	//251230 수정
 						pUmem_Sta_Vs_3rdTransUdReq = cPcReq_Idl;
+						call spSetSeqBufQ(cEffSta_VsRun,0,0,0,0);		// 260325 추가
 						gVs_Unload_Seq = 42;
 					}
 					else if(pUmem_Cmd_Vs_3rdTransUdRsp==cPcRep_Err)
@@ -1760,6 +1948,7 @@ Open plc 14
 					{
 						//gVs_PdtNo = 0;	//251230 수정
 						pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Idl;
+						call spSetSeqBufQ(cEffSta_VsRun,0,0,0,0);		// 260325 추가
 						gVs_Unload_Seq = 42;
 					}
 					else if(pUmem_Cmd_Vs_3rdTransRjRsp==cPcRep_Err)
@@ -1780,7 +1969,7 @@ Open plc 14
 					gVs_Sta_Pdt = cPdtSta_Blk;
 					gVs_Unload_Seq = 90;
 				}
-				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				else if(pUmem_Di2A_VsTbDet == cDet_Off && pUmem_Di2C_VsTbOutOfRange==cDet_Off)
 				{
 					gVs_Sta_Pdt = cPdtSta_Blk;
 					gVs_Unload_Seq = 90;
@@ -1908,13 +2097,13 @@ Open plc 14
 
 			case 5:	// Detect
 				gVs_Reject_Buf = gVs_Reject_Seq;
-//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
-//				{
-//					gVs_Sta_Pdt = cPdtSta_Err;
-//					gVs_Reject_Seq = 10;
-//				}
-//				else if(pUmem_Di2C_VsTbDet==cDet_On)
-				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+				{
+					gVs_Sta_Pdt = cPdtSta_Err;
+					gVs_Reject_Seq = 10;
+				}
+				else if(pUmem_Di2A_VsTbDet == cDet_On)
+				//if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 				{
 					gVs_Sta_Pdt = cPdtSta_Err;
 					gVs_Reject_Seq = 20;
@@ -1972,15 +2161,24 @@ Open plc 14
 
 					jog nvX=*
 					jog nvY=*
-					//20260123 KJH - TactTime 작업.
-					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-					{
-						call spReadVsThPos(nvC, gVs_Reject_PosC, &gVs_ThTargetPos_Old);
 
-						jog nvC=*
-					}
-					else if(gVs_CoverMoving_Sta != 1)
-						gVs_CoverOpn_Start = 1;
+					#ifdef CE
+						call spReadVsThPos(nvC, gVs_Reject_PosC, &gVs_ThTargetPos_Old);
+						//jog nvC=*
+
+						if(gVs_CoverMoving_Sta != 1)
+							gVs_CoverOpn_Start = 1;
+					#elif TG				
+						//20260123 KJH - TactTime 작업.
+						if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+						{
+							call spReadVsThPos(nvC, gVs_Reject_PosC, &gVs_ThTargetPos_Old);
+
+							//jog nvC=*
+						}
+						else if(gVs_CoverMoving_Sta != 1)
+							gVs_CoverOpn_Start = 1;
+					#endif
 					
 					if(gVs_RunOpt&cRunOpt_SkipVsRjReq==0)
 					{
@@ -2010,28 +2208,46 @@ Open plc 14
 			case 22:
 				gVs_Reject_Buf = gVs_Reject_Seq;
 
-				//20260123 KJH - TactTime 작업.
-				if(gVs_CoverMoving_Sta != 1)
-				{
-					gVs_CoverOpn_Start = 1;
-				}
-				else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					call spReadVsThPos(nvC, gVs_Reject_PosC, &gVs_ThTargetPos_Old);
+				#ifdef CE
+					if(gVs_CoverMoving_Sta != 1)
+					{
+						gVs_CoverOpn_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						gVs_Reject_Seq = 40;
+					}
+					else if(Sys.time > gVs_Reject_Tmr)
+					{
+						gVs_Reject_Err = cErrCode_VsCoverOpen;
+						gVs_Reject_Sta = cSeqSta_Err;
+						gVs_Reject_Seq = 0;
+						gVs_Reject_Ena = 0;
+					}
+				#elif TG				
+					//20260123 KJH - TactTime 작업.
+					if(gVs_CoverMoving_Sta != 1)
+					{
+						gVs_CoverOpn_Start = 1;
+					}
+					else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						gVs_Reject_Seq = 40;
+					}
+					else if(gIsVsCoverComplete == 1 && gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
+					{
+						call spReadVsThPos(nvC, gVs_Reject_PosC, &gVs_ThTargetPos_Old);
 
-					jog nvC=*
-				}
-				else if(gIsVStationReady == 1 && pUmem_Sta_Vs_Cover == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
-				{
-					gVs_Reject_Seq = 40;
-				}
-				else if(Sys.time > gVs_Reject_Tmr)
-				{
-					gVs_Reject_Err = cErrCode_VsMoveTime;
-					gVs_Reject_Sta = cSeqSta_Err;
-					gVs_Reject_Seq = 0;
-					gVs_Reject_Ena = 0;
-				}
+						//jog nvC=*
+					}
+					else if(Sys.time > gVs_Reject_Tmr)
+					{
+						gVs_Reject_Err = cErrCode_VsCoverOpen;
+						gVs_Reject_Sta = cSeqSta_Err;
+						gVs_Reject_Seq = 0;
+						gVs_Reject_Ena = 0;
+					}
+				#endif
 			break;
 		//------------------------------------------------//
 		// Cover Open
@@ -2105,6 +2321,7 @@ Open plc 14
 				{
 					pUmem_Sta_Vs_3rdTransPtdNo = gVs_PdtNo;
 					pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Opn;
+					call spSetSeqBufQ(cEffSta_VsIdl,0,0,0,0);		// 260325 추가
 					gVs_Reject_Seq = 41;
 				}
 				else
@@ -2123,6 +2340,7 @@ Open plc 14
 				{
 					//gVs_PdtNo = 0;	//251230 수정
 					pUmem_Sta_Vs_3rdTransRjReq = cPcReq_Idl;
+					call spSetSeqBufQ(cEffSta_VsRun,0,0,0,0);		// 260325 추가
 					gVs_Reject_Seq = 42;
 				}
 				else if(pUmem_Cmd_Vs_3rdTransRjRsp==cPcRep_Err)
@@ -2137,13 +2355,13 @@ Open plc 14
 
 			case 42:
 				gVs_Reject_Buf = gVs_Reject_Seq;
-//				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
-//				{
-//					gVs_Sta_Pdt = cPdtSta_Blk;
-//					gVs_Reject_Seq = 90;
-//				}
-//				else if(pUmem_Di2C_VsTbDet==cDet_Off)
-				if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+				if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+				{
+					gVs_Sta_Pdt = cPdtSta_Blk;
+					gVs_Reject_Seq = 90;
+				}
+				else if(pUmem_Di2A_VsTbDet == cDet_Off)
+				//if(gVs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 				{
 					gVs_Sta_Pdt = cPdtSta_Blk;
 					gVs_Reject_Seq = 90;

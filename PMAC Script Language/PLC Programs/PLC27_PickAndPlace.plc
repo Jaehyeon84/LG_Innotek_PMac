@@ -110,20 +110,20 @@ open plc 27
 
 			case 5:
 				gMc_TransTest_Buf = gMc_TransTest_Seq;
-//				if(gWs_RunOpt&cRunOpt_SkipWsPdSen!=0)
-//				{
-//					gMc_TransTest_Buf = gMc_TransTest_Seq;
-//					gWs_TgtMov_VelX = gMc_TransTest_Vel;
-//					gWs_TgtMov_VelY = gMc_TransTest_Vel;
-//					gWs_TgtMov_VelC = 270;
+				if(gWs_RunOpt&cRunOpt_SkipWsPdSen!=0)
+				{
+					gMc_TransTest_Buf = gMc_TransTest_Seq;
+					gWs_TgtMov_VelX = gMc_TransTest_Vel;
+					gWs_TgtMov_VelY = gMc_TransTest_Vel;
+					gWs_TgtMov_VelC = 270;
 
-//					gVs_TgtMov_VelX = gMc_TransTest_Vel;
-//					gVs_TgtMov_VelY = gMc_TransTest_Vel;
-//					gVs_TgtMov_VelC = 270;
-//					gMc_TransTest_Seq = 10;
-//				}
-//				else if(pUmem_Di1C_WsTbDet==cDet_On)
-				if(gWs_Sta_Pdt!=cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gVs_TgtMov_VelX = gMc_TransTest_Vel;
+					gVs_TgtMov_VelY = gMc_TransTest_Vel;
+					gVs_TgtMov_VelC = 270;
+					gMc_TransTest_Seq = 10;
+				}
+				else if(pUmem_Di28_WsTbDet == cDet_On)
+				//if(gWs_Sta_Pdt != cPdtSta_Blk)	 //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 				{
 					gMc_TransTest_Buf = gMc_TransTest_Seq;
 					gWs_TgtMov_VelX = gMc_TransTest_Vel;
@@ -395,9 +395,9 @@ open plc 27
 					gWs_Sta_Pdt=cPdtSta_Blk;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 					gMc_TransTest_Seq = 30;
 				}
-				else if(pUmem_Di1C_WsTbDet==cDet_Off)
+				else if(pUmem_Di28_WsTbDet == cDet_Off && pUmem_Di1C_WsTbOutOfRange==cDet_Off)
 				{
-					gWs_Sta_Pdt=cPdtSta_Blk;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
+					gWs_Sta_Pdt = cPdtSta_Blk;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 					gMc_TransTest_Seq = 30;
 				}
 				else if(Sys.time > gMc_TransTest_Tmr)
@@ -612,7 +612,7 @@ open plc 27
 					gVs_Sta_Pdt=cPdtSta_Bvn;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 					gMc_TransTest_Seq = 50;
 				}
-				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				else if(pUmem_Di2A_VsTbDet == cDet_On && pUmem_Di2C_VsTbOutOfRange==cDet_Off)
 				{
 					gVs_Sta_Pdt=cPdtSta_Bvn;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 					gMc_TransTest_Seq = 50;
@@ -875,7 +875,7 @@ open plc 27
 					gVs_Sta_Pdt=cPdtSta_Blk;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 					gMc_TransTest_Seq = 70;
 				}
-				else if(pUmem_Di2C_VsTbDet==cDet_Off)
+				else if(pUmem_Di2A_VsTbDet == cDet_Off && pUmem_Di2C_VsTbOutOfRange==cDet_Off)
 				{
 					gVs_Sta_Pdt=cPdtSta_Blk;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 					gMc_TransTest_Seq = 70;
@@ -1090,7 +1090,7 @@ open plc 27
 					gWs_Sta_Pdt = cPdtSta_Bwd;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 					gMc_TransTest_Seq = 90;
 				}
-				else if(pUmem_Di1C_WsTbDet==cDet_Off)
+				else if(pUmem_Di28_WsTbDet == cDet_On && pUmem_Di1C_WsTbOutOfRange==cDet_Off)
 				{
 					gWs_Sta_Pdt = cPdtSta_Bwd;	//20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 					gMc_TransTest_Seq = 90;

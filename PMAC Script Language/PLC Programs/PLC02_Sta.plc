@@ -29,8 +29,21 @@ open plc 2
 	{
 		if(sta_idx == nwC || sta_idx == nvC)
 		{
-			pUmem_Sta_CmdPos(sta_idx)	= rint((Motor[sta_idx].DesPos - Motor[sta_idx].HomePos) % 360000);			// Motor Command Position	[um]
-			pUmem_Sta_ActPos(sta_idx)	= rint((Motor[sta_idx].ActPos - Motor[sta_idx].HomePos) % 360000);			// Motor Actual Position	[um]
+			LOCAL lCmdPos = 0;
+			LOCAL lActPos = 0;
+
+			lCmdPos	= rint((Motor[sta_idx].DesPos - Motor[sta_idx].HomePos) % 360000);			// Motor Command Position	[um]
+			lActPos = rint((Motor[sta_idx].ActPos - Motor[sta_idx].HomePos) % 360000);			// Motor Actual Position	[um]
+
+			if(lCmdPos < 0)
+				pUmem_Sta_CmdPos(sta_idx) = lCmdPos + 360000;
+			else
+				pUmem_Sta_CmdPos(sta_idx) = lCmdPos;
+
+			if(lActPos < 0)
+				pUmem_Sta_ActPos(sta_idx) = lActPos + 360000;
+			else
+				pUmem_Sta_ActPos(sta_idx) = lActPos;
 		}
 		else
 		{
@@ -145,6 +158,10 @@ open plc 2
 
 	//20260209 KJH - N2 Blow Skip 기능 추가.
 	if(pUmem_Di05_LaserProgRun == 0)
+	{
+		gWs_Skip_N2 = 1;
+	}
+	else
 	{
 		gWs_Skip_N2 = 0;
 	}
@@ -274,7 +291,8 @@ open plc 2
 //------------------------------------------------------------------------------------------------------------//
 	// Update Analog Input
 	pBuf_Ai00_WsLoadCell = pEcat_Ai00_WsLoadCell;
-	gAi00_WsLoadCell = pBuf_Ai00_WsLoadCell/15000*50;
+	//gAi00_WsLoadCell = pBuf_Ai00_WsLoadCell/15000*50;
+	gAi00_WsLoadCell = pBuf_Ai00_WsLoadCell/9000*50;
 	pUmem_Ai00_WsLoadCell = gAi00_WsLoadCell*100;
 
 	pBuf_Ti00_Ws_TempSen1 = pEcat_Ti00_Ws_TempSen1;
@@ -284,10 +302,11 @@ open plc 2
 	pUmem_Ti00_WsTempSen1 = gTi00_Ws_TempSen1;
 	pUmem_Ti01_WsTempSen2 = gTi01_Ws_TempSen2;
 
-	if(pUmem_Do23_WsN2Blow == 1 && pUmem_Do23_WsN2Blow == 1)
-	{
-		pUmem_Do23_WsN2Blow = 1;
-	}
+	//Welding 종료 되면 N2Blow 종료 하기 위함.
+//	if(gWs_Welding_Ena == 0 && pUmem_Do23_WsN2Blow == 1)	//Manual 동작시에는 예외 처리 필요.
+//	{
+//		pUmem_Do23_WsN2Blow = 0;
+//	}
 
 	//Welding Vision Camera Shutter
 	if(pUmem_Di11_WsVsLtStrCls == 0 && pUmem_Di13_WsVsLtStrOpn == 1 && pUmem_Di15_WsVsRtStrCls == 0 && pUmem_Di17_WsVsRtStrOpn == 1)

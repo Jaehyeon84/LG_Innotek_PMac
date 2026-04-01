@@ -926,6 +926,7 @@ open plc 3
 					//20260118 KJH - Welding Program에서 Grid Click 했을때만 지워 지도록 변경.
 					pUmem_Sta_Mc_ErasePdtFlgWs = 1;
 					pUmem_Sta_Mc_ErasePdtNoWs = gWs_PdtNo;
+					pUmem_Sta_Ws_PosProduct = 0;
 
 					gWs_Sta_Pdt = cPdtSta_Blk;
 				}
@@ -963,6 +964,7 @@ open plc 3
 					//20260118 KJH - Welding Program에서 Grid Click 했을때만 지워 지도록 변경.
 					pUmem_Sta_Mc_ErasePdtFlgVs = 1;
 					pUmem_Sta_Mc_ErasePdtNoVs = gVs_PdtNo;
+					pUmem_Sta_Vs_PosProduct = 0;
 
 					gVs_Sta_Pdt = cPdtSta_Blk;
 				}

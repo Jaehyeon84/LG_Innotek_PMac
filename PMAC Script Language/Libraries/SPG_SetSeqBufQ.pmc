@@ -1,3 +1,12 @@
+//////////////////////////////////// 			// 260325 추가
+#define cEffSta_WsRun		$C001
+#define cEffSta_WsIdl		$C002
+#define cEffSta_WsErr		$C003
+
+#define cEffSta_VsRun		$C00A
+#define cEffSta_VsIdl		$C00B
+#define cEffSta_VsErr		$C00C
+//////////////////////////////////// 
 #define cSeqBuf_WsLdSrt		$4000
 #define cSeqBuf_WsLdEnd		$8000
 #define cSeqBuf_WsRdSrt		$4001
@@ -32,19 +41,28 @@ global gVs_SeqBuf_Old = 0;
 
 open subprog spSetSeqBufQ(cur_seq, old_seq, pdt_id, judge_2d, judge_3d)
 	local jug_2d,jug_3d;
-	//--------------------------------------------------------------------------------------//
-	pUmem_Sta_Mc_SeqCur(gMc_SeqBuf_Idx)		= cur_seq;	// Send Current Sequence, Bit 15..0
-	pUmem_Sta_Mc_SeqOld(gMc_SeqBuf_Idx)		= old_seq;	// Send Old Sequence, Bit 31..16
-	//--------------------------------------------------------------------------------------//
-	if(judge_2d==cVsnJudge_Ok)				jug_2d = 1;		// 260102 추가
-	else if(judge_2d==cVsnJudge_Ng)			jug_2d = 2;		// 260102 추가
-	else									jug_2d = 0;		// 260102 추가
+	if(cur_seq&$F000==$C000)			// 260325 추가
+	{
+		pUmem_Sta_Mc_SeqCur(gMc_SeqBuf_Idx)	= cur_seq;
+		pUmem_Sta_Mc_SeqOld(gMc_SeqBuf_Idx)	= 0;
+		pUmem_Sta_Mc_Pdt(gMc_SeqBuf_Idx)	= 0;
+	}
+	else
+	{
+		//--------------------------------------------------------------------------------------//
+		pUmem_Sta_Mc_SeqCur(gMc_SeqBuf_Idx)		= cur_seq;	// Send Current Sequence, Bit 15..0
+		pUmem_Sta_Mc_SeqOld(gMc_SeqBuf_Idx)		= old_seq;	// Send Old Sequence, Bit 31..16
+		//--------------------------------------------------------------------------------------//
+		if(judge_2d==cVsnJudge_Ok)				jug_2d = 1;		// 260102 추가
+		else if(judge_2d==cVsnJudge_Ng)			jug_2d = 2;		// 260102 추가
+		else									jug_2d = 0;		// 260102 추가
 
-	if(judge_3d==cVsnJudge_Ok)				jug_3d = 1;		// 260102 추가
-	else if(judge_3d==cVsnJudge_Ng)			jug_3d = 2;		// 260102 추가
-	else									jug_3d = 0;		// 260102 추가
+		if(judge_3d==cVsnJudge_Ok)				jug_3d = 1;		// 260102 추가
+		else if(judge_3d==cVsnJudge_Ng)			jug_3d = 2;		// 260102 추가
+		else									jug_3d = 0;		// 260102 추가
 
-	pUmem_Sta_Mc_Pdt(gMc_SeqBuf_Idx)		= jug_3d<<30 | jug_2d<<28 | (pdt_id & $0FFFFFFF);	// 260102 추가
+		pUmem_Sta_Mc_Pdt(gMc_SeqBuf_Idx)		= jug_3d<<30 | jug_2d<<28 | (pdt_id & $0FFFFFFF);	// 260102 추가
+	}
 	//--------------------------------------------------------------------------------------//
 	pUmem_Sta_Mc_Time_BufD(gMc_SeqBuf_Idx)	= Sys.Time;									// 260102 추가
 	pUmem_Sta_Mc_Time_L(gMc_SeqBuf_Idx)		= pUmem_Sta_Mc_Time_BufL(gMc_SeqBuf_Idx);		// 260102 추가

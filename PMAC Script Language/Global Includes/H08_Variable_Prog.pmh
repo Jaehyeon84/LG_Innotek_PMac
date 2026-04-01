@@ -640,6 +640,7 @@ gJog_IncMove_Ena(0),32 = 0;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // PLC 12 : Sequence Control
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+#define cMachineID			P111
 #define cDet_On				0
 #define cDet_Off			1
 
@@ -712,6 +713,7 @@ gJog_IncMove_Ena(0),32 = 0;
 #define cSeq_CldTimeOut		10
 #define cSeq_VsnTimeOut		10
 #define cSeq_LwmTimeOut		10
+#define cSeq_CldTimeOut		10
 
 #define cVsnJudge_Ok		1
 #define cVsnJudge_Ng		-1

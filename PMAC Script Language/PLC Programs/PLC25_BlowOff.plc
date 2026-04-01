@@ -48,6 +48,8 @@ open plc 25
 
 		pUmem_Cmd_Vs_3DVisionStRsp = cPcRep_Idl;
 		pUmem_Cmd_Vs_3DVisionEdRsp = cPcRep_Idl;
+
+		gVs_PostVisionST_Tmr = Sys.Time + cSeq_VsnTimeOut;
 	}
 
 	if(gVs_PostVisionST_Abort==1)
@@ -102,10 +104,14 @@ open plc 25
 //--------------------------------------------------------------------------------------------//
 	if(gVs_PostVisionED_Start==1)
 	{
+		gVs_Vision_VsnJudge = 0;
+
 		gVs_PostVisionED_Start = 0;
 		gVs_PostVisionED_Sta = cSeqSta_Idl;
 		gVs_PostVisionED_Seq = 1;
 		gVs_PostVisionED_Ena = 1;
+
+		gVs_PostVisionED_Tmr = Sys.Time + cSeq_VsnTimeOut;
 	}
 
 	if(gVs_PostVisionED_Abort==1)

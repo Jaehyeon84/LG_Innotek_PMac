@@ -1667,7 +1667,7 @@ ptr pUmem_Cmd_Ws_VelLimitC				->i.user:$6704
 ptr pUmem_Cmd_Ws_RefVel					->i.user:$6708
 ptr pUmem_Cmd_Ws_RotOffsetX				->i.user:$670C
 ptr pUmem_Cmd_Ws_RotOffsetY				->i.user:$6710
-ptr pUmem_Cmd_Ws_TbVacBlow				->i.user:$6714
+ptr pUmem_Cmd_TBD_6714					->i.user:$6714
 ptr pUmem_Cmd_TBD_6718					->i.user:$6718
 ptr pUmem_Cmd_TBD_671C					->i.user:$671C
 ptr pUmem_Cmd_Ws_OutMode				->i.user:$6720
@@ -1700,7 +1700,7 @@ ptr pUmem_Cmd_Ws_CoverBwdPos			->i.user:$6788
 ptr pUmem_Cmd_Ws_TempOffset2			->i.user:$678C
 ptr pUmem_Cmd_TBD_6790					->i.user:$6790
 ptr pUmem_Cmd_TBD_6794					->i.user:$6794
-ptr pUmem_Cmd_TBD_6798					->i.user:$6798
+ptr pUmem_Cmd_Ws_TbVacBlow				->i.user:$6798
 ptr pUmem_Cmd_TBD_679C					->i.user:$679C
 ptr pUmem_Cmd_TBD_67A0					->i.user:$67A0
 ptr pUmem_Cmd_TBD_67A4					->i.user:$67A4
@@ -2118,7 +2118,7 @@ ptr	pUmem_Di18_WsTempBwd				->u.user:$7590
 ptr	pUmem_Di19_TrPickUp					->u.user:$7594
 ptr	pUmem_Di1A_WsTempFwd				->u.user:$7598
 ptr	pUmem_Di1B_TrPickDn					->u.user:$759C
-ptr	pUmem_Di1C_WsTbDet					->u.user:$75A0
+ptr	pUmem_Di1C_WsTbOutOfRange			->u.user:$75A0
 ptr	pUmem_Di1D_TrGripCls				->u.user:$75A4
 ptr	pUmem_Di1E							->u.user:$75A8
 ptr	pUmem_Di1F_TrGripOpn				->u.user:$75AC
@@ -2131,11 +2131,11 @@ ptr	pUmem_Di24_VsTbFixUp				->u.user:$75C0
 ptr	pUmem_Di25							->u.user:$75C4
 ptr	pUmem_Di26_VsTbFixDn				->u.user:$75C8
 ptr	pUmem_Di27							->u.user:$75CC
-ptr	pUmem_Di28							->u.user:$75D0
+ptr	pUmem_Di28_WsTbDet					->u.user:$75D0
 ptr	pUmem_Di29							->u.user:$75D4
-ptr	pUmem_Di2A							->u.user:$75D8
+ptr	pUmem_Di2A_VsTbDet					->u.user:$75D8
 ptr	pUmem_Di2B							->u.user:$75DC
-ptr	pUmem_Di2C_VsTbDet					->u.user:$75E0
+ptr	pUmem_Di2C_VsTbOutOfRange			->u.user:$75E0
 ptr	pUmem_Di2D							->u.user:$75E4
 ptr	pUmem_Di2E							->u.user:$75E8
 ptr	pUmem_Di2F							->u.user:$75EC

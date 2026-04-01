@@ -45,7 +45,8 @@ open subprog spInitMotor(m_num)
 			Motor[nwC].AbortTa = 100;
 			Motor[nwC].AbortTs = 50;
 			Motor[nwC].HomeOffset = pUmem_Cmd_HomeOffset(nwC);
-			gMt_Home_Pos(nwC) = 0;
+//			gMt_Home_Pos(nwC) = 0;
+			gMt_Home_Pos(nwC) = cWs_Cover_MoveAng;
 		break;
 
 		case nvX:
@@ -87,7 +88,8 @@ open subprog spInitMotor(m_num)
 			Motor[nvC].AbortTa = 100;
 			Motor[nvC].AbortTs = 50;
 			Motor[nvC].HomeOffset = pUmem_Cmd_HomeOffset(nvC);
-			gMt_Home_Pos(nvC) = 0;
+//			gMt_Home_Pos(nvC) = 0;
+			gMt_Home_Pos(nvC) = cVs_Cover_MoveAng;
 		break;
 
 		case nwZ:
