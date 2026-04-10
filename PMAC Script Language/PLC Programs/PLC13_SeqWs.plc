@@ -181,6 +181,9 @@ Open plc 13
 					Motor[nwX].JogSpeed = gWs_Load_VelX;
 					Motor[nwY].JogSpeed = gWs_Load_VelY;
 					Motor[nwC].JogSpeed = gWs_Load_VelC;
+					Motor[nwX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nwX].ProgJogPos = gWs_Load_PosX;
 					Motor[nwY].ProgJogPos = gWs_Load_PosY;
@@ -191,8 +194,11 @@ Open plc 13
 					//Motor[nwC].ProgJogPos = outc_pos;
 					gWs_ThTargetPos_Old = -1;
 
-					jog nwX=*
-					jog nwY=*
+//					jog nwX=*
+//					jog nwY=*
+
+					cmd "#nwX jog=* #nwY jog=*"
+
 					//20260123 KJH - TactTime 작업.
 					if(gWs_CoverMoving_Sta == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 					{
@@ -207,8 +213,9 @@ Open plc 13
 					{
 						pUmem_Sta_Ws_2ndTransLdReq = cPcReq_Mov;
 					}
-					gWs_Load_Tmr = Sys.Time + 0.1;
-					gWs_Load_Seq = 21;
+					//gWs_Load_Tmr = Sys.Time + 0.1;
+					gWs_Load_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gWs_Load_Seq = 22;
 				}
 				else
 				{
@@ -219,14 +226,14 @@ Open plc 13
 				}
 			break;
 
-			case 21:
-				gWs_Load_Buf = gWs_Load_Seq;
-				if(Sys.time > gWs_Load_Tmr)
-				{
-					gWs_Load_Tmr = Sys.Time + cSeq_MtrTimeOut;
-					gWs_Load_Seq = 22;
-				}
-			break;
+//			case 21:
+//				gWs_Load_Buf = gWs_Load_Seq;
+//				if(Sys.time > gWs_Load_Tmr)
+//				{
+//					gWs_Load_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gWs_Load_Seq = 22;
+//				}
+//			break;
 
 			case 22:
 				gWs_Load_Buf = gWs_Load_Seq;
@@ -246,7 +253,7 @@ Open plc 13
 				}
 				else if(Sys.time > gWs_Load_Tmr)
 				{
-					gWs_Load_Err = cErrCode_WsMoveTime;
+					gWs_Load_Err = cErrCode_WsCoverOpen;
 					gWs_Load_Sta = cSeqSta_Err;
 					gWs_Load_Seq = 0;
 					gWs_Load_Ena = 0;
@@ -287,17 +294,18 @@ Open plc 13
 				pUmem_Do20_WsTbVacm = 0;
 				pUmem_Do22_WsTbBlow = 0;
 
-				gWs_Load_Tmr = Sys.Time + 0.1;
-				gWs_Load_Seq = 33;
+				//gWs_Load_Tmr = Sys.Time + 0.1;
+				gWs_Load_Tmr = Sys.Time;
+				gWs_Load_Seq = 40;
 			break;
-			case 33:
-				gWs_Load_Buf = gWs_Load_Seq;
-				if(Sys.time > gWs_Load_Tmr)
-				{
-					gWs_Load_Tmr = Sys.Time + 0.1;
-					gWs_Load_Seq = 40;
-				}
-			break;
+//			case 33:
+//				gWs_Load_Buf = gWs_Load_Seq;
+//				if(Sys.time > gWs_Load_Tmr)
+//				{
+//					gWs_Load_Tmr = Sys.Time + 0.1;
+//					gWs_Load_Seq = 40;
+//				}
+//			break;
 //			case 34:
 //				gWs_Load_Buf = gWs_Load_Seq;
 //				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
@@ -421,23 +429,27 @@ Open plc 13
 				Motor[nwX].ProgJogPos = pUmem_Cmd_Ws_2ndTransLdAlignX;
 				Motor[nwY].ProgJogPos = pUmem_Cmd_Ws_2ndTransLdAlignY;
 				Motor[nwC].ProgJogPos = pUmem_Cmd_Ws_2ndTransLdAlignC;
+				Motor[nwX].InPosBand = cMotor_InPosBand_GCode;
+				Motor[nwY].InPosBand = cMotor_InPosBand_GCode;
+				Motor[nwC].InPosBand = cMotor_InPosBand_GCode;
 
-				jog nwX:*
-				jog nwY:*
-				jog nwC:*
+				if(pUmem_Cmd_Ws_2ndTransLdAlignX != 0 || pUmem_Cmd_Ws_2ndTransLdAlignY != 0 || pUmem_Cmd_Ws_2ndTransLdAlignC != 0)
+					cmd "#nwX jog:* #nwY jog:* #nwC jog:*"				
 
-				gWs_Load_Tmr = Sys.Time + 0.1;
-				gWs_Load_Seq = 43;
+				//gWs_Load_Tmr = Sys.Time + 0.1;
+				gWs_Load_Tmr = Sys.Time + cSeq_MtrTimeOut;
+
+				gWs_Load_Seq = 44;
 			break;
 
-			case 43:
-				gWs_Load_Buf = gWs_Load_Seq;
-				if(Sys.time > gWs_Load_Tmr)
-				{
-					gWs_Load_Tmr = Sys.Time + cSeq_MtrTimeOut;
-					gWs_Load_Seq = 44;
-				}
-			break;
+//			case 43:
+//				gWs_Load_Buf = gWs_Load_Seq;
+//				if(Sys.time > gWs_Load_Tmr)
+//				{
+//					gWs_Load_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gWs_Load_Seq = 44;
+//				}
+//			break;
 
 			case 44:
 				gWs_Load_Buf = gWs_Load_Seq;
@@ -485,14 +497,21 @@ Open plc 13
 				{
 					if(gWs_Sta_Pdt == cPdtSta_Blk)
 						gWs_Sta_Pdt = cPdtSta_Bwd;
-					gWs_Load_Seq = 80;
+
+					if(gWs_CoverMoving_Sta != 2 && gWs_CldIn_TempFB==cBwd)
+						gWs_CoverCls_Start = 1;
+
+					gWs_Load_Seq = 47;
 				}
 				else if(pUmem_Di28_WsTbDet == cDet_On && pUmem_Di1C_WsTbOutOfRange == cDet_Off) //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 				{
 					if(gWs_Sta_Pdt == cPdtSta_Blk)
 						gWs_Sta_Pdt = cPdtSta_Bwd;
 
-					gWs_Load_Seq = 80;
+					if(gWs_CoverMoving_Sta != 2 && gWs_CldIn_TempFB==cBwd)
+						gWs_CoverCls_Start = 1;
+
+					gWs_Load_Seq = 47;
 				}
 				else
 				{
@@ -507,45 +526,52 @@ Open plc 13
 		//------------------------------------------------//
 			case 47:
 				gWs_Load_Buf = gWs_Load_Seq;
+
 				//gWs_CoverOpn_Sta = cSeqSta_Idl;
 				pUmem_Do25_WsTbVacmValve = 1;
 				pUmem_Do20_WsTbVacm = 1;
 				pUmem_Do22_WsTbBlow = 0;
 
-				gWs_Load_Tmr = Sys.Time + 0.1;
-				gWs_Load_Seq = 48;
+				//gWs_Load_Tmr = Sys.Time + 0.1;
+				gWs_Load_Tmr = Sys.Time;
+
+				gWs_Load_Seq = 90;
 			break;
-			case 48:
-				gWs_Load_Buf = gWs_Load_Seq;
-				if(Sys.time > gWs_Load_Tmr)
-				{
-					gWs_Load_Tmr = Sys.Time + 0.1;
-					gWs_Load_Seq = 49;
-				}
-			break;
-			case 49:
-				gWs_Load_Buf = gWs_Load_Seq;
-				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
-				//{
-					gWs_Load_Seq = 80;
-				//}
-				if(Sys.time > gWs_Load_Tmr)
-				{
-					gWs_Load_Err = cErrCode_WsPdtDetect;
-					gWs_Load_Sta = cSeqSta_Err;
-					gWs_Load_Seq = 0;
-					gWs_Load_Ena = 0;
-				}
-			break;
+//			case 48:
+//				gWs_Load_Buf = gWs_Load_Seq;
+//				if(Sys.time > gWs_Load_Tmr)
+//				{
+//					gWs_Load_Tmr = Sys.Time + 0.1;
+//					gWs_Load_Seq = 49;
+//				}
+//			break;
+//			case 49:
+//				gWs_Load_Buf = gWs_Load_Seq;
+
+//				gWs_CoverCls_Start = 1;
+//				gWs_Load_Seq = 90;
+
+//				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
+//				//{
+//					//gWs_Load_Seq = 80;
+//				//}
+////				if(Sys.time > gWs_Load_Tmr)
+////				{
+////					gWs_Load_Err = cErrCode_WsPdtDetect;
+////					gWs_Load_Sta = cSeqSta_Err;
+////					gWs_Load_Seq = 0;
+////					gWs_Load_Ena = 0;
+////				}
+//			break;
 		//------------------------------------------------//
 		// Cover Close
 		//------------------------------------------------//
-			case 80:
-				gWs_Load_Buf = gWs_Load_Seq;
-				//gWs_CoverCls_Sta = cSeqSta_Idl;
-				gWs_CoverCls_Start = 1;
-				gWs_Load_Seq = 90;
-			break;
+//			case 80:
+//				gWs_Load_Buf = gWs_Load_Seq;
+//				//gWs_CoverCls_Sta = cSeqSta_Idl;
+//				gWs_CoverCls_Start = 1;
+//				gWs_Load_Seq = 90;
+//			break;
 			//20260123 KJH - TactTime 작업.
 //			case 81:
 //				gWs_Load_Buf = gWs_Load_Seq;
@@ -689,19 +715,21 @@ Open plc 13
 				{
 					pUmem_Do13_WsTempFwd = 0;
 					pUmem_Do11_WsTempBwd = 1;		// Product Detected when Temp Sensor FWD Status
-					gWs_Ready_Tmr = Sys.Time + 0.1;
-					gWs_Ready_Seq = 6;
-				}
-			break;
-
-			case 6:
-				gWs_Ready_Buf = gWs_Ready_Seq;
-				if(Sys.time > gWs_Ready_Tmr)
-				{
+					//gWs_Ready_Tmr = Sys.Time + 0.1;
 					gWs_Ready_Tmr = Sys.Time + cSeq_CldTimeOut;
+
 					gWs_Ready_Seq = 7;
 				}
 			break;
+
+//			case 6:
+//				gWs_Ready_Buf = gWs_Ready_Seq;
+//				if(Sys.time > gWs_Ready_Tmr)
+//				{
+//					gWs_Ready_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Ready_Seq = 7;
+//				}
+//			break;
 
 			case 7:
 				gWs_Ready_Buf = gWs_Ready_Seq;
@@ -749,31 +777,33 @@ Open plc 13
 				pUmem_Do20_WsTbVacm = 1;
 				pUmem_Do22_WsTbBlow = 0;
 
-				gWs_Ready_Tmr = Sys.Time + 0.1;
-				gWs_Ready_Seq = 10;
+				//gWs_Ready_Tmr = Sys.Time + 0.1;
+				gWs_Ready_Tmr = Sys.Time;
+
+				gWs_Ready_Seq = 20;
 			break;
-			case 10:
-				gWs_Ready_Buf = gWs_Ready_Seq;
-				if(Sys.time > gWs_Ready_Tmr)
-				{
-					gWs_Ready_Tmr = Sys.Time + 0.1;
-					gWs_Ready_Seq = 11;
-				}
-			break;
-			case 11:
-				gWs_Ready_Buf = gWs_Ready_Seq;
-				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
-				//{
-					gWs_Ready_Seq = 20;
-				//}
-				if(Sys.time > gWs_Ready_Tmr)
-				{
-					gWs_Ready_Err = cErrCode_WsCoverClose;
-					gWs_Ready_Sta = cSeqSta_Err;
-					gWs_Ready_Seq = 0;
-					gWs_Ready_Ena = 0;
-				}
-			break;
+//			case 10:
+//				gWs_Ready_Buf = gWs_Ready_Seq;
+//				if(Sys.time > gWs_Ready_Tmr)
+//				{
+//					gWs_Ready_Tmr = Sys.Time + 0.1;
+//					gWs_Ready_Seq = 11;
+//				}
+//			break;
+//			case 11:
+//				gWs_Ready_Buf = gWs_Ready_Seq;
+//				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
+//				//{
+//					gWs_Ready_Seq = 20;
+//				//}
+//				if(Sys.time > gWs_Ready_Tmr)
+//				{
+//					gWs_Ready_Err = cErrCode_WsCoverClose;
+//					gWs_Ready_Sta = cSeqSta_Err;
+//					gWs_Ready_Seq = 0;
+//					gWs_Ready_Ena = 0;
+//				}
+//			break;
 
 		//------------------------------------------------//
 		// Cover Close
@@ -817,6 +847,9 @@ Open plc 13
 					Motor[nwX].JogSpeed = gWs_Ready_VelX;
 					Motor[nwY].JogSpeed = gWs_Ready_VelY;
 					Motor[nwC].JogSpeed = gWs_Ready_VelC;
+					Motor[nwX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nwX].ProgJogPos = gWs_Ready_PosX;
 					Motor[nwY].ProgJogPos = gWs_Ready_PosY;
@@ -827,8 +860,11 @@ Open plc 13
 					//Motor[nwC].ProgJogPos = outc_pos;
 					gWs_ThTargetPos_Old = -1;
 
-					jog nwX=*
-					jog nwY=*
+//					jog nwX=*
+//					jog nwY=*
+
+					cmd "#nwX jog=* #nwY jog=*"
+
 					//20260123 KJH - TactTime 작업.
 					if(gWs_CoverMoving_Sta == 2 && gWs_CoverCls_Sta == cSeqSta_Fin)//pUmem_Cmd_Ws_CoverFwdPos
 					{
@@ -839,8 +875,9 @@ Open plc 13
 					else if(gWs_CoverMoving_Sta != 2)
 						gWs_CoverCls_Start = 1;
 
-					gWs_Ready_Tmr = Sys.Time + 0.1;
-					gWs_Ready_Seq = 21;
+					//gWs_Ready_Tmr = Sys.Time + 0.1;
+					gWs_Ready_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gWs_Ready_Seq = 22;
 				}
 				else
 				{
@@ -851,14 +888,14 @@ Open plc 13
 				}
 			break;
 
-			case 21:
-				gWs_Ready_Buf = gWs_Ready_Seq;
-				if(Sys.time > gWs_Ready_Tmr)
-				{
-					gWs_Ready_Tmr = Sys.Time + cSeq_MtrTimeOut;
-					gWs_Ready_Seq = 22;
-				}
-			break;
+//			case 21:
+//				gWs_Ready_Buf = gWs_Ready_Seq;
+//				if(Sys.time > gWs_Ready_Tmr)
+//				{
+//					gWs_Ready_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gWs_Ready_Seq = 22;
+//				}
+//			break;
 
 			case 22:
 				gWs_Ready_Buf = gWs_Ready_Seq;
@@ -879,7 +916,7 @@ Open plc 13
 				}
 				else if(Sys.time > gWs_Ready_Tmr)
 				{
-					gWs_Ready_Err = cErrCode_WsMoveTime;
+					gWs_Ready_Err = cErrCode_WsCoverClose;
 					gWs_Ready_Sta = cSeqSta_Err;
 					gWs_Ready_Seq = 0;
 					gWs_Ready_Ena = 0;
@@ -948,8 +985,10 @@ Open plc 13
 				{
 					pUmem_Sta_Ws_2dVisionCkReq = cPcReq_Vsn;
 					//gWs_Sta_Pdt = cPdtSta_Bwd;
-					gWs_Ready_Tmr = Sys.Time + 0.1;
-					gWs_Ready_Seq = 34;
+					//gWs_Ready_Tmr = Sys.Time + 0.1;
+					gWs_Ready_Tmr = Sys.Time + cSeq_VsnTimeOut;
+
+					gWs_Ready_Seq = 35;
 				}
 //				else
 //				{
@@ -960,14 +999,14 @@ Open plc 13
 //				}
 			break;
 
-			case 34:
-				gWs_Ready_Buf = gWs_Ready_Seq;
-				if(Sys.time > gWs_Ready_Tmr)
-				{
-					gWs_Ready_Tmr = Sys.Time + cSeq_VsnTimeOut;
-					gWs_Ready_Seq = 35;
-				}
-			break;
+//			case 34:
+//				gWs_Ready_Buf = gWs_Ready_Seq;
+//				if(Sys.time > gWs_Ready_Tmr)
+//				{
+//					gWs_Ready_Tmr = Sys.Time + cSeq_VsnTimeOut;
+//					gWs_Ready_Seq = 35;
+//				}
+//			break;
 
 			case 35:
 				gWs_Ready_Buf = gWs_Ready_Seq;
@@ -1197,19 +1236,21 @@ Open plc 13
 				{
 					pUmem_Do13_WsTempFwd = 0;
 					pUmem_Do11_WsTempBwd = 1;		// Product Detected when Temp Sensor FWD Status
-					gWs_Welding_Tmr = Sys.Time + 0.1;
-					gWs_Welding_Seq = 6;
-				}
-			break;
-
-			case 6:
-				gWs_Welding_Buf = gWs_Welding_Seq;
-				if(Sys.time > gWs_Welding_Tmr)
-				{
+					//gWs_Welding_Tmr = Sys.Time + 0.1;
 					gWs_Welding_Tmr = Sys.Time + cSeq_CldTimeOut;
+
 					gWs_Welding_Seq = 7;
 				}
 			break;
+
+//			case 6:
+//				gWs_Welding_Buf = gWs_Welding_Seq;
+//				if(Sys.time > gWs_Welding_Tmr)
+//				{
+//					gWs_Welding_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Welding_Seq = 7;
+//				}
+//			break;
 
 			case 7:
 				gWs_Welding_Buf = gWs_Welding_Seq;
@@ -1257,31 +1298,33 @@ Open plc 13
 				pUmem_Do20_WsTbVacm = 1;
 				pUmem_Do22_WsTbBlow = 0;
 
+				//gWs_Welding_Tmr = Sys.Time;
 				gWs_Welding_Tmr = Sys.Time + 0.1;
-				gWs_Welding_Seq = 10;
+
+				gWs_Welding_Seq = 12;
 			break;
-			case 10:
-				gWs_Welding_Buf = gWs_Welding_Seq;
-				if(Sys.time > gWs_Welding_Tmr)
-				{
-					gWs_Welding_Tmr = Sys.Time + 0.1;
-					gWs_Welding_Seq = 11;
-				}
-			break;
-			case 11:
-				gWs_Welding_Buf = gWs_Welding_Seq;
-				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
-				//{
-					gWs_Welding_Seq = 12;
-				//}
-				if(Sys.time > gWs_Welding_Tmr)
-				{
-					gWs_Welding_Err = cErrCode_WsPdtDetect;
-					gWs_Welding_Sta = cSeqSta_Err;
-					gWs_Welding_Seq = 0;
-					gWs_Welding_Ena = 0;
-				}
-			break;
+//			case 10:
+//				gWs_Welding_Buf = gWs_Welding_Seq;
+//				if(Sys.time > gWs_Welding_Tmr)
+//				{
+//					gWs_Welding_Tmr = Sys.Time + 0.1;
+//					gWs_Welding_Seq = 11;
+//				}
+//			break;
+//			case 11:
+//				gWs_Welding_Buf = gWs_Welding_Seq;
+//				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
+//				//{
+//					gWs_Welding_Seq = 12;
+//				//}
+//				if(Sys.time > gWs_Welding_Tmr)
+//				{
+//					gWs_Welding_Err = cErrCode_WsPdtDetect;
+//					gWs_Welding_Sta = cSeqSta_Err;
+//					gWs_Welding_Seq = 0;
+//					gWs_Welding_Ena = 0;
+//				}
+//			break;
 		//------------------------------------------------//
 		// Cover Close
 		//------------------------------------------------//
@@ -1317,6 +1360,9 @@ Open plc 13
 					Motor[nwX].JogSpeed = gWs_Welding_VelX;
 					Motor[nwY].JogSpeed = gWs_Welding_VelY;
 					Motor[nwC].JogSpeed = gWs_Welding_VelC;
+					Motor[nwX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nwX].ProgJogPos = gWs_Welding_PosX;
 					Motor[nwY].ProgJogPos = gWs_Welding_PosY;
@@ -1327,8 +1373,11 @@ Open plc 13
 					//Motor[nwC].ProgJogPos = outc_pos;
 					gWs_ThTargetPos_Old = -1;
 
-					jog nwX=*
-					jog nwY=*
+//					jog nwX=*
+//					jog nwY=*
+
+					cmd "#nwX jog=* #nwY jog=*"
+
 					//20260123 KJH - TactTime 작업.
 					if(gWs_CoverMoving_Sta == 2 && gWs_CoverCls_Sta == cSeqSta_Fin)
 					{
@@ -1339,8 +1388,10 @@ Open plc 13
 					else if(gWs_CoverMoving_Sta != 2)
 						gWs_CoverCls_Start = 1;
 
-					gWs_Welding_Tmr = Sys.Time + 0.1;
-					gWs_Welding_Seq = 21;
+					//gWs_Welding_Tmr = Sys.Time + 0.1;
+					gWs_Welding_Tmr = Sys.Time + cSeq_MtrTimeOut;
+
+					gWs_Welding_Seq = 30;
 				}
 				else
 				{
@@ -1352,14 +1403,14 @@ Open plc 13
 				}
 			break;
 
-			case 21:
-				gWs_Welding_Buf = gWs_Welding_Seq;
-				if(Sys.time > gWs_Welding_Tmr)
-				{
-					gWs_Welding_Tmr = Sys.Time + cSeq_MtrTimeOut;
-					gWs_Welding_Seq = 30;
-				}
-			break;
+//			case 21:
+//				gWs_Welding_Buf = gWs_Welding_Seq;
+//				if(Sys.time > gWs_Welding_Tmr)
+//				{
+//					gWs_Welding_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gWs_Welding_Seq = 30;
+//				}
+//			break;
 
 //			case 22:
 //				gWs_Welding_Buf = gWs_Welding_Seq;
@@ -1388,8 +1439,10 @@ Open plc 13
 				else if(pUmem_Cmd_Ws_LwmStartRsp==cPcRep_Idl)
 				{
 					pUmem_Sta_Ws_LwmStartReq = 1;
-					gWs_Welding_Tmr = Sys.Time + 0.1;
-					gWs_Welding_Seq = 31;
+					//gWs_Welding_Tmr = Sys.Time + 0.1;
+					gWs_Welding_Tmr = Sys.Time + cSeq_LwmTimeOut;
+
+					gWs_Welding_Seq = 32;
 				}
 				else
 				{
@@ -1400,14 +1453,14 @@ Open plc 13
 				}
 			break;
 
-			case 31:
-				gWs_Welding_Buf = gWs_Welding_Seq;
-				if(Sys.time > gWs_Welding_Tmr)
-				{
-					gWs_Welding_Tmr = Sys.Time + cSeq_LwmTimeOut;
-					gWs_Welding_Seq = 32;
-				}
-			break;
+//			case 31:
+//				gWs_Welding_Buf = gWs_Welding_Seq;
+//				if(Sys.time > gWs_Welding_Tmr)
+//				{
+//					gWs_Welding_Tmr = Sys.Time + cSeq_LwmTimeOut;
+//					gWs_Welding_Seq = 32;
+//				}
+//			break;
 
 			case 32:
 				gWs_Welding_Buf = gWs_Welding_Seq;
@@ -1454,7 +1507,7 @@ Open plc 13
 				}
 				else if(Sys.time > gWs_Welding_Tmr)
 				{
-					gWs_Welding_Err = cErrCode_WsN2Blw;
+					gWs_Welding_Err = cErrCode_WsCoverClose;
 					gWs_Welding_Sta = cSeqSta_Err;
 					gWs_Welding_Seq = 0;
 					gWs_Welding_Ena = 0;
@@ -1465,6 +1518,10 @@ Open plc 13
 		//------------------------------------------------//
 			case 40:
 				gWs_Welding_Buf = gWs_Welding_Seq;
+				Motor[nwX].InPosBand = cMotor_InPosBand_GCode;
+				Motor[nwY].InPosBand = cMotor_InPosBand_GCode;
+				Motor[nwC].InPosBand = cMotor_InPosBand_GCode;
+
 				start 1:20
 				gWs_Prog_TimeBuf = Sys.Time;
 
@@ -1476,18 +1533,20 @@ Open plc 13
 					else if(gWs_WblType==cWbl_Type_Column)		start 2:24
 					else if(gWs_WblType==cWbl_Type_Row)			start 2:25
 				}
-				gWs_Welding_Tmr = Sys.Time + 0.1;
-				gWs_Welding_Seq = 41;
+				//gWs_Welding_Tmr = Sys.Time + 0.1;
+				gWs_Welding_Tmr = Sys.Time + cSeq_PrgTimeOut;
+
+				gWs_Welding_Seq = 42;
 			break;
 
-			case 41:
-				gWs_Welding_Buf = gWs_Welding_Seq;
-				if(Sys.time > gWs_Welding_Tmr)
-				{
-					gWs_Welding_Tmr = Sys.Time + cSeq_PrgTimeOut;
-					gWs_Welding_Seq = 42;
-				}
-			break;
+//			case 41:
+//				gWs_Welding_Buf = gWs_Welding_Seq;
+//				if(Sys.time > gWs_Welding_Tmr)
+//				{
+//					gWs_Welding_Tmr = Sys.Time + cSeq_PrgTimeOut;
+//					gWs_Welding_Seq = 42;
+//				}
+//			break;
 
 			case 42:
 				gWs_Welding_Buf = gWs_Welding_Seq;
@@ -1537,34 +1596,35 @@ Open plc 13
 		case 50:
 				gWs_Welding_Buf = gWs_Welding_Seq;
 				if(Coord[2].ProgRunning==1) abort 2
-				gWs_Welding_Tmr = Sys.Time + 0.1;
-				gWs_Welding_Seq = 51;
+				gWs_Welding_Tmr = Sys.Time;
+				gWs_Welding_Seq = 52;
 			break;
 
-			case 51:
-				gWs_Welding_Buf = gWs_Welding_Seq;
-				if(Sys.Time > gWs_Welding_Tmr)
-				{
-					gWs_Welding_Seq = 52;
-				}
-			break;
+//			case 51:
+//				gWs_Welding_Buf = gWs_Welding_Seq;
+//				if(Sys.Time > gWs_Welding_Tmr)
+//				{
+//					gWs_Welding_Seq = 52;
+//				}
+//			break;
 
 			case 52:
 				gWs_Welding_Buf = gWs_Welding_Seq;
 				Coord[2].pDesTimeBase = Coord[2].DesTimeBase.a
 				start 2:19
-				gWs_Welding_Tmr = Sys.Time + 0.1;
-				gWs_Welding_Seq = 53;
+				//gWs_Welding_Tmr = Sys.Time + 0.1;
+				gWs_Welding_Tmr = Sys.Time + cSeq_MtrTimeOut;
+				gWs_Welding_Seq = 54;
 			break;
 
-			case 53:
-				gWs_Welding_Buf = gWs_Welding_Seq;
-				if(Sys.Time > gWs_Welding_Tmr)
-				{
-					gWs_Welding_Tmr = Sys.Time + cSeq_MtrTimeOut;
-					gWs_Welding_Seq = 54;
-				}
-			break;
+//			case 53:
+//				gWs_Welding_Buf = gWs_Welding_Seq;
+//				if(Sys.Time > gWs_Welding_Tmr)
+//				{
+//					gWs_Welding_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gWs_Welding_Seq = 54;
+//				}
+//			break;
 
 			case 54:
 				gWs_Welding_Buf = gWs_Welding_Seq;
@@ -1593,19 +1653,21 @@ Open plc 13
 				{
 					pUmem_Do11_WsTempBwd = 0;
 					pUmem_Do13_WsTempFwd = 1;
-					gWs_Welding_Tmr = Sys.Time + 0.1;
-					gWs_Welding_Seq = 81;
-				}
-			break;
-
-			case 81:
-				gWs_Welding_Buf = gWs_Welding_Seq;
-				if(Sys.time > gWs_Welding_Tmr)
-				{
+					//gWs_Welding_Tmr = Sys.Time + 0.1;
 					gWs_Welding_Tmr = Sys.Time + cSeq_CldTimeOut;
+
 					gWs_Welding_Seq = 82;
 				}
 			break;
+
+//			case 81:
+//				gWs_Welding_Buf = gWs_Welding_Seq;
+//				if(Sys.time > gWs_Welding_Tmr)
+//				{
+//					gWs_Welding_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Welding_Seq = 82;
+//				}
+//			break;
 
 			case 82:
 				gWs_Welding_Buf = gWs_Welding_Seq;
@@ -1631,19 +1693,20 @@ Open plc 13
 					pUmem_Sta_Ws_TempResult2 = gTi01_Ws_TempSen2;	// 260107 Add
 					pUmem_Do13_WsTempFwd = 0;
 					pUmem_Do11_WsTempBwd = 1;
-					gWs_Welding_Tmr = Sys.Time + 0.1;
-					gWs_Welding_Seq = 84;
-				}
-			break;
-
-			case 84:
-				gWs_Welding_Buf = gWs_Welding_Seq;
-				if(Sys.time > gWs_Welding_Tmr)
-				{
+					//gWs_Welding_Tmr = Sys.Time + 0.1;
 					gWs_Welding_Tmr = Sys.Time + cSeq_CldTimeOut;
 					gWs_Welding_Seq = 85;
 				}
 			break;
+
+//			case 84:
+//				gWs_Welding_Buf = gWs_Welding_Seq;
+//				if(Sys.time > gWs_Welding_Tmr)
+//				{
+//					gWs_Welding_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Welding_Seq = 85;
+//				}
+//			break;
 
 			case 85:
 				gWs_Welding_Buf = gWs_Welding_Seq;
@@ -1788,19 +1851,21 @@ Open plc 13
 				{
 					pUmem_Do13_WsTempFwd = 0;
 					pUmem_Do11_WsTempBwd = 1;		// Product Detected when Temp Sensor FWD Status
-					gWs_Wait_Tmr = Sys.Time + 0.1;
-					gWs_Wait_Seq = 6;
-				}
-			break;
-
-			case 6:
-				gWs_Wait_Buf = gWs_Wait_Seq;
-				if(Sys.time > gWs_Wait_Tmr)
-				{
+					//gWs_Wait_Tmr = Sys.Time + 0.1;
 					gWs_Wait_Tmr = Sys.Time + cSeq_CldTimeOut;
+
 					gWs_Wait_Seq = 7;
 				}
 			break;
+
+//			case 6:
+//				gWs_Wait_Buf = gWs_Wait_Seq;
+//				if(Sys.time > gWs_Wait_Tmr)
+//				{
+//					gWs_Wait_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Wait_Seq = 7;
+//				}
+//			break;
 
 			case 7:
 				gWs_Wait_Buf = gWs_Wait_Seq;
@@ -1863,6 +1928,9 @@ Open plc 13
 					Motor[nwX].JogSpeed = gWs_Wait_VelX;
 					Motor[nwY].JogSpeed = gWs_Wait_VelY;
 					Motor[nwC].JogSpeed = gWs_Wait_VelC;
+					Motor[nwX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nwX].ProgJogPos = gWs_Wait_PosX;
 					Motor[nwY].ProgJogPos = gWs_Wait_PosY;
@@ -1874,8 +1942,11 @@ Open plc 13
 					//Motor[nwC].ProgJogPos = outc_pos;
 					gWs_ThTargetPos_Old = -1;
 
-					jog nwX=*
-					jog nwY=*
+//					jog nwX=*
+//					jog nwY=*
+
+					cmd "#nwX jog=* #nwY jog=*"
+
 					//20260123 KJH - TactTime 작업.
 					if(gWs_CoverMoving_Sta == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 					{
@@ -1886,8 +1957,10 @@ Open plc 13
 					else if(gWs_CoverMoving_Sta != 1)
 						gWs_CoverOpn_Start = 1;
 
-					gWs_Wait_Tmr = Sys.Time + 0.1;
-					gWs_Wait_Seq = 21;
+					//gWs_Wait_Tmr = Sys.Time + 0.1;
+					gWs_Wait_Tmr = Sys.Time + cSeq_MtrTimeOut;
+
+					gWs_Wait_Seq = 22;
 				}
 				else
 				{
@@ -1898,14 +1971,14 @@ Open plc 13
 				}
 			break;
 
-			case 21:
-				gWs_Wait_Buf = gWs_Wait_Seq;
-				if(Sys.time > gWs_Wait_Tmr)
-				{
-					gWs_Wait_Tmr = Sys.Time + cSeq_MtrTimeOut;
-					gWs_Wait_Seq = 22;
-				}
-			break;
+//			case 21:
+//				gWs_Wait_Buf = gWs_Wait_Seq;
+//				if(Sys.time > gWs_Wait_Tmr)
+//				{
+//					gWs_Wait_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gWs_Wait_Seq = 22;
+//				}
+//			break;
 
 			case 22:
 				gWs_Wait_Buf = gWs_Wait_Seq;
@@ -1927,7 +2000,7 @@ Open plc 13
 				}
 				else if(Sys.time > gWs_Wait_Tmr)
 				{
-					gWs_Wait_Err = cErrCode_WsMoveTime;
+					gWs_Wait_Err = cErrCode_WsCoverOpen;
 					gWs_Wait_Sta = cSeqSta_Err;
 					gWs_Wait_Seq = 0;
 					gWs_Wait_Ena = 0;
@@ -2059,19 +2132,20 @@ Open plc 13
 				{
 					pUmem_Do13_WsTempFwd = 0;
 					pUmem_Do11_WsTempBwd = 1;		// Product Detected when Temp Sensor FWD Status
-					gWs_Unload_Tmr = Sys.Time + 0.1;
-					gWs_Unload_Seq = 6;
-				}
-			break;
-
-			case 6:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				if(Sys.time > gWs_Unload_Tmr)
-				{
+					//gWs_Unload_Tmr = Sys.Time + 0.1;
 					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
 					gWs_Unload_Seq = 7;
 				}
 			break;
+
+//			case 6:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Unload_Seq = 7;
+//				}
+//			break;
 
 			case 7:
 				gWs_Unload_Buf = gWs_Unload_Seq;
@@ -2123,7 +2197,8 @@ Open plc 13
 				pUmem_Do20_WsTbVacm = 1;
 				pUmem_Do22_WsTbBlow = 0;
 
-				gWs_Unload_Tmr = Sys.Time + 0.1;
+				//gWs_Unload_Tmr = Sys.Time + 0.1;
+				gWs_Unload_Tmr = Sys.Time;
 				gWs_Unload_Seq = 20;
 			break;
 //			case 10:
@@ -2186,19 +2261,20 @@ Open plc 13
 				{
 					pUmem_Do1A_TrPickDn = 0;
 					pUmem_Do18_TrPickUp = 1;
-					gWs_Unload_Tmr = Sys.Time + 0.1;
-					gWs_Unload_Seq = 21;
-				}
-			break;
-
-			case 21:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				if(Sys.time > gWs_Unload_Tmr)
-				{
+					//gWs_Unload_Tmr = Sys.Time + 0.1;
 					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
 					gWs_Unload_Seq = 22;
 				}
 			break;
+
+//			case 21:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Unload_Seq = 22;
+//				}
+//			break;
 
 			case 22:
 				gWs_Unload_Buf = gWs_Unload_Seq;
@@ -2225,6 +2301,9 @@ Open plc 13
 					Motor[nwX].JogSpeed = gWs_Unload_VelX;
 					Motor[nwY].JogSpeed = gWs_Unload_VelY;
 					Motor[nwC].JogSpeed = gWs_Unload_VelC;
+					Motor[nwX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nwX].ProgJogPos = gWs_Unload_PosX;
 					Motor[nwY].ProgJogPos = gWs_Unload_PosY;
@@ -2236,8 +2315,11 @@ Open plc 13
 					//Motor[nwC].ProgJogPos = outc_pos;
 					gWs_ThTargetPos_Old = -1;
 
-					jog nwX=*
-					jog nwY=*
+//					jog nwX=*
+//					jog nwY=*
+
+					cmd "#nwX jog=* #nwY jog=*"
+
 					//20260123 KJH - TactTime 작업.
 					if(gWs_CoverMoving_Sta == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
 					{
@@ -2248,8 +2330,9 @@ Open plc 13
 					else if(gWs_CoverMoving_Sta != 1)
 						gWs_CoverOpn_Start = 1;
 
-					gWs_Unload_Tmr = Sys.Time + 0.1;
-					gWs_Unload_Seq = 31;
+					//gWs_Unload_Tmr = Sys.Time + 0.1;
+					gWs_Unload_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gWs_Unload_Seq = 32;
 				}
 				else
 				{
@@ -2260,14 +2343,14 @@ Open plc 13
 				}
 			break;
 
-			case 31:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				if(Sys.time > gWs_Unload_Tmr)
-				{
-					gWs_Unload_Tmr = Sys.Time + cSeq_MtrTimeOut;
-					gWs_Unload_Seq = 32;
-				}
-			break;
+//			case 31:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gWs_Unload_Seq = 32;
+//				}
+//			break;
 
 			case 32:
 				gWs_Unload_Buf = gWs_Unload_Seq;
@@ -2288,7 +2371,7 @@ Open plc 13
 				}
 				else if(Sys.time > gWs_Unload_Tmr)
 				{
-					gWs_Unload_Err = cErrCode_WsMoveTime;
+					gWs_Unload_Err = cErrCode_WsCoverOpen;
 					gWs_Unload_Sta = cSeqSta_Err;
 					gWs_Unload_Seq = 0;
 					gWs_Unload_Ena = 0;
@@ -2347,57 +2430,70 @@ Open plc 13
 				pUmem_Do20_WsTbVacm = 0;
 				pUmem_Do22_WsTbBlow = 0;
 
-				gWs_Unload_Tmr = Sys.Time + 0.1;
-				gWs_Unload_Seq = 45;
+				//gWs_Unload_Tmr = Sys.Time + 0.1;
+				gWs_Unload_Tmr = Sys.Time;
+				gWs_Unload_Seq = 50;
 			break;
-			case 45:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				if(Sys.time > gWs_Unload_Tmr)
-				{
-					gWs_Unload_Tmr = Sys.Time + 0.1;
-					gWs_Unload_Seq = 46;
-				}
-			break;
-			case 46:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
-				//{
-					gWs_Unload_Seq = 50;
-				//}
-				if(Sys.time > gWs_Unload_Tmr)
-				{
-					gWs_Unload_Err = cErrCode_WsMoveTime;
-					gWs_Unload_Sta = cSeqSta_Err;
-					gWs_Unload_Seq = 0;
-					gWs_Unload_Ena = 0;
-				}
-			break;
+//			case 45:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Tmr = Sys.Time + 0.1;
+//					gWs_Unload_Seq = 46;
+//				}
+//			break;
+//			case 46:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
+//				//{
+//					gWs_Unload_Seq = 50;
+//				//}
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Err = cErrCode_WsMoveTime;
+//					gWs_Unload_Sta = cSeqSta_Err;
+//					gWs_Unload_Seq = 0;
+//					gWs_Unload_Ena = 0;
+//				}
+//			break;
 		//------------------------------------------------//
 		// Picker Down
 		//------------------------------------------------//
 			case 50:
 				gWs_Unload_Buf = gWs_Unload_Seq;
-				pUmem_Do14_TrGripCls = 0;
-				pUmem_Do16_TrGripOpn = 1;
 
-				gWs_Unload_Tmr = Sys.Time + 0.1;
-				gWs_Unload_Seq = 51;
-			break;
-
-			case 51:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				if(Sys.time > gWs_Unload_Tmr)
+				if(gTr_CldIn_PickerOC==cOpn)
 				{
+					//gWs_Unload_Tmr = Sys.Time + gWs_CldInpos_Delay;
+					gWs_Unload_Tmr = Sys.Time;
+					gWs_Unload_Seq = 53;
+				}
+				else
+				{
+					pUmem_Do14_TrGripCls = 0;
+					pUmem_Do16_TrGripOpn = 1;
+					
+					//gWs_Unload_Tmr = Sys.Time + 0.1;
 					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
 					gWs_Unload_Seq = 52;
 				}
 			break;
 
+//			case 51:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Unload_Seq = 52;
+//				}
+//			break;
+
 			case 52:
 				gWs_Unload_Buf = gWs_Unload_Seq;
 				if(gTr_CldIn_PickerOC==cOpn)
 				{
-					gWs_Unload_Tmr = Sys.Time + gWs_CldInpos_Delay;
+					//gWs_Unload_Tmr = Sys.Time + gWs_CldInpos_Delay;
+					gWs_Unload_Tmr = Sys.Time;
 					gWs_Unload_Seq = 53;
 				}
 				else if(Sys.time > gWs_Unload_Tmr)
@@ -2415,26 +2511,28 @@ Open plc 13
 				{
 					pUmem_Do18_TrPickUp = 0;
 					pUmem_Do1A_TrPickDn = 1;
-					gWs_Unload_Tmr = Sys.Time + 0.1;
-					gWs_Unload_Seq = 54;
-				}
-			break;
-
-			case 54:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				if(Sys.time > gWs_Unload_Tmr)
-				{
+					//gWs_Unload_Tmr = Sys.Time + 0.1;
 					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
+
 					gWs_Unload_Seq = 55;
 				}
 			break;
+
+//			case 54:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Unload_Seq = 55;
+//				}
+//			break;
 
 			case 55:
 				gWs_Unload_Buf = gWs_Unload_Seq;
 				if(gTr_CldIn_PickerUD==cDn)
 				{
 					gWs_Unload_Tmr = Sys.Time + gWs_CldInpos_Delay;
-					gWs_Unload_Seq = 56;
+					gWs_Unload_Seq = 60;
 				}
 				else if(Sys.time > gWs_Unload_Tmr)
 				{
@@ -2445,13 +2543,13 @@ Open plc 13
 				}
 			break;
 
-			case 56:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				if(Sys.time > gWs_Unload_Tmr)
-				{
-					gWs_Unload_Seq = 60;
-				}
-			break;
+//			case 56:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Seq = 60;
+//				}
+//			break;
 		//------------------------------------------------//
 		// Picker Up
 		//------------------------------------------------//
@@ -2459,18 +2557,20 @@ Open plc 13
 				gWs_Unload_Buf = gWs_Unload_Seq;
 				pUmem_Do16_TrGripOpn = 0;
 				pUmem_Do14_TrGripCls = 1;
-				gWs_Unload_Tmr = Sys.Time + 0.1;
-				gWs_Unload_Seq = 61;
+				//gWs_Unload_Tmr = Sys.Time + 0.1;
+				gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
+
+				gWs_Unload_Seq = 62;
 			break;
 
-			case 61:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				if(Sys.time > gWs_Unload_Tmr)
-				{
-					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
-					gWs_Unload_Seq = 62;
-				}
-			break;
+//			case 61:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Unload_Seq = 62;
+//				}
+//			break;
 
 			case 62:
 				gWs_Unload_Buf = gWs_Unload_Seq;
@@ -2494,19 +2594,20 @@ Open plc 13
 				{
 					pUmem_Do1A_TrPickDn = 0;
 					pUmem_Do18_TrPickUp = 1;
-					gWs_Unload_Tmr = Sys.Time + 0.1;
-					gWs_Unload_Seq = 64;
-				}
-			break;
-
-			case 64:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				if(Sys.time > gWs_Unload_Tmr)
-				{
+					//gWs_Unload_Tmr = Sys.Time + 0.1;
 					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
 					gWs_Unload_Seq = 65;
 				}
 			break;
+
+//			case 64:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Unload_Seq = 65;
+//				}
+//			break;
 
 			case 65:
 				gWs_Unload_Buf = gWs_Unload_Seq;
@@ -2520,7 +2621,8 @@ Open plc 13
 						gTr_Sta_Pdt = cPdtSta_Awd;
 						gWs_Sta_Pdt = cPdtSta_Blk;
 
-						gWs_Unload_Tmr = Sys.Time + gWs_CldInpos_Delay;
+						//gWs_Unload_Tmr = Sys.Time + gWs_CldInpos_Delay;
+						gWs_Unload_Tmr = Sys.Time;
 						gWs_Unload_Seq = 66;
 					}
 					else if(pUmem_Di28_WsTbDet == cDet_Off)
@@ -2531,7 +2633,8 @@ Open plc 13
 						gTr_Sta_Pdt = cPdtSta_Awd;
 						gWs_Sta_Pdt = cPdtSta_Blk;
 
-						gWs_Unload_Tmr = Sys.Time + gWs_CldInpos_Delay;
+						//gWs_Unload_Tmr = Sys.Time + gWs_CldInpos_Delay;
+						gWs_Unload_Tmr = Sys.Time;
 						gWs_Unload_Seq = 66;
 					}
 					//gWs_Unload_Tmr = Sys.Time + 2;
@@ -2556,31 +2659,32 @@ Open plc 13
 				pUmem_Do20_WsTbVacm = 0;
 				pUmem_Do22_WsTbBlow = 1;
 
-				gWs_Unload_Tmr = Sys.Time + 0.1;
-				gWs_Unload_Seq = 67;
+//				gWs_Unload_Tmr = Sys.Time + 0.1;
+				gWs_Unload_Tmr = Sys.Time;
+				gWs_Unload_Seq = 90;
 			break;
-			case 67:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				if(Sys.time > gWs_Unload_Tmr)
-				{
-					gWs_Unload_Tmr = Sys.Time + 0.1;
-					gWs_Unload_Seq = 68;
-				}
-			break;
-			case 68:
-				gWs_Unload_Buf = gWs_Unload_Seq;
-				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
-				//{
-					gWs_Unload_Seq = 90;
-				//}
-				if(Sys.time > gWs_Unload_Tmr)
-				{
-					gWs_Unload_Err = cErrCode_WsMoveTime;
-					gWs_Unload_Sta = cSeqSta_Err;
-					gWs_Unload_Seq = 0;
-					gWs_Unload_Ena = 0;
-				}
-			break;
+//			case 67:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Tmr = Sys.Time + 0.1;
+//					gWs_Unload_Seq = 68;
+//				}
+//			break;
+//			case 68:
+//				gWs_Unload_Buf = gWs_Unload_Seq;
+//				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
+//				//{
+//					gWs_Unload_Seq = 90;
+//				//}
+//				if(Sys.time > gWs_Unload_Tmr)
+//				{
+//					gWs_Unload_Err = cErrCode_WsMoveTime;
+//					gWs_Unload_Sta = cSeqSta_Err;
+//					gWs_Unload_Seq = 0;
+//					gWs_Unload_Ena = 0;
+//				}
+//			break;
 			
 //			case 66:
 //				gWs_Unload_Buf = gWs_Unload_Seq;
@@ -2725,19 +2829,20 @@ Open plc 13
 				{
 					pUmem_Do13_WsTempFwd = 0;
 					pUmem_Do11_WsTempBwd = 1;		// Product Detected when Temp Sensor FWD Status
-					gWs_Reject_Tmr = Sys.Time + 0.1;
-					gWs_Reject_Seq = 6;
-				}
-			break;
-
-			case 6:
-				gWs_Reject_Buf = gWs_Reject_Seq;
-				if(Sys.time > gWs_Reject_Tmr)
-				{
+					//gWs_Reject_Tmr = Sys.Time + 0.1;
 					gWs_Reject_Tmr = Sys.Time + cSeq_CldTimeOut;
 					gWs_Reject_Seq = 7;
 				}
 			break;
+
+//			case 6:
+//				gWs_Reject_Buf = gWs_Reject_Seq;
+//				if(Sys.time > gWs_Reject_Tmr)
+//				{
+//					gWs_Reject_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gWs_Reject_Seq = 7;
+//				}
+//			break;
 
 			case 7:
 				gWs_Reject_Buf = gWs_Reject_Seq;
@@ -2785,31 +2890,32 @@ Open plc 13
 				pUmem_Do20_WsTbVacm = 1;
 				pUmem_Do22_WsTbBlow = 0;
 
-				gWs_Reject_Tmr = Sys.Time + 0.1;
-				gWs_Reject_Seq = 10;
+				//gWs_Reject_Tmr = Sys.Time + 0.1;
+				gWs_Reject_Tmr = Sys.Time;
+				gWs_Reject_Seq = 20;
 			break;
-			case 10:
-				gWs_Reject_Buf = gWs_Reject_Seq;
-				if(Sys.time > gWs_Reject_Tmr)
-				{
-					gWs_Reject_Tmr = Sys.Time + 0.1;
-					gWs_Reject_Seq = 11;
-				}
-			break;
-			case 11:
-				gWs_Reject_Buf = gWs_Reject_Seq;
-				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
-				//{
-					gWs_Reject_Seq = 20;
-				//}
-				if(Sys.time > gWs_Reject_Tmr)
-				{
-					gWs_Reject_Err = cErrCode_WsPdtDetect;
-					gWs_Reject_Sta = cSeqSta_Err;
-					gWs_Reject_Seq = 0;
-					gWs_Reject_Ena = 0;
-				}
-			break;
+//			case 10:
+//				gWs_Reject_Buf = gWs_Reject_Seq;
+//				if(Sys.time > gWs_Reject_Tmr)
+//				{
+//					gWs_Reject_Tmr = Sys.Time + 0.1;
+//					gWs_Reject_Seq = 11;
+//				}
+//			break;
+//			case 11:
+//				gWs_Reject_Buf = gWs_Reject_Seq;
+//				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
+//				//{
+//					gWs_Reject_Seq = 20;
+//				//}
+//				if(Sys.time > gWs_Reject_Tmr)
+//				{
+//					gWs_Reject_Err = cErrCode_WsPdtDetect;
+//					gWs_Reject_Sta = cSeqSta_Err;
+//					gWs_Reject_Seq = 0;
+//					gWs_Reject_Ena = 0;
+//				}
+//			break;
 		//------------------------------------------------//
 		// Cover Close
 		//------------------------------------------------//
@@ -2845,6 +2951,9 @@ Open plc 13
 					Motor[nwX].JogSpeed = gWs_Reject_VelX;
 					Motor[nwY].JogSpeed = gWs_Reject_VelY;
 					Motor[nwC].JogSpeed = gWs_Reject_VelC;
+					Motor[nwX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nwC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nwX].ProgJogPos = gWs_Reject_PosX;
 					Motor[nwY].ProgJogPos = gWs_Reject_PosY;
@@ -2855,8 +2964,10 @@ Open plc 13
 					//Motor[nwC].ProgJogPos = outc_pos;
 					gWs_ThTargetPos_Old = -1;
 
-					jog nwX=*
-					jog nwY=*
+//					jog nwX=*
+//					jog nwY=*
+
+					cmd "#nwX jog=* #nwY jog=*"
 
 					//20260123 KJH - TactTime 작업.
 					if(gWs_CoverMoving_Sta == 1 && gWs_CoverOpn_Sta == cSeqSta_Fin)
@@ -2872,8 +2983,9 @@ Open plc 13
 					{
 						pUmem_Sta_Ws_1stTransRjReq = cPcReq_Mov;
 					}
-					gWs_Reject_Tmr = Sys.Time + 0.1;
-					gWs_Reject_Seq = 21;
+					//gWs_Reject_Tmr = Sys.Time + 0.1;
+					gWs_Reject_Tmr = Sys.Time + cSeq_MtrTimeOut;
+					gWs_Reject_Seq = 22;
 				}
 				else
 				{
@@ -2884,14 +2996,14 @@ Open plc 13
 				}
 			break;
 
-			case 21:
-				gWs_Reject_Buf = gWs_Reject_Seq;
-				if(Sys.time > gWs_Reject_Tmr)
-				{
-					gWs_Reject_Tmr = Sys.Time + cSeq_MtrTimeOut;
-					gWs_Reject_Seq = 22;
-				}
-			break;
+//			case 21:
+//				gWs_Reject_Buf = gWs_Reject_Seq;
+//				if(Sys.time > gWs_Reject_Tmr)
+//				{
+//					gWs_Reject_Tmr = Sys.Time + cSeq_MtrTimeOut;
+//					gWs_Reject_Seq = 22;
+//				}
+//			break;
 
 			case 22:
 				gWs_Reject_Buf = gWs_Reject_Seq;
@@ -2912,7 +3024,7 @@ Open plc 13
 				}
 				else if(Sys.time > gWs_Reject_Tmr)
 				{
-					gWs_Reject_Err = cErrCode_WsMoveTime;
+					gWs_Reject_Err = cErrCode_WsCoverOpen;
 					gWs_Reject_Sta = cSeqSta_Err;
 					gWs_Reject_Seq = 0;
 					gWs_Reject_Ena = 0;
@@ -2986,31 +3098,32 @@ Open plc 13
 				pUmem_Do20_WsTbVacm = 0;
 				pUmem_Do22_WsTbBlow = 0;
 
-				gWs_Reject_Tmr = Sys.Time + 0.1;
-				gWs_Reject_Seq = 36;
+				//gWs_Reject_Tmr = Sys.Time + 0.1;
+				gWs_Reject_Tmr = Sys.Time;
+				gWs_Reject_Seq = 40;
 			break;
-			case 36:
-				gWs_Reject_Buf = gWs_Reject_Seq;
-				if(Sys.time > gWs_Reject_Tmr)
-				{
-					gWs_Reject_Tmr = Sys.Time + 0.1;
-					gWs_Reject_Seq = 37;
-				}
-			break;
-			case 37:
-				gWs_Reject_Buf = gWs_Reject_Seq;
-				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
-				//{
-					gWs_Reject_Seq = 40;
-				//}
-				if(Sys.time > gWs_Reject_Tmr)
-				{
-					gWs_Reject_Err = cErrCode_WsMoveTime;
-					gWs_Reject_Sta = cSeqSta_Err;
-					gWs_Reject_Seq = 0;
-					gWs_Reject_Ena = 0;
-				}
-			break;
+//			case 36:
+//				gWs_Reject_Buf = gWs_Reject_Seq;
+//				if(Sys.time > gWs_Reject_Tmr)
+//				{
+//					gWs_Reject_Tmr = Sys.Time + 0.1;
+//					gWs_Reject_Seq = 37;
+//				}
+//			break;
+//			case 37:
+//				gWs_Reject_Buf = gWs_Reject_Seq;
+//				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
+//				//{
+//					gWs_Reject_Seq = 40;
+//				//}
+//				if(Sys.time > gWs_Reject_Tmr)
+//				{
+//					gWs_Reject_Err = cErrCode_WsMoveTime;
+//					gWs_Reject_Sta = cSeqSta_Err;
+//					gWs_Reject_Seq = 0;
+//					gWs_Reject_Ena = 0;
+//				}
+//			break;
 		//------------------------------------------------//
 		// Reject Request
 		//------------------------------------------------//
@@ -3088,31 +3201,32 @@ Open plc 13
 				pUmem_Do20_WsTbVacm = 0;
 				pUmem_Do22_WsTbBlow = 1;
 
-				gWs_Reject_Tmr = Sys.Time + 0.1;
-				gWs_Reject_Seq = 44;
+				//gWs_Reject_Tmr = Sys.Time + 0.1;
+				gWs_Reject_Tmr = Sys.Time;
+				gWs_Reject_Seq = 90;
 			break;
-			case 44:
-				gWs_Reject_Buf = gWs_Reject_Seq;
-				if(Sys.time > gWs_Reject_Tmr)
-				{
-					gWs_Reject_Tmr = Sys.Time + 0.1;
-					gWs_Reject_Seq = 45;
-				}
-			break;
-			case 45:
-				gWs_Reject_Buf = gWs_Reject_Seq;
-				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
-				//{
-					gWs_Reject_Seq = 90;
-				//}
-				if(Sys.time > gWs_Reject_Tmr)
-				{
-					gWs_Reject_Err = cErrCode_WsMoveTime;
-					gWs_Reject_Sta = cSeqSta_Err;
-					gWs_Reject_Seq = 0;
-					gWs_Reject_Ena = 0;
-				}
-			break;
+//			case 44:
+//				gWs_Reject_Buf = gWs_Reject_Seq;
+//				if(Sys.time > gWs_Reject_Tmr)
+//				{
+//					gWs_Reject_Tmr = Sys.Time + 0.1;
+//					gWs_Reject_Seq = 45;
+//				}
+//			break;
+//			case 45:
+//				gWs_Reject_Buf = gWs_Reject_Seq;
+//				//if(Vacuum On Check)//현재는 Input 신호가 존재 하지 않음.
+//				//{
+//					gWs_Reject_Seq = 90;
+//				//}
+//				if(Sys.time > gWs_Reject_Tmr)
+//				{
+//					gWs_Reject_Err = cErrCode_WsMoveTime;
+//					gWs_Reject_Sta = cSeqSta_Err;
+//					gWs_Reject_Seq = 0;
+//					gWs_Reject_Ena = 0;
+//				}
+//			break;
 			
 		//------------------------------------------------//
 		// Completes

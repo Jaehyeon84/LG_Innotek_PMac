@@ -2201,6 +2201,8 @@ ptr pUmem_Do31_EcldBwd					->u.user:$8594
 
 ptr pUmem_Ai00_WsLoadCell				->i.user:$9470
 ptr pUmem_Ai01							->u.user:$9474
+ptr pUmem_Ai03_WsCorePower				->i.user:$9478
+ptr pUmem_Ai04_WsRingPower				->i.user:$947C
 
 ptr pUmem_Ti00_WsTempSen1				->i.user:$9600
 ptr pUmem_Ti01_WsTempSen2				->u.user:$9604

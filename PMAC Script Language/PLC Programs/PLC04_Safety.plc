@@ -48,13 +48,13 @@ open plc 4
 		switch(cMachineID)
 		{
 		case 1:
-			OriginOffset = -1246101; //OriginOffset = (nwX_ActPos+Homoffset + 230) - (nvX\_ActPos+Homeoffset - 190) // 2Line
+			OriginOffset = -1562414; //OriginOffset = (nwX_ActPos+Homoffset + 230) - (nvX\_ActPos+Homeoffset - 190) // 3Line
 			break;
 		case 2:
 			OriginOffset = -1245243; //OriginOffset = (nwX_ActPos+Homoffset + 230) - (nvX\_ActPos+Homeoffset - 190) // 1Line
 			break;
 		case 3:
-			OriginOffset = -1562414; //OriginOffset = (nwX_ActPos+Homoffset + 230) - (nvX\_ActPos+Homeoffset - 190) // 3Line
+			OriginOffset = -1246101; //OriginOffset = (nwX_ActPos+Homoffset + 230) - (nvX\_ActPos+Homeoffset - 190) // 2Line
 			break;
 		default:
 		break;

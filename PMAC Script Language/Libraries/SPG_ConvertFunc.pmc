@@ -1,0 +1,99 @@
+	#define VOLT_IN_MAX   13.0
+	#define VOLT_OUT_MAX  8.0
+	#define VOLT_SCALE_RATIO   (VOLT_OUT_MAX / VOLT_IN_MAX)
+
+	global gCoreVoltMin = 1350;
+	global gCoreVoltMax = 12040;
+	global gCorePowerMin = 100;
+	global gCorePowerMax = 1000;
+
+	global gRingVoltMin = 210;
+	global gRingVoltMax = 12110;
+	global gRingPowerMin = 100;
+	global gRingPowerMax = 2000;
+
+open subprog spConvertRingPowerToVolt(InPower, &OutVolt) 
+	local lVoltOffset;
+	local lCalcSlope;
+	local lCalcOffset;
+
+	lCalcSlope = (gRingVoltMax - gRingVoltMin) / (gRingPowerMax - gRingPowerMin);
+    lCalcOffset = gRingVoltMin - (lCalcSlope * gRingPowerMin);
+
+	if(lCalcSlope != 0)
+		OutVolt = (lCalcSlope * InPower) + lCalcOffset;
+	else
+		OutVolt = 0.0;
+close
+
+
+open subprog spConvertVoltToRingPower(InVolt, &OutPower) 
+	local lVoltOffset;
+	local lCalcSlope;
+	local lCalcOffset;
+
+	lCalcSlope = (gRingVoltMax - gRingVoltMin) / (gRingPowerMax - gRingPowerMin);
+	lCalcOffset = gRingVoltMin - (lCalcSlope * gRingPowerMin);
+
+	if(lCalcSlope != 0)
+		OutPower = (InVolt - lCalcOffset) / lCalcSlope;
+	else
+		OutPower = 0.0;
+close
+
+open subprog spConvertCorePowerToVolt(InPower, &OutVolt) 
+	local lVoltOffset;
+	local lCalcSlope;
+	local lCalcOffset;
+
+	lCalcSlope = (gCoreVoltMax - gCoreVoltMin) / (gCorePowerMax - gCorePowerMin);
+    lCalcOffset = gCoreVoltMin - (lCalcSlope * gCorePowerMin);
+
+	if(lCalcSlope != 0)
+		OutVolt = (lCalcSlope * InPower) + lCalcOffset;
+	else
+		OutVolt = 0.0;
+close
+
+
+open subprog spConvertVoltToCorePower(InVolt, &OutPower) 
+	local lVoltOffset;
+	local lCalcSlope;
+	local lCalcOffset;
+
+	lCalcSlope = (gCoreVoltMax - gCoreVoltMin) / (gCorePowerMax - gCorePowerMin);
+	lCalcOffset = gCoreVoltMin - (lCalcSlope * gCorePowerMin);
+
+	if(lCalcSlope != 0)
+		OutPower = (InVolt - lCalcOffset) / lCalcSlope;
+	else
+		OutPower = 0.0;
+close
+
+open subprog spConvertVoltScaled(InVolt, &OutVolt) 
+	local lScaledVolt;
+
+	lScaledVolt = InVolt * VOLT_SCALE_RATIO;
+
+    if (lScaledVolt > 8.0) lScaledVolt = 8.0;
+    if (lScaledVolt < 0.0)  lScaledVolt = 0.0;
+
+	OutVolt = lScaledVolt;
+close
+
+// 스펙에 따른 변수 (보통 초기화 단계나 헤더에 상수로 선언합니다)
+global gTempRawMin = -72;
+global gTempRawMax = 22; // 16비트 모듈 기준
+global gSensorTempMin = 30.0;     // 센서의 최소 온도 (예: 0℃)
+global gSensorTempMax = 42.0;   // 센서의 최대 온도 (예: 100℃)
+
+open subprog spConvertTempScaled(InSensor, &OutTemp) 
+	
+	local lCalcSlope;
+	
+	// 기울기 계산: (온도 변화량) / (Raw 값 변화량)
+	lCalcSlope = (gSensorTempMax - gSensorTempMin) / (gTempRawMax - gTempRawMin);
+
+	// 실제 온도 변환
+	OutTemp = ((InSensor - gTempRawMin) * lCalcSlope) + gSensorTempMin;
+close

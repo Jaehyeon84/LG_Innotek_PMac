@@ -170,8 +170,14 @@ open plc 2
 	//참고 사항 : Cover가 Open 되어 있는 경우 재 동작 하지 않기 때문에 gWs_ThCoverPos_Old 갱신 되지 않습니다. 
 	//           그래서 각도로 변환 하여 Check 하는 방식 설정.
 	//if(Motor[nwC].InPos == 1 && ((gWs_ThCoverPos_Old % 360000)- (pUmem_Sta_CmdPos(nwC) % 360000)) < 1000)		gIsWsCoverComplete = 1;
-	if(Motor[nwC].InPos == 1 && (gWs_ThCoverPos_Old - pUmem_Sta_CmdPos(nwC)) < 1000)		gIsWsCoverComplete = 1;
+	if(Motor[nwC].InPos == 1 && abs(gWs_ThCoverPos_Old - pUmem_Sta_CmdPos(nwC)) < 1000)		gIsWsCoverComplete = 1;
 	else	gIsWsCoverComplete = 0;
+
+//	call spConvertVoltToCorePower(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCorePower);
+//	call spConvertVoltToRingPower(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingPower);
+
+//	call spConvertVoltScaled(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCoreVolt);
+//	call spConvertVoltScaled(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingVolt);
 
 	//20260209 KJH - N2 Blow Skip 기능 추가.
 	if(pUmem_Di05_LaserProgRun == 0)
@@ -281,7 +287,7 @@ open plc 2
 	//참고 사항 : Cover가 Open 되어 있는 경우 재 동작 하지 않기 때문에 gWs_ThCoverPos_Old 갱신 되지 않습니다. 
 	//           그래서 각도로 변환 하여 Check 하는 방식 설정.
 	//if(Motor[nvC].InPos == 1 && (gVs_ThCoverPos_Old % 360000) - (pUmem_Sta_CmdPos(nvC) % 360000) < 1000)		gIsVsCoverComplete = 1;
-	if(Motor[nvC].InPos == 1 && gVs_ThCoverPos_Old - pUmem_Sta_CmdPos(nvC) < 1000)		gIsVsCoverComplete = 1;
+	if(Motor[nvC].InPos == 1 && abs(gVs_ThCoverPos_Old - pUmem_Sta_CmdPos(nvC)) < 1000)		gIsVsCoverComplete = 1;
 	else	gIsVsCoverComplete = 0;
 
 	// Product Status
@@ -328,12 +334,20 @@ open plc 2
 	gAi00_WsLoadCell = pBuf_Ai00_WsLoadCell/15000*50;
 	pUmem_Ai00_WsLoadCell = gAi00_WsLoadCell*100;
 
+	pBuf_Ai03_WsCorePower = pEcat_Ai03_WsCorePower;
+	pBuf_Ai04_WsRingPower = pEcat_Ai04_WsRingPower;
+	pUmem_Ai03_WsCorePower = pBuf_Ai03_WsCorePower;
+	pUmem_Ai04_WsRingPower = pBuf_Ai04_WsRingPower;
+
 	pBuf_Ti00_Ws_TempSen1 = pEcat_Ti00_Ws_TempSen1;
 	pBuf_Ti01_Ws_TempSen2 = pEcat_Ti01_Ws_TempSen2;
 	gTi00_Ws_TempSen1 = (pBuf_Ti00_Ws_TempSen1 / 10) + pUmem_Cmd_Ws_TempOffset1;
 	gTi01_Ws_TempSen2 = (pBuf_Ti01_Ws_TempSen2 / 10) + pUmem_Cmd_Ws_TempOffset2;
 	pUmem_Ti00_WsTempSen1 = gTi00_Ws_TempSen1;
 	pUmem_Ti01_WsTempSen2 = gTi01_Ws_TempSen2;
+
+	call spConvertTempScaled(pBuf_Ti00_Ws_TempSen1, &gTi00_Ws_TempSen1);
+	call spConvertTempScaled(pBuf_Ti01_Ws_TempSen2, &gTi01_Ws_TempSen2);
 
 	//Welding 종료 되면 N2Blow 종료 하기 위함.
 //	if(gWs_Welding_Ena == 0 && pUmem_Do23_WsN2Blow == 1)	//Manual 동작시에는 예외 처리 필요.

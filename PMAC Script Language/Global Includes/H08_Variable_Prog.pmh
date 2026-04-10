@@ -11,6 +11,10 @@
 #define cRunOpt_Cycle				$01
 #define cRunOpt_Step				$02
 
+#define cMotor_InPosBand_Point		500
+#define cMotor_InPosBand_GCode		10
+#define cMotor_ThCoverPosMoveSpeed	700
+
 #define cRunOpt_SkipWsLdReq			$01
 #define cRunOpt_SkipWsRjReq			$02
 #define cRunOpt_SkipWsVnReq			$04
@@ -640,6 +644,7 @@ gJog_IncMove_Ena(0),32 = 0;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // PLC 12 : Sequence Control
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+#define cMachineID			P111
 #define cDet_On				0
 #define cDet_Off			1
 

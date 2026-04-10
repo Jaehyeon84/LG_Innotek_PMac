@@ -134,18 +134,19 @@ Open plc 14
 				gVs_Load_Buf = gVs_Load_Seq;
 				pUmem_Do1A_TrPickDn = 0;
 				pUmem_Do18_TrPickUp = 1;
-				gVs_Load_Tmr = Sys.Time + 0.1;
-				gVs_Load_Seq = 21;
+				//gVs_Load_Tmr = Sys.Time + 0.1;
+				gVs_Load_Tmr = Sys.Time + cSeq_CldTimeOut;
+				gVs_Load_Seq = 22;
 			break;
 
-			case 21:
-				gVs_Load_Buf = gVs_Load_Seq;
-				if(Sys.time > gVs_Load_Tmr)
-				{
-					gVs_Load_Tmr = Sys.Time + cSeq_CldTimeOut;
-					gVs_Load_Seq = 22;
-				}
-			break;
+//			case 21:
+//				gVs_Load_Buf = gVs_Load_Seq;
+//				if(Sys.time > gVs_Load_Tmr)
+//				{
+//					gVs_Load_Tmr = Sys.Time + cSeq_CldTimeOut;
+//					gVs_Load_Seq = 22;
+//				}
+//			break;
 
 			case 22:
 				gVs_Load_Buf = gVs_Load_Seq;
@@ -172,14 +173,19 @@ Open plc 14
 					Motor[nvX].JogSpeed = gVs_Load_VelX;
 					Motor[nvY].JogSpeed = gVs_Load_VelY;
 					Motor[nvC].JogSpeed = gVs_Load_VelC;
+					Motor[nvX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nvX].ProgJogPos = gVs_Load_PosX;
 					Motor[nvY].ProgJogPos = gVs_Load_PosY;
 					//Motor[nvC].ProgJogPos = gVs_Load_PosC;
 					gVs_ThTargetPos_Old = -1;
 
-					jog nvX=*
-					jog nvY=*
+//					jog nvX=*
+//					jog nvY=*
+
+					cmd "#nvX jog=* #nvY jog=*"
 
 					//20260127 KJH - Theta Coord 관련 작업.
 //					call spReadVsThPos(nvC, gVs_Load_PosC);
@@ -234,7 +240,7 @@ Open plc 14
 				}
 				else if(Sys.time > gVs_Load_Tmr)
 				{
-					gVs_Load_Err = cErrCode_VsMoveTime;
+					gVs_Load_Err = cErrCode_VsCoverOpen;
 					gVs_Load_Sta = cSeqSta_Err;
 					gVs_Load_Seq = 0;
 					gVs_Load_Ena = 0;
@@ -670,6 +676,9 @@ Open plc 14
 					Motor[nvX].JogSpeed = gVs_Ready_VelX;
 					Motor[nvY].JogSpeed = gVs_Ready_VelY;
 					Motor[nvC].JogSpeed = gVs_Ready_VelC;
+					Motor[nvX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nvX].ProgJogPos = gVs_Ready_PosX;
 					Motor[nvY].ProgJogPos = gVs_Ready_PosY;
@@ -678,8 +687,11 @@ Open plc 14
 					//call spReadVsThPos(nvC, gVs_Ready_PosC);
 					gVs_ThTargetPos_Old = -1;
 
-					jog nvX=*
-					jog nvY=*
+//					jog nvX=*
+//					jog nvY=*
+
+					cmd "#nvX jog=* #nvY jog=*"
+
 					//20260123 KJH - TactTime 작업.
 					if(gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
 					{
@@ -730,7 +742,7 @@ Open plc 14
 				}
 				else if(Sys.time > gVs_Ready_Tmr)
 				{
-					gVs_Ready_Err = cErrCode_VsMoveTime;
+					gVs_Ready_Err = cErrCode_VsCoverClose;
 					gVs_Ready_Sta = cSeqSta_Err;
 					gVs_Ready_Seq = 0;
 					gVs_Ready_Ena = 0;
@@ -915,6 +927,9 @@ Open plc 14
 					Motor[nvX].JogSpeed = gVs_Vision_VelX;
 					Motor[nvY].JogSpeed = gVs_Vision_VelY;
 					Motor[nvC].JogSpeed = gVs_Vision_VelC;
+					Motor[nvX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nvX].ProgJogPos = gVs_Vision_PosX;
 					Motor[nvY].ProgJogPos = gVs_Vision_PosY;
@@ -923,8 +938,11 @@ Open plc 14
 					//call spReadVsThPos(nvC, gVs_Vision_PosC);
 					gVs_ThTargetPos_Old = -1;
 
-					jog nvX=*
-					jog nvY=*
+//					jog nvX=*
+//					jog nvY=*
+
+					cmd "#nvX jog=* #nvY jog=*"
+
 					//20260123 KJH - TactTime 작업.
 					if(gVs_CoverMoving_Sta == 2 && gVs_CoverCls_Sta == cSeqSta_Fin)
 					{
@@ -977,7 +995,7 @@ Open plc 14
 				}
 				else if(Sys.time > gVs_Vision_Tmr)
 				{
-					gVs_Vision_Err = cErrCode_VsMoveTime;
+					gVs_Vision_Err = cErrCode_VsCoverClose;
 					gVs_Vision_Sta = cSeqSta_Err;
 					gVs_Vision_Seq = 0;
 					gVs_Vision_Ena = 0;
@@ -1008,6 +1026,10 @@ Open plc 14
 //			break;
 			case 30:
 				gVs_Vision_Buf = gVs_Vision_Seq;
+				Motor[nvX].InPosBand = cMotor_InPosBand_GCode;
+				Motor[nvY].InPosBand = cMotor_InPosBand_GCode;
+				Motor[nvC].InPosBand = cMotor_InPosBand_GCode;
+
 				if(gVs_RunOpt&cRunOpt_SkipVsVsReq!=0)
 				{
 					start 3:30
@@ -1298,6 +1320,9 @@ Open plc 14
 					Motor[nvX].JogSpeed = gVs_Wait_VelX;
 					Motor[nvY].JogSpeed = gVs_Wait_VelY;
 					Motor[nvC].JogSpeed = gVs_Wait_VelC;
+					Motor[nvX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nvX].ProgJogPos = gVs_Wait_PosX;
 					Motor[nvY].ProgJogPos = gVs_Wait_PosY;
@@ -1306,8 +1331,11 @@ Open plc 14
 					//call spReadVsThPos(nvC, gVs_Wait_PosC);
 					gVs_ThTargetPos_Old = -1;
 
-					jog nvX=*
-					jog nvY=*
+//					jog nvX=*
+//					jog nvY=*
+
+					cmd "#nvX jog=* #nvY jog=*"
+
 					//20260123 KJH - TactTime 작업.
 					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
 					{
@@ -1357,7 +1385,7 @@ Open plc 14
 				}
 				else if(Sys.time > gVs_Wait_Tmr)
 				{
-					gVs_Wait_Err = cErrCode_VsMoveTime;
+					gVs_Wait_Err = cErrCode_VsCoverOpen;
 					gVs_Wait_Sta = cSeqSta_Err;
 					gVs_Wait_Seq = 0;
 					gVs_Wait_Ena = 0;
@@ -1535,6 +1563,9 @@ Open plc 14
 					Motor[nvX].JogSpeed = gVs_Unload_VelX;
 					Motor[nvY].JogSpeed = gVs_Unload_VelY;
 					Motor[nvC].JogSpeed = gVs_Unload_VelC;
+					Motor[nvX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nvX].ProgJogPos = gVs_Unload_PosX;
 					Motor[nvY].ProgJogPos = gVs_Unload_PosY;
@@ -1544,8 +1575,11 @@ Open plc 14
 					//call spReadVsThPos(nvC, gVs_Unload_PosC);
 					gVs_ThTargetPos_Old = -1;
 
-					jog nvX=*
-					jog nvY=*
+//					jog nvX=*
+//					jog nvY=*
+
+					cmd "#nvX jog=* #nvY jog=*"
+					
 					//20260123 KJH - TactTime 작업.
 					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
 					{
@@ -2004,6 +2038,9 @@ Open plc 14
 					Motor[nvX].JogSpeed = gVs_Reject_VelX;
 					Motor[nvY].JogSpeed = gVs_Reject_VelY;
 					Motor[nvC].JogSpeed = gVs_Reject_VelC;
+					Motor[nvX].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvY].InPosBand = cMotor_InPosBand_Point;
+					Motor[nvC].InPosBand = cMotor_InPosBand_Point;
 
 					Motor[nvX].ProgJogPos = gVs_Reject_PosX;
 					Motor[nvY].ProgJogPos = gVs_Reject_PosY;
@@ -2012,8 +2049,11 @@ Open plc 14
 					//call spReadVsThPos(nvC, gVs_Reject_PosC);
 					gVs_ThTargetPos_Old = -1;
 
-					jog nvX=*
-					jog nvY=*
+//					jog nvX=*
+//					jog nvY=*
+					
+					cmd "#nvX jog=* #nvY jog=*"					
+
 					//20260123 KJH - TactTime 작업.
 					if(gVs_CoverMoving_Sta == 1 && gVs_CoverOpn_Sta == cSeqSta_Fin)
 					{
@@ -2069,7 +2109,7 @@ Open plc 14
 				}
 				else if(Sys.time > gVs_Reject_Tmr)
 				{
-					gVs_Reject_Err = cErrCode_VsMoveTime;
+					gVs_Reject_Err = cErrCode_VsCoverOpen;
 					gVs_Reject_Sta = cSeqSta_Err;
 					gVs_Reject_Seq = 0;
 					gVs_Reject_Ena = 0;

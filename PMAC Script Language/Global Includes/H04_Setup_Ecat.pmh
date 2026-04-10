@@ -227,9 +227,11 @@ Motor[nwZ].EcatAmpFaultLimit = 40000;
 	ptr pBuf_Ai00_WsLoadCell		->*i.16
 	global gAi00_WsLoadCell;
 
-	ptr pEcat_Ai01				->Slave_1001_NX_ECC203_6080_2_Ch2AnalogInputValue
-	ptr pEcat_Ai02_WsCorePower		->Slave_1001_NX_ECC203_6080_3_Ch3AnalogInputValue
-	ptr pEcat_Ai03_WsRingPower		->Slave_1001_NX_ECC203_6080_4_Ch4AnalogInputValue
+	ptr pEcat_Ai01					->Slave_1001_NX_ECC203_6080_2_Ch2AnalogInputValue
+	ptr pEcat_Ai03_WsCorePower		->Slave_1001_NX_ECC203_6080_3_Ch3AnalogInputValue
+	ptr pBuf_Ai03_WsCorePower		->*i.16
+	ptr pEcat_Ai04_WsRingPower		->Slave_1001_NX_ECC203_6080_4_Ch4AnalogInputValue
+	ptr pBuf_Ai04_WsRingPower		->*i.16
 
 	//------------------------------------------------------------------------------------------------//
 	// Ethercat Temperature Input (TS2101)
