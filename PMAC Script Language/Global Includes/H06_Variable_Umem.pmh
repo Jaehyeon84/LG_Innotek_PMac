@@ -704,6 +704,10 @@ ptr pUmem_Sta_TBD_3EDC					->i.user:$3EDC
 ptr pUmem_Sta_TBD_3EE0					->i.user:$3EE0
 ptr pUmem_Sta_TBD_3EE4					->i.user:$3EE4
 ptr pUmem_Sta_TBD_3EE8					->i.user:$3EE8
+ptr pUmem_Sta_Ws_LaserActCorePower		->i.user:$3EDC
+ptr pUmem_Sta_Ws_LaserActRingPower		->i.user:$3EE0
+ptr pUmem_Sta_Ws_LaserActCoreVolt		->i.user:$3EE4
+ptr pUmem_Sta_Ws_LaserActRingVolt		->i.user:$3EE8
 ptr pUmem_Sta_TBD_3EEC					->i.user:$3EEC
 ptr pUmem_Sta_TBD_3EF0					->i.user:$3EF0
 ptr pUmem_Sta_TBD_3EF4					->i.user:$3EF4

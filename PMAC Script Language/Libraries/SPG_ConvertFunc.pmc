@@ -1,15 +1,15 @@
-	#define VOLT_IN_MAX   13.0
-	#define VOLT_OUT_MAX  8.0
+	#define VOLT_IN_MAX   12100
+	#define VOLT_OUT_MAX  8000
 	#define VOLT_SCALE_RATIO   (VOLT_OUT_MAX / VOLT_IN_MAX)
 
-	global gCoreVoltMin = 1350;
+	global gCoreVoltMin = 1400;
 	global gCoreVoltMax = 12040;
 	global gCorePowerMin = 100;
 	global gCorePowerMax = 1000;
 
-	global gRingVoltMin = 210;
+	global gRingVoltMin = 1280;
 	global gRingVoltMax = 12110;
-	global gRingPowerMin = 100;
+	global gRingPowerMin = 200;
 	global gRingPowerMax = 2000;
 
 open subprog spConvertRingPowerToVolt(InPower, &OutVolt) 
@@ -75,7 +75,7 @@ open subprog spConvertVoltScaled(InVolt, &OutVolt)
 
 	lScaledVolt = InVolt * VOLT_SCALE_RATIO;
 
-    if (lScaledVolt > 8.0) lScaledVolt = 8.0;
+    if (lScaledVolt > 8000) lScaledVolt = 8000;
     if (lScaledVolt < 0.0)  lScaledVolt = 0.0;
 
 	OutVolt = lScaledVolt;

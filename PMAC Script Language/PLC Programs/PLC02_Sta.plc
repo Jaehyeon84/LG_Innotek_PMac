@@ -173,11 +173,11 @@ open plc 2
 	if(Motor[nwC].InPos == 1 && abs(gWs_ThCoverPos_Old - pUmem_Sta_CmdPos(nwC)) < 1000)		gIsWsCoverComplete = 1;
 	else	gIsWsCoverComplete = 0;
 
-//	call spConvertVoltToCorePower(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCorePower);
-//	call spConvertVoltToRingPower(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingPower);
+	call spConvertVoltToCorePower(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCorePower);
+	call spConvertVoltToRingPower(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingPower);
 
-//	call spConvertVoltScaled(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCoreVolt);
-//	call spConvertVoltScaled(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingVolt);
+	call spConvertVoltScaled(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCoreVolt);
+	call spConvertVoltScaled(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingVolt);
 
 	//20260209 KJH - N2 Blow Skip 기능 추가.
 	if(pUmem_Di05_LaserProgRun == 0)
