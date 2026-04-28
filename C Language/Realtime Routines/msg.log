@@ -1,14 +1,14 @@
-cp -f /usr/local/usralgo/usralgomain.c /cygdrive/d/Setup/PP3056~1/CLANGU~1/REALTI~1
-make -C /opt/armv71-4.1.18-ipipe-quadcore/usr/src/ipipe-ipipe-core-4.1.18-arm-9-quadcore SUBDIRS=/cygdrive/d/Setup/PP3056~1/CLANGU~1/REALTI~1 modules
+cp -f /usr/local/usralgo/usralgomain.c /cygdrive/c/_GIT_~1/_LG_IN~2/LG_INN~2/CLANGU~1/REALTI~1
+make -C /opt/armv71-4.1.18-ipipe-quadcore/usr/src/ipipe-ipipe-core-4.1.18-arm-9-quadcore SUBDIRS=/cygdrive/c/_GIT_~1/_LG_IN~2/LG_INN~2/CLANGU~1/REALTI~1 modules
 make[1]: Entering directory `/opt/armv71-4.1.18-ipipe-quadcore/usr/src/ipipe-ipipe-core-4.1.18-arm-9-quadcore'
-  CC [M]  /cygdrive/d/Setup/PP3056~1/CLANGU~1/REALTI~1/usralgomain.o
-  CC [M]  /cygdrive/d/Setup/PP3056~1/CLANGU~1/REALTI~1/OnSys_LaserWellding.o
-  CC [M]  /cygdrive/d/Setup/PP3056~1/CLANGU~1/REALTI~1/usrcode.o
-  LD [M]  /cygdrive/d/Setup/PP3056~1/CLANGU~1/REALTI~1/usralgo.o
+  CC [M]  /cygdrive/c/_GIT_~1/_LG_IN~2/LG_INN~2/CLANGU~1/REALTI~1/usralgomain.o
+  CC [M]  /cygdrive/c/_GIT_~1/_LG_IN~2/LG_INN~2/CLANGU~1/REALTI~1/OnSys_LaserWellding.o
+  CC [M]  /cygdrive/c/_GIT_~1/_LG_IN~2/LG_INN~2/CLANGU~1/REALTI~1/usrcode.o
+  LD [M]  /cygdrive/c/_GIT_~1/_LG_IN~2/LG_INN~2/CLANGU~1/REALTI~1/usralgo.o
   Building modules, stage 2.
   MODPOST 1 modules
-  CC      /cygdrive/d/Setup/PP3056~1/CLANGU~1/REALTI~1/usralgo.mod.o
-  LD [M]  /cygdrive/d/Setup/PP3056~1/CLANGU~1/REALTI~1/usralgo.ko
+  CC      /cygdrive/c/_GIT_~1/_LG_IN~2/LG_INN~2/CLANGU~1/REALTI~1/usralgo.mod.o
+  LD [M]  /cygdrive/c/_GIT_~1/_LG_IN~2/LG_INN~2/CLANGU~1/REALTI~1/usralgo.ko
 make[1]: Leaving directory `/opt/armv71-4.1.18-ipipe-quadcore/usr/src/ipipe-ipipe-core-4.1.18-arm-9-quadcore'
 mv -f usralgo.ko ../../bin/Debug/
 if [ -d ../../bin/DebugExp/ ]; then cp ../../bin/Debug/usralgo.ko ../../bin/DebugExp/usralgo.ko; fi

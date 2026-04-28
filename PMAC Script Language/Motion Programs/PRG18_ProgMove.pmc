@@ -1,0 +1,11 @@
+open prog 18
+	abs
+	linear
+	frax(c,x,y)
+
+	f(100) ta(150) ts(50)
+	if(Ldata.coord==1)
+	{
+		x(gWd_Mdi_PosX)y(gWd_Mdi_PosY)c(gWd_Mdi_PosC)
+	}
+close

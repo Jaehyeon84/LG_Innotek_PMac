@@ -700,11 +700,11 @@ ptr pUmem_Sta_Ws_LaserCorePower			->i.user:$3ECC
 ptr pUmem_Sta_Ws_LaserRingPower			->i.user:$3ED0
 ptr pUmem_Sta_Ws_PdtNo					->i.user:$3ED4
 ptr pUmem_Sta_TBD_3ED8					->i.user:$3ED8
-ptr pUmem_Sta_TBD_3EDC					->i.user:$3EDC
-ptr pUmem_Sta_TBD_3EE0					->i.user:$3EE0
-ptr pUmem_Sta_TBD_3EE4					->i.user:$3EE4
-ptr pUmem_Sta_TBD_3EE8					->i.user:$3EE8
-ptr pUmem_Sta_TBD_3EEC					->i.user:$3EEC
+ptr pUmem_Sta_Ws_LaserActCorePower		->i.user:$3EDC
+ptr pUmem_Sta_Ws_LaserActRingPower		->i.user:$3EE0
+ptr pUmem_Sta_Ws_LaserActCoreVolt		->i.user:$3EE4
+ptr pUmem_Sta_Ws_LaserActRingVolt		->i.user:$3EE8
+ptr pUmem_Cmd_Ws_PowerCheckSta			->i.user:$3EEC
 ptr pUmem_Sta_TBD_3EF0					->i.user:$3EF0
 ptr pUmem_Sta_TBD_3EF4					->i.user:$3EF4
 ptr pUmem_Sta_Ws_LdSeq					->i.user:$3EF8
@@ -1589,16 +1589,16 @@ ptr	pUmem_Cmd_Ws_LaserTestCrossAbort	->i.user:$65D0
 ptr	pUmem_Cmd_Ws_LaserTestLineStart		->i.user:$65D4
 ptr	pUmem_Cmd_Ws_LaserTestLineAbort		->i.user:$65D8
 ptr	pUmem_Cmd_TBD_65DC					->i.user:$65DC
-ptr pUmem_Cmd_TBD_65E0					->i.user:$65E0
-ptr pUmem_Cmd_TBD_65E4					->i.user:$65E4
-ptr pUmem_Cmd_TBD_65E8					->i.user:$65E8
+ptr pUmem_Cmd_Ws_ReadyPowerCheck		->i.user:$65E0
+ptr pUmem_Cmd_Ws_PowerCheckStart		->i.user:$65E4
+ptr pUmem_Cmd_Ws_PowerCheckAbort		->i.user:$65E8
 ptr pUmem_Cmd_TBD_65EC					->i.user:$65EC
 ptr pUmem_Cmd_TBD_65F0					->i.user:$65F0
-ptr pUmem_Cmd_TBD_65F4					->i.user:$65F4
-ptr pUmem_Cmd_TBD_65F8					->i.user:$65F8
-ptr pUmem_Cmd_TBD_65FC					->i.user:$65FC
-ptr pUmem_Cmd_TBD_6600					->i.user:$6600
-ptr pUmem_Cmd_TBD_6604					->i.user:$6604
+ptr pUmem_Cmd_Wd_MdiStart				->i.user:$65F4
+ptr pUmem_Cmd_Wd_MdiAbort				->i.user:$65F8
+ptr pUmem_Cmd_Wd_MdiPosX				->i.user:$65FC
+ptr pUmem_Cmd_Wd_MdiPosY				->i.user:$6600
+ptr pUmem_Cmd_Wd_MdiPosC				->i.user:$6604
 ptr pUmem_Cmd_Ws_LdStart				->i.user:$6608
 ptr pUmem_Cmd_Ws_LdAbort				->i.user:$660C
 ptr pUmem_Cmd_Ws_LdHold					->i.user:$6610
@@ -1638,7 +1638,7 @@ ptr pUmem_Cmd_TBD_6690					->i.user:$6690
 ptr pUmem_Cmd_TBD_6694					->i.user:$6694
 ptr pUmem_Cmd_TBD_6698					->i.user:$6698
 ptr pUmem_Cmd_TBD_669C					->i.user:$669C
-ptr pUmem_Cmd_TBD_66A0					->i.user:$66A0
+ptr pUmem_Cmd_Ws_WeldingSkip			->i.user:$66A0
 ptr pUmem_Cmd_Ws_RspSkipOpt				->i.user:$66A4
 ptr	pUmem_Cmd_Ws_2ndTransLdAlignX		->i.user:$66A8
 ptr	pUmem_Cmd_Ws_2ndTransLdAlignY		->i.user:$66AC
@@ -1667,8 +1667,8 @@ ptr pUmem_Cmd_Ws_VelLimitC				->i.user:$6704
 ptr pUmem_Cmd_Ws_RefVel					->i.user:$6708
 ptr pUmem_Cmd_Ws_RotOffsetX				->i.user:$670C
 ptr pUmem_Cmd_Ws_RotOffsetY				->i.user:$6710
-ptr pUmem_Cmd_TBD_6714					->i.user:$6714
-ptr pUmem_Cmd_TBD_6718					->i.user:$6718
+ptr pUmem_Cmd_Ws_RefVel_2				->i.user:$6714
+ptr pUmem_Cmd_Ws_OutMode_2				->i.user:$6718
 ptr pUmem_Cmd_TBD_671C					->i.user:$671C
 ptr pUmem_Cmd_Ws_OutMode				->i.user:$6720
 ptr pUmem_Cmd_Ws_PfmPeriod				->i.user:$6724
@@ -1683,12 +1683,12 @@ ptr pUmem_Cmd_Ws_RingPowerSf			->i.user:$6744
 ptr pUmem_Cmd_Ws_RingRefPower			->i.user:$6748
 ptr pUmem_Cmd_Ws_RingMinPower			->i.user:$674C
 ptr pUmem_Cmd_Ws_RingMaxPower			->i.user:$6750
-ptr pUmem_Cmd_TBD_6754					->i.user:$6754
-ptr pUmem_Cmd_TBD_6758					->i.user:$6758
-ptr pUmem_Cmd_TBD_675C					->i.user:$675C
-ptr pUmem_Cmd_TBD_6760					->i.user:$6760
-ptr pUmem_Cmd_TBD_6764					->i.user:$6764
-ptr pUmem_Cmd_TBD_6768					->i.user:$6768
+ptr pUmem_Cmd_Ws_PfmPeriod_2			->i.user:$6754
+ptr pUmem_Cmd_Ws_PfmOnTime_2			->i.user:$6758
+ptr pUmem_Cmd_Ws_CorePfmEna_2			->i.user:$675C
+ptr pUmem_Cmd_Ws_RingPfmEna_2			->i.user:$6760
+ptr pUmem_Cmd_Ws_CoreRefPower_2			->i.user:$6764
+ptr pUmem_Cmd_Ws_RingRefPower_2			->i.user:$6768
 ptr pUmem_Cmd_TBD_676C					->i.user:$676C
 ptr pUmem_Cmd_Ws_ShotTime				->i.user:$6770
 ptr pUmem_Cmd_Ws_EprOut					->i.user:$6774
@@ -1698,8 +1698,8 @@ ptr pUmem_Cmd_Ws_CldInposDelay			->i.user:$6780
 ptr pUmem_Cmd_Ws_CoverFwdPos			->i.user:$6784
 ptr pUmem_Cmd_Ws_CoverBwdPos			->i.user:$6788
 ptr pUmem_Cmd_Ws_TempOffset2			->i.user:$678C
-ptr pUmem_Cmd_TBD_6790					->i.user:$6790
-ptr pUmem_Cmd_TBD_6794					->i.user:$6794
+ptr pUmem_Cmd_Ws_PowerCheck_CorePower	->i.user:$6790
+ptr pUmem_Cmd_Ws_PowerCheck_RingPower	->i.user:$6794
 ptr pUmem_Cmd_Ws_TbVacBlow				->i.user:$6798
 ptr pUmem_Cmd_TBD_679C					->i.user:$679C
 ptr pUmem_Cmd_TBD_67A0					->i.user:$67A0
@@ -1834,7 +1834,7 @@ ptr pUmem_Cmd_TBD_6A78					->i.user:$6A78
 ptr pUmem_Cmd_TBD_6A7C					->i.user:$6A7C
 ptr pUmem_Cmd_TBD_6A80					->i.user:$6A80
 ptr pUmem_Cmd_TBD_6A84					->i.user:$6A84
-ptr pUmem_Cmd_TBD_6A88					->i.user:$6A88
+ptr pUmem_Cmd_Vs_VisionSkip				->i.user:$6A88
 ptr pUmem_Cmd_Vs_RspSkipOpt				->i.user:$6A8C
 ptr pUmem_Cmd_TBD_6A90					->i.user:$6A90
 ptr pUmem_Cmd_TBD_6A94					->i.user:$6A94
@@ -1976,6 +1976,15 @@ ptr pUmem_Cmd_Sc_WblRatioW				->i.user:$6F00
 ptr pUmem_Cmd_Sc_WblRatioL				->i.user:$6F04
 ptr pUmem_Cmd_Sc_WblOffsetX				->i.user:$6F08
 ptr pUmem_Cmd_Sc_WblOffsetY				->i.user:$6F0C
+
+ptr pUmem_Cmd_Sc_WblEna_2				->i.user:$6F10
+ptr pUmem_Cmd_Sc_WblLen_2				->i.user:$6F14
+ptr pUmem_Cmd_Sc_WblDist_2				->i.user:$6F18
+ptr pUmem_Cmd_Sc_WblType_2				->i.user:$6F1C
+ptr pUmem_Cmd_Sc_WblRatioW_2			->i.user:$6F20
+ptr pUmem_Cmd_Sc_WblRatioL_2			->i.user:$6F24
+ptr pUmem_Cmd_Sc_WblOffsetX_2			->i.user:$6F28
+ptr pUmem_Cmd_Sc_WblOffsetY_2			->i.user:$6F2C
 
 //-------------------------------------------------------------------//
 // IO Buffer : Send/Receive data through user memory because bit(partial) access occur data loss.
@@ -2201,6 +2210,8 @@ ptr pUmem_Do31_EcldBwd					->u.user:$8594
 
 ptr pUmem_Ai00_WsLoadCell				->i.user:$9470
 ptr pUmem_Ai01							->u.user:$9474
+ptr pUmem_Ai03_WsCorePower				->i.user:$9478
+ptr pUmem_Ai04_WsRingPower				->i.user:$947C
 
 ptr pUmem_Ti00_WsTempSen1				->i.user:$9600
 ptr pUmem_Ti01_WsTempSen2				->u.user:$9604

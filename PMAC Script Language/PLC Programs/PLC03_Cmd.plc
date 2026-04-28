@@ -441,6 +441,28 @@ open plc 3
 		}
 	}
 
+	gWs_PowerCheckStart_Cur = pUmem_Cmd_Ws_PowerCheckStart;
+	if(gWs_PowerCheckStart_Cur != gWs_PowerCheckStart_Old)
+	{
+		gWs_PowerCheckStart_Old = gWs_PowerCheckStart_Cur;
+		if(gWs_PowerCheckStart_Cur == 1)
+		{
+			enable plc 26;
+			gWs_PowerCheck_Shot_Start = 1;
+			pUmem_Cmd_Ws_PowerCheckStart = 0;
+		}
+	}
+
+	gWs_PowerCheckAbort_Cur = pUmem_Cmd_Ws_PowerCheckAbort;
+	if(gWs_PowerCheckAbort_Cur != gWs_PowerCheckAbort_Old)
+	{
+		gWs_PowerCheckAbort_Old = gWs_PowerCheckAbort_Cur;
+		if(gWs_PowerCheckAbort_Cur == 1)
+		{
+			gWs_PowerCheck_Shot_Abort = 1;
+			pUmem_Cmd_Ws_PowerCheckAbort = 0;
+		}
+	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Vision Command
 	////////////////////////////////////////////////////////////////////////////////////////////////////

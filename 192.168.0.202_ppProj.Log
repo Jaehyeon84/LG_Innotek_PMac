@@ -31,6 +31,7 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global In
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_0_Mapping.pmh 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
@@ -68,7 +69,6 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
-Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
@@ -108,382 +108,8 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Progr
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_PcRspSim.plc 
 Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
-3724 Project Symbols were created for gpascii -2 communication
+3669 Project Symbols were created for gpascii -2 communication
 Status: Successful load of preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
-[PMAC_CONFIG]
-Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
 [PMAC_CONFIG]
 Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
 [PMAC_CONFIG]
@@ -549,7 +175,6 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
-Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
@@ -588,15 +213,14 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Progr
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_PcRspSim.plc 
-Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
 Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
-3740 Project Symbols were created for gpascii -2 communication
+3637 Project Symbols were created for gpascii -2 communication
 [PMAC_PROJECT]
 Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
 Success: Loading usralgo.ko
 Success: Loading RT Address of CfromScript
 Success: Loading RT Address of CaptCompISR
-LoadRTUserCode() Delta Time (sec) = 0.742790
+LoadRTUserCode() Delta Time (sec) = 0.478778
 Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
@@ -648,7 +272,6 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
-Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
@@ -687,13 +310,12 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Progr
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_PcRspSim.plc 
-Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
 Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
-Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.424566
-Status: Pass 2 Verify prog calls, local stack & labels, Time (sec)  = 0.182318
-3740 Project Symbols were created for gpascii -2 communication
-Status: Create PPMAC Symbol Table & Run CPP Time (sec) = 1.192269
+Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.297787
+Status: Pass 2 Verify prog calls, local stack & labels, Time (sec)  = 0.133998
+3637 Project Symbols were created for gpascii -2 communication
+Status: Create PPMAC Symbol Table & Run CPP Time (sec) = 0.757264
 Status: Successful load of preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
-Status: Download to PPMAC Command Processor, Time (sec) = 0.130917
-Status: Final pp_proj.h & Run Background C Apps, Time (sec) = 0.117923
-Project Preprocessing & Load Total Time (sec) = 2.790841
+Status: Download to PPMAC Command Processor, Time (sec) = 0.127048
+Status: Final pp_proj.h & Run Background C Apps, Time (sec) = 0.068749
+Project Preprocessing & Load Total Time (sec) = 1.863693

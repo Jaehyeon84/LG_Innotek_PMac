@@ -10,7 +10,7 @@ open prog 20
 	M21 // wobble off
 
 	//Move to start pos. And Speed ///////////////////////
-	//f(40) // Pos-init speed
+	//f(300) // Pos-init speed
 	x-11.998		y11.998		c(0.000) // start pos
 	dwell 0
 
@@ -34,6 +34,7 @@ open prog 20
 
 	frax(x, y)
 sg
+	gWs_File_Prog_TimeBuf = Sys.Time;
 	N0001	x-11.998	y11.998	c(0.000)
 	M12 W1//core power
 	M14 W2//ring power
@@ -2581,6 +2582,7 @@ sg
 	//Laser & wobble off ///////////////////////
 	M11 P0 //Laser off
 	DWELL 0
+	gWs_File_Prog_Time = Sys.Time - gWs_File_Prog_TimeBuf;
 	M21    // wobble off
 
 

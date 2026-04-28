@@ -34,7 +34,7 @@ open plc 22
 	if(gWs_LaserEnable_Start==1)
 	{
 		gWs_LaserEnable_Start = 0;
-		gWs_LaserEnable_Seq = 1;
+		gWs_LaserEnable_Seq = 0;
 		gWs_LaserEnable_Ena = 1;
 	}
 
@@ -49,12 +49,28 @@ open plc 22
 	{
 		switch(gWs_LaserEnable_Seq)
 		{
-			case 1:
+			case 0:
 				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
 				gWs_LaserEnable_Sta = cLaserSta_Ing;
-				pUmem_Do02_LaserRequest = 1;
-				gWs_LaserEnable_Tmr = Sys.Time + cLaser_EnaTimeOut;
-				gWs_LaserEnable_Seq = 2;
+				pUmem_Do02_LaserRequest = 0;
+				pUmem_Do03_LaserPowerOn = 0;
+				pUmem_Do04_LaserAdInEna = 0;
+				pUmem_Do06_LaserProgEna = 0;
+				pUmem_Do01_LaserReset = 1;
+				gWs_LaserEnable_Tmr = Sys.Time + 1;
+				gWs_LaserEnable_Seq = 1;
+			break;
+
+			case 1:
+				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
+				if(Sys.Time > gWs_LaserEnable_Tmr)
+				{
+					gWs_LaserEnable_Sta = cLaserSta_Ing;
+					pUmem_Do01_LaserReset = 0;
+					pUmem_Do02_LaserRequest = 1;
+					gWs_LaserEnable_Tmr = Sys.Time + cLaser_EnaTimeOut;
+					gWs_LaserEnable_Seq = 2;
+				}
 			break;
 			
 			case 2:
@@ -76,7 +92,7 @@ open plc 22
 
 			case 3:
 				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
-				if(pUmem_Di03_LaserPowerOn==1)
+				if(pUmem_Di01_LaserReady == 1 && pUmem_Di03_LaserPowerOn==1)
 				{
 					pUmem_Do04_LaserAdInEna = 1;
 					gWs_LaserEnable_Tmr = Sys.Time + cLaser_EnaTimeOut;
@@ -107,14 +123,12 @@ open plc 22
 					gWs_LaserEnable_Ena = 0;
 				}
 			break;
-
 			case 5:
 				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
 				if(pUmem_Di05_LaserProgRun==1)
 				{
-					gWs_LaserEnable_Sta = cLaserSta_Fin;
-					gWs_LaserEnable_Seq = 0;
-					gWs_LaserEnable_Ena = 0;
+					gWs_LaserEnable_Tmr = Sys.Time + 2;
+					gWs_LaserEnable_Ena = 6;
 				}
 				else if(Sys.Time > gWs_LaserEnable_Tmr)
 				{
@@ -123,6 +137,23 @@ open plc 22
 					gWs_LaserEnable_Seq = 0;
 					gWs_LaserEnable_Ena = 0;
 				}
+			break;
+			case 6:
+				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
+				if(Sys.Time > gWs_LaserEnable_Tmr)
+				{
+//					//20260414 KJH - Laser On½Ã Guide Laser Off ±â´É Ãß°¡.
+					pGpio_Do05_LaserGuideEna = 1;
+					pGpio_Do05_LaserGuideEna = 0;
+
+					gWs_LaserEnable_Ena = 90;
+				}
+			break;
+			case 90:
+				gWs_LaserEnable_Buf = gWs_LaserEnable_Seq;
+				gWs_LaserEnable_Sta = cSeqSta_Fin;
+				gWs_LaserEnable_Seq = 0;
+				gWs_LaserEnable_Ena = 0;
 			break;
 
 			default : 

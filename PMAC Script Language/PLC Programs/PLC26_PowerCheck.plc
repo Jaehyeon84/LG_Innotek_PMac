@@ -1,0 +1,270 @@
+////######################################################################################################
+//// PLC 26 : Laser Power Check
+////######################################################################################################
+
+
+open plc 26
+//--------------------------------------------------------------------------------------------//
+// Power Check Laser Shot
+//--------------------------------------------------------------------------------------------//
+
+	pUmem_Cmd_Ws_PowerCheckSta = gWs_PowerCheck_Shot_Sta;
+
+	if(gWs_PowerCheck_Shot_Start == 1)
+	{
+		gWs_PowerCheck_Shot_Start = 0;
+		gWs_PowerCheck_Shot_Seq = 1;
+		gWs_PowerCheck_Shot_Ena = 1;
+		gWs_PowerCheck_Shot_Sta = cPowerCheckSta_Idl;
+	}
+
+	if(gWs_PowerCheck_Shot_Abort == 1)
+	{
+		gWs_LaserEna = 0;
+		pGpio_Do00_LaserEmission = 0;
+
+		gWs_PowerCheck_Shot_Abort = 0;
+		gWs_PowerCheck_Shot_Seq = 0;
+		gWs_PowerCheck_Shot_Ena = 0;
+
+		gWs_PowerCheck_Shot_Sta = cPowerCheckSta_Idl;
+
+		disable plc 26;
+	}
+
+	if(gWs_PowerCheck_Shot_Ena==1)
+	{
+		switch(gWs_PowerCheck_Shot_Seq)
+		{
+			case 1:
+				gWs_PowerCheck_Shot_Buf = gWs_PowerCheck_Shot_Seq;
+				gWs_PowerCheck_Shot_Sta = cPowerCheckSta_Ing;
+				if(pUmem_Sta_Ws_LaserReady == 0)
+				{
+					gWs_PowerCheck_Shot_Tmr = Sys.Time;
+					gWs_PowerCheck_Shot_Seq = 2;
+				}
+				else
+				{
+					gWs_PowerCheck_Shot_Tmr = Sys.Time;
+					gWs_PowerCheck_Shot_Seq = 10;
+				}
+			break;
+
+			case 2:
+				gWs_PowerCheck_Shot_Buf = gWs_PowerCheck_Shot_Seq;
+				gWs_LaserEnable_Start = 1;
+
+				gWs_PowerCheck_Shot_Tmr = Sys.Time + 10;
+				gWs_PowerCheck_Shot_Seq = 3;
+			break;
+
+			case 3:
+				gWs_PowerCheck_Shot_Buf = gWs_PowerCheck_Shot_Seq;
+				if(pUmem_Sta_Ws_LaserReady == 1)
+				{
+					gWs_PowerCheck_Shot_Seq = 10;
+				}
+				else if(Sys.Time > gWs_PowerCheck_Shot_Tmr)
+				{
+					gWs_PowerCheck_Shot_Err = cErrCode_LsEnaTimeOut;
+					gWs_PowerCheck_Shot_Sta = cPowerCheckSta_Err;
+					gWs_PowerCheck_Shot_Seq = 0;
+					gWs_PowerCheck_Shot_Ena = 0;
+				}
+			break;
+
+			case 10:
+				gWs_PowerCheck_Shot_Buf = gWs_PowerCheck_Shot_Seq;
+				if(gMach_Type!=0)	call spInitScanner(nsX,nsY)
+				else
+				{
+					homez nsX
+					homez nsY
+					call Timer.msec(100);
+
+					jog nsX=0
+					jog nsY=0
+				}
+				gWs_PowerCheck_Shot_Tmr = Sys.Time + 20;
+				gWs_PowerCheck_Shot_Seq = 11;
+			break;
+
+			case 11:
+				gWs_PowerCheck_Shot_Buf = gWs_PowerCheck_Shot_Seq;
+				if(Motor[nsX].InPos==1 && Motor[nsY].InPos==1)
+				{
+					gMt_Home_Sta(nsX) = cHomeSta_Fin;
+					gMt_Home_Sta(nsY) = cHomeSta_Fin;
+					gWs_PowerCheck_Shot_Seq = 12;
+				}
+				else if(Sys.Time > gWs_PowerCheck_Shot_Tmr)
+				{
+					gWs_PowerCheck_Shot_Err = cErrCode_EtScHome;
+					gWs_PowerCheck_Shot_Sta = cPowerCheckSta_Err;
+					gWs_PowerCheck_Shot_Seq = 0;
+					gWs_PowerCheck_Shot_Ena = 0;
+				}
+			break;
+
+			case 12:
+				gWs_PowerCheck_Shot_Buf = gWs_PowerCheck_Shot_Seq;
+				if(Motor[nwX].InPos==1 && Motor[nwY].InPos==1 && Motor[nwX].ProgJogPos >= gWs_Welding_PosX)
+				{
+					gWs_PowerCheck_Shot_Seq = 20;
+				}
+				else if(Sys.Time > gWs_PowerCheck_Shot_Tmr)
+				{
+					gWs_PowerCheck_Shot_Err = cErrCode_WsStgPos;
+					gWs_PowerCheck_Shot_Sta = cPowerCheckSta_Err;
+					gWs_PowerCheck_Shot_Seq = 0;
+					gWs_PowerCheck_Shot_Ena = 0;
+				}
+			break;
+
+			case 20:
+				gWs_PowerCheck_Shot_Buf = gWs_PowerCheck_Shot_Seq;
+
+				gWs_CorePowSf	= pUmem_Cmd_Ws_CorePowerSf;
+				gWs_CoreRefPow	= pUmem_Cmd_Ws_PowerCheck_CorePower;
+				gWs_CoreMinPow	= pUmem_Cmd_Ws_CoreMinPower;
+				gWs_CoreMaxPow	= pUmem_Cmd_Ws_CoreMaxPower;
+
+				gWs_RingPowSf	= pUmem_Cmd_Ws_RingPowerSf;
+				gWs_RingRefPow	= pUmem_Cmd_Ws_PowerCheck_RingPower;
+				gWs_RingMinPow	= pUmem_Cmd_Ws_RingMinPower;
+				gWs_RingMaxPow	= pUmem_Cmd_Ws_RingMaxPower;
+
+				gWs_CorePfmEna = 0;
+				gWs_RingPfmEna = 0;
+
+				gWs_LaserEna = 1;
+				pGpio_Do00_LaserEmission = 1;
+
+				gWs_PowerCheck_Shot_Tmr = Sys.Time + 10;
+				gWs_PowerCheck_Shot_Seq = 21;
+				break;
+
+			case 21:
+				gWs_PowerCheck_Shot_Buf = gWs_PowerCheck_Shot_Seq;
+				if(gWs_LaserSta_Enable == 1)
+				{
+					gWs_PowerCheck_Shot_Tmr = Sys.Time + 1;
+					//gWs_PowerCheck_Shot_Seq = 90;
+				}
+				else if(Sys.Time > gWs_PowerCheck_Shot_Tmr)
+				{
+					gWs_PowerCheck_Shot_Err = cErrCode_LsEnaTimeOut;
+					gWs_PowerCheck_Shot_Sta = cPowerCheckSta_Err;
+					gWs_PowerCheck_Shot_Seq = 0;
+					gWs_PowerCheck_Shot_Ena = 0;
+				}
+				break;
+
+			case 90:
+				gWs_PowerCheck_Shot_Buf = gWs_PowerCheck_Shot_Seq;
+				gWs_PowerCheck_Shot_Sta = cPowerCheckSta_Fin;
+				gWs_PowerCheck_Shot_Seq = 0;
+				gWs_PowerCheck_Shot_Ena = 0;
+			break;
+
+			default:
+				gWs_PowerCheck_Shot_Err = -1;
+				gWs_PowerCheck_Shot_Sta = cPowerCheckSta_Err;
+				gWs_PowerCheck_Shot_Seq = 0;
+				gWs_PowerCheck_Shot_Ena = 0;
+			break;
+		}
+	}
+
+	//--------------------------------------------------------------------------------------------//
+	// Power Check Laser Shot Stop
+	//--------------------------------------------------------------------------------------------//
+	if(gWs_PowerCheck_Stop_Start == 1)
+	{
+		gWs_PowerCheck_Stop_Start = 0;
+		gWs_PowerCheck_Stop_Seq = 1;
+		gWs_PowerCheck_Stop_Ena = 1;
+		gWs_PowerCheck_Stop_Sta = cPowerCheckSta_Idl;
+	}
+
+	if(gWs_PowerCheck_Stop_Abort==1)
+	{
+		gWs_PowerCheck_Stop_Abort = 0;
+		gWs_PowerCheck_Stop_Seq = 0;
+		gWs_PowerCheck_Stop_Ena = 0;
+
+		gWs_PowerCheck_Stop_Sta = cPowerCheckSta_Idl;
+	}
+
+	if(gWs_PowerCheck_Stop_Ena==1)
+	{
+		switch(gWs_PowerCheck_Stop_Seq)
+		{
+			case 1:
+				gWs_PowerCheck_Stop_Buf = gWs_PowerCheck_Stop_Seq;
+				gWs_PowerCheck_Stop_Sta = cPowerCheckSta_Ing;
+				if(pUmem_Sta_Ws_LaserReady == 1)
+				{
+					gWs_PowerCheck_Stop_Tmr = Sys.Time;
+					gWs_PowerCheck_Stop_Seq = 2;
+				}
+				else
+				{
+					gWs_PowerCheck_Stop_Tmr = Sys.Time;
+					gWs_PowerCheck_Stop_Seq = 10;
+				}
+			break;
+
+			case 2:
+				gWs_PowerCheck_Stop_Buf = gWs_PowerCheck_Stop_Seq;
+				gWs_LaserEnable_Start = 1;
+
+				gWs_PowerCheck_Stop_Tmr = Sys.Time + 10;
+				gWs_PowerCheck_Stop_Seq = 3;
+			break;
+
+			case 3:
+				gWs_PowerCheck_Stop_Buf = gWs_PowerCheck_Stop_Seq;
+				if(pUmem_Sta_Ws_LaserReady == 1)
+				{
+					gWs_PowerCheck_Stop_Seq = 10;
+				}
+				else if(Sys.Time > gWs_PowerCheck_Stop_Tmr)
+				{
+					gWs_PowerCheck_Stop_Err = cErrCode_LsEnaTimeOut;
+					gWs_PowerCheck_Stop_Sta = cPowerCheckSta_Err;
+					gWs_PowerCheck_Stop_Seq = 0;
+					gWs_PowerCheck_Stop_Ena = 0;
+				}
+			break;
+
+			case 10:
+				gWs_PowerCheck_Stop_Buf = gWs_PowerCheck_Stop_Seq;
+				gWs_CoreRefPow	= pUmem_Cmd_Ws_PowerCheck_CorePower;
+				gWs_RingRefPow	= pUmem_Cmd_Ws_PowerCheck_RingPower;
+
+				gWs_CorePfmEna = 0;
+				gWs_RingPfmEna = 0;
+
+				gWs_LaserEna = 1;
+				pGpio_Do00_LaserEmission = 1;
+
+				gWs_PowerCheck_Stop_Seq = 90;
+			case 90:
+				gWs_PowerCheck_Stop_Buf = gWs_PowerCheck_Stop_Seq;
+				gWs_PowerCheck_Stop_Sta = cPowerCheckSta_Fin;
+				gWs_PowerCheck_Stop_Seq = 0;
+				gWs_PowerCheck_Stop_Ena = 0;
+			break;
+			default:
+				gWs_PowerCheck_Stop_Err = -1;
+				gWs_PowerCheck_Stop_Sta = cPowerCheckSta_Err;
+				gWs_PowerCheck_Stop_Seq = 0;
+				gWs_PowerCheck_Stop_Ena = 0;
+			break;
+		}
+	}
+
+close
+

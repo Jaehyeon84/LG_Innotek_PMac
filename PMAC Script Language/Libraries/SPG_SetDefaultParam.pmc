@@ -22,6 +22,11 @@ open subprog spSetDefaultParam
 	pUmem_Cmd_Ws_PfmPeriod		= 200;
 	pUmem_Cmd_Ws_PfmOnTime		= 1;
 
+	pUmem_Cmd_Ws_OutMode_2		= 1;
+	pUmem_Cmd_Ws_RefVel_2		= 40;
+	pUmem_Cmd_Ws_PfmPeriod_2	= 200;
+	pUmem_Cmd_Ws_PfmOnTime_2	= 1;
+
 	pUmem_Cmd_Ws_CorePowerSf	= 200;
 	pUmem_Cmd_Ws_CoreRefPower	= 200;
 	pUmem_Cmd_Ws_CoreMinPower	= 0;

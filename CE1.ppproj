@@ -170,6 +170,10 @@
       <SubType>Content</SubType>
       <DisplayOrder>5</DisplayOrder>
     </Content>
+    <Content Include="PMAC Script Language\Libraries\SPG_ConvertFunc.pmc">
+      <SubType>Content</SubType>
+      <DisplayOrder>33</DisplayOrder>
+    </Content>
     <Content Include="PMAC Script Language\Libraries\SPG_InitSeqParam.pmc">
       <SubType>Content</SubType>
       <DisplayOrder>13</DisplayOrder>
@@ -320,39 +324,39 @@
     </Content>
     <Content Include="PMAC Script Language\Motion Programs\PRG20_Welding.pmc">
       <SubType>Content</SubType>
-      <DisplayOrder>6</DisplayOrder>
+      <DisplayOrder>7</DisplayOrder>
     </Content>
     <Content Include="PMAC Script Language\Motion Programs\PRG21_Circle.pmc">
       <SubType>Content</SubType>
-      <DisplayOrder>7</DisplayOrder>
+      <DisplayOrder>8</DisplayOrder>
     </Content>
     <Content Include="PMAC Script Language\Motion Programs\PRG22_SnowMan.pmc">
       <SubType>Content</SubType>
-      <DisplayOrder>8</DisplayOrder>
+      <DisplayOrder>9</DisplayOrder>
     </Content>
     <Content Include="PMAC Script Language\Motion Programs\PRG23_ButterFly.pmc">
       <SubType>Content</SubType>
-      <DisplayOrder>9</DisplayOrder>
+      <DisplayOrder>10</DisplayOrder>
     </Content>
     <Content Include="PMAC Script Language\Motion Programs\PRG24_Column.pmc">
       <SubType>Content</SubType>
-      <DisplayOrder>10</DisplayOrder>
+      <DisplayOrder>11</DisplayOrder>
     </Content>
     <Content Include="PMAC Script Language\Motion Programs\PRG25_Row.pmc">
       <SubType>Content</SubType>
-      <DisplayOrder>11</DisplayOrder>
+      <DisplayOrder>12</DisplayOrder>
     </Content>
     <Content Include="PMAC Script Language\Motion Programs\PRG30_Vision.pmc">
       <SubType>Content</SubType>
-      <DisplayOrder>12</DisplayOrder>
+      <DisplayOrder>13</DisplayOrder>
     </Content>
     <Content Include="PMAC Script Language\Motion Programs\PRG50_LaserTest_Cross.pmc">
       <SubType>Content</SubType>
-      <DisplayOrder>13</DisplayOrder>
+      <DisplayOrder>14</DisplayOrder>
     </Content>
     <Content Include="PMAC Script Language\Motion Programs\PRG51_LaserTest_Line.pmc">
       <SubType>Content</SubType>
-      <DisplayOrder>14</DisplayOrder>
+      <DisplayOrder>15</DisplayOrder>
     </Content>
     <Content Include="PMAC Script Language\PLC Programs\PLC00_RTI.plc">
       <SubType>Content</SubType>
@@ -425,6 +429,10 @@
     <Content Include="PMAC Script Language\PLC Programs\PLC25_BlowOff.plc">
       <SubType>Content</SubType>
       <DisplayOrder>17</DisplayOrder>
+    </Content>
+    <Content Include="PMAC Script Language\PLC Programs\PLC26_PowerCheck.plc">
+      <SubType>Content</SubType>
+      <DisplayOrder>24</DisplayOrder>
     </Content>
     <Content Include="PMAC Script Language\PLC Programs\PLC27_PickAndPlace.plc">
       <SubType>Content</SubType>

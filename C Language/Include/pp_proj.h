@@ -845,11 +845,11 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Sta_Ws_LaserRingPower=9267
 ,pUmem_Sta_Ws_PdtNo=9268
 ,pUmem_Sta_TBD_3ED8=9269
-,pUmem_Sta_TBD_3EDC=9270
-,pUmem_Sta_TBD_3EE0=9271
-,pUmem_Sta_TBD_3EE4=9272
-,pUmem_Sta_TBD_3EE8=9273
-,pUmem_Sta_TBD_3EEC=9274
+,pUmem_Sta_Ws_LaserActCorePower=9270
+,pUmem_Sta_Ws_LaserActRingPower=9271
+,pUmem_Sta_Ws_LaserActCoreVolt=9272
+,pUmem_Sta_Ws_LaserActRingVolt=9273
+,pUmem_Cmd_Ws_PowerCheckSta=9274
 ,pUmem_Sta_TBD_3EF0=9275
 ,pUmem_Sta_TBD_3EF4=9276
 ,pUmem_Sta_Ws_LdSeq=9277
@@ -1709,16 +1709,16 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_Ws_LaserTestLineStart=10131
 ,pUmem_Cmd_Ws_LaserTestLineAbort=10132
 ,pUmem_Cmd_TBD_65DC=10133
-,pUmem_Cmd_TBD_65E0=10134
-,pUmem_Cmd_TBD_65E4=10135
-,pUmem_Cmd_TBD_65E8=10136
+,pUmem_Cmd_Ws_ReadyPowerCheck=10134
+,pUmem_Cmd_Ws_PowerCheckStart=10135
+,pUmem_Cmd_Ws_PowerCheckAbort=10136
 ,pUmem_Cmd_TBD_65EC=10137
 ,pUmem_Cmd_TBD_65F0=10138
-,pUmem_Cmd_TBD_65F4=10139
-,pUmem_Cmd_TBD_65F8=10140
-,pUmem_Cmd_TBD_65FC=10141
-,pUmem_Cmd_TBD_6600=10142
-,pUmem_Cmd_TBD_6604=10143
+,pUmem_Cmd_Wd_MdiStart=10139
+,pUmem_Cmd_Wd_MdiAbort=10140
+,pUmem_Cmd_Wd_MdiPosX=10141
+,pUmem_Cmd_Wd_MdiPosY=10142
+,pUmem_Cmd_Wd_MdiPosC=10143
 ,pUmem_Cmd_Ws_LdStart=10144
 ,pUmem_Cmd_Ws_LdAbort=10145
 ,pUmem_Cmd_Ws_LdHold=10146
@@ -1757,7 +1757,7 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_TBD_6694=10179
 ,pUmem_Cmd_TBD_6698=10180
 ,pUmem_Cmd_TBD_669C=10181
-,pUmem_Cmd_TBD_66A0=10182
+,pUmem_Cmd_Ws_WeldingSkip=10182
 ,pUmem_Cmd_Ws_RspSkipOpt=10183
 ,pUmem_Cmd_Ws_2ndTransLdAlignX=10184
 ,pUmem_Cmd_Ws_2ndTransLdAlignY=10185
@@ -1786,8 +1786,8 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_Ws_RefVel=10208
 ,pUmem_Cmd_Ws_RotOffsetX=10209
 ,pUmem_Cmd_Ws_RotOffsetY=10210
-,pUmem_Cmd_Ws_TbVacBlow=10211
-,pUmem_Cmd_TBD_6718=10212
+,pUmem_Cmd_Ws_RefVel_2=10211
+,pUmem_Cmd_Ws_OutMode_2=10212
 ,pUmem_Cmd_TBD_671C=10213
 ,pUmem_Cmd_Ws_OutMode=10214
 ,pUmem_Cmd_Ws_PfmPeriod=10215
@@ -1802,12 +1802,12 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_Ws_RingRefPower=10224
 ,pUmem_Cmd_Ws_RingMinPower=10225
 ,pUmem_Cmd_Ws_RingMaxPower=10226
-,pUmem_Cmd_TBD_6754=10227
-,pUmem_Cmd_TBD_6758=10228
-,pUmem_Cmd_TBD_675C=10229
-,pUmem_Cmd_TBD_6760=10230
-,pUmem_Cmd_TBD_6764=10231
-,pUmem_Cmd_TBD_6768=10232
+,pUmem_Cmd_Ws_PfmPeriod_2=10227
+,pUmem_Cmd_Ws_PfmOnTime_2=10228
+,pUmem_Cmd_Ws_CorePfmEna_2=10229
+,pUmem_Cmd_Ws_RingPfmEna_2=10230
+,pUmem_Cmd_Ws_CoreRefPower_2=10231
+,pUmem_Cmd_Ws_RingRefPower_2=10232
 ,pUmem_Cmd_TBD_676C=10233
 ,pUmem_Cmd_Ws_ShotTime=10234
 ,pUmem_Cmd_Ws_EprOut=10235
@@ -1817,9 +1817,9 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_Ws_CoverFwdPos=10239
 ,pUmem_Cmd_Ws_CoverBwdPos=10240
 ,pUmem_Cmd_Ws_TempOffset2=10241
-,pUmem_Cmd_TBD_6790=10242
-,pUmem_Cmd_TBD_6794=10243
-,pUmem_Cmd_TBD_6798=10244
+,pUmem_Cmd_Ws_PowerCheck_CorePower=10242
+,pUmem_Cmd_Ws_PowerCheck_RingPower=10243
+,pUmem_Cmd_Ws_TbVacBlow=10244
 ,pUmem_Cmd_TBD_679C=10245
 ,pUmem_Cmd_TBD_67A0=10246
 ,pUmem_Cmd_TBD_67A4=10247
@@ -1947,7 +1947,7 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_TBD_6A7C=10369
 ,pUmem_Cmd_TBD_6A80=10370
 ,pUmem_Cmd_TBD_6A84=10371
-,pUmem_Cmd_TBD_6A88=10372
+,pUmem_Cmd_Vs_VisionSkip=10372
 ,pUmem_Cmd_Vs_RspSkipOpt=10373
 ,pUmem_Cmd_TBD_6A90=10374
 ,pUmem_Cmd_TBD_6A94=10375
@@ -2083,114 +2083,124 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_Sc_WblRatioL=10505
 ,pUmem_Cmd_Sc_WblOffsetX=10506
 ,pUmem_Cmd_Sc_WblOffsetY=10507
-,pUmem_Di00=10604
-,pUmem_Di01_LaserReady=10605
-,pUmem_Di02_LaserReqResp=10606
-,pUmem_Di03_LaserPowerOn=10607
-,pUmem_Di04_LaserAdMode=10608
-,pUmem_Di05_LaserProgRun=10609
-,pUmem_Di06_LaserWarning=10610
-,pUmem_Di07_LaserAbnormal=10611
-,pUmem_Di08=10612
-,pUmem_Di09=10613
-,pUmem_Di0A=10614
-,pUmem_Di0B=10615
-,pUmem_Di0C=10616
-,pUmem_Di0D=10617
-,pUmem_Di0E=10618
-,pUmem_Di0F=10619
-,pUmem_Di10_WsLtFixUp=10620
-,pUmem_Di11_WsVsLtStrCls=10621
-,pUmem_Di12_WsLtFixDn=10622
-,pUmem_Di13_WsVsLtStrOpn=10623
-,pUmem_Di14_WsRtFixUp=10624
-,pUmem_Di15_WsVsRtStrCls=10625
-,pUmem_Di16_WsRtFixDn=10626
-,pUmem_Di17_WsVsRtStrOpn=10627
-,pUmem_Di18_WsTempBwd=10628
-,pUmem_Di19_TrPickUp=10629
-,pUmem_Di1A_WsTempFwd=10630
-,pUmem_Di1B_TrPickDn=10631
-,pUmem_Di1C_WsTbDet=10632
-,pUmem_Di1D_TrGripCls=10633
-,pUmem_Di1E=10634
-,pUmem_Di1F_TrGripOpn=10635
-,pUmem_Di20_VsTbFixBwd=10636
-,pUmem_Di21_WsAirCurtain=10637
-,pUmem_Di22_VsTbFixFwd=10638
-,pUmem_Di23_WsN2Blow=10639
-,pUmem_Di24_VsTbFixUp=10640
-,pUmem_Di25=10641
-,pUmem_Di26_VsTbFixDn=10642
-,pUmem_Di27=10643
-,pUmem_Di28=10644
-,pUmem_Di29=10645
-,pUmem_Di2A=10646
-,pUmem_Di2B=10647
-,pUmem_Di2C_VsTbDet=10648
-,pUmem_Di2D=10649
-,pUmem_Di2E=10650
-,pUmem_Di2F=10651
-,pUmem_Di30_EcldFwd=10652
-,pUmem_Di31_EcldBwd=10653
-,pUmem_Do00_LaserEmission=10654
-,pUmem_Do01_LaserReset=10655
-,pUmem_Do02_LaserRequest=10656
-,pUmem_Do03_LaserPowerOn=10657
-,pUmem_Do04_LaserAdInEna=10658
-,pUmem_Do05_LaserGuideEna=10659
-,pUmem_Do06_LaserProgEna=10660
-,pUmem_Do07_LaserProgStop=10661
-,pUmem_Do08=10662
-,pUmem_Do09=10663
-,pUmem_Do0A=10664
-,pUmem_Do0B=10665
-,pUmem_Do0C=10666
-,pUmem_Do0D=10667
-,pUmem_Do0E=10668
-,pUmem_Do0F=10669
-,pUmem_Do10_WsTbFixUp=10670
-,pUmem_Do11_WsTempBwd=10671
-,pUmem_Do12_WsTbFixDn=10672
-,pUmem_Do13_WsTempFwd=10673
-,pUmem_Do14_TrGripCls=10674
-,pUmem_Do15_VsTbFixBwd=10675
-,pUmem_Do16_TrGripOpn=10676
-,pUmem_Do17_VsTbFixFwd=10677
-,pUmem_Do18_TrPickUp=10678
-,pUmem_Do19_VsTbFixUp=10679
-,pUmem_Do1A_TrPickDn=10680
-,pUmem_Do1B_VsTbFixDn=10681
-,pUmem_Do1C_WsVsStrCls=10682
-,pUmem_Do1D_WsCoolAir=10683
-,pUmem_Do1E_WsVsStrOpn=10684
-,pUmem_Do1F=10685
-,pUmem_Do20_WsTbVacm=10686
-,pUmem_Do21_WsAirCurtain=10687
-,pUmem_Do22_WsTbBlow=10688
-,pUmem_Do23_WsN2Blow=10689
-,pUmem_Do24=10690
-,pUmem_Do25_WsTbVacmValve=10691
-,pUmem_Do26=10692
-,pUmem_Do27=10693
-,pUmem_Do28=10694
-,pUmem_Do29=10695
-,pUmem_Do2A=10696
-,pUmem_Do2B=10697
-,pUmem_Do2C=10698
-,pUmem_Do2D=10699
-,pUmem_Do2E=10700
-,pUmem_Do2F=10701
-,pUmem_Do30_EcldFwd=10702
-,pUmem_Do31_EcldBwd=10703
-,pUmem_Ai00_WsLoadCell=10704
-,pUmem_Ai01=10705
-,pUmem_Ti00_WsTempSen1=10706
-,pUmem_Ti01_WsTempSen2=10707
-,pUmem_Sta_Mc_BufIdx=10708
-,pWs_Vect_Dlt=12101
-,pVs_Vect_Dlt=12102
-,pWs_Epr_OutVdc=12103};
+,pUmem_Cmd_Sc_WblEna_2=10508
+,pUmem_Cmd_Sc_WblLen_2=10509
+,pUmem_Cmd_Sc_WblDist_2=10510
+,pUmem_Cmd_Sc_WblType_2=10511
+,pUmem_Cmd_Sc_WblRatioW_2=10512
+,pUmem_Cmd_Sc_WblRatioL_2=10513
+,pUmem_Cmd_Sc_WblOffsetX_2=10514
+,pUmem_Cmd_Sc_WblOffsetY_2=10515
+,pUmem_Di00=10612
+,pUmem_Di01_LaserReady=10613
+,pUmem_Di02_LaserReqResp=10614
+,pUmem_Di03_LaserPowerOn=10615
+,pUmem_Di04_LaserAdMode=10616
+,pUmem_Di05_LaserProgRun=10617
+,pUmem_Di06_LaserWarning=10618
+,pUmem_Di07_LaserAbnormal=10619
+,pUmem_Di08=10620
+,pUmem_Di09=10621
+,pUmem_Di0A=10622
+,pUmem_Di0B=10623
+,pUmem_Di0C=10624
+,pUmem_Di0D=10625
+,pUmem_Di0E=10626
+,pUmem_Di0F=10627
+,pUmem_Di10_WsLtFixUp=10628
+,pUmem_Di11_WsVsLtStrCls=10629
+,pUmem_Di12_WsLtFixDn=10630
+,pUmem_Di13_WsVsLtStrOpn=10631
+,pUmem_Di14_WsRtFixUp=10632
+,pUmem_Di15_WsVsRtStrCls=10633
+,pUmem_Di16_WsRtFixDn=10634
+,pUmem_Di17_WsVsRtStrOpn=10635
+,pUmem_Di18_WsTempBwd=10636
+,pUmem_Di19_TrPickUp=10637
+,pUmem_Di1A_WsTempFwd=10638
+,pUmem_Di1B_TrPickDn=10639
+,pUmem_Di1C_WsTbOutOfRange=10640
+,pUmem_Di1D_TrGripCls=10641
+,pUmem_Di1E=10642
+,pUmem_Di1F_TrGripOpn=10643
+,pUmem_Di20_VsTbFixBwd=10644
+,pUmem_Di21_WsAirCurtain=10645
+,pUmem_Di22_VsTbFixFwd=10646
+,pUmem_Di23_WsN2Blow=10647
+,pUmem_Di24_VsTbFixUp=10648
+,pUmem_Di25=10649
+,pUmem_Di26_VsTbFixDn=10650
+,pUmem_Di27=10651
+,pUmem_Di28_WsTbDet=10652
+,pUmem_Di29=10653
+,pUmem_Di2A_VsTbDet=10654
+,pUmem_Di2B=10655
+,pUmem_Di2C_VsTbOutOfRange=10656
+,pUmem_Di2D=10657
+,pUmem_Di2E=10658
+,pUmem_Di2F=10659
+,pUmem_Di30_EcldFwd=10660
+,pUmem_Di31_EcldBwd=10661
+,pUmem_Do00_LaserEmission=10662
+,pUmem_Do01_LaserReset=10663
+,pUmem_Do02_LaserRequest=10664
+,pUmem_Do03_LaserPowerOn=10665
+,pUmem_Do04_LaserAdInEna=10666
+,pUmem_Do05_LaserGuideEna=10667
+,pUmem_Do06_LaserProgEna=10668
+,pUmem_Do07_LaserProgStop=10669
+,pUmem_Do08=10670
+,pUmem_Do09=10671
+,pUmem_Do0A=10672
+,pUmem_Do0B=10673
+,pUmem_Do0C=10674
+,pUmem_Do0D=10675
+,pUmem_Do0E=10676
+,pUmem_Do0F=10677
+,pUmem_Do10_WsTbFixUp=10678
+,pUmem_Do11_WsTempBwd=10679
+,pUmem_Do12_WsTbFixDn=10680
+,pUmem_Do13_WsTempFwd=10681
+,pUmem_Do14_TrGripCls=10682
+,pUmem_Do15_VsTbFixBwd=10683
+,pUmem_Do16_TrGripOpn=10684
+,pUmem_Do17_VsTbFixFwd=10685
+,pUmem_Do18_TrPickUp=10686
+,pUmem_Do19_VsTbFixUp=10687
+,pUmem_Do1A_TrPickDn=10688
+,pUmem_Do1B_VsTbFixDn=10689
+,pUmem_Do1C_WsVsStrCls=10690
+,pUmem_Do1D_WsCoolAir=10691
+,pUmem_Do1E_WsVsStrOpn=10692
+,pUmem_Do1F=10693
+,pUmem_Do20_WsTbVacm=10694
+,pUmem_Do21_WsAirCurtain=10695
+,pUmem_Do22_WsTbBlow=10696
+,pUmem_Do23_WsN2Blow=10697
+,pUmem_Do24=10698
+,pUmem_Do25_WsTbVacmValve=10699
+,pUmem_Do26=10700
+,pUmem_Do27=10701
+,pUmem_Do28=10702
+,pUmem_Do29=10703
+,pUmem_Do2A=10704
+,pUmem_Do2B=10705
+,pUmem_Do2C=10706
+,pUmem_Do2D=10707
+,pUmem_Do2E=10708
+,pUmem_Do2F=10709
+,pUmem_Do30_EcldFwd=10710
+,pUmem_Do31_EcldBwd=10711
+,pUmem_Ai00_WsLoadCell=10712
+,pUmem_Ai01=10713
+,pUmem_Ai03_WsCorePower=10714
+,pUmem_Ai04_WsRingPower=10715
+,pUmem_Ti00_WsTempSen1=10716
+,pUmem_Ti01_WsTempSen2=10717
+,pUmem_Sta_Mc_BufIdx=10718
+,pWs_Vect_Dlt=12111
+,pVs_Vect_Dlt=12112
+,pWs_Epr_OutVdc=12113};
 enum ptrMarray {_ptrMarray_=-1
 ,pEcat_Di_Md01=8231
 ,pEcat_Di_Md02=8247
@@ -2203,51 +2213,51 @@ enum ptrMarray {_ptrMarray_=-1
 ,pEcat_AlarmReset=8494
 ,pGpio_Di_Md00=8526
 ,pGpio_Do_Md00=8542
-,pUmem_Di_Md00=10508
-,pUmem_Di_Md01=10524
-,pUmem_Di_Md02=10540
-,pUmem_Do_Md00=10556
-,pUmem_Do_Md01=10572
-,pUmem_Do_Md02=10588
-,pUmem_Sta_Mc_SeqCur=10709
-,pUmem_Sta_Mc_SeqOld=10759
-,pUmem_Sta_Mc_Pdt=10809
-,pUmem_Sta_Mc_Time_L=10859
-,pUmem_Sta_Mc_Time_H=10909
-,pUmem_Sta_Mc_Time_BufD=10959
-,pUmem_Sta_Mc_Time_BufL=11009
-,pUmem_Sta_Mc_Time_BufH=11059
-,pUmem_Sta_CmdPos=11109
-,pUmem_Sta_ActPos=11141
-,pUmem_Sta_Velocity=11173
-,pUmem_Sta_Load=11205
-,pUmem_Sta_AmpEna=11237
-,pUmem_Sta_CloseLoop=11269
-,pUmem_Sta_InPos=11301
-,pUmem_Sta_HomeFin=11333
-,pUmem_Sta_HomeIng=11365
-,pUmem_Sta_LimitMinus=11397
-,pUmem_Sta_LimitPlus=11429
-,pUmem_Sta_FollowingErr=11461
-,pUmem_Sta_AmpFault=11493
-,pUmem_Sta_EncLoss=11525
-,pUmem_Sta_I2tErr=11557
-,pUmem_Sta_ProgPos=11589
-,pUmem_Cmd_ServoOn=11621
-,pUmem_Cmd_ServoOff=11653
-,pUmem_Cmd_HomeStart=11685
-,pUmem_Cmd_HomeAbort=11717
-,pUmem_Cmd_HomeOffset=11749
-,pUmem_Cmd_JogStop=11781
-,pUmem_Cmd_JogContPlus=11813
-,pUmem_Cmd_JogContMinus=11845
-,pUmem_Cmd_JogAbsMove=11877
-,pUmem_Cmd_JogIncMove=11909
-,pUmem_Cmd_JogAbsPos=11941
-,pUmem_Cmd_JogIncDist=11973
-,pUmem_Cmd_JogSpeed=12005
-,pUmem_Cmd_JogTa=12037
-,pUmem_Cmd_JogTs=12069};
+,pUmem_Di_Md00=10516
+,pUmem_Di_Md01=10532
+,pUmem_Di_Md02=10548
+,pUmem_Do_Md00=10564
+,pUmem_Do_Md01=10580
+,pUmem_Do_Md02=10596
+,pUmem_Sta_Mc_SeqCur=10719
+,pUmem_Sta_Mc_SeqOld=10769
+,pUmem_Sta_Mc_Pdt=10819
+,pUmem_Sta_Mc_Time_L=10869
+,pUmem_Sta_Mc_Time_H=10919
+,pUmem_Sta_Mc_Time_BufD=10969
+,pUmem_Sta_Mc_Time_BufL=11019
+,pUmem_Sta_Mc_Time_BufH=11069
+,pUmem_Sta_CmdPos=11119
+,pUmem_Sta_ActPos=11151
+,pUmem_Sta_Velocity=11183
+,pUmem_Sta_Load=11215
+,pUmem_Sta_AmpEna=11247
+,pUmem_Sta_CloseLoop=11279
+,pUmem_Sta_InPos=11311
+,pUmem_Sta_HomeFin=11343
+,pUmem_Sta_HomeIng=11375
+,pUmem_Sta_LimitMinus=11407
+,pUmem_Sta_LimitPlus=11439
+,pUmem_Sta_FollowingErr=11471
+,pUmem_Sta_AmpFault=11503
+,pUmem_Sta_EncLoss=11535
+,pUmem_Sta_I2tErr=11567
+,pUmem_Sta_ProgPos=11599
+,pUmem_Cmd_ServoOn=11631
+,pUmem_Cmd_ServoOff=11663
+,pUmem_Cmd_HomeStart=11695
+,pUmem_Cmd_HomeAbort=11727
+,pUmem_Cmd_HomeOffset=11759
+,pUmem_Cmd_JogStop=11791
+,pUmem_Cmd_JogContPlus=11823
+,pUmem_Cmd_JogContMinus=11855
+,pUmem_Cmd_JogAbsMove=11887
+,pUmem_Cmd_JogIncMove=11919
+,pUmem_Cmd_JogAbsPos=11951
+,pUmem_Cmd_JogIncDist=11983
+,pUmem_Cmd_JogSpeed=12015
+,pUmem_Cmd_JogTa=12047
+,pUmem_Cmd_JogTs=12079};
 #define	gMach_Type	pshm->P[8192]
 #define	gTest_Cnt	pshm->P[8193]
 #define	gAi00_WsLoadCell	pshm->P[8194]
@@ -2283,804 +2293,865 @@ enum ptrMarray {_ptrMarray_=-1
 #define	gWs_RefVel	pshm->P[8224]
 #define	gWs_VelRatio	pshm->P[8225]
 #define	gWs_LaserEna	pshm->P[8226]
-#define	gWs_CorePowSf	pshm->P[8227]
-#define	gWs_CoreRefPow	pshm->P[8228]
-#define	gWs_CoreMinPow	pshm->P[8229]
-#define	gWs_CoreMaxPow	pshm->P[8230]
-#define	gWs_CoreOutPow	pshm->P[8231]
-#define	gWs_CoreOutVdc	pshm->P[8232]
-#define	gWs_CorePfmEna	pshm->P[8233]
-#define	gWs_RingPowSf	pshm->P[8234]
-#define	gWs_RingRefPow	pshm->P[8235]
-#define	gWs_RingMinPow	pshm->P[8236]
-#define	gWs_RingMaxPow	pshm->P[8237]
-#define	gWs_RingOutPow	pshm->P[8238]
-#define	gWs_RingOutVdc	pshm->P[8239]
-#define	gWs_RingPfmEna	pshm->P[8240]
-#define	gWs_PfmRtiCnt	pshm->P[8241]
-#define	gWs_PfmPeriod	pshm->P[8242]
-#define	gWs_PfmOnTime	pshm->P[8243]
-#define	gWs_PfmOnCnt	pshm->P[8244]
-#define	gWs_PfmOut	pshm->P[8245]
-#define	gWs_PfmBuf	pshm->P[8246]
-#define	gWs_PfmCnt	pshm->P[8247]
-#define	gWs_WblEna	pshm->P[8248]
-#define	gWs_WblLen	pshm->P[8249]
-#define	gWs_WblDst	pshm->P[8250]
-#define	gWs_WblCnt	pshm->P[8251]
-#define	gWs_WblType	pshm->P[8252]
-#define	gWs_WblRatW	pshm->P[8253]
-#define	gWs_WblRatL	pshm->P[8254]
-#define	gWs_WblOfsX	pshm->P[8255]
-#define	gWs_WblOfsY	pshm->P[8256]
-#define	gVs_AccLimitX	pshm->P[8257]
-#define	gVs_AccLimitY	pshm->P[8258]
-#define	gVs_AccLimitC	pshm->P[8259]
-#define	gVs_VelLimitC	pshm->P[8260]
-#define	gVs_PosX_Cur	pshm->P[8261]
-#define	gVs_PosY_Cur	pshm->P[8262]
-#define	gVs_PosX_Old	pshm->P[8263]
-#define	gVs_PosY_Old	pshm->P[8264]
-#define	gVs_PosX_Dlt	pshm->P[8265]
-#define	gVs_PosY_Dlt	pshm->P[8266]
-#define	gVs_PosV_Dlt	pshm->P[8267]
-#define	gVs_Vect_Vel	pshm->P[8268]
-#define	gVs_Vect_Sum	pshm->P[8269]
-#define	gVs_RefVel	pshm->P[8270]
-#define	gVs_PfmPeriod	pshm->P[8271]
-#define	gVs_PfmDuty	pshm->P[8272]
-#define	gVs_EquEna	pshm->P[8273]
-#define	gVs_EquCnt	pshm->P[8274]
-#define	gVs_EquSta_Cur	pshm->P[8275]
-#define	gVs_EquSta_Old	pshm->P[8276]
-#define	gSc_PosX_Cur	pshm->P[8277]
-#define	gSc_PosY_Cur	pshm->P[8278]
-#define	gSta_Idx	pshm->P[8279]
-#define	gCmd_Idx	pshm->P[8280]
-#define	gMt_HomeStart_Cur(i)	pshm->P[(8281+i)%MAX_P]
-#define	gMt_HomeStart_Old(i)	pshm->P[(8313+i)%MAX_P]
-#define	gMt_HomeAbort_Cur(i)	pshm->P[(8345+i)%MAX_P]
-#define	gMt_HomeAbort_Old(i)	pshm->P[(8377+i)%MAX_P]
-#define	gMt_ServoOn_Cur(i)	pshm->P[(8409+i)%MAX_P]
-#define	gMt_ServoOn_Old(i)	pshm->P[(8441+i)%MAX_P]
-#define	gMt_ServoOff_Cur(i)	pshm->P[(8473+i)%MAX_P]
-#define	gMt_ServoOff_Old(i)	pshm->P[(8505+i)%MAX_P]
-#define	gMt_Jog_Stop_Cur(i)	pshm->P[(8537+i)%MAX_P]
-#define	gMt_Jog_Stop_Old(i)	pshm->P[(8569+i)%MAX_P]
-#define	gMt_Jog_ContPlus_Cur(i)	pshm->P[(8601+i)%MAX_P]
-#define	gMt_Jog_ContPlus_Old(i)	pshm->P[(8633+i)%MAX_P]
-#define	gMt_Jog_ContMinus_Cur(i)	pshm->P[(8665+i)%MAX_P]
-#define	gMt_Jog_ContMinus_Old(i)	pshm->P[(8697+i)%MAX_P]
-#define	gMt_Jog_AbsMove_Cur(i)	pshm->P[(8729+i)%MAX_P]
-#define	gMt_Jog_AbsMove_Old(i)	pshm->P[(8761+i)%MAX_P]
-#define	gMt_Jog_IncMove_Cur(i)	pshm->P[(8793+i)%MAX_P]
-#define	gMt_Jog_IncMove_Old(i)	pshm->P[(8825+i)%MAX_P]
-#define	gMc_ServoOn_Cur	pshm->P[8857]
-#define	gMc_ServoOn_Old	pshm->P[8858]
-#define	gMc_ServoOff_Cur	pshm->P[8859]
-#define	gMc_ServoOff_Old	pshm->P[8860]
-#define	gMc_HomeStart_Cur	pshm->P[8861]
-#define	gMc_HomeStart_Old	pshm->P[8862]
-#define	gMc_HomeAbort_Cur	pshm->P[8863]
-#define	gMc_HomeAbort_Old	pshm->P[8864]
-#define	gMc_AlarmReset_Cur	pshm->P[8865]
-#define	gMc_AlarmReset_Old	pshm->P[8866]
-#define	gMc_RunMod_Cur	pshm->P[8867]
-#define	gMc_RunMod_Old	pshm->P[8868]
-#define	gMc_AutoStart_Cur	pshm->P[8869]
-#define	gMc_AutoStart_Old	pshm->P[8870]
-#define	gMc_AutoAbort_Cur	pshm->P[8871]
-#define	gMc_AutoAbort_Old	pshm->P[8872]
-#define	gMc_AutoPause_Cur	pshm->P[8873]
-#define	gMc_AutoPause_Old	pshm->P[8874]
-#define	gMc_CycleStart_Cur	pshm->P[8875]
-#define	gMc_CycleStart_Old	pshm->P[8876]
-#define	gMc_StepStart_Cur	pshm->P[8877]
-#define	gMc_StepStart_Old	pshm->P[8878]
-#define	gMc_Fsave_Cur	pshm->P[8879]
-#define	gMc_Fsave_Old	pshm->P[8880]
-#define	gWs_ServoOn_Cur	pshm->P[8881]
-#define	gWs_ServoOn_Old	pshm->P[8882]
-#define	gWs_ServoOff_Cur	pshm->P[8883]
-#define	gWs_ServoOff_Old	pshm->P[8884]
-#define	gWs_HomeStart_Cur	pshm->P[8885]
-#define	gWs_HomeStart_Old	pshm->P[8886]
-#define	gWs_HomeAbort_Cur	pshm->P[8887]
-#define	gWs_HomeAbort_Old	pshm->P[8888]
-#define	gWs_AlarmReset_Cur	pshm->P[8889]
-#define	gWs_AlarmReset_Old	pshm->P[8890]
-#define	gWs_AlarmRetry_Cur	pshm->P[8891]
-#define	gWs_AlarmRetry_Old	pshm->P[8892]
-#define	gWs_AlarmAbort_Cur	pshm->P[8893]
-#define	gWs_AlarmAbort_Old	pshm->P[8894]
-#define	gWs_PowerCheck_Cur	pshm->P[8895]
-#define	gWs_PowerCheck_Old	pshm->P[8896]
-#define	gWs_TestShot_Cur	pshm->P[8897]
-#define	gWs_TestShot_Old	pshm->P[8898]
-#define	gWs_LaserEnableStart_Cur	pshm->P[8899]
-#define	gWs_LaserEnableStart_Old	pshm->P[8900]
-#define	gWs_LaserDisableStart_Cur	pshm->P[8901]
-#define	gWs_LaserDisableStart_Old	pshm->P[8902]
-#define	gWs_LaserTestCrossStart_Cur	pshm->P[8903]
-#define	gWs_LaserTestCrossStart_Old	pshm->P[8904]
-#define	gWs_LaserTestCrossAbort_Cur	pshm->P[8905]
-#define	gWs_LaserTestCrossAbort_Old	pshm->P[8906]
-#define	gWs_LaserTestLineStart_Cur	pshm->P[8907]
-#define	gWs_LaserTestLineStart_Old	pshm->P[8908]
-#define	gWs_LaserTestLineAbort_Cur	pshm->P[8909]
-#define	gWs_LaserTestLineAbort_Old	pshm->P[8910]
-#define	gVs_ServoOn_Cur	pshm->P[8911]
-#define	gVs_ServoOn_Old	pshm->P[8912]
-#define	gVs_ServoOff_Cur	pshm->P[8913]
-#define	gVs_ServoOff_Old	pshm->P[8914]
-#define	gVs_HomeStart_Cur	pshm->P[8915]
-#define	gVs_HomeStart_Old	pshm->P[8916]
-#define	gVs_HomeAbort_Cur	pshm->P[8917]
-#define	gVs_HomeAbort_Old	pshm->P[8918]
-#define	gVs_AlarmReset_Cur	pshm->P[8919]
-#define	gVs_AlarmReset_Old	pshm->P[8920]
-#define	gVs_AlarmRetry_Cur	pshm->P[8921]
-#define	gVs_AlarmRetry_Old	pshm->P[8922]
-#define	gVs_AlarmAbort_Cur	pshm->P[8923]
-#define	gVs_AlarmAbort_Old	pshm->P[8924]
-#define	gVs_TestShot_Cur	pshm->P[8925]
-#define	gVs_TestShot_Old	pshm->P[8926]
-#define	gSc_ServoOn_Cur	pshm->P[8927]
-#define	gSc_ServoOn_Old	pshm->P[8928]
-#define	gSc_ServoOff_Cur	pshm->P[8929]
-#define	gSc_ServoOff_Old	pshm->P[8930]
-#define	gSc_HomeStart_Cur	pshm->P[8931]
-#define	gSc_HomeStart_Old	pshm->P[8932]
-#define	gSc_HomeAbort_Cur	pshm->P[8933]
-#define	gSc_HomeAbort_Old	pshm->P[8934]
-#define	gSc_AlarmReset_Cur	pshm->P[8935]
-#define	gSc_AlarmReset_Old	pshm->P[8936]
-#define	gWs_LdStart_Cur	pshm->P[8937]
-#define	gWs_LdAbort_Cur	pshm->P[8938]
-#define	gWs_LdStart_Old	pshm->P[8939]
-#define	gWs_LdAbort_Old	pshm->P[8940]
-#define	gWs_RdStart_Cur	pshm->P[8941]
-#define	gWs_RdAbort_Cur	pshm->P[8942]
-#define	gWs_RdStart_Old	pshm->P[8943]
-#define	gWs_RdAbort_Old	pshm->P[8944]
-#define	gWs_WdStart_Cur	pshm->P[8945]
-#define	gWs_WdAbort_Cur	pshm->P[8946]
-#define	gWs_WdStart_Old	pshm->P[8947]
-#define	gWs_WdAbort_Old	pshm->P[8948]
-#define	gWs_WtStart_Cur	pshm->P[8949]
-#define	gWs_WtAbort_Cur	pshm->P[8950]
-#define	gWs_WtStart_Old	pshm->P[8951]
-#define	gWs_WtAbort_Old	pshm->P[8952]
-#define	gWs_UdStart_Cur	pshm->P[8953]
-#define	gWs_UdAbort_Cur	pshm->P[8954]
-#define	gWs_UdStart_Old	pshm->P[8955]
-#define	gWs_UdAbort_Old	pshm->P[8956]
-#define	gWs_RjStart_Cur	pshm->P[8957]
-#define	gWs_RjAbort_Cur	pshm->P[8958]
-#define	gWs_RjStart_Old	pshm->P[8959]
-#define	gWs_RjAbort_Old	pshm->P[8960]
-#define	gVs_LdStart_Cur	pshm->P[8961]
-#define	gVs_LdAbort_Cur	pshm->P[8962]
-#define	gVs_LdStart_Old	pshm->P[8963]
-#define	gVs_LdAbort_Old	pshm->P[8964]
-#define	gVs_RdStart_Cur	pshm->P[8965]
-#define	gVs_RdAbort_Cur	pshm->P[8966]
-#define	gVs_RdStart_Old	pshm->P[8967]
-#define	gVs_RdAbort_Old	pshm->P[8968]
-#define	gVs_VnStart_Cur	pshm->P[8969]
-#define	gVs_VnAbort_Cur	pshm->P[8970]
-#define	gVs_VnStart_Old	pshm->P[8971]
-#define	gVs_VnAbort_Old	pshm->P[8972]
-#define	gVs_WtStart_Cur	pshm->P[8973]
-#define	gVs_WtAbort_Cur	pshm->P[8974]
-#define	gVs_WtStart_Old	pshm->P[8975]
-#define	gVs_WtAbort_Old	pshm->P[8976]
-#define	gVs_UdStart_Cur	pshm->P[8977]
-#define	gVs_UdAbort_Cur	pshm->P[8978]
-#define	gVs_UdStart_Old	pshm->P[8979]
-#define	gVs_UdAbort_Old	pshm->P[8980]
-#define	gVs_RjStart_Cur	pshm->P[8981]
-#define	gVs_RjAbort_Cur	pshm->P[8982]
-#define	gVs_RjStart_Old	pshm->P[8983]
-#define	gVs_RjAbort_Old	pshm->P[8984]
-#define	gWs_PdtStaChange_Cur	pshm->P[8985]
-#define	gVs_PdtStaChange_Cur	pshm->P[8986]
-#define	gTr_PdtStaChange_Cur	pshm->P[8987]
-#define	gWs_PdtStaChange_Old	pshm->P[8988]
-#define	gVs_PdtStaChange_Old	pshm->P[8989]
-#define	gTr_PdtStaChange_Old	pshm->P[8990]
-#define	gWs_Error	pshm->P[8991]
-#define	gVs_Error	pshm->P[8992]
-#define	gWs_ErrCode	pshm->P[8993]
-#define	gVs_ErrCode	pshm->P[8994]
-#define	gWs_Error_Cur	pshm->P[8995]
-#define	gWs_Error_Old	pshm->P[8996]
-#define	gVs_Error_Cur	pshm->P[8997]
-#define	gVs_Error_Old	pshm->P[8998]
-#define	gSc_Com_Sta	pshm->P[8999]
-#define	gEc_WdTimer	pshm->P[9000]
-#define	gMc_DistX_Cur	pshm->P[9001]
-#define	gMc_DistX_Err	pshm->P[9002]
-#define	gWs_Safety_Sta	pshm->P[9003]
-#define	gVs_Safety_Sta	pshm->P[9004]
-#define	gWs_Safety_Err	pshm->P[9005]
-#define	gVs_Safety_Err	pshm->P[9006]
-#define	gMc_AlarmReset_Ena	pshm->P[9007]
-#define	gWs_AlarmReset_Ena	pshm->P[9008]
-#define	gVs_AlarmReset_Ena	pshm->P[9009]
-#define	gSc_AlarmReset_Ena	pshm->P[9010]
-#define	gWs_AlarmRetry_Ena	pshm->P[9011]
-#define	gVs_AlarmRetry_Ena	pshm->P[9012]
-#define	gWs_AlarmAbort_Ena	pshm->P[9013]
-#define	gVs_AlarmAbort_Ena	pshm->P[9014]
-#define	gEc_Com_Sta(i)	pshm->P[(9015+i)%MAX_P]
-#define	gEc_Con_Start	pshm->P[9047]
-#define	gEc_Con_Abort	pshm->P[9048]
-#define	gEc_Con_Ena	pshm->P[9049]
-#define	gEc_Con_Sta	pshm->P[9050]
-#define	gEc_Con_Seq	pshm->P[9051]
-#define	gEc_Con_Buf	pshm->P[9052]
-#define	gEc_Con_Tmr	pshm->P[9053]
-#define	gMt_Home_Idx	pshm->P[9054]
-#define	gMt_Home_Start(i)	pshm->P[(9055+i)%MAX_P]
-#define	gMt_Home_Abort(i)	pshm->P[(9087+i)%MAX_P]
-#define	gMt_Home_Ena(i)	pshm->P[(9119+i)%MAX_P]
-#define	gMt_Home_Sta(i)	pshm->P[(9151+i)%MAX_P]
-#define	gMt_Home_Seq(i)	pshm->P[(9183+i)%MAX_P]
-#define	gMt_Home_Buf(i)	pshm->P[(9215+i)%MAX_P]
-#define	gMt_Home_Tmr(i)	pshm->P[(9247+i)%MAX_P]
-#define	gMt_Home_Err(i)	pshm->P[(9279+i)%MAX_P]
-#define	gMt_Home_Pos(i)	pshm->P[(9311+i)%MAX_P]
-#define	gMc_Home_Start	pshm->P[9343]
-#define	gMc_Home_Abort	pshm->P[9344]
-#define	gMc_Home_Ena	pshm->P[9345]
-#define	gMc_Home_Sta	pshm->P[9346]
-#define	gMc_Home_Seq	pshm->P[9347]
-#define	gMc_Home_Buf	pshm->P[9348]
-#define	gMc_Home_Tmr	pshm->P[9349]
-#define	gMc_Home_Err	pshm->P[9350]
-#define	gWs_Home_Start	pshm->P[9351]
-#define	gWs_Home_Abort	pshm->P[9352]
-#define	gWs_Home_Ena	pshm->P[9353]
-#define	gWs_Home_Sta	pshm->P[9354]
-#define	gWs_Home_Seq	pshm->P[9355]
-#define	gWs_Home_Buf	pshm->P[9356]
-#define	gWs_Home_Tmr	pshm->P[9357]
-#define	gWs_Home_Err	pshm->P[9358]
-#define	gVs_Home_Start	pshm->P[9359]
-#define	gVs_Home_Abort	pshm->P[9360]
-#define	gVs_Home_Ena	pshm->P[9361]
-#define	gVs_Home_Sta	pshm->P[9362]
-#define	gVs_Home_Seq	pshm->P[9363]
-#define	gVs_Home_Buf	pshm->P[9364]
-#define	gVs_Home_Tmr	pshm->P[9365]
-#define	gVs_Home_Err	pshm->P[9366]
-#define	gSc_Home_Start	pshm->P[9367]
-#define	gSc_Home_Abort	pshm->P[9368]
-#define	gSc_Home_Ena	pshm->P[9369]
-#define	gSc_Home_Sta	pshm->P[9370]
-#define	gSc_Home_Seq	pshm->P[9371]
-#define	gSc_Home_Buf	pshm->P[9372]
-#define	gSc_Home_Tmr	pshm->P[9373]
-#define	gSc_Home_Err	pshm->P[9374]
-#define	gSc_InitSta	pshm->P[9375]
-#define	gJog_Idx	pshm->P[9376]
-#define	gMt_ServoOn_Ena(i)	pshm->P[(9377+i)%MAX_P]
-#define	gMt_ServoOff_Ena(i)	pshm->P[(9409+i)%MAX_P]
-#define	gMc_ServoOn_Ena	pshm->P[9441]
-#define	gMc_ServoOff_Ena	pshm->P[9442]
-#define	gWs_ServoOn_Ena	pshm->P[9443]
-#define	gWs_ServoOff_Ena	pshm->P[9444]
-#define	gVs_ServoOn_Ena	pshm->P[9445]
-#define	gVs_ServoOff_Ena	pshm->P[9446]
-#define	gSc_ServoOn_Ena	pshm->P[9447]
-#define	gSc_ServoOff_Ena	pshm->P[9448]
-#define	gJog_Stop_Ena(i)	pshm->P[(9449+i)%MAX_P]
-#define	gJog_ContPlus_Ena(i)	pshm->P[(9481+i)%MAX_P]
-#define	gJog_ContMinus_Ena(i)	pshm->P[(9513+i)%MAX_P]
-#define	gJog_AbsMove_Ena(i)	pshm->P[(9545+i)%MAX_P]
-#define	gJog_IncMove_Ena(i)	pshm->P[(9577+i)%MAX_P]
-#define	gWs_PdtNo	pshm->P[9609]
-#define	gVs_PdtNo	pshm->P[9610]
-#define	gTr_PdtNo	pshm->P[9611]
-#define	gWs_LdDir	pshm->P[9612]
-#define	gMc_AutoRun_Start	pshm->P[9613]
-#define	gMc_AutoRun_Abort	pshm->P[9614]
-#define	gMc_AutoRun_Pause	pshm->P[9615]
-#define	gMc_Cycle_Start	pshm->P[9616]
-#define	gMc_Step_Start	pshm->P[9617]
-#define	gMc_AutoRun_Ena	pshm->P[9618]
-#define	gMc_AutoRun_Sta	pshm->P[9619]
-#define	gMc_AutoRun_Seq	pshm->P[9620]
-#define	gMc_AutoRun_Buf	pshm->P[9621]
-#define	gMc_AutoRun_Tmr	pshm->P[9622]
-#define	gMc_AutoRun_Err	pshm->P[9623]
-#define	gWs_Loop_Start	pshm->P[9624]
-#define	gWs_Loop_Abort	pshm->P[9625]
-#define	gWs_Loop_Pause	pshm->P[9626]
-#define	gWs_Loop_Ena	pshm->P[9627]
-#define	gWs_Loop_Sta	pshm->P[9628]
-#define	gWs_Loop_Seq	pshm->P[9629]
-#define	gWs_Loop_Buf	pshm->P[9630]
-#define	gWs_Loop_Tmr	pshm->P[9631]
-#define	gWs_Loop_Err	pshm->P[9632]
-#define	gWs_Loop_Time	pshm->P[9633]
-#define	gWs_Loop_TimeBuf	pshm->P[9634]
-#define	gWs_Seq_Cur	pshm->P[9635]
-#define	gWs_Seq_Old	pshm->P[9636]
-#define	gWs_Seq_Err	pshm->P[9637]
-#define	gVs_Loop_Start	pshm->P[9638]
-#define	gVs_Loop_Abort	pshm->P[9639]
-#define	gVs_Loop_Pause	pshm->P[9640]
-#define	gVs_Loop_Ena	pshm->P[9641]
-#define	gVs_Loop_Sta	pshm->P[9642]
-#define	gVs_Loop_Seq	pshm->P[9643]
-#define	gVs_Loop_Buf	pshm->P[9644]
-#define	gVs_Loop_Tmr	pshm->P[9645]
-#define	gVs_Loop_Err	pshm->P[9646]
-#define	gVs_Loop_Time	pshm->P[9647]
-#define	gVs_Loop_TimeBuf	pshm->P[9648]
-#define	gVs_Seq_Cur	pshm->P[9649]
-#define	gVs_Seq_Old	pshm->P[9650]
-#define	gVs_Seq_Err	pshm->P[9651]
-#define	gWs_Sta_Pdt	pshm->P[9652]
-#define	gVs_Sta_Pdt	pshm->P[9653]
-#define	gTr_Sta_Pdt	pshm->P[9654]
-#define	gWs_Sta_PdtBuf	pshm->P[9655]
-#define	gVs_Sta_PdtBuf	pshm->P[9656]
-#define	gTr_Sta_PdtBuf	pshm->P[9657]
-#define	gWs_Sta_Stg	pshm->P[9658]
-#define	gVs_Sta_Stg	pshm->P[9659]
-#define	gWs_Pos_Pdt	pshm->P[9660]
-#define	gVs_Pos_Pdt	pshm->P[9661]
-#define	gWs_Pos_Stg	pshm->P[9662]
-#define	gVs_Pos_Stg	pshm->P[9663]
-#define	gWs_PdtStaChange_Ena	pshm->P[9664]
-#define	gVs_PdtStaChange_Ena	pshm->P[9665]
-#define	gTr_PdtStaChange_Ena	pshm->P[9666]
-#define	gWs_Load_Start	pshm->P[9667]
-#define	gWs_Load_Abort	pshm->P[9668]
-#define	gWs_Load_Ena	pshm->P[9669]
-#define	gWs_Load_Sta	pshm->P[9670]
-#define	gWs_Load_Seq	pshm->P[9671]
-#define	gWs_Load_Buf	pshm->P[9672]
-#define	gWs_Load_Tmr	pshm->P[9673]
-#define	gWs_Load_Err	pshm->P[9674]
-#define	gWs_Load_VelX	pshm->P[9675]
-#define	gWs_Load_VelY	pshm->P[9676]
-#define	gWs_Load_VelC	pshm->P[9677]
-#define	gWs_Load_PosX	pshm->P[9678]
-#define	gWs_Load_PosY	pshm->P[9679]
-#define	gWs_Load_PosC	pshm->P[9680]
-#define	gWs_Load_Time	pshm->P[9681]
-#define	gWs_Load_TimeBuf	pshm->P[9682]
-#define	gWs_Ready_Start	pshm->P[9683]
-#define	gWs_Ready_Abort	pshm->P[9684]
-#define	gWs_Ready_Ena	pshm->P[9685]
-#define	gWs_Ready_Sta	pshm->P[9686]
-#define	gWs_Ready_Seq	pshm->P[9687]
-#define	gWs_Ready_Buf	pshm->P[9688]
-#define	gWs_Ready_Tmr	pshm->P[9689]
-#define	gWs_Ready_Err	pshm->P[9690]
-#define	gWs_Ready_VelX	pshm->P[9691]
-#define	gWs_Ready_VelY	pshm->P[9692]
-#define	gWs_Ready_VelC	pshm->P[9693]
-#define	gWs_Ready_PosX	pshm->P[9694]
-#define	gWs_Ready_PosY	pshm->P[9695]
-#define	gWs_Ready_PosC	pshm->P[9696]
-#define	gWs_Ready_Time	pshm->P[9697]
-#define	gWs_Ready_TimeBuf	pshm->P[9698]
-#define	gWs_Ready_VsnJudge	pshm->P[9699]
-#define	gWs_Welding_Start	pshm->P[9700]
-#define	gWs_Welding_Abort	pshm->P[9701]
-#define	gWs_Welding_Ena	pshm->P[9702]
-#define	gWs_Welding_Sta	pshm->P[9703]
-#define	gWs_Welding_Seq	pshm->P[9704]
-#define	gWs_Welding_Buf	pshm->P[9705]
-#define	gWs_Welding_Tmr	pshm->P[9706]
-#define	gWs_Welding_Err	pshm->P[9707]
-#define	gWs_Welding_VelX	pshm->P[9708]
-#define	gWs_Welding_VelY	pshm->P[9709]
-#define	gWs_Welding_VelC	pshm->P[9710]
-#define	gWs_Welding_PosX	pshm->P[9711]
-#define	gWs_Welding_PosY	pshm->P[9712]
-#define	gWs_Welding_PosC	pshm->P[9713]
-#define	gWs_Welding_Time	pshm->P[9714]
-#define	gWs_Welding_TimeBuf	pshm->P[9715]
-#define	gWs_Prog_Dist	pshm->P[9716]
-#define	gWs_Prog_Time	pshm->P[9717]
-#define	gWs_Prog_TimeBuf	pshm->P[9718]
-#define	gWs_File_Prog_Time	pshm->P[9719]
-#define	gWs_File_Prog_TimeBuf	pshm->P[9720]
-#define	gWs_Wait_Start	pshm->P[9721]
-#define	gWs_Wait_Abort	pshm->P[9722]
-#define	gWs_Wait_Ena	pshm->P[9723]
-#define	gWs_Wait_Sta	pshm->P[9724]
-#define	gWs_Wait_Seq	pshm->P[9725]
-#define	gWs_Wait_Buf	pshm->P[9726]
-#define	gWs_Wait_Tmr	pshm->P[9727]
-#define	gWs_Wait_Err	pshm->P[9728]
-#define	gWs_Wait_VelX	pshm->P[9729]
-#define	gWs_Wait_VelY	pshm->P[9730]
-#define	gWs_Wait_VelC	pshm->P[9731]
-#define	gWs_Wait_PosX	pshm->P[9732]
-#define	gWs_Wait_PosY	pshm->P[9733]
-#define	gWs_Wait_PosC	pshm->P[9734]
-#define	gWs_Wait_Time	pshm->P[9735]
-#define	gWs_Wait_TimeBuf	pshm->P[9736]
-#define	gWs_Unload_Start	pshm->P[9737]
-#define	gWs_Unload_Abort	pshm->P[9738]
-#define	gWs_Unload_Ena	pshm->P[9739]
-#define	gWs_Unload_Sta	pshm->P[9740]
-#define	gWs_Unload_Seq	pshm->P[9741]
-#define	gWs_Unload_Buf	pshm->P[9742]
-#define	gWs_Unload_Tmr	pshm->P[9743]
-#define	gWs_Unload_Err	pshm->P[9744]
-#define	gWs_Unload_VelX	pshm->P[9745]
-#define	gWs_Unload_VelY	pshm->P[9746]
-#define	gWs_Unload_VelC	pshm->P[9747]
-#define	gWs_Unload_PosX	pshm->P[9748]
-#define	gWs_Unload_PosY	pshm->P[9749]
-#define	gWs_Unload_PosC	pshm->P[9750]
-#define	gWs_Unload_Time	pshm->P[9751]
-#define	gWs_Unload_TimeBuf	pshm->P[9752]
-#define	gWs_Reject_Start	pshm->P[9753]
-#define	gWs_Reject_Abort	pshm->P[9754]
-#define	gWs_Reject_Ena	pshm->P[9755]
-#define	gWs_Reject_Sta	pshm->P[9756]
-#define	gWs_Reject_Seq	pshm->P[9757]
-#define	gWs_Reject_Buf	pshm->P[9758]
-#define	gWs_Reject_Tmr	pshm->P[9759]
-#define	gWs_Reject_Err	pshm->P[9760]
-#define	gWs_Reject_VelX	pshm->P[9761]
-#define	gWs_Reject_VelY	pshm->P[9762]
-#define	gWs_Reject_VelC	pshm->P[9763]
-#define	gWs_Reject_PosX	pshm->P[9764]
-#define	gWs_Reject_PosY	pshm->P[9765]
-#define	gWs_Reject_PosC	pshm->P[9766]
-#define	gWs_Reject_Time	pshm->P[9767]
-#define	gWs_Reject_TimeBuf	pshm->P[9768]
-#define	gVs_Load_Start	pshm->P[9769]
-#define	gVs_Load_Abort	pshm->P[9770]
-#define	gVs_Load_Ena	pshm->P[9771]
-#define	gVs_Load_Sta	pshm->P[9772]
-#define	gVs_Load_Seq	pshm->P[9773]
-#define	gVs_Load_Buf	pshm->P[9774]
-#define	gVs_Load_Tmr	pshm->P[9775]
-#define	gVs_Load_Err	pshm->P[9776]
-#define	gVs_Load_VelX	pshm->P[9777]
-#define	gVs_Load_VelY	pshm->P[9778]
-#define	gVs_Load_VelC	pshm->P[9779]
-#define	gVs_Load_PosX	pshm->P[9780]
-#define	gVs_Load_PosY	pshm->P[9781]
-#define	gVs_Load_PosC	pshm->P[9782]
-#define	gVs_Load_Time	pshm->P[9783]
-#define	gVs_Load_TimeBuf	pshm->P[9784]
-#define	gVs_Ready_Start	pshm->P[9785]
-#define	gVs_Ready_Abort	pshm->P[9786]
-#define	gVs_Ready_Ena	pshm->P[9787]
-#define	gVs_Ready_Sta	pshm->P[9788]
-#define	gVs_Ready_Seq	pshm->P[9789]
-#define	gVs_Ready_Buf	pshm->P[9790]
-#define	gVs_Ready_Tmr	pshm->P[9791]
-#define	gVs_Ready_Err	pshm->P[9792]
-#define	gVs_Ready_VelX	pshm->P[9793]
-#define	gVs_Ready_VelY	pshm->P[9794]
-#define	gVs_Ready_VelC	pshm->P[9795]
-#define	gVs_Ready_PosX	pshm->P[9796]
-#define	gVs_Ready_PosY	pshm->P[9797]
-#define	gVs_Ready_PosC	pshm->P[9798]
-#define	gVs_Ready_Time	pshm->P[9799]
-#define	gVs_Ready_TimeBuf	pshm->P[9800]
-#define	gVs_Ready_VsnJudge	pshm->P[9801]
-#define	gVs_Vision_Start	pshm->P[9802]
-#define	gVs_Vision_Abort	pshm->P[9803]
-#define	gVs_Vision_Ena	pshm->P[9804]
-#define	gVs_Vision_Sta	pshm->P[9805]
-#define	gVs_Vision_Seq	pshm->P[9806]
-#define	gVs_Vision_Buf	pshm->P[9807]
-#define	gVs_Vision_Tmr	pshm->P[9808]
-#define	gVs_Vision_Err	pshm->P[9809]
-#define	gVs_Vision_VelX	pshm->P[9810]
-#define	gVs_Vision_VelY	pshm->P[9811]
-#define	gVs_Vision_VelC	pshm->P[9812]
-#define	gVs_Vision_PosX	pshm->P[9813]
-#define	gVs_Vision_PosY	pshm->P[9814]
-#define	gVs_Vision_PosC	pshm->P[9815]
-#define	gVs_Vision_Time	pshm->P[9816]
-#define	gVs_Vision_TimeBuf	pshm->P[9817]
-#define	gVs_Prog_Dist	pshm->P[9818]
-#define	gVs_Prog_Time	pshm->P[9819]
-#define	gVs_Prog_TimeBuf	pshm->P[9820]
-#define	gVs_Vision_VsnJudge	pshm->P[9821]
-#define	gVs_Wait_Start	pshm->P[9822]
-#define	gVs_Wait_Abort	pshm->P[9823]
-#define	gVs_Wait_Ena	pshm->P[9824]
-#define	gVs_Wait_Sta	pshm->P[9825]
-#define	gVs_Wait_Seq	pshm->P[9826]
-#define	gVs_Wait_Buf	pshm->P[9827]
-#define	gVs_Wait_Tmr	pshm->P[9828]
-#define	gVs_Wait_Err	pshm->P[9829]
-#define	gVs_Wait_VelX	pshm->P[9830]
-#define	gVs_Wait_VelY	pshm->P[9831]
-#define	gVs_Wait_VelC	pshm->P[9832]
-#define	gVs_Wait_PosX	pshm->P[9833]
-#define	gVs_Wait_PosY	pshm->P[9834]
-#define	gVs_Wait_PosC	pshm->P[9835]
-#define	gVs_Wait_Time	pshm->P[9836]
-#define	gVs_Wait_TimeBuf	pshm->P[9837]
-#define	gVs_Unload_Start	pshm->P[9838]
-#define	gVs_Unload_Abort	pshm->P[9839]
-#define	gVs_Unload_Ena	pshm->P[9840]
-#define	gVs_Unload_Sta	pshm->P[9841]
-#define	gVs_Unload_Seq	pshm->P[9842]
-#define	gVs_Unload_Buf	pshm->P[9843]
-#define	gVs_Unload_Tmr	pshm->P[9844]
-#define	gVs_Unload_Err	pshm->P[9845]
-#define	gVs_Unload_VelX	pshm->P[9846]
-#define	gVs_Unload_VelY	pshm->P[9847]
-#define	gVs_Unload_VelC	pshm->P[9848]
-#define	gVs_Unload_PosX	pshm->P[9849]
-#define	gVs_Unload_PosY	pshm->P[9850]
-#define	gVs_Unload_PosC	pshm->P[9851]
-#define	gVs_Unload_Time	pshm->P[9852]
-#define	gVs_Unload_TimeBuf	pshm->P[9853]
-#define	gVs_Reject_Start	pshm->P[9854]
-#define	gVs_Reject_Abort	pshm->P[9855]
-#define	gVs_Reject_Ena	pshm->P[9856]
-#define	gVs_Reject_Sta	pshm->P[9857]
-#define	gVs_Reject_Seq	pshm->P[9858]
-#define	gVs_Reject_Buf	pshm->P[9859]
-#define	gVs_Reject_Tmr	pshm->P[9860]
-#define	gVs_Reject_Err	pshm->P[9861]
-#define	gVs_Reject_VelX	pshm->P[9862]
-#define	gVs_Reject_VelY	pshm->P[9863]
-#define	gVs_Reject_VelC	pshm->P[9864]
-#define	gVs_Reject_PosX	pshm->P[9865]
-#define	gVs_Reject_PosY	pshm->P[9866]
-#define	gVs_Reject_PosC	pshm->P[9867]
-#define	gVs_Reject_Time	pshm->P[9868]
-#define	gVs_Reject_TimeBuf	pshm->P[9869]
-#define	gWs_CldInpos_Delay	pshm->P[9870]
-#define	gVs_CldInpos_Delay	pshm->P[9871]
-#define	gWs_CldIn_CoverUD	pshm->P[9872]
-#define	gWs_CldIn_CoverFB	pshm->P[9873]
-#define	gWs_CldIn_TempFB	pshm->P[9874]
-#define	gWs_CldIn_ShtrOC	pshm->P[9875]
-#define	gVs_CldIn_CoverUD	pshm->P[9876]
-#define	gVs_CldIn_CoverFB	pshm->P[9877]
-#define	gTr_CldIn_PickerUD	pshm->P[9878]
-#define	gTr_CldIn_PickerOC	pshm->P[9879]
-#define	gWs_Epr_OutVdc	pshm->P[9880]
-#define	gWs_EcldHome_Start	pshm->P[9881]
-#define	gWs_EcldHome_Abort	pshm->P[9882]
-#define	gWs_EcldHome_Ena	pshm->P[9883]
-#define	gWs_EcldHome_Sta	pshm->P[9884]
-#define	gWs_EcldHome_Seq	pshm->P[9885]
-#define	gWs_EcldHome_Buf	pshm->P[9886]
-#define	gWs_EcldHome_Tmr	pshm->P[9887]
-#define	gWs_EcldHome_Err	pshm->P[9888]
-#define	gWs_EcldHome_Try	pshm->P[9889]
-#define	gWs_EcldHome_Fin	pshm->P[9890]
-#define	gWs_EcldFwd_Start	pshm->P[9891]
-#define	gWs_EcldFwd_Abort	pshm->P[9892]
-#define	gWs_EcldFwd_Ena	pshm->P[9893]
-#define	gWs_EcldFwd_Sta	pshm->P[9894]
-#define	gWs_EcldFwd_Seq	pshm->P[9895]
-#define	gWs_EcldFwd_Buf	pshm->P[9896]
-#define	gWs_EcldFwd_Tmr	pshm->P[9897]
-#define	gWs_EcldFwd_Err	pshm->P[9898]
-#define	gWs_EcldFwd_Try	pshm->P[9899]
-#define	gWs_EcldBwd_Start	pshm->P[9900]
-#define	gWs_EcldBwd_Abort	pshm->P[9901]
-#define	gWs_EcldBwd_Ena	pshm->P[9902]
-#define	gWs_EcldBwd_Sta	pshm->P[9903]
-#define	gWs_EcldBwd_Seq	pshm->P[9904]
-#define	gWs_EcldBwd_Buf	pshm->P[9905]
-#define	gWs_EcldBwd_Tmr	pshm->P[9906]
-#define	gWs_EcldBwd_Err	pshm->P[9907]
-#define	gWs_EcldBwd_Try	pshm->P[9908]
-#define	gWs_EcldCmdFwd_Cur	pshm->P[9909]
-#define	gWs_EcldCmdFwd_Old	pshm->P[9910]
-#define	gWs_EcldCmdBwd_Cur	pshm->P[9911]
-#define	gWs_EcldCmdBwd_Old	pshm->P[9912]
-#define	gWs_TestShot_Ena	pshm->P[9913]
-#define	gWs_TestShot_Time	pshm->P[9914]
-#define	gVs_TestShot_Ena	pshm->P[9915]
-#define	gVs_TestShot_Time	pshm->P[9916]
-#define	gVs_TestShot_TimeBuf	pshm->P[9917]
-#define	gVs_TestShot_Seq	pshm->P[9918]
-#define	gVs_TestShot_Tmr	pshm->P[9919]
-#define	gWs_LaserSta_Ready	pshm->P[9920]
-#define	gWs_LaserSta_Enable	pshm->P[9921]
-#define	gWs_LaserSta_CorePower	pshm->P[9922]
-#define	gWs_LaserSta_RingPower	pshm->P[9923]
-#define	gWs_LaserEnable_Start	pshm->P[9924]
-#define	gWs_LaserEnable_Abort	pshm->P[9925]
-#define	gWs_LaserEnable_Ena	pshm->P[9926]
-#define	gWs_LaserEnable_Sta	pshm->P[9927]
-#define	gWs_LaserEnable_Seq	pshm->P[9928]
-#define	gWs_LaserEnable_Buf	pshm->P[9929]
-#define	gWs_LaserEnable_Tmr	pshm->P[9930]
-#define	gWs_LaserEnable_Err	pshm->P[9931]
-#define	gWs_LaserDisable_Start	pshm->P[9932]
-#define	gWs_LaserDisable_Abort	pshm->P[9933]
-#define	gWs_LaserDisable_Ena	pshm->P[9934]
-#define	gWs_LaserDisable_Sta	pshm->P[9935]
-#define	gWs_LaserDisable_Seq	pshm->P[9936]
-#define	gWs_LaserDisable_Buf	pshm->P[9937]
-#define	gWs_LaserDisable_Tmr	pshm->P[9938]
-#define	gWs_LaserDisable_Err	pshm->P[9939]
-#define	gWs_LaserTestCross_Start	pshm->P[9940]
-#define	gWs_LaserTestCross_Abort	pshm->P[9941]
-#define	gWs_LaserTestCross_Ena	pshm->P[9942]
-#define	gWs_LaserTestCross_Sta	pshm->P[9943]
-#define	gWs_LaserTestCross_Seq	pshm->P[9944]
-#define	gWs_LaserTestCross_Buf	pshm->P[9945]
-#define	gWs_LaserTestCross_Tmr	pshm->P[9946]
-#define	gWs_LaserTestCross_Err	pshm->P[9947]
-#define	gWs_LaserTestLine_Start	pshm->P[9948]
-#define	gWs_LaserTestLine_Abort	pshm->P[9949]
-#define	gWs_LaserTestLine_Ena	pshm->P[9950]
-#define	gWs_LaserTestLine_Sta	pshm->P[9951]
-#define	gWs_LaserTestLine_Seq	pshm->P[9952]
-#define	gWs_LaserTestLine_Buf	pshm->P[9953]
-#define	gWs_LaserTestLine_Tmr	pshm->P[9954]
-#define	gWs_LaserTestLine_Err	pshm->P[9955]
-#define	gWs_TgtMov_Start	pshm->P[9956]
-#define	gWs_TgtMov_Abort	pshm->P[9957]
-#define	gWs_TgtMov_Ena	pshm->P[9958]
-#define	gWs_TgtMov_Sta	pshm->P[9959]
-#define	gWs_TgtMov_Seq	pshm->P[9960]
-#define	gWs_TgtMov_Buf	pshm->P[9961]
-#define	gWs_TgtMov_Tmr	pshm->P[9962]
-#define	gWs_TgtMov_Err	pshm->P[9963]
-#define	gVs_TgtMov_Start	pshm->P[9964]
-#define	gVs_TgtMov_Abort	pshm->P[9965]
-#define	gVs_TgtMov_Ena	pshm->P[9966]
-#define	gVs_TgtMov_Sta	pshm->P[9967]
-#define	gVs_TgtMov_Seq	pshm->P[9968]
-#define	gVs_TgtMov_Buf	pshm->P[9969]
-#define	gVs_TgtMov_Tmr	pshm->P[9970]
-#define	gVs_TgtMov_Err	pshm->P[9971]
-#define	gWs_TgtMov_VelX	pshm->P[9972]
-#define	gWs_TgtMov_VelY	pshm->P[9973]
-#define	gWs_TgtMov_VelC	pshm->P[9974]
-#define	gWs_TgtMov_PosX	pshm->P[9975]
-#define	gWs_TgtMov_PosY	pshm->P[9976]
-#define	gWs_TgtMov_PosC	pshm->P[9977]
-#define	gVs_TgtMov_VelX	pshm->P[9978]
-#define	gVs_TgtMov_VelY	pshm->P[9979]
-#define	gVs_TgtMov_VelC	pshm->P[9980]
-#define	gVs_TgtMov_PosX	pshm->P[9981]
-#define	gVs_TgtMov_PosY	pshm->P[9982]
-#define	gVs_TgtMov_PosC	pshm->P[9983]
-#define	gWs_CoverOpn_TgtAng	pshm->P[9984]
-#define	gWs_CoverOpn_Start	pshm->P[9985]
-#define	gWs_CoverOpn_Abort	pshm->P[9986]
-#define	gWs_CoverOpn_Ena	pshm->P[9987]
-#define	gWs_CoverOpn_Sta	pshm->P[9988]
-#define	gWs_CoverOpn_Seq	pshm->P[9989]
-#define	gWs_CoverOpn_Buf	pshm->P[9990]
-#define	gWs_CoverOpn_Tmr	pshm->P[9991]
-#define	gWs_CoverOpn_Err	pshm->P[9992]
-#define	gWs_CoverCls_Start	pshm->P[9993]
-#define	gWs_CoverCls_Abort	pshm->P[9994]
-#define	gWs_CoverCls_Ena	pshm->P[9995]
-#define	gWs_CoverCls_Sta	pshm->P[9996]
-#define	gWs_CoverCls_Seq	pshm->P[9997]
-#define	gWs_CoverCls_Buf	pshm->P[9998]
-#define	gWs_CoverCls_Tmr	pshm->P[9999]
-#define	gWs_CoverCls_Err	pshm->P[10000]
-#define	gWsV_CoverOpn_Start	pshm->P[10001]
-#define	gWsV_CoverOpn_Abort	pshm->P[10002]
-#define	gWsV_CoverOpn_Ena	pshm->P[10003]
-#define	gWsV_CoverOpn_Sta	pshm->P[10004]
-#define	gWsV_CoverOpn_Seq	pshm->P[10005]
-#define	gWsV_CoverOpn_Buf	pshm->P[10006]
-#define	gWsV_CoverOpn_Tmr	pshm->P[10007]
-#define	gWsV_CoverOpn_Err	pshm->P[10008]
-#define	gWsV_CoverCls_Start	pshm->P[10009]
-#define	gWsV_CoverCls_Abort	pshm->P[10010]
-#define	gWsV_CoverCls_Ena	pshm->P[10011]
-#define	gWsV_CoverCls_Sta	pshm->P[10012]
-#define	gWsV_CoverCls_Seq	pshm->P[10013]
-#define	gWsV_CoverCls_Buf	pshm->P[10014]
-#define	gWsV_CoverCls_Tmr	pshm->P[10015]
-#define	gWsV_CoverCls_Err	pshm->P[10016]
-#define	gWsV_Cover_Cur	pshm->P[10017]
-#define	gVs_CoverOpn_Start	pshm->P[10018]
-#define	gVs_CoverOpn_Abort	pshm->P[10019]
-#define	gVs_CoverOpn_Ena	pshm->P[10020]
-#define	gVs_CoverOpn_Sta	pshm->P[10021]
-#define	gVs_CoverOpn_Seq	pshm->P[10022]
-#define	gVs_CoverOpn_Buf	pshm->P[10023]
-#define	gVs_CoverOpn_Tmr	pshm->P[10024]
-#define	gVs_CoverOpn_Err	pshm->P[10025]
-#define	gVs_CoverCls_Start	pshm->P[10026]
-#define	gVs_CoverCls_Abort	pshm->P[10027]
-#define	gVs_CoverCls_Ena	pshm->P[10028]
-#define	gVs_CoverCls_Sta	pshm->P[10029]
-#define	gVs_CoverCls_Seq	pshm->P[10030]
-#define	gVs_CoverCls_Buf	pshm->P[10031]
-#define	gVs_CoverCls_Tmr	pshm->P[10032]
-#define	gVs_CoverCls_Err	pshm->P[10033]
-#define	gWs_ThCoverPos_Old	pshm->P[10034]
-#define	gVs_ThCoverPos_Old	pshm->P[10035]
-#define	gWs_ThTargetPos_Old	pshm->P[10036]
-#define	gVs_ThTargetPos_Old	pshm->P[10037]
-#define	gWs_CoverMoving_Sta	pshm->P[10038]
-#define	gVs_CoverMoving_Sta	pshm->P[10039]
-#define	gBlow_Time	pshm->P[10040]
-#define	gWs_PowerCheck_Start	pshm->P[10041]
-#define	gWs_PowerCheck_Abort	pshm->P[10042]
-#define	gWs_PowerCheck_Ena	pshm->P[10043]
-#define	gWs_PowerCheck_Time	pshm->P[10044]
-#define	gWs_PowerCheck_TimeBuf	pshm->P[10045]
-#define	gWs_PowerCheck_Seq	pshm->P[10046]
-#define	gWs_PowerCheck_Tmr	pshm->P[10047]
-#define	gVs_PostVisionST_Start	pshm->P[10048]
-#define	gVs_PostVisionST_Abort	pshm->P[10049]
-#define	gVs_PostVisionST_Ena	pshm->P[10050]
-#define	gVs_PostVisionST_Sta	pshm->P[10051]
-#define	gVs_PostVisionST_Seq	pshm->P[10052]
-#define	gVs_PostVisionST_Buf	pshm->P[10053]
-#define	gVs_PostVisionST_Tmr	pshm->P[10054]
-#define	gVs_PostVisionST_Err	pshm->P[10055]
-#define	gVs_PostVisionED_Start	pshm->P[10056]
-#define	gVs_PostVisionED_Abort	pshm->P[10057]
-#define	gVs_PostVisionED_Ena	pshm->P[10058]
-#define	gVs_PostVisionED_Sta	pshm->P[10059]
-#define	gVs_PostVisionED_Seq	pshm->P[10060]
-#define	gVs_PostVisionED_Buf	pshm->P[10061]
-#define	gVs_PostVisionED_Tmr	pshm->P[10062]
-#define	gVs_PostVisionED_Err	pshm->P[10063]
-#define	gWs_Skip_N2	pshm->P[10064]
-#define	gN2BlowState	pshm->P[10065]
-#define	gN2BlowOld	pshm->P[10066]
-#define	gN2BlowTime	pshm->P[10067]
-#define	gIsWsCoverComplete	pshm->P[10068]
-#define	gIsVsCoverComplete	pshm->P[10069]
-#define	gIsWStationReady	pshm->P[10070]
-#define	gIsVStationReady	pshm->P[10071]
-#define	gKin_Sf(i)	pshm->P[(10072+i)%MAX_P]
-#define	gKin_RotOffset(i)	pshm->P[(10104+i)%MAX_P]
-#define	gKin_Len1	pshm->P[10136]
-#define	gKin_Len2	pshm->P[10137]
-#define	gKin_GalvoSfX	pshm->P[10138]
-#define	gKin_GalvoSfY	pshm->P[10139]
-#define	gMc_SeqBuf_Idx	pshm->P[10140]
-#define	gWs_SeqBuf_Cur	pshm->P[10141]
-#define	gWs_SeqBuf_Old	pshm->P[10142]
-#define	gVs_SeqBuf_Cur	pshm->P[10143]
-#define	gVs_SeqBuf_Old	pshm->P[10144]
-#define	gScMon_GalvoAngX	pshm->P[10145]
-#define	gScMon_GalvoAngY	pshm->P[10146]
-#define	Len_X	pshm->P[10147]
-#define	Len_Y	pshm->P[10148]
-#define	Len_R	pshm->P[10149]
-#define	gMc_TransTest_Start	pshm->P[10150]
-#define	gMc_TransTest_Abort	pshm->P[10151]
-#define	gMc_TransTest_Ena	pshm->P[10152]
-#define	gMc_TransTest_Sta	pshm->P[10153]
-#define	gMc_TransTest_Seq	pshm->P[10154]
-#define	gMc_TransTest_Buf	pshm->P[10155]
-#define	gMc_TransTest_Tmr	pshm->P[10156]
-#define	gMc_TransTest_Err	pshm->P[10157]
-#define	gMc_TransTest_Vel	pshm->P[10158]
-#define	gRspSim_PdtNo	pshm->P[10159]
-#define	gRspSim_LdAlignX	pshm->P[10160]
-#define	gRspSim_LdAlignY	pshm->P[10161]
-#define	gRspSim_LdAlignC	pshm->P[10162]
-#define	gRspSim_LdDirRep	pshm->P[10163]
-#define	gRspSim_2dVsnRsp	pshm->P[10164]
-#define	gRspSim_3dVsnRsp	pshm->P[10165]
-#define	gRspSim_LdDirJug	pshm->P[10166]
-#define	gRspSim_2dVsnJug	pshm->P[10167]
-#define	gRspSim_3dVsnJug	pshm->P[10168]
-#define	gRspSim_LdDirRat	pshm->P[10169]
-#define	gRspSim_2dVsnRat	pshm->P[10170]
-#define	gRspSim_3dVsnRat	pshm->P[10171]
+#define	gWs_OutMode_2	pshm->P[8227]
+#define	gWs_RefVel_2	pshm->P[8228]
+#define	gWs_CorePowSf	pshm->P[8229]
+#define	gWs_CoreRefPow	pshm->P[8230]
+#define	gWs_CoreMinPow	pshm->P[8231]
+#define	gWs_CoreMaxPow	pshm->P[8232]
+#define	gWs_CoreOutPow	pshm->P[8233]
+#define	gWs_CoreOutVdc	pshm->P[8234]
+#define	gWs_CorePfmEna	pshm->P[8235]
+#define	gWs_CoreRefPow_2	pshm->P[8236]
+#define	gWs_CorePfmEna_2	pshm->P[8237]
+#define	gWs_RingPowSf	pshm->P[8238]
+#define	gWs_RingRefPow	pshm->P[8239]
+#define	gWs_RingMinPow	pshm->P[8240]
+#define	gWs_RingMaxPow	pshm->P[8241]
+#define	gWs_RingOutPow	pshm->P[8242]
+#define	gWs_RingOutVdc	pshm->P[8243]
+#define	gWs_RingPfmEna	pshm->P[8244]
+#define	gWs_RingRefPow_2	pshm->P[8245]
+#define	gWs_RingPfmEna_2	pshm->P[8246]
+#define	gWs_PfmRtiCnt	pshm->P[8247]
+#define	gWs_PfmPeriod	pshm->P[8248]
+#define	gWs_PfmOnTime	pshm->P[8249]
+#define	gWs_PfmOnCnt	pshm->P[8250]
+#define	gWs_PfmPeriod_2	pshm->P[8251]
+#define	gWs_PfmOnTime_2	pshm->P[8252]
+#define	gWs_PfmOut	pshm->P[8253]
+#define	gWs_PfmBuf	pshm->P[8254]
+#define	gWs_PfmCnt	pshm->P[8255]
+#define	gWs_PfmOut_2	pshm->P[8256]
+#define	gWs_WblEna	pshm->P[8257]
+#define	gWs_WblLen	pshm->P[8258]
+#define	gWs_WblDst	pshm->P[8259]
+#define	gWs_WblCnt	pshm->P[8260]
+#define	gWs_WblType	pshm->P[8261]
+#define	gWs_WblRatW	pshm->P[8262]
+#define	gWs_WblRatL	pshm->P[8263]
+#define	gWs_WblOfsX	pshm->P[8264]
+#define	gWs_WblOfsY	pshm->P[8265]
+#define	gWs_WblEna_2	pshm->P[8266]
+#define	gWs_WblLen_2	pshm->P[8267]
+#define	gWs_WblDst_2	pshm->P[8268]
+#define	gWs_WblCnt_2	pshm->P[8269]
+#define	gWs_WblType_2	pshm->P[8270]
+#define	gWs_WblRatW_2	pshm->P[8271]
+#define	gWs_WblRatL_2	pshm->P[8272]
+#define	gWs_WblOfsX_2	pshm->P[8273]
+#define	gWs_WblOfsY_2	pshm->P[8274]
+#define	gVs_AccLimitX	pshm->P[8275]
+#define	gVs_AccLimitY	pshm->P[8276]
+#define	gVs_AccLimitC	pshm->P[8277]
+#define	gVs_VelLimitC	pshm->P[8278]
+#define	gVs_PosX_Cur	pshm->P[8279]
+#define	gVs_PosY_Cur	pshm->P[8280]
+#define	gVs_PosX_Old	pshm->P[8281]
+#define	gVs_PosY_Old	pshm->P[8282]
+#define	gVs_PosX_Dlt	pshm->P[8283]
+#define	gVs_PosY_Dlt	pshm->P[8284]
+#define	gVs_PosV_Dlt	pshm->P[8285]
+#define	gVs_Vect_Vel	pshm->P[8286]
+#define	gVs_Vect_Sum	pshm->P[8287]
+#define	gVs_RefVel	pshm->P[8288]
+#define	gVs_PfmPeriod	pshm->P[8289]
+#define	gVs_PfmDuty	pshm->P[8290]
+#define	gVs_EquEna	pshm->P[8291]
+#define	gVs_EquCnt	pshm->P[8292]
+#define	gVs_EquSta_Cur	pshm->P[8293]
+#define	gVs_EquSta_Old	pshm->P[8294]
+#define	gSc_PosX_Cur	pshm->P[8295]
+#define	gSc_PosY_Cur	pshm->P[8296]
+#define	gSta_Idx	pshm->P[8297]
+#define	gCmd_Idx	pshm->P[8298]
+#define	gMt_HomeStart_Cur(i)	pshm->P[(8299+i)%MAX_P]
+#define	gMt_HomeStart_Old(i)	pshm->P[(8331+i)%MAX_P]
+#define	gMt_HomeAbort_Cur(i)	pshm->P[(8363+i)%MAX_P]
+#define	gMt_HomeAbort_Old(i)	pshm->P[(8395+i)%MAX_P]
+#define	gMt_ServoOn_Cur(i)	pshm->P[(8427+i)%MAX_P]
+#define	gMt_ServoOn_Old(i)	pshm->P[(8459+i)%MAX_P]
+#define	gMt_ServoOff_Cur(i)	pshm->P[(8491+i)%MAX_P]
+#define	gMt_ServoOff_Old(i)	pshm->P[(8523+i)%MAX_P]
+#define	gMt_Jog_Stop_Cur(i)	pshm->P[(8555+i)%MAX_P]
+#define	gMt_Jog_Stop_Old(i)	pshm->P[(8587+i)%MAX_P]
+#define	gMt_Jog_ContPlus_Cur(i)	pshm->P[(8619+i)%MAX_P]
+#define	gMt_Jog_ContPlus_Old(i)	pshm->P[(8651+i)%MAX_P]
+#define	gMt_Jog_ContMinus_Cur(i)	pshm->P[(8683+i)%MAX_P]
+#define	gMt_Jog_ContMinus_Old(i)	pshm->P[(8715+i)%MAX_P]
+#define	gMt_Jog_AbsMove_Cur(i)	pshm->P[(8747+i)%MAX_P]
+#define	gMt_Jog_AbsMove_Old(i)	pshm->P[(8779+i)%MAX_P]
+#define	gMt_Jog_IncMove_Cur(i)	pshm->P[(8811+i)%MAX_P]
+#define	gMt_Jog_IncMove_Old(i)	pshm->P[(8843+i)%MAX_P]
+#define	gMc_ServoOn_Cur	pshm->P[8875]
+#define	gMc_ServoOn_Old	pshm->P[8876]
+#define	gMc_ServoOff_Cur	pshm->P[8877]
+#define	gMc_ServoOff_Old	pshm->P[8878]
+#define	gMc_HomeStart_Cur	pshm->P[8879]
+#define	gMc_HomeStart_Old	pshm->P[8880]
+#define	gMc_HomeAbort_Cur	pshm->P[8881]
+#define	gMc_HomeAbort_Old	pshm->P[8882]
+#define	gMc_AlarmReset_Cur	pshm->P[8883]
+#define	gMc_AlarmReset_Old	pshm->P[8884]
+#define	gMc_RunMod_Cur	pshm->P[8885]
+#define	gMc_RunMod_Old	pshm->P[8886]
+#define	gMc_AutoStart_Cur	pshm->P[8887]
+#define	gMc_AutoStart_Old	pshm->P[8888]
+#define	gMc_AutoAbort_Cur	pshm->P[8889]
+#define	gMc_AutoAbort_Old	pshm->P[8890]
+#define	gMc_AutoPause_Cur	pshm->P[8891]
+#define	gMc_AutoPause_Old	pshm->P[8892]
+#define	gMc_CycleStart_Cur	pshm->P[8893]
+#define	gMc_CycleStart_Old	pshm->P[8894]
+#define	gMc_StepStart_Cur	pshm->P[8895]
+#define	gMc_StepStart_Old	pshm->P[8896]
+#define	gMc_Fsave_Cur	pshm->P[8897]
+#define	gMc_Fsave_Old	pshm->P[8898]
+#define	gWs_ServoOn_Cur	pshm->P[8899]
+#define	gWs_ServoOn_Old	pshm->P[8900]
+#define	gWs_ServoOff_Cur	pshm->P[8901]
+#define	gWs_ServoOff_Old	pshm->P[8902]
+#define	gWs_HomeStart_Cur	pshm->P[8903]
+#define	gWs_HomeStart_Old	pshm->P[8904]
+#define	gWs_HomeAbort_Cur	pshm->P[8905]
+#define	gWs_HomeAbort_Old	pshm->P[8906]
+#define	gWs_AlarmReset_Cur	pshm->P[8907]
+#define	gWs_AlarmReset_Old	pshm->P[8908]
+#define	gWs_AlarmRetry_Cur	pshm->P[8909]
+#define	gWs_AlarmRetry_Old	pshm->P[8910]
+#define	gWs_AlarmAbort_Cur	pshm->P[8911]
+#define	gWs_AlarmAbort_Old	pshm->P[8912]
+#define	gWs_PowerCheck_Cur	pshm->P[8913]
+#define	gWs_PowerCheck_Old	pshm->P[8914]
+#define	gWs_TestShot_Cur	pshm->P[8915]
+#define	gWs_TestShot_Old	pshm->P[8916]
+#define	gWs_LaserEnableStart_Cur	pshm->P[8917]
+#define	gWs_LaserEnableStart_Old	pshm->P[8918]
+#define	gWs_LaserDisableStart_Cur	pshm->P[8919]
+#define	gWs_LaserDisableStart_Old	pshm->P[8920]
+#define	gWs_LaserTestCrossStart_Cur	pshm->P[8921]
+#define	gWs_LaserTestCrossStart_Old	pshm->P[8922]
+#define	gWs_LaserTestCrossAbort_Cur	pshm->P[8923]
+#define	gWs_LaserTestCrossAbort_Old	pshm->P[8924]
+#define	gWs_LaserTestLineStart_Cur	pshm->P[8925]
+#define	gWs_LaserTestLineStart_Old	pshm->P[8926]
+#define	gWs_LaserTestLineAbort_Cur	pshm->P[8927]
+#define	gWs_LaserTestLineAbort_Old	pshm->P[8928]
+#define	gWs_PowerCheckStart_Cur	pshm->P[8929]
+#define	gWs_PowerCheckStart_Old	pshm->P[8930]
+#define	gWs_PowerCheckAbort_Cur	pshm->P[8931]
+#define	gWs_PowerCheckAbort_Old	pshm->P[8932]
+#define	gVs_ServoOn_Cur	pshm->P[8933]
+#define	gVs_ServoOn_Old	pshm->P[8934]
+#define	gVs_ServoOff_Cur	pshm->P[8935]
+#define	gVs_ServoOff_Old	pshm->P[8936]
+#define	gVs_HomeStart_Cur	pshm->P[8937]
+#define	gVs_HomeStart_Old	pshm->P[8938]
+#define	gVs_HomeAbort_Cur	pshm->P[8939]
+#define	gVs_HomeAbort_Old	pshm->P[8940]
+#define	gVs_AlarmReset_Cur	pshm->P[8941]
+#define	gVs_AlarmReset_Old	pshm->P[8942]
+#define	gVs_AlarmRetry_Cur	pshm->P[8943]
+#define	gVs_AlarmRetry_Old	pshm->P[8944]
+#define	gVs_AlarmAbort_Cur	pshm->P[8945]
+#define	gVs_AlarmAbort_Old	pshm->P[8946]
+#define	gVs_TestShot_Cur	pshm->P[8947]
+#define	gVs_TestShot_Old	pshm->P[8948]
+#define	gSc_ServoOn_Cur	pshm->P[8949]
+#define	gSc_ServoOn_Old	pshm->P[8950]
+#define	gSc_ServoOff_Cur	pshm->P[8951]
+#define	gSc_ServoOff_Old	pshm->P[8952]
+#define	gSc_HomeStart_Cur	pshm->P[8953]
+#define	gSc_HomeStart_Old	pshm->P[8954]
+#define	gSc_HomeAbort_Cur	pshm->P[8955]
+#define	gSc_HomeAbort_Old	pshm->P[8956]
+#define	gSc_AlarmReset_Cur	pshm->P[8957]
+#define	gSc_AlarmReset_Old	pshm->P[8958]
+#define	gWs_LdStart_Cur	pshm->P[8959]
+#define	gWs_LdAbort_Cur	pshm->P[8960]
+#define	gWs_LdStart_Old	pshm->P[8961]
+#define	gWs_LdAbort_Old	pshm->P[8962]
+#define	gWs_RdStart_Cur	pshm->P[8963]
+#define	gWs_RdAbort_Cur	pshm->P[8964]
+#define	gWs_RdStart_Old	pshm->P[8965]
+#define	gWs_RdAbort_Old	pshm->P[8966]
+#define	gWs_WdStart_Cur	pshm->P[8967]
+#define	gWs_WdAbort_Cur	pshm->P[8968]
+#define	gWs_WdStart_Old	pshm->P[8969]
+#define	gWs_WdAbort_Old	pshm->P[8970]
+#define	gWs_WtStart_Cur	pshm->P[8971]
+#define	gWs_WtAbort_Cur	pshm->P[8972]
+#define	gWs_WtStart_Old	pshm->P[8973]
+#define	gWs_WtAbort_Old	pshm->P[8974]
+#define	gWs_UdStart_Cur	pshm->P[8975]
+#define	gWs_UdAbort_Cur	pshm->P[8976]
+#define	gWs_UdStart_Old	pshm->P[8977]
+#define	gWs_UdAbort_Old	pshm->P[8978]
+#define	gWs_RjStart_Cur	pshm->P[8979]
+#define	gWs_RjAbort_Cur	pshm->P[8980]
+#define	gWs_RjStart_Old	pshm->P[8981]
+#define	gWs_RjAbort_Old	pshm->P[8982]
+#define	gVs_LdStart_Cur	pshm->P[8983]
+#define	gVs_LdAbort_Cur	pshm->P[8984]
+#define	gVs_LdStart_Old	pshm->P[8985]
+#define	gVs_LdAbort_Old	pshm->P[8986]
+#define	gVs_RdStart_Cur	pshm->P[8987]
+#define	gVs_RdAbort_Cur	pshm->P[8988]
+#define	gVs_RdStart_Old	pshm->P[8989]
+#define	gVs_RdAbort_Old	pshm->P[8990]
+#define	gVs_VnStart_Cur	pshm->P[8991]
+#define	gVs_VnAbort_Cur	pshm->P[8992]
+#define	gVs_VnStart_Old	pshm->P[8993]
+#define	gVs_VnAbort_Old	pshm->P[8994]
+#define	gVs_WtStart_Cur	pshm->P[8995]
+#define	gVs_WtAbort_Cur	pshm->P[8996]
+#define	gVs_WtStart_Old	pshm->P[8997]
+#define	gVs_WtAbort_Old	pshm->P[8998]
+#define	gVs_UdStart_Cur	pshm->P[8999]
+#define	gVs_UdAbort_Cur	pshm->P[9000]
+#define	gVs_UdStart_Old	pshm->P[9001]
+#define	gVs_UdAbort_Old	pshm->P[9002]
+#define	gVs_RjStart_Cur	pshm->P[9003]
+#define	gVs_RjAbort_Cur	pshm->P[9004]
+#define	gVs_RjStart_Old	pshm->P[9005]
+#define	gVs_RjAbort_Old	pshm->P[9006]
+#define	gWs_PdtStaChange_Cur	pshm->P[9007]
+#define	gVs_PdtStaChange_Cur	pshm->P[9008]
+#define	gTr_PdtStaChange_Cur	pshm->P[9009]
+#define	gWs_PdtStaChange_Old	pshm->P[9010]
+#define	gVs_PdtStaChange_Old	pshm->P[9011]
+#define	gTr_PdtStaChange_Old	pshm->P[9012]
+#define	gWs_Error	pshm->P[9013]
+#define	gVs_Error	pshm->P[9014]
+#define	gWs_ErrCode	pshm->P[9015]
+#define	gVs_ErrCode	pshm->P[9016]
+#define	gWs_Error_Cur	pshm->P[9017]
+#define	gWs_Error_Old	pshm->P[9018]
+#define	gVs_Error_Cur	pshm->P[9019]
+#define	gVs_Error_Old	pshm->P[9020]
+#define	gSc_Com_Sta	pshm->P[9021]
+#define	gEc_WdTimer	pshm->P[9022]
+#define	gMc_DistX_Cur	pshm->P[9023]
+#define	gMc_DistX_Err	pshm->P[9024]
+#define	gWs_Safety_Sta	pshm->P[9025]
+#define	gVs_Safety_Sta	pshm->P[9026]
+#define	gWs_Safety_Err	pshm->P[9027]
+#define	gVs_Safety_Err	pshm->P[9028]
+#define	gMc_AlarmReset_Ena	pshm->P[9029]
+#define	gWs_AlarmReset_Ena	pshm->P[9030]
+#define	gVs_AlarmReset_Ena	pshm->P[9031]
+#define	gSc_AlarmReset_Ena	pshm->P[9032]
+#define	gWs_AlarmRetry_Ena	pshm->P[9033]
+#define	gVs_AlarmRetry_Ena	pshm->P[9034]
+#define	gWs_AlarmAbort_Ena	pshm->P[9035]
+#define	gVs_AlarmAbort_Ena	pshm->P[9036]
+#define	gEc_Com_Sta(i)	pshm->P[(9037+i)%MAX_P]
+#define	gEc_Con_Start	pshm->P[9069]
+#define	gEc_Con_Abort	pshm->P[9070]
+#define	gEc_Con_Ena	pshm->P[9071]
+#define	gEc_Con_Sta	pshm->P[9072]
+#define	gEc_Con_Seq	pshm->P[9073]
+#define	gEc_Con_Buf	pshm->P[9074]
+#define	gEc_Con_Tmr	pshm->P[9075]
+#define	gMt_Home_Idx	pshm->P[9076]
+#define	gMt_Home_Start(i)	pshm->P[(9077+i)%MAX_P]
+#define	gMt_Home_Abort(i)	pshm->P[(9109+i)%MAX_P]
+#define	gMt_Home_Ena(i)	pshm->P[(9141+i)%MAX_P]
+#define	gMt_Home_Sta(i)	pshm->P[(9173+i)%MAX_P]
+#define	gMt_Home_Seq(i)	pshm->P[(9205+i)%MAX_P]
+#define	gMt_Home_Buf(i)	pshm->P[(9237+i)%MAX_P]
+#define	gMt_Home_Tmr(i)	pshm->P[(9269+i)%MAX_P]
+#define	gMt_Home_Err(i)	pshm->P[(9301+i)%MAX_P]
+#define	gMt_Home_Pos(i)	pshm->P[(9333+i)%MAX_P]
+#define	gMc_Home_Start	pshm->P[9365]
+#define	gMc_Home_Abort	pshm->P[9366]
+#define	gMc_Home_Ena	pshm->P[9367]
+#define	gMc_Home_Sta	pshm->P[9368]
+#define	gMc_Home_Seq	pshm->P[9369]
+#define	gMc_Home_Buf	pshm->P[9370]
+#define	gMc_Home_Tmr	pshm->P[9371]
+#define	gMc_Home_Err	pshm->P[9372]
+#define	gWs_Home_Start	pshm->P[9373]
+#define	gWs_Home_Abort	pshm->P[9374]
+#define	gWs_Home_Ena	pshm->P[9375]
+#define	gWs_Home_Sta	pshm->P[9376]
+#define	gWs_Home_Seq	pshm->P[9377]
+#define	gWs_Home_Buf	pshm->P[9378]
+#define	gWs_Home_Tmr	pshm->P[9379]
+#define	gWs_Home_Err	pshm->P[9380]
+#define	gVs_Home_Start	pshm->P[9381]
+#define	gVs_Home_Abort	pshm->P[9382]
+#define	gVs_Home_Ena	pshm->P[9383]
+#define	gVs_Home_Sta	pshm->P[9384]
+#define	gVs_Home_Seq	pshm->P[9385]
+#define	gVs_Home_Buf	pshm->P[9386]
+#define	gVs_Home_Tmr	pshm->P[9387]
+#define	gVs_Home_Err	pshm->P[9388]
+#define	gSc_Home_Start	pshm->P[9389]
+#define	gSc_Home_Abort	pshm->P[9390]
+#define	gSc_Home_Ena	pshm->P[9391]
+#define	gSc_Home_Sta	pshm->P[9392]
+#define	gSc_Home_Seq	pshm->P[9393]
+#define	gSc_Home_Buf	pshm->P[9394]
+#define	gSc_Home_Tmr	pshm->P[9395]
+#define	gSc_Home_Err	pshm->P[9396]
+#define	gSc_InitSta	pshm->P[9397]
+#define	gJog_Idx	pshm->P[9398]
+#define	gMt_ServoOn_Ena(i)	pshm->P[(9399+i)%MAX_P]
+#define	gMt_ServoOff_Ena(i)	pshm->P[(9431+i)%MAX_P]
+#define	gMc_ServoOn_Ena	pshm->P[9463]
+#define	gMc_ServoOff_Ena	pshm->P[9464]
+#define	gWs_ServoOn_Ena	pshm->P[9465]
+#define	gWs_ServoOff_Ena	pshm->P[9466]
+#define	gVs_ServoOn_Ena	pshm->P[9467]
+#define	gVs_ServoOff_Ena	pshm->P[9468]
+#define	gSc_ServoOn_Ena	pshm->P[9469]
+#define	gSc_ServoOff_Ena	pshm->P[9470]
+#define	gJog_Stop_Ena(i)	pshm->P[(9471+i)%MAX_P]
+#define	gJog_ContPlus_Ena(i)	pshm->P[(9503+i)%MAX_P]
+#define	gJog_ContMinus_Ena(i)	pshm->P[(9535+i)%MAX_P]
+#define	gJog_AbsMove_Ena(i)	pshm->P[(9567+i)%MAX_P]
+#define	gJog_IncMove_Ena(i)	pshm->P[(9599+i)%MAX_P]
+#define	gWd_Mdi_Start	pshm->P[9631]
+#define	gWd_Mdi_Abort	pshm->P[9632]
+#define	gWd_Mdi_Ena	pshm->P[9633]
+#define	gWd_Mdi_Sta	pshm->P[9634]
+#define	gWd_Mdi_Seq	pshm->P[9635]
+#define	gWd_Mdi_Buf	pshm->P[9636]
+#define	gWd_Mdi_Tmr	pshm->P[9637]
+#define	gWd_Mdi_Stp	pshm->P[9638]
+#define	gWd_Mdi_PosX	pshm->P[9639]
+#define	gWd_Mdi_PosY	pshm->P[9640]
+#define	gWd_Mdi_PosC	pshm->P[9641]
+#define	cMachineID	pshm->P[111]
+#define	gWs_PdtNo	pshm->P[9642]
+#define	gVs_PdtNo	pshm->P[9643]
+#define	gTr_PdtNo	pshm->P[9644]
+#define	gWs_LdDir	pshm->P[9645]
+#define	gMc_AutoRun_Start	pshm->P[9646]
+#define	gMc_AutoRun_Abort	pshm->P[9647]
+#define	gMc_AutoRun_Pause	pshm->P[9648]
+#define	gMc_Cycle_Start	pshm->P[9649]
+#define	gMc_Step_Start	pshm->P[9650]
+#define	gMc_AutoRun_Ena	pshm->P[9651]
+#define	gMc_AutoRun_Sta	pshm->P[9652]
+#define	gMc_AutoRun_Seq	pshm->P[9653]
+#define	gMc_AutoRun_Buf	pshm->P[9654]
+#define	gMc_AutoRun_Tmr	pshm->P[9655]
+#define	gMc_AutoRun_Err	pshm->P[9656]
+#define	gWs_Loop_Start	pshm->P[9657]
+#define	gWs_Loop_Abort	pshm->P[9658]
+#define	gWs_Loop_Pause	pshm->P[9659]
+#define	gWs_Loop_Ena	pshm->P[9660]
+#define	gWs_Loop_Sta	pshm->P[9661]
+#define	gWs_Loop_Seq	pshm->P[9662]
+#define	gWs_Loop_Buf	pshm->P[9663]
+#define	gWs_Loop_Tmr	pshm->P[9664]
+#define	gWs_Loop_Err	pshm->P[9665]
+#define	gWs_Loop_Time	pshm->P[9666]
+#define	gWs_Loop_TimeBuf	pshm->P[9667]
+#define	gWs_Seq_Cur	pshm->P[9668]
+#define	gWs_Seq_Old	pshm->P[9669]
+#define	gWs_Seq_Err	pshm->P[9670]
+#define	gVs_Loop_Start	pshm->P[9671]
+#define	gVs_Loop_Abort	pshm->P[9672]
+#define	gVs_Loop_Pause	pshm->P[9673]
+#define	gVs_Loop_Ena	pshm->P[9674]
+#define	gVs_Loop_Sta	pshm->P[9675]
+#define	gVs_Loop_Seq	pshm->P[9676]
+#define	gVs_Loop_Buf	pshm->P[9677]
+#define	gVs_Loop_Tmr	pshm->P[9678]
+#define	gVs_Loop_Err	pshm->P[9679]
+#define	gVs_Loop_Time	pshm->P[9680]
+#define	gVs_Loop_TimeBuf	pshm->P[9681]
+#define	gVs_Seq_Cur	pshm->P[9682]
+#define	gVs_Seq_Old	pshm->P[9683]
+#define	gVs_Seq_Err	pshm->P[9684]
+#define	gWs_Sta_Pdt	pshm->P[9685]
+#define	gVs_Sta_Pdt	pshm->P[9686]
+#define	gTr_Sta_Pdt	pshm->P[9687]
+#define	gWs_Sta_PdtBuf	pshm->P[9688]
+#define	gVs_Sta_PdtBuf	pshm->P[9689]
+#define	gTr_Sta_PdtBuf	pshm->P[9690]
+#define	gWs_Sta_Stg	pshm->P[9691]
+#define	gVs_Sta_Stg	pshm->P[9692]
+#define	gWs_Pos_Pdt	pshm->P[9693]
+#define	gVs_Pos_Pdt	pshm->P[9694]
+#define	gWs_Pos_Stg	pshm->P[9695]
+#define	gVs_Pos_Stg	pshm->P[9696]
+#define	gWs_PdtStaChange_Ena	pshm->P[9697]
+#define	gVs_PdtStaChange_Ena	pshm->P[9698]
+#define	gTr_PdtStaChange_Ena	pshm->P[9699]
+#define	gWs_Load_Start	pshm->P[9700]
+#define	gWs_Load_Abort	pshm->P[9701]
+#define	gWs_Load_Ena	pshm->P[9702]
+#define	gWs_Load_Sta	pshm->P[9703]
+#define	gWs_Load_Seq	pshm->P[9704]
+#define	gWs_Load_Buf	pshm->P[9705]
+#define	gWs_Load_Tmr	pshm->P[9706]
+#define	gWs_Load_Err	pshm->P[9707]
+#define	gWs_Load_VelX	pshm->P[9708]
+#define	gWs_Load_VelY	pshm->P[9709]
+#define	gWs_Load_VelC	pshm->P[9710]
+#define	gWs_Load_PosX	pshm->P[9711]
+#define	gWs_Load_PosY	pshm->P[9712]
+#define	gWs_Load_PosC	pshm->P[9713]
+#define	gWs_Load_Time	pshm->P[9714]
+#define	gWs_Load_TimeBuf	pshm->P[9715]
+#define	gWs_Ready_Start	pshm->P[9716]
+#define	gWs_Ready_Abort	pshm->P[9717]
+#define	gWs_Ready_Ena	pshm->P[9718]
+#define	gWs_Ready_Sta	pshm->P[9719]
+#define	gWs_Ready_Seq	pshm->P[9720]
+#define	gWs_Ready_Buf	pshm->P[9721]
+#define	gWs_Ready_Tmr	pshm->P[9722]
+#define	gWs_Ready_Err	pshm->P[9723]
+#define	gWs_Ready_VelX	pshm->P[9724]
+#define	gWs_Ready_VelY	pshm->P[9725]
+#define	gWs_Ready_VelC	pshm->P[9726]
+#define	gWs_Ready_PosX	pshm->P[9727]
+#define	gWs_Ready_PosY	pshm->P[9728]
+#define	gWs_Ready_PosC	pshm->P[9729]
+#define	gWs_Ready_Time	pshm->P[9730]
+#define	gWs_Ready_TimeBuf	pshm->P[9731]
+#define	gWs_Ready_VsnJudge	pshm->P[9732]
+#define	gWs_Welding_Start	pshm->P[9733]
+#define	gWs_Welding_Abort	pshm->P[9734]
+#define	gWs_Welding_Ena	pshm->P[9735]
+#define	gWs_Welding_Sta	pshm->P[9736]
+#define	gWs_Welding_Seq	pshm->P[9737]
+#define	gWs_Welding_Buf	pshm->P[9738]
+#define	gWs_Welding_Tmr	pshm->P[9739]
+#define	gWs_Welding_Err	pshm->P[9740]
+#define	gWs_Welding_VelX	pshm->P[9741]
+#define	gWs_Welding_VelY	pshm->P[9742]
+#define	gWs_Welding_VelC	pshm->P[9743]
+#define	gWs_Welding_PosX	pshm->P[9744]
+#define	gWs_Welding_PosY	pshm->P[9745]
+#define	gWs_Welding_PosC	pshm->P[9746]
+#define	gWs_Welding_Time	pshm->P[9747]
+#define	gWs_Welding_TimeBuf	pshm->P[9748]
+#define	gWs_Prog_Dist	pshm->P[9749]
+#define	gWs_Prog_Time	pshm->P[9750]
+#define	gWs_Prog_TimeBuf	pshm->P[9751]
+#define	gWs_File_Prog_Time	pshm->P[9752]
+#define	gWs_File_Prog_TimeBuf	pshm->P[9753]
+#define	gWs_Wait_Start	pshm->P[9754]
+#define	gWs_Wait_Abort	pshm->P[9755]
+#define	gWs_Wait_Ena	pshm->P[9756]
+#define	gWs_Wait_Sta	pshm->P[9757]
+#define	gWs_Wait_Seq	pshm->P[9758]
+#define	gWs_Wait_Buf	pshm->P[9759]
+#define	gWs_Wait_Tmr	pshm->P[9760]
+#define	gWs_Wait_Err	pshm->P[9761]
+#define	gWs_Wait_VelX	pshm->P[9762]
+#define	gWs_Wait_VelY	pshm->P[9763]
+#define	gWs_Wait_VelC	pshm->P[9764]
+#define	gWs_Wait_PosX	pshm->P[9765]
+#define	gWs_Wait_PosY	pshm->P[9766]
+#define	gWs_Wait_PosC	pshm->P[9767]
+#define	gWs_Wait_Time	pshm->P[9768]
+#define	gWs_Wait_TimeBuf	pshm->P[9769]
+#define	gWs_Unload_Start	pshm->P[9770]
+#define	gWs_Unload_Abort	pshm->P[9771]
+#define	gWs_Unload_Ena	pshm->P[9772]
+#define	gWs_Unload_Sta	pshm->P[9773]
+#define	gWs_Unload_Seq	pshm->P[9774]
+#define	gWs_Unload_Buf	pshm->P[9775]
+#define	gWs_Unload_Tmr	pshm->P[9776]
+#define	gWs_Unload_Err	pshm->P[9777]
+#define	gWs_Unload_VelX	pshm->P[9778]
+#define	gWs_Unload_VelY	pshm->P[9779]
+#define	gWs_Unload_VelC	pshm->P[9780]
+#define	gWs_Unload_PosX	pshm->P[9781]
+#define	gWs_Unload_PosY	pshm->P[9782]
+#define	gWs_Unload_PosC	pshm->P[9783]
+#define	gWs_Unload_Time	pshm->P[9784]
+#define	gWs_Unload_TimeBuf	pshm->P[9785]
+#define	gWs_Reject_Start	pshm->P[9786]
+#define	gWs_Reject_Abort	pshm->P[9787]
+#define	gWs_Reject_Ena	pshm->P[9788]
+#define	gWs_Reject_Sta	pshm->P[9789]
+#define	gWs_Reject_Seq	pshm->P[9790]
+#define	gWs_Reject_Buf	pshm->P[9791]
+#define	gWs_Reject_Tmr	pshm->P[9792]
+#define	gWs_Reject_Err	pshm->P[9793]
+#define	gWs_Reject_VelX	pshm->P[9794]
+#define	gWs_Reject_VelY	pshm->P[9795]
+#define	gWs_Reject_VelC	pshm->P[9796]
+#define	gWs_Reject_PosX	pshm->P[9797]
+#define	gWs_Reject_PosY	pshm->P[9798]
+#define	gWs_Reject_PosC	pshm->P[9799]
+#define	gWs_Reject_Time	pshm->P[9800]
+#define	gWs_Reject_TimeBuf	pshm->P[9801]
+#define	gVs_Load_Start	pshm->P[9802]
+#define	gVs_Load_Abort	pshm->P[9803]
+#define	gVs_Load_Ena	pshm->P[9804]
+#define	gVs_Load_Sta	pshm->P[9805]
+#define	gVs_Load_Seq	pshm->P[9806]
+#define	gVs_Load_Buf	pshm->P[9807]
+#define	gVs_Load_Tmr	pshm->P[9808]
+#define	gVs_Load_Err	pshm->P[9809]
+#define	gVs_Load_VelX	pshm->P[9810]
+#define	gVs_Load_VelY	pshm->P[9811]
+#define	gVs_Load_VelC	pshm->P[9812]
+#define	gVs_Load_PosX	pshm->P[9813]
+#define	gVs_Load_PosY	pshm->P[9814]
+#define	gVs_Load_PosC	pshm->P[9815]
+#define	gVs_Load_Time	pshm->P[9816]
+#define	gVs_Load_TimeBuf	pshm->P[9817]
+#define	gVs_Ready_Start	pshm->P[9818]
+#define	gVs_Ready_Abort	pshm->P[9819]
+#define	gVs_Ready_Ena	pshm->P[9820]
+#define	gVs_Ready_Sta	pshm->P[9821]
+#define	gVs_Ready_Seq	pshm->P[9822]
+#define	gVs_Ready_Buf	pshm->P[9823]
+#define	gVs_Ready_Tmr	pshm->P[9824]
+#define	gVs_Ready_Err	pshm->P[9825]
+#define	gVs_Ready_VelX	pshm->P[9826]
+#define	gVs_Ready_VelY	pshm->P[9827]
+#define	gVs_Ready_VelC	pshm->P[9828]
+#define	gVs_Ready_PosX	pshm->P[9829]
+#define	gVs_Ready_PosY	pshm->P[9830]
+#define	gVs_Ready_PosC	pshm->P[9831]
+#define	gVs_Ready_Time	pshm->P[9832]
+#define	gVs_Ready_TimeBuf	pshm->P[9833]
+#define	gVs_Ready_VsnJudge	pshm->P[9834]
+#define	gVs_Vision_Start	pshm->P[9835]
+#define	gVs_Vision_Abort	pshm->P[9836]
+#define	gVs_Vision_Ena	pshm->P[9837]
+#define	gVs_Vision_Sta	pshm->P[9838]
+#define	gVs_Vision_Seq	pshm->P[9839]
+#define	gVs_Vision_Buf	pshm->P[9840]
+#define	gVs_Vision_Tmr	pshm->P[9841]
+#define	gVs_Vision_Err	pshm->P[9842]
+#define	gVs_Vision_VelX	pshm->P[9843]
+#define	gVs_Vision_VelY	pshm->P[9844]
+#define	gVs_Vision_VelC	pshm->P[9845]
+#define	gVs_Vision_PosX	pshm->P[9846]
+#define	gVs_Vision_PosY	pshm->P[9847]
+#define	gVs_Vision_PosC	pshm->P[9848]
+#define	gVs_Vision_Time	pshm->P[9849]
+#define	gVs_Vision_TimeBuf	pshm->P[9850]
+#define	gVs_Prog_Dist	pshm->P[9851]
+#define	gVs_Prog_Time	pshm->P[9852]
+#define	gVs_Prog_TimeBuf	pshm->P[9853]
+#define	gVs_Vision_VsnJudge	pshm->P[9854]
+#define	gVs_Wait_Start	pshm->P[9855]
+#define	gVs_Wait_Abort	pshm->P[9856]
+#define	gVs_Wait_Ena	pshm->P[9857]
+#define	gVs_Wait_Sta	pshm->P[9858]
+#define	gVs_Wait_Seq	pshm->P[9859]
+#define	gVs_Wait_Buf	pshm->P[9860]
+#define	gVs_Wait_Tmr	pshm->P[9861]
+#define	gVs_Wait_Err	pshm->P[9862]
+#define	gVs_Wait_VelX	pshm->P[9863]
+#define	gVs_Wait_VelY	pshm->P[9864]
+#define	gVs_Wait_VelC	pshm->P[9865]
+#define	gVs_Wait_PosX	pshm->P[9866]
+#define	gVs_Wait_PosY	pshm->P[9867]
+#define	gVs_Wait_PosC	pshm->P[9868]
+#define	gVs_Wait_Time	pshm->P[9869]
+#define	gVs_Wait_TimeBuf	pshm->P[9870]
+#define	gVs_Unload_Start	pshm->P[9871]
+#define	gVs_Unload_Abort	pshm->P[9872]
+#define	gVs_Unload_Ena	pshm->P[9873]
+#define	gVs_Unload_Sta	pshm->P[9874]
+#define	gVs_Unload_Seq	pshm->P[9875]
+#define	gVs_Unload_Buf	pshm->P[9876]
+#define	gVs_Unload_Tmr	pshm->P[9877]
+#define	gVs_Unload_Err	pshm->P[9878]
+#define	gVs_Unload_VelX	pshm->P[9879]
+#define	gVs_Unload_VelY	pshm->P[9880]
+#define	gVs_Unload_VelC	pshm->P[9881]
+#define	gVs_Unload_PosX	pshm->P[9882]
+#define	gVs_Unload_PosY	pshm->P[9883]
+#define	gVs_Unload_PosC	pshm->P[9884]
+#define	gVs_Unload_Time	pshm->P[9885]
+#define	gVs_Unload_TimeBuf	pshm->P[9886]
+#define	gVs_Reject_Start	pshm->P[9887]
+#define	gVs_Reject_Abort	pshm->P[9888]
+#define	gVs_Reject_Ena	pshm->P[9889]
+#define	gVs_Reject_Sta	pshm->P[9890]
+#define	gVs_Reject_Seq	pshm->P[9891]
+#define	gVs_Reject_Buf	pshm->P[9892]
+#define	gVs_Reject_Tmr	pshm->P[9893]
+#define	gVs_Reject_Err	pshm->P[9894]
+#define	gVs_Reject_VelX	pshm->P[9895]
+#define	gVs_Reject_VelY	pshm->P[9896]
+#define	gVs_Reject_VelC	pshm->P[9897]
+#define	gVs_Reject_PosX	pshm->P[9898]
+#define	gVs_Reject_PosY	pshm->P[9899]
+#define	gVs_Reject_PosC	pshm->P[9900]
+#define	gVs_Reject_Time	pshm->P[9901]
+#define	gVs_Reject_TimeBuf	pshm->P[9902]
+#define	gWs_CldInpos_Delay	pshm->P[9903]
+#define	gVs_CldInpos_Delay	pshm->P[9904]
+#define	gWs_CldIn_CoverUD	pshm->P[9905]
+#define	gWs_CldIn_CoverFB	pshm->P[9906]
+#define	gWs_CldIn_TempFB	pshm->P[9907]
+#define	gWs_CldIn_ShtrOC	pshm->P[9908]
+#define	gVs_CldIn_CoverUD	pshm->P[9909]
+#define	gVs_CldIn_CoverFB	pshm->P[9910]
+#define	gTr_CldIn_PickerUD	pshm->P[9911]
+#define	gTr_CldIn_PickerOC	pshm->P[9912]
+#define	gWs_Epr_OutVdc	pshm->P[9913]
+#define	gWs_EcldHome_Start	pshm->P[9914]
+#define	gWs_EcldHome_Abort	pshm->P[9915]
+#define	gWs_EcldHome_Ena	pshm->P[9916]
+#define	gWs_EcldHome_Sta	pshm->P[9917]
+#define	gWs_EcldHome_Seq	pshm->P[9918]
+#define	gWs_EcldHome_Buf	pshm->P[9919]
+#define	gWs_EcldHome_Tmr	pshm->P[9920]
+#define	gWs_EcldHome_Err	pshm->P[9921]
+#define	gWs_EcldHome_Try	pshm->P[9922]
+#define	gWs_EcldHome_Fin	pshm->P[9923]
+#define	gWs_EcldFwd_Start	pshm->P[9924]
+#define	gWs_EcldFwd_Abort	pshm->P[9925]
+#define	gWs_EcldFwd_Ena	pshm->P[9926]
+#define	gWs_EcldFwd_Sta	pshm->P[9927]
+#define	gWs_EcldFwd_Seq	pshm->P[9928]
+#define	gWs_EcldFwd_Buf	pshm->P[9929]
+#define	gWs_EcldFwd_Tmr	pshm->P[9930]
+#define	gWs_EcldFwd_Err	pshm->P[9931]
+#define	gWs_EcldFwd_Try	pshm->P[9932]
+#define	gWs_EcldBwd_Start	pshm->P[9933]
+#define	gWs_EcldBwd_Abort	pshm->P[9934]
+#define	gWs_EcldBwd_Ena	pshm->P[9935]
+#define	gWs_EcldBwd_Sta	pshm->P[9936]
+#define	gWs_EcldBwd_Seq	pshm->P[9937]
+#define	gWs_EcldBwd_Buf	pshm->P[9938]
+#define	gWs_EcldBwd_Tmr	pshm->P[9939]
+#define	gWs_EcldBwd_Err	pshm->P[9940]
+#define	gWs_EcldBwd_Try	pshm->P[9941]
+#define	gWs_EcldCmdFwd_Cur	pshm->P[9942]
+#define	gWs_EcldCmdFwd_Old	pshm->P[9943]
+#define	gWs_EcldCmdBwd_Cur	pshm->P[9944]
+#define	gWs_EcldCmdBwd_Old	pshm->P[9945]
+#define	gWs_TestShot_Ena	pshm->P[9946]
+#define	gWs_TestShot_Time	pshm->P[9947]
+#define	gVs_TestShot_Ena	pshm->P[9948]
+#define	gVs_TestShot_Time	pshm->P[9949]
+#define	gVs_TestShot_TimeBuf	pshm->P[9950]
+#define	gVs_TestShot_Seq	pshm->P[9951]
+#define	gVs_TestShot_Tmr	pshm->P[9952]
+#define	gWs_LaserSta_Ready	pshm->P[9953]
+#define	gWs_LaserSta_Enable	pshm->P[9954]
+#define	gWs_LaserSta_CorePower	pshm->P[9955]
+#define	gWs_LaserSta_RingPower	pshm->P[9956]
+#define	gWs_LaserEnable_Start	pshm->P[9957]
+#define	gWs_LaserEnable_Abort	pshm->P[9958]
+#define	gWs_LaserEnable_Ena	pshm->P[9959]
+#define	gWs_LaserEnable_Sta	pshm->P[9960]
+#define	gWs_LaserEnable_Seq	pshm->P[9961]
+#define	gWs_LaserEnable_Buf	pshm->P[9962]
+#define	gWs_LaserEnable_Tmr	pshm->P[9963]
+#define	gWs_LaserEnable_Err	pshm->P[9964]
+#define	gWs_LaserDisable_Start	pshm->P[9965]
+#define	gWs_LaserDisable_Abort	pshm->P[9966]
+#define	gWs_LaserDisable_Ena	pshm->P[9967]
+#define	gWs_LaserDisable_Sta	pshm->P[9968]
+#define	gWs_LaserDisable_Seq	pshm->P[9969]
+#define	gWs_LaserDisable_Buf	pshm->P[9970]
+#define	gWs_LaserDisable_Tmr	pshm->P[9971]
+#define	gWs_LaserDisable_Err	pshm->P[9972]
+#define	gWs_LaserTestCross_Start	pshm->P[9973]
+#define	gWs_LaserTestCross_Abort	pshm->P[9974]
+#define	gWs_LaserTestCross_Ena	pshm->P[9975]
+#define	gWs_LaserTestCross_Sta	pshm->P[9976]
+#define	gWs_LaserTestCross_Seq	pshm->P[9977]
+#define	gWs_LaserTestCross_Buf	pshm->P[9978]
+#define	gWs_LaserTestCross_Tmr	pshm->P[9979]
+#define	gWs_LaserTestCross_Err	pshm->P[9980]
+#define	gWs_LaserTestLine_Start	pshm->P[9981]
+#define	gWs_LaserTestLine_Abort	pshm->P[9982]
+#define	gWs_LaserTestLine_Ena	pshm->P[9983]
+#define	gWs_LaserTestLine_Sta	pshm->P[9984]
+#define	gWs_LaserTestLine_Seq	pshm->P[9985]
+#define	gWs_LaserTestLine_Buf	pshm->P[9986]
+#define	gWs_LaserTestLine_Tmr	pshm->P[9987]
+#define	gWs_LaserTestLine_Err	pshm->P[9988]
+#define	gWs_TgtMov_Start	pshm->P[9989]
+#define	gWs_TgtMov_Abort	pshm->P[9990]
+#define	gWs_TgtMov_Ena	pshm->P[9991]
+#define	gWs_TgtMov_Sta	pshm->P[9992]
+#define	gWs_TgtMov_Seq	pshm->P[9993]
+#define	gWs_TgtMov_Buf	pshm->P[9994]
+#define	gWs_TgtMov_Tmr	pshm->P[9995]
+#define	gWs_TgtMov_Err	pshm->P[9996]
+#define	gVs_TgtMov_Start	pshm->P[9997]
+#define	gVs_TgtMov_Abort	pshm->P[9998]
+#define	gVs_TgtMov_Ena	pshm->P[9999]
+#define	gVs_TgtMov_Sta	pshm->P[10000]
+#define	gVs_TgtMov_Seq	pshm->P[10001]
+#define	gVs_TgtMov_Buf	pshm->P[10002]
+#define	gVs_TgtMov_Tmr	pshm->P[10003]
+#define	gVs_TgtMov_Err	pshm->P[10004]
+#define	gWs_TgtMov_VelX	pshm->P[10005]
+#define	gWs_TgtMov_VelY	pshm->P[10006]
+#define	gWs_TgtMov_VelC	pshm->P[10007]
+#define	gWs_TgtMov_PosX	pshm->P[10008]
+#define	gWs_TgtMov_PosY	pshm->P[10009]
+#define	gWs_TgtMov_PosC	pshm->P[10010]
+#define	gVs_TgtMov_VelX	pshm->P[10011]
+#define	gVs_TgtMov_VelY	pshm->P[10012]
+#define	gVs_TgtMov_VelC	pshm->P[10013]
+#define	gVs_TgtMov_PosX	pshm->P[10014]
+#define	gVs_TgtMov_PosY	pshm->P[10015]
+#define	gVs_TgtMov_PosC	pshm->P[10016]
+#define	gWs_CoverOpn_TgtAng	pshm->P[10017]
+#define	gWs_CoverOpn_Start	pshm->P[10018]
+#define	gWs_CoverOpn_Abort	pshm->P[10019]
+#define	gWs_CoverOpn_Ena	pshm->P[10020]
+#define	gWs_CoverOpn_Sta	pshm->P[10021]
+#define	gWs_CoverOpn_Seq	pshm->P[10022]
+#define	gWs_CoverOpn_Buf	pshm->P[10023]
+#define	gWs_CoverOpn_Tmr	pshm->P[10024]
+#define	gWs_CoverOpn_Err	pshm->P[10025]
+#define	gWs_CoverCls_Start	pshm->P[10026]
+#define	gWs_CoverCls_Abort	pshm->P[10027]
+#define	gWs_CoverCls_Ena	pshm->P[10028]
+#define	gWs_CoverCls_Sta	pshm->P[10029]
+#define	gWs_CoverCls_Seq	pshm->P[10030]
+#define	gWs_CoverCls_Buf	pshm->P[10031]
+#define	gWs_CoverCls_Tmr	pshm->P[10032]
+#define	gWs_CoverCls_Err	pshm->P[10033]
+#define	gWsV_CoverOpn_Start	pshm->P[10034]
+#define	gWsV_CoverOpn_Abort	pshm->P[10035]
+#define	gWsV_CoverOpn_Ena	pshm->P[10036]
+#define	gWsV_CoverOpn_Sta	pshm->P[10037]
+#define	gWsV_CoverOpn_Seq	pshm->P[10038]
+#define	gWsV_CoverOpn_Buf	pshm->P[10039]
+#define	gWsV_CoverOpn_Tmr	pshm->P[10040]
+#define	gWsV_CoverOpn_Err	pshm->P[10041]
+#define	gWsV_CoverCls_Start	pshm->P[10042]
+#define	gWsV_CoverCls_Abort	pshm->P[10043]
+#define	gWsV_CoverCls_Ena	pshm->P[10044]
+#define	gWsV_CoverCls_Sta	pshm->P[10045]
+#define	gWsV_CoverCls_Seq	pshm->P[10046]
+#define	gWsV_CoverCls_Buf	pshm->P[10047]
+#define	gWsV_CoverCls_Tmr	pshm->P[10048]
+#define	gWsV_CoverCls_Err	pshm->P[10049]
+#define	gWsV_Cover_Cur	pshm->P[10050]
+#define	gVs_CoverOpn_Start	pshm->P[10051]
+#define	gVs_CoverOpn_Abort	pshm->P[10052]
+#define	gVs_CoverOpn_Ena	pshm->P[10053]
+#define	gVs_CoverOpn_Sta	pshm->P[10054]
+#define	gVs_CoverOpn_Seq	pshm->P[10055]
+#define	gVs_CoverOpn_Buf	pshm->P[10056]
+#define	gVs_CoverOpn_Tmr	pshm->P[10057]
+#define	gVs_CoverOpn_Err	pshm->P[10058]
+#define	gVs_CoverCls_Start	pshm->P[10059]
+#define	gVs_CoverCls_Abort	pshm->P[10060]
+#define	gVs_CoverCls_Ena	pshm->P[10061]
+#define	gVs_CoverCls_Sta	pshm->P[10062]
+#define	gVs_CoverCls_Seq	pshm->P[10063]
+#define	gVs_CoverCls_Buf	pshm->P[10064]
+#define	gVs_CoverCls_Tmr	pshm->P[10065]
+#define	gVs_CoverCls_Err	pshm->P[10066]
+#define	gWs_ThCoverPos_Old	pshm->P[10067]
+#define	gVs_ThCoverPos_Old	pshm->P[10068]
+#define	gWs_ThTargetPos_Old	pshm->P[10069]
+#define	gVs_ThTargetPos_Old	pshm->P[10070]
+#define	gWs_CoverMoving_Sta	pshm->P[10071]
+#define	gVs_CoverMoving_Sta	pshm->P[10072]
+#define	gBlow_Time	pshm->P[10073]
+#define	gWs_PowerCheck_Shot_Start	pshm->P[10074]
+#define	gWs_PowerCheck_Shot_Abort	pshm->P[10075]
+#define	gWs_PowerCheck_Shot_Ena	pshm->P[10076]
+#define	gWs_PowerCheck_Shot_Sta	pshm->P[10077]
+#define	gWs_PowerCheck_Shot_Seq	pshm->P[10078]
+#define	gWs_PowerCheck_Shot_Buf	pshm->P[10079]
+#define	gWs_PowerCheck_Shot_Tmr	pshm->P[10080]
+#define	gWs_PowerCheck_Shot_Err	pshm->P[10081]
+#define	gWs_PowerCheck_Shot_Time	pshm->P[10082]
+#define	gWs_PowerCheck_Shot_TimeBuf	pshm->P[10083]
+#define	gWs_PowerCheck_Stop_Start	pshm->P[10084]
+#define	gWs_PowerCheck_Stop_Abort	pshm->P[10085]
+#define	gWs_PowerCheck_Stop_Ena	pshm->P[10086]
+#define	gWs_PowerCheck_Stop_Sta	pshm->P[10087]
+#define	gWs_PowerCheck_Stop_Seq	pshm->P[10088]
+#define	gWs_PowerCheck_Stop_Buf	pshm->P[10089]
+#define	gWs_PowerCheck_Stop_Tmr	pshm->P[10090]
+#define	gWs_PowerCheck_Stop_Err	pshm->P[10091]
+#define	gVs_PostVisionST_Start	pshm->P[10092]
+#define	gVs_PostVisionST_Abort	pshm->P[10093]
+#define	gVs_PostVisionST_Ena	pshm->P[10094]
+#define	gVs_PostVisionST_Sta	pshm->P[10095]
+#define	gVs_PostVisionST_Seq	pshm->P[10096]
+#define	gVs_PostVisionST_Buf	pshm->P[10097]
+#define	gVs_PostVisionST_Tmr	pshm->P[10098]
+#define	gVs_PostVisionST_Err	pshm->P[10099]
+#define	gVs_PostVisionED_Start	pshm->P[10100]
+#define	gVs_PostVisionED_Abort	pshm->P[10101]
+#define	gVs_PostVisionED_Ena	pshm->P[10102]
+#define	gVs_PostVisionED_Sta	pshm->P[10103]
+#define	gVs_PostVisionED_Seq	pshm->P[10104]
+#define	gVs_PostVisionED_Buf	pshm->P[10105]
+#define	gVs_PostVisionED_Tmr	pshm->P[10106]
+#define	gVs_PostVisionED_Err	pshm->P[10107]
+#define	gWs_Skip_N2	pshm->P[10108]
+#define	gN2BlowState	pshm->P[10109]
+#define	gN2BlowOld	pshm->P[10110]
+#define	gN2BlowTime	pshm->P[10111]
+#define	gIsWsCoverComplete	pshm->P[10112]
+#define	gIsVsCoverComplete	pshm->P[10113]
+#define	gIsWStationReady	pshm->P[10114]
+#define	gIsVStationReady	pshm->P[10115]
+#define	gKin_Sf(i)	pshm->P[(10116+i)%MAX_P]
+#define	gKin_RotOffset(i)	pshm->P[(10148+i)%MAX_P]
+#define	gKin_Len1	pshm->P[10180]
+#define	gKin_Len2	pshm->P[10181]
+#define	gKin_GalvoSfX	pshm->P[10182]
+#define	gKin_GalvoSfY	pshm->P[10183]
+#define	gMc_SeqBuf_Idx	pshm->P[10184]
+#define	gWs_SeqBuf_Cur	pshm->P[10185]
+#define	gWs_SeqBuf_Old	pshm->P[10186]
+#define	gVs_SeqBuf_Cur	pshm->P[10187]
+#define	gVs_SeqBuf_Old	pshm->P[10188]
+#define	gScMon_GalvoAngX	pshm->P[10189]
+#define	gScMon_GalvoAngY	pshm->P[10190]
+#define	gCoreVoltMin	pshm->P[10191]
+#define	gCoreVoltMax	pshm->P[10192]
+#define	gCorePowerMin	pshm->P[10193]
+#define	gCorePowerMax	pshm->P[10194]
+#define	gRingVoltMin	pshm->P[10195]
+#define	gRingVoltMax	pshm->P[10196]
+#define	gRingPowerMin	pshm->P[10197]
+#define	gRingPowerMax	pshm->P[10198]
+#define	gTempRawMin	pshm->P[10199]
+#define	gTempRawMax	pshm->P[10200]
+#define	gSensorTempMin	pshm->P[10201]
+#define	gSensorTempMax	pshm->P[10202]
+#define	Len_X	pshm->P[10203]
+#define	Len_Y	pshm->P[10204]
+#define	Len_R	pshm->P[10205]
+#define	gWs_Error_Cur2	pshm->P[10206]
+#define	gWs_Error_Old2	pshm->P[10207]
+#define	gVs_Error_Cur2	pshm->P[10208]
+#define	gVs_Error_Old2	pshm->P[10209]
+#define	gMc_TransTest_Start	pshm->P[10210]
+#define	gMc_TransTest_Abort	pshm->P[10211]
+#define	gMc_TransTest_Ena	pshm->P[10212]
+#define	gMc_TransTest_Sta	pshm->P[10213]
+#define	gMc_TransTest_Seq	pshm->P[10214]
+#define	gMc_TransTest_Buf	pshm->P[10215]
+#define	gMc_TransTest_Tmr	pshm->P[10216]
+#define	gMc_TransTest_Err	pshm->P[10217]
+#define	gMc_TransTest_Vel	pshm->P[10218]
+#define	gRspSim_PdtNo	pshm->P[10219]
+#define	gRspSim_LdAlignX	pshm->P[10220]
+#define	gRspSim_LdAlignY	pshm->P[10221]
+#define	gRspSim_LdAlignC	pshm->P[10222]
+#define	gRspSim_LdDirRep	pshm->P[10223]
+#define	gRspSim_2dVsnRsp	pshm->P[10224]
+#define	gRspSim_3dVsnRsp	pshm->P[10225]
+#define	gRspSim_LdDirJug	pshm->P[10226]
+#define	gRspSim_2dVsnJug	pshm->P[10227]
+#define	gRspSim_3dVsnJug	pshm->P[10228]
+#define	gRspSim_LdDirRat	pshm->P[10229]
+#define	gRspSim_2dVsnRat	pshm->P[10230]
+#define	gRspSim_3dVsnRat	pshm->P[10231]
 #ifndef _PP_PROJ_HDR_
   void SetEnumGlobalVar(enum globalP var, double data)
   {
@@ -3227,805 +3298,866 @@ enum globalP {_globalP_=-1
 ,gWs_RefVel=8224
 ,gWs_VelRatio=8225
 ,gWs_LaserEna=8226
-,gWs_CorePowSf=8227
-,gWs_CoreRefPow=8228
-,gWs_CoreMinPow=8229
-,gWs_CoreMaxPow=8230
-,gWs_CoreOutPow=8231
-,gWs_CoreOutVdc=8232
-,gWs_CorePfmEna=8233
-,gWs_RingPowSf=8234
-,gWs_RingRefPow=8235
-,gWs_RingMinPow=8236
-,gWs_RingMaxPow=8237
-,gWs_RingOutPow=8238
-,gWs_RingOutVdc=8239
-,gWs_RingPfmEna=8240
-,gWs_PfmRtiCnt=8241
-,gWs_PfmPeriod=8242
-,gWs_PfmOnTime=8243
-,gWs_PfmOnCnt=8244
-,gWs_PfmOut=8245
-,gWs_PfmBuf=8246
-,gWs_PfmCnt=8247
-,gWs_WblEna=8248
-,gWs_WblLen=8249
-,gWs_WblDst=8250
-,gWs_WblCnt=8251
-,gWs_WblType=8252
-,gWs_WblRatW=8253
-,gWs_WblRatL=8254
-,gWs_WblOfsX=8255
-,gWs_WblOfsY=8256
-,gVs_AccLimitX=8257
-,gVs_AccLimitY=8258
-,gVs_AccLimitC=8259
-,gVs_VelLimitC=8260
-,gVs_PosX_Cur=8261
-,gVs_PosY_Cur=8262
-,gVs_PosX_Old=8263
-,gVs_PosY_Old=8264
-,gVs_PosX_Dlt=8265
-,gVs_PosY_Dlt=8266
-,gVs_PosV_Dlt=8267
-,gVs_Vect_Vel=8268
-,gVs_Vect_Sum=8269
-,gVs_RefVel=8270
-,gVs_PfmPeriod=8271
-,gVs_PfmDuty=8272
-,gVs_EquEna=8273
-,gVs_EquCnt=8274
-,gVs_EquSta_Cur=8275
-,gVs_EquSta_Old=8276
-,gSc_PosX_Cur=8277
-,gSc_PosY_Cur=8278
-,gSta_Idx=8279
-,gCmd_Idx=8280
-,gMc_ServoOn_Cur=8857
-,gMc_ServoOn_Old=8858
-,gMc_ServoOff_Cur=8859
-,gMc_ServoOff_Old=8860
-,gMc_HomeStart_Cur=8861
-,gMc_HomeStart_Old=8862
-,gMc_HomeAbort_Cur=8863
-,gMc_HomeAbort_Old=8864
-,gMc_AlarmReset_Cur=8865
-,gMc_AlarmReset_Old=8866
-,gMc_RunMod_Cur=8867
-,gMc_RunMod_Old=8868
-,gMc_AutoStart_Cur=8869
-,gMc_AutoStart_Old=8870
-,gMc_AutoAbort_Cur=8871
-,gMc_AutoAbort_Old=8872
-,gMc_AutoPause_Cur=8873
-,gMc_AutoPause_Old=8874
-,gMc_CycleStart_Cur=8875
-,gMc_CycleStart_Old=8876
-,gMc_StepStart_Cur=8877
-,gMc_StepStart_Old=8878
-,gMc_Fsave_Cur=8879
-,gMc_Fsave_Old=8880
-,gWs_ServoOn_Cur=8881
-,gWs_ServoOn_Old=8882
-,gWs_ServoOff_Cur=8883
-,gWs_ServoOff_Old=8884
-,gWs_HomeStart_Cur=8885
-,gWs_HomeStart_Old=8886
-,gWs_HomeAbort_Cur=8887
-,gWs_HomeAbort_Old=8888
-,gWs_AlarmReset_Cur=8889
-,gWs_AlarmReset_Old=8890
-,gWs_AlarmRetry_Cur=8891
-,gWs_AlarmRetry_Old=8892
-,gWs_AlarmAbort_Cur=8893
-,gWs_AlarmAbort_Old=8894
-,gWs_PowerCheck_Cur=8895
-,gWs_PowerCheck_Old=8896
-,gWs_TestShot_Cur=8897
-,gWs_TestShot_Old=8898
-,gWs_LaserEnableStart_Cur=8899
-,gWs_LaserEnableStart_Old=8900
-,gWs_LaserDisableStart_Cur=8901
-,gWs_LaserDisableStart_Old=8902
-,gWs_LaserTestCrossStart_Cur=8903
-,gWs_LaserTestCrossStart_Old=8904
-,gWs_LaserTestCrossAbort_Cur=8905
-,gWs_LaserTestCrossAbort_Old=8906
-,gWs_LaserTestLineStart_Cur=8907
-,gWs_LaserTestLineStart_Old=8908
-,gWs_LaserTestLineAbort_Cur=8909
-,gWs_LaserTestLineAbort_Old=8910
-,gVs_ServoOn_Cur=8911
-,gVs_ServoOn_Old=8912
-,gVs_ServoOff_Cur=8913
-,gVs_ServoOff_Old=8914
-,gVs_HomeStart_Cur=8915
-,gVs_HomeStart_Old=8916
-,gVs_HomeAbort_Cur=8917
-,gVs_HomeAbort_Old=8918
-,gVs_AlarmReset_Cur=8919
-,gVs_AlarmReset_Old=8920
-,gVs_AlarmRetry_Cur=8921
-,gVs_AlarmRetry_Old=8922
-,gVs_AlarmAbort_Cur=8923
-,gVs_AlarmAbort_Old=8924
-,gVs_TestShot_Cur=8925
-,gVs_TestShot_Old=8926
-,gSc_ServoOn_Cur=8927
-,gSc_ServoOn_Old=8928
-,gSc_ServoOff_Cur=8929
-,gSc_ServoOff_Old=8930
-,gSc_HomeStart_Cur=8931
-,gSc_HomeStart_Old=8932
-,gSc_HomeAbort_Cur=8933
-,gSc_HomeAbort_Old=8934
-,gSc_AlarmReset_Cur=8935
-,gSc_AlarmReset_Old=8936
-,gWs_LdStart_Cur=8937
-,gWs_LdAbort_Cur=8938
-,gWs_LdStart_Old=8939
-,gWs_LdAbort_Old=8940
-,gWs_RdStart_Cur=8941
-,gWs_RdAbort_Cur=8942
-,gWs_RdStart_Old=8943
-,gWs_RdAbort_Old=8944
-,gWs_WdStart_Cur=8945
-,gWs_WdAbort_Cur=8946
-,gWs_WdStart_Old=8947
-,gWs_WdAbort_Old=8948
-,gWs_WtStart_Cur=8949
-,gWs_WtAbort_Cur=8950
-,gWs_WtStart_Old=8951
-,gWs_WtAbort_Old=8952
-,gWs_UdStart_Cur=8953
-,gWs_UdAbort_Cur=8954
-,gWs_UdStart_Old=8955
-,gWs_UdAbort_Old=8956
-,gWs_RjStart_Cur=8957
-,gWs_RjAbort_Cur=8958
-,gWs_RjStart_Old=8959
-,gWs_RjAbort_Old=8960
-,gVs_LdStart_Cur=8961
-,gVs_LdAbort_Cur=8962
-,gVs_LdStart_Old=8963
-,gVs_LdAbort_Old=8964
-,gVs_RdStart_Cur=8965
-,gVs_RdAbort_Cur=8966
-,gVs_RdStart_Old=8967
-,gVs_RdAbort_Old=8968
-,gVs_VnStart_Cur=8969
-,gVs_VnAbort_Cur=8970
-,gVs_VnStart_Old=8971
-,gVs_VnAbort_Old=8972
-,gVs_WtStart_Cur=8973
-,gVs_WtAbort_Cur=8974
-,gVs_WtStart_Old=8975
-,gVs_WtAbort_Old=8976
-,gVs_UdStart_Cur=8977
-,gVs_UdAbort_Cur=8978
-,gVs_UdStart_Old=8979
-,gVs_UdAbort_Old=8980
-,gVs_RjStart_Cur=8981
-,gVs_RjAbort_Cur=8982
-,gVs_RjStart_Old=8983
-,gVs_RjAbort_Old=8984
-,gWs_PdtStaChange_Cur=8985
-,gVs_PdtStaChange_Cur=8986
-,gTr_PdtStaChange_Cur=8987
-,gWs_PdtStaChange_Old=8988
-,gVs_PdtStaChange_Old=8989
-,gTr_PdtStaChange_Old=8990
-,gWs_Error=8991
-,gVs_Error=8992
-,gWs_ErrCode=8993
-,gVs_ErrCode=8994
-,gWs_Error_Cur=8995
-,gWs_Error_Old=8996
-,gVs_Error_Cur=8997
-,gVs_Error_Old=8998
-,gSc_Com_Sta=8999
-,gEc_WdTimer=9000
-,gMc_DistX_Cur=9001
-,gMc_DistX_Err=9002
-,gWs_Safety_Sta=9003
-,gVs_Safety_Sta=9004
-,gWs_Safety_Err=9005
-,gVs_Safety_Err=9006
-,gMc_AlarmReset_Ena=9007
-,gWs_AlarmReset_Ena=9008
-,gVs_AlarmReset_Ena=9009
-,gSc_AlarmReset_Ena=9010
-,gWs_AlarmRetry_Ena=9011
-,gVs_AlarmRetry_Ena=9012
-,gWs_AlarmAbort_Ena=9013
-,gVs_AlarmAbort_Ena=9014
-,gEc_Con_Start=9047
-,gEc_Con_Abort=9048
-,gEc_Con_Ena=9049
-,gEc_Con_Sta=9050
-,gEc_Con_Seq=9051
-,gEc_Con_Buf=9052
-,gEc_Con_Tmr=9053
-,gMt_Home_Idx=9054
-,gMc_Home_Start=9343
-,gMc_Home_Abort=9344
-,gMc_Home_Ena=9345
-,gMc_Home_Sta=9346
-,gMc_Home_Seq=9347
-,gMc_Home_Buf=9348
-,gMc_Home_Tmr=9349
-,gMc_Home_Err=9350
-,gWs_Home_Start=9351
-,gWs_Home_Abort=9352
-,gWs_Home_Ena=9353
-,gWs_Home_Sta=9354
-,gWs_Home_Seq=9355
-,gWs_Home_Buf=9356
-,gWs_Home_Tmr=9357
-,gWs_Home_Err=9358
-,gVs_Home_Start=9359
-,gVs_Home_Abort=9360
-,gVs_Home_Ena=9361
-,gVs_Home_Sta=9362
-,gVs_Home_Seq=9363
-,gVs_Home_Buf=9364
-,gVs_Home_Tmr=9365
-,gVs_Home_Err=9366
-,gSc_Home_Start=9367
-,gSc_Home_Abort=9368
-,gSc_Home_Ena=9369
-,gSc_Home_Sta=9370
-,gSc_Home_Seq=9371
-,gSc_Home_Buf=9372
-,gSc_Home_Tmr=9373
-,gSc_Home_Err=9374
-,gSc_InitSta=9375
-,gJog_Idx=9376
-,gMc_ServoOn_Ena=9441
-,gMc_ServoOff_Ena=9442
-,gWs_ServoOn_Ena=9443
-,gWs_ServoOff_Ena=9444
-,gVs_ServoOn_Ena=9445
-,gVs_ServoOff_Ena=9446
-,gSc_ServoOn_Ena=9447
-,gSc_ServoOff_Ena=9448
-,gWs_PdtNo=9609
-,gVs_PdtNo=9610
-,gTr_PdtNo=9611
-,gWs_LdDir=9612
-,gMc_AutoRun_Start=9613
-,gMc_AutoRun_Abort=9614
-,gMc_AutoRun_Pause=9615
-,gMc_Cycle_Start=9616
-,gMc_Step_Start=9617
-,gMc_AutoRun_Ena=9618
-,gMc_AutoRun_Sta=9619
-,gMc_AutoRun_Seq=9620
-,gMc_AutoRun_Buf=9621
-,gMc_AutoRun_Tmr=9622
-,gMc_AutoRun_Err=9623
-,gWs_Loop_Start=9624
-,gWs_Loop_Abort=9625
-,gWs_Loop_Pause=9626
-,gWs_Loop_Ena=9627
-,gWs_Loop_Sta=9628
-,gWs_Loop_Seq=9629
-,gWs_Loop_Buf=9630
-,gWs_Loop_Tmr=9631
-,gWs_Loop_Err=9632
-,gWs_Loop_Time=9633
-,gWs_Loop_TimeBuf=9634
-,gWs_Seq_Cur=9635
-,gWs_Seq_Old=9636
-,gWs_Seq_Err=9637
-,gVs_Loop_Start=9638
-,gVs_Loop_Abort=9639
-,gVs_Loop_Pause=9640
-,gVs_Loop_Ena=9641
-,gVs_Loop_Sta=9642
-,gVs_Loop_Seq=9643
-,gVs_Loop_Buf=9644
-,gVs_Loop_Tmr=9645
-,gVs_Loop_Err=9646
-,gVs_Loop_Time=9647
-,gVs_Loop_TimeBuf=9648
-,gVs_Seq_Cur=9649
-,gVs_Seq_Old=9650
-,gVs_Seq_Err=9651
-,gWs_Sta_Pdt=9652
-,gVs_Sta_Pdt=9653
-,gTr_Sta_Pdt=9654
-,gWs_Sta_PdtBuf=9655
-,gVs_Sta_PdtBuf=9656
-,gTr_Sta_PdtBuf=9657
-,gWs_Sta_Stg=9658
-,gVs_Sta_Stg=9659
-,gWs_Pos_Pdt=9660
-,gVs_Pos_Pdt=9661
-,gWs_Pos_Stg=9662
-,gVs_Pos_Stg=9663
-,gWs_PdtStaChange_Ena=9664
-,gVs_PdtStaChange_Ena=9665
-,gTr_PdtStaChange_Ena=9666
-,gWs_Load_Start=9667
-,gWs_Load_Abort=9668
-,gWs_Load_Ena=9669
-,gWs_Load_Sta=9670
-,gWs_Load_Seq=9671
-,gWs_Load_Buf=9672
-,gWs_Load_Tmr=9673
-,gWs_Load_Err=9674
-,gWs_Load_VelX=9675
-,gWs_Load_VelY=9676
-,gWs_Load_VelC=9677
-,gWs_Load_PosX=9678
-,gWs_Load_PosY=9679
-,gWs_Load_PosC=9680
-,gWs_Load_Time=9681
-,gWs_Load_TimeBuf=9682
-,gWs_Ready_Start=9683
-,gWs_Ready_Abort=9684
-,gWs_Ready_Ena=9685
-,gWs_Ready_Sta=9686
-,gWs_Ready_Seq=9687
-,gWs_Ready_Buf=9688
-,gWs_Ready_Tmr=9689
-,gWs_Ready_Err=9690
-,gWs_Ready_VelX=9691
-,gWs_Ready_VelY=9692
-,gWs_Ready_VelC=9693
-,gWs_Ready_PosX=9694
-,gWs_Ready_PosY=9695
-,gWs_Ready_PosC=9696
-,gWs_Ready_Time=9697
-,gWs_Ready_TimeBuf=9698
-,gWs_Ready_VsnJudge=9699
-,gWs_Welding_Start=9700
-,gWs_Welding_Abort=9701
-,gWs_Welding_Ena=9702
-,gWs_Welding_Sta=9703
-,gWs_Welding_Seq=9704
-,gWs_Welding_Buf=9705
-,gWs_Welding_Tmr=9706
-,gWs_Welding_Err=9707
-,gWs_Welding_VelX=9708
-,gWs_Welding_VelY=9709
-,gWs_Welding_VelC=9710
-,gWs_Welding_PosX=9711
-,gWs_Welding_PosY=9712
-,gWs_Welding_PosC=9713
-,gWs_Welding_Time=9714
-,gWs_Welding_TimeBuf=9715
-,gWs_Prog_Dist=9716
-,gWs_Prog_Time=9717
-,gWs_Prog_TimeBuf=9718
-,gWs_File_Prog_Time=9719
-,gWs_File_Prog_TimeBuf=9720
-,gWs_Wait_Start=9721
-,gWs_Wait_Abort=9722
-,gWs_Wait_Ena=9723
-,gWs_Wait_Sta=9724
-,gWs_Wait_Seq=9725
-,gWs_Wait_Buf=9726
-,gWs_Wait_Tmr=9727
-,gWs_Wait_Err=9728
-,gWs_Wait_VelX=9729
-,gWs_Wait_VelY=9730
-,gWs_Wait_VelC=9731
-,gWs_Wait_PosX=9732
-,gWs_Wait_PosY=9733
-,gWs_Wait_PosC=9734
-,gWs_Wait_Time=9735
-,gWs_Wait_TimeBuf=9736
-,gWs_Unload_Start=9737
-,gWs_Unload_Abort=9738
-,gWs_Unload_Ena=9739
-,gWs_Unload_Sta=9740
-,gWs_Unload_Seq=9741
-,gWs_Unload_Buf=9742
-,gWs_Unload_Tmr=9743
-,gWs_Unload_Err=9744
-,gWs_Unload_VelX=9745
-,gWs_Unload_VelY=9746
-,gWs_Unload_VelC=9747
-,gWs_Unload_PosX=9748
-,gWs_Unload_PosY=9749
-,gWs_Unload_PosC=9750
-,gWs_Unload_Time=9751
-,gWs_Unload_TimeBuf=9752
-,gWs_Reject_Start=9753
-,gWs_Reject_Abort=9754
-,gWs_Reject_Ena=9755
-,gWs_Reject_Sta=9756
-,gWs_Reject_Seq=9757
-,gWs_Reject_Buf=9758
-,gWs_Reject_Tmr=9759
-,gWs_Reject_Err=9760
-,gWs_Reject_VelX=9761
-,gWs_Reject_VelY=9762
-,gWs_Reject_VelC=9763
-,gWs_Reject_PosX=9764
-,gWs_Reject_PosY=9765
-,gWs_Reject_PosC=9766
-,gWs_Reject_Time=9767
-,gWs_Reject_TimeBuf=9768
-,gVs_Load_Start=9769
-,gVs_Load_Abort=9770
-,gVs_Load_Ena=9771
-,gVs_Load_Sta=9772
-,gVs_Load_Seq=9773
-,gVs_Load_Buf=9774
-,gVs_Load_Tmr=9775
-,gVs_Load_Err=9776
-,gVs_Load_VelX=9777
-,gVs_Load_VelY=9778
-,gVs_Load_VelC=9779
-,gVs_Load_PosX=9780
-,gVs_Load_PosY=9781
-,gVs_Load_PosC=9782
-,gVs_Load_Time=9783
-,gVs_Load_TimeBuf=9784
-,gVs_Ready_Start=9785
-,gVs_Ready_Abort=9786
-,gVs_Ready_Ena=9787
-,gVs_Ready_Sta=9788
-,gVs_Ready_Seq=9789
-,gVs_Ready_Buf=9790
-,gVs_Ready_Tmr=9791
-,gVs_Ready_Err=9792
-,gVs_Ready_VelX=9793
-,gVs_Ready_VelY=9794
-,gVs_Ready_VelC=9795
-,gVs_Ready_PosX=9796
-,gVs_Ready_PosY=9797
-,gVs_Ready_PosC=9798
-,gVs_Ready_Time=9799
-,gVs_Ready_TimeBuf=9800
-,gVs_Ready_VsnJudge=9801
-,gVs_Vision_Start=9802
-,gVs_Vision_Abort=9803
-,gVs_Vision_Ena=9804
-,gVs_Vision_Sta=9805
-,gVs_Vision_Seq=9806
-,gVs_Vision_Buf=9807
-,gVs_Vision_Tmr=9808
-,gVs_Vision_Err=9809
-,gVs_Vision_VelX=9810
-,gVs_Vision_VelY=9811
-,gVs_Vision_VelC=9812
-,gVs_Vision_PosX=9813
-,gVs_Vision_PosY=9814
-,gVs_Vision_PosC=9815
-,gVs_Vision_Time=9816
-,gVs_Vision_TimeBuf=9817
-,gVs_Prog_Dist=9818
-,gVs_Prog_Time=9819
-,gVs_Prog_TimeBuf=9820
-,gVs_Vision_VsnJudge=9821
-,gVs_Wait_Start=9822
-,gVs_Wait_Abort=9823
-,gVs_Wait_Ena=9824
-,gVs_Wait_Sta=9825
-,gVs_Wait_Seq=9826
-,gVs_Wait_Buf=9827
-,gVs_Wait_Tmr=9828
-,gVs_Wait_Err=9829
-,gVs_Wait_VelX=9830
-,gVs_Wait_VelY=9831
-,gVs_Wait_VelC=9832
-,gVs_Wait_PosX=9833
-,gVs_Wait_PosY=9834
-,gVs_Wait_PosC=9835
-,gVs_Wait_Time=9836
-,gVs_Wait_TimeBuf=9837
-,gVs_Unload_Start=9838
-,gVs_Unload_Abort=9839
-,gVs_Unload_Ena=9840
-,gVs_Unload_Sta=9841
-,gVs_Unload_Seq=9842
-,gVs_Unload_Buf=9843
-,gVs_Unload_Tmr=9844
-,gVs_Unload_Err=9845
-,gVs_Unload_VelX=9846
-,gVs_Unload_VelY=9847
-,gVs_Unload_VelC=9848
-,gVs_Unload_PosX=9849
-,gVs_Unload_PosY=9850
-,gVs_Unload_PosC=9851
-,gVs_Unload_Time=9852
-,gVs_Unload_TimeBuf=9853
-,gVs_Reject_Start=9854
-,gVs_Reject_Abort=9855
-,gVs_Reject_Ena=9856
-,gVs_Reject_Sta=9857
-,gVs_Reject_Seq=9858
-,gVs_Reject_Buf=9859
-,gVs_Reject_Tmr=9860
-,gVs_Reject_Err=9861
-,gVs_Reject_VelX=9862
-,gVs_Reject_VelY=9863
-,gVs_Reject_VelC=9864
-,gVs_Reject_PosX=9865
-,gVs_Reject_PosY=9866
-,gVs_Reject_PosC=9867
-,gVs_Reject_Time=9868
-,gVs_Reject_TimeBuf=9869
-,gWs_CldInpos_Delay=9870
-,gVs_CldInpos_Delay=9871
-,gWs_CldIn_CoverUD=9872
-,gWs_CldIn_CoverFB=9873
-,gWs_CldIn_TempFB=9874
-,gWs_CldIn_ShtrOC=9875
-,gVs_CldIn_CoverUD=9876
-,gVs_CldIn_CoverFB=9877
-,gTr_CldIn_PickerUD=9878
-,gTr_CldIn_PickerOC=9879
-,gWs_Epr_OutVdc=9880
-,gWs_EcldHome_Start=9881
-,gWs_EcldHome_Abort=9882
-,gWs_EcldHome_Ena=9883
-,gWs_EcldHome_Sta=9884
-,gWs_EcldHome_Seq=9885
-,gWs_EcldHome_Buf=9886
-,gWs_EcldHome_Tmr=9887
-,gWs_EcldHome_Err=9888
-,gWs_EcldHome_Try=9889
-,gWs_EcldHome_Fin=9890
-,gWs_EcldFwd_Start=9891
-,gWs_EcldFwd_Abort=9892
-,gWs_EcldFwd_Ena=9893
-,gWs_EcldFwd_Sta=9894
-,gWs_EcldFwd_Seq=9895
-,gWs_EcldFwd_Buf=9896
-,gWs_EcldFwd_Tmr=9897
-,gWs_EcldFwd_Err=9898
-,gWs_EcldFwd_Try=9899
-,gWs_EcldBwd_Start=9900
-,gWs_EcldBwd_Abort=9901
-,gWs_EcldBwd_Ena=9902
-,gWs_EcldBwd_Sta=9903
-,gWs_EcldBwd_Seq=9904
-,gWs_EcldBwd_Buf=9905
-,gWs_EcldBwd_Tmr=9906
-,gWs_EcldBwd_Err=9907
-,gWs_EcldBwd_Try=9908
-,gWs_EcldCmdFwd_Cur=9909
-,gWs_EcldCmdFwd_Old=9910
-,gWs_EcldCmdBwd_Cur=9911
-,gWs_EcldCmdBwd_Old=9912
-,gWs_TestShot_Ena=9913
-,gWs_TestShot_Time=9914
-,gVs_TestShot_Ena=9915
-,gVs_TestShot_Time=9916
-,gVs_TestShot_TimeBuf=9917
-,gVs_TestShot_Seq=9918
-,gVs_TestShot_Tmr=9919
-,gWs_LaserSta_Ready=9920
-,gWs_LaserSta_Enable=9921
-,gWs_LaserSta_CorePower=9922
-,gWs_LaserSta_RingPower=9923
-,gWs_LaserEnable_Start=9924
-,gWs_LaserEnable_Abort=9925
-,gWs_LaserEnable_Ena=9926
-,gWs_LaserEnable_Sta=9927
-,gWs_LaserEnable_Seq=9928
-,gWs_LaserEnable_Buf=9929
-,gWs_LaserEnable_Tmr=9930
-,gWs_LaserEnable_Err=9931
-,gWs_LaserDisable_Start=9932
-,gWs_LaserDisable_Abort=9933
-,gWs_LaserDisable_Ena=9934
-,gWs_LaserDisable_Sta=9935
-,gWs_LaserDisable_Seq=9936
-,gWs_LaserDisable_Buf=9937
-,gWs_LaserDisable_Tmr=9938
-,gWs_LaserDisable_Err=9939
-,gWs_LaserTestCross_Start=9940
-,gWs_LaserTestCross_Abort=9941
-,gWs_LaserTestCross_Ena=9942
-,gWs_LaserTestCross_Sta=9943
-,gWs_LaserTestCross_Seq=9944
-,gWs_LaserTestCross_Buf=9945
-,gWs_LaserTestCross_Tmr=9946
-,gWs_LaserTestCross_Err=9947
-,gWs_LaserTestLine_Start=9948
-,gWs_LaserTestLine_Abort=9949
-,gWs_LaserTestLine_Ena=9950
-,gWs_LaserTestLine_Sta=9951
-,gWs_LaserTestLine_Seq=9952
-,gWs_LaserTestLine_Buf=9953
-,gWs_LaserTestLine_Tmr=9954
-,gWs_LaserTestLine_Err=9955
-,gWs_TgtMov_Start=9956
-,gWs_TgtMov_Abort=9957
-,gWs_TgtMov_Ena=9958
-,gWs_TgtMov_Sta=9959
-,gWs_TgtMov_Seq=9960
-,gWs_TgtMov_Buf=9961
-,gWs_TgtMov_Tmr=9962
-,gWs_TgtMov_Err=9963
-,gVs_TgtMov_Start=9964
-,gVs_TgtMov_Abort=9965
-,gVs_TgtMov_Ena=9966
-,gVs_TgtMov_Sta=9967
-,gVs_TgtMov_Seq=9968
-,gVs_TgtMov_Buf=9969
-,gVs_TgtMov_Tmr=9970
-,gVs_TgtMov_Err=9971
-,gWs_TgtMov_VelX=9972
-,gWs_TgtMov_VelY=9973
-,gWs_TgtMov_VelC=9974
-,gWs_TgtMov_PosX=9975
-,gWs_TgtMov_PosY=9976
-,gWs_TgtMov_PosC=9977
-,gVs_TgtMov_VelX=9978
-,gVs_TgtMov_VelY=9979
-,gVs_TgtMov_VelC=9980
-,gVs_TgtMov_PosX=9981
-,gVs_TgtMov_PosY=9982
-,gVs_TgtMov_PosC=9983
-,gWs_CoverOpn_TgtAng=9984
-,gWs_CoverOpn_Start=9985
-,gWs_CoverOpn_Abort=9986
-,gWs_CoverOpn_Ena=9987
-,gWs_CoverOpn_Sta=9988
-,gWs_CoverOpn_Seq=9989
-,gWs_CoverOpn_Buf=9990
-,gWs_CoverOpn_Tmr=9991
-,gWs_CoverOpn_Err=9992
-,gWs_CoverCls_Start=9993
-,gWs_CoverCls_Abort=9994
-,gWs_CoverCls_Ena=9995
-,gWs_CoverCls_Sta=9996
-,gWs_CoverCls_Seq=9997
-,gWs_CoverCls_Buf=9998
-,gWs_CoverCls_Tmr=9999
-,gWs_CoverCls_Err=10000
-,gWsV_CoverOpn_Start=10001
-,gWsV_CoverOpn_Abort=10002
-,gWsV_CoverOpn_Ena=10003
-,gWsV_CoverOpn_Sta=10004
-,gWsV_CoverOpn_Seq=10005
-,gWsV_CoverOpn_Buf=10006
-,gWsV_CoverOpn_Tmr=10007
-,gWsV_CoverOpn_Err=10008
-,gWsV_CoverCls_Start=10009
-,gWsV_CoverCls_Abort=10010
-,gWsV_CoverCls_Ena=10011
-,gWsV_CoverCls_Sta=10012
-,gWsV_CoverCls_Seq=10013
-,gWsV_CoverCls_Buf=10014
-,gWsV_CoverCls_Tmr=10015
-,gWsV_CoverCls_Err=10016
-,gWsV_Cover_Cur=10017
-,gVs_CoverOpn_Start=10018
-,gVs_CoverOpn_Abort=10019
-,gVs_CoverOpn_Ena=10020
-,gVs_CoverOpn_Sta=10021
-,gVs_CoverOpn_Seq=10022
-,gVs_CoverOpn_Buf=10023
-,gVs_CoverOpn_Tmr=10024
-,gVs_CoverOpn_Err=10025
-,gVs_CoverCls_Start=10026
-,gVs_CoverCls_Abort=10027
-,gVs_CoverCls_Ena=10028
-,gVs_CoverCls_Sta=10029
-,gVs_CoverCls_Seq=10030
-,gVs_CoverCls_Buf=10031
-,gVs_CoverCls_Tmr=10032
-,gVs_CoverCls_Err=10033
-,gWs_ThCoverPos_Old=10034
-,gVs_ThCoverPos_Old=10035
-,gWs_ThTargetPos_Old=10036
-,gVs_ThTargetPos_Old=10037
-,gWs_CoverMoving_Sta=10038
-,gVs_CoverMoving_Sta=10039
-,gBlow_Time=10040
-,gWs_PowerCheck_Start=10041
-,gWs_PowerCheck_Abort=10042
-,gWs_PowerCheck_Ena=10043
-,gWs_PowerCheck_Time=10044
-,gWs_PowerCheck_TimeBuf=10045
-,gWs_PowerCheck_Seq=10046
-,gWs_PowerCheck_Tmr=10047
-,gVs_PostVisionST_Start=10048
-,gVs_PostVisionST_Abort=10049
-,gVs_PostVisionST_Ena=10050
-,gVs_PostVisionST_Sta=10051
-,gVs_PostVisionST_Seq=10052
-,gVs_PostVisionST_Buf=10053
-,gVs_PostVisionST_Tmr=10054
-,gVs_PostVisionST_Err=10055
-,gVs_PostVisionED_Start=10056
-,gVs_PostVisionED_Abort=10057
-,gVs_PostVisionED_Ena=10058
-,gVs_PostVisionED_Sta=10059
-,gVs_PostVisionED_Seq=10060
-,gVs_PostVisionED_Buf=10061
-,gVs_PostVisionED_Tmr=10062
-,gVs_PostVisionED_Err=10063
-,gWs_Skip_N2=10064
-,gN2BlowState=10065
-,gN2BlowOld=10066
-,gN2BlowTime=10067
-,gIsWsCoverComplete=10068
-,gIsVsCoverComplete=10069
-,gIsWStationReady=10070
-,gIsVStationReady=10071
-,gKin_Len1=10136
-,gKin_Len2=10137
-,gKin_GalvoSfX=10138
-,gKin_GalvoSfY=10139
-,gMc_SeqBuf_Idx=10140
-,gWs_SeqBuf_Cur=10141
-,gWs_SeqBuf_Old=10142
-,gVs_SeqBuf_Cur=10143
-,gVs_SeqBuf_Old=10144
-,gScMon_GalvoAngX=10145
-,gScMon_GalvoAngY=10146
-,Len_X=10147
-,Len_Y=10148
-,Len_R=10149
-,gMc_TransTest_Start=10150
-,gMc_TransTest_Abort=10151
-,gMc_TransTest_Ena=10152
-,gMc_TransTest_Sta=10153
-,gMc_TransTest_Seq=10154
-,gMc_TransTest_Buf=10155
-,gMc_TransTest_Tmr=10156
-,gMc_TransTest_Err=10157
-,gMc_TransTest_Vel=10158
-,gRspSim_PdtNo=10159
-,gRspSim_LdAlignX=10160
-,gRspSim_LdAlignY=10161
-,gRspSim_LdAlignC=10162
-,gRspSim_LdDirRep=10163
-,gRspSim_2dVsnRsp=10164
-,gRspSim_3dVsnRsp=10165
-,gRspSim_LdDirJug=10166
-,gRspSim_2dVsnJug=10167
-,gRspSim_3dVsnJug=10168
-,gRspSim_LdDirRat=10169
-,gRspSim_2dVsnRat=10170
-,gRspSim_3dVsnRat=10171};
+,gWs_OutMode_2=8227
+,gWs_RefVel_2=8228
+,gWs_CorePowSf=8229
+,gWs_CoreRefPow=8230
+,gWs_CoreMinPow=8231
+,gWs_CoreMaxPow=8232
+,gWs_CoreOutPow=8233
+,gWs_CoreOutVdc=8234
+,gWs_CorePfmEna=8235
+,gWs_CoreRefPow_2=8236
+,gWs_CorePfmEna_2=8237
+,gWs_RingPowSf=8238
+,gWs_RingRefPow=8239
+,gWs_RingMinPow=8240
+,gWs_RingMaxPow=8241
+,gWs_RingOutPow=8242
+,gWs_RingOutVdc=8243
+,gWs_RingPfmEna=8244
+,gWs_RingRefPow_2=8245
+,gWs_RingPfmEna_2=8246
+,gWs_PfmRtiCnt=8247
+,gWs_PfmPeriod=8248
+,gWs_PfmOnTime=8249
+,gWs_PfmOnCnt=8250
+,gWs_PfmPeriod_2=8251
+,gWs_PfmOnTime_2=8252
+,gWs_PfmOut=8253
+,gWs_PfmBuf=8254
+,gWs_PfmCnt=8255
+,gWs_PfmOut_2=8256
+,gWs_WblEna=8257
+,gWs_WblLen=8258
+,gWs_WblDst=8259
+,gWs_WblCnt=8260
+,gWs_WblType=8261
+,gWs_WblRatW=8262
+,gWs_WblRatL=8263
+,gWs_WblOfsX=8264
+,gWs_WblOfsY=8265
+,gWs_WblEna_2=8266
+,gWs_WblLen_2=8267
+,gWs_WblDst_2=8268
+,gWs_WblCnt_2=8269
+,gWs_WblType_2=8270
+,gWs_WblRatW_2=8271
+,gWs_WblRatL_2=8272
+,gWs_WblOfsX_2=8273
+,gWs_WblOfsY_2=8274
+,gVs_AccLimitX=8275
+,gVs_AccLimitY=8276
+,gVs_AccLimitC=8277
+,gVs_VelLimitC=8278
+,gVs_PosX_Cur=8279
+,gVs_PosY_Cur=8280
+,gVs_PosX_Old=8281
+,gVs_PosY_Old=8282
+,gVs_PosX_Dlt=8283
+,gVs_PosY_Dlt=8284
+,gVs_PosV_Dlt=8285
+,gVs_Vect_Vel=8286
+,gVs_Vect_Sum=8287
+,gVs_RefVel=8288
+,gVs_PfmPeriod=8289
+,gVs_PfmDuty=8290
+,gVs_EquEna=8291
+,gVs_EquCnt=8292
+,gVs_EquSta_Cur=8293
+,gVs_EquSta_Old=8294
+,gSc_PosX_Cur=8295
+,gSc_PosY_Cur=8296
+,gSta_Idx=8297
+,gCmd_Idx=8298
+,gMc_ServoOn_Cur=8875
+,gMc_ServoOn_Old=8876
+,gMc_ServoOff_Cur=8877
+,gMc_ServoOff_Old=8878
+,gMc_HomeStart_Cur=8879
+,gMc_HomeStart_Old=8880
+,gMc_HomeAbort_Cur=8881
+,gMc_HomeAbort_Old=8882
+,gMc_AlarmReset_Cur=8883
+,gMc_AlarmReset_Old=8884
+,gMc_RunMod_Cur=8885
+,gMc_RunMod_Old=8886
+,gMc_AutoStart_Cur=8887
+,gMc_AutoStart_Old=8888
+,gMc_AutoAbort_Cur=8889
+,gMc_AutoAbort_Old=8890
+,gMc_AutoPause_Cur=8891
+,gMc_AutoPause_Old=8892
+,gMc_CycleStart_Cur=8893
+,gMc_CycleStart_Old=8894
+,gMc_StepStart_Cur=8895
+,gMc_StepStart_Old=8896
+,gMc_Fsave_Cur=8897
+,gMc_Fsave_Old=8898
+,gWs_ServoOn_Cur=8899
+,gWs_ServoOn_Old=8900
+,gWs_ServoOff_Cur=8901
+,gWs_ServoOff_Old=8902
+,gWs_HomeStart_Cur=8903
+,gWs_HomeStart_Old=8904
+,gWs_HomeAbort_Cur=8905
+,gWs_HomeAbort_Old=8906
+,gWs_AlarmReset_Cur=8907
+,gWs_AlarmReset_Old=8908
+,gWs_AlarmRetry_Cur=8909
+,gWs_AlarmRetry_Old=8910
+,gWs_AlarmAbort_Cur=8911
+,gWs_AlarmAbort_Old=8912
+,gWs_PowerCheck_Cur=8913
+,gWs_PowerCheck_Old=8914
+,gWs_TestShot_Cur=8915
+,gWs_TestShot_Old=8916
+,gWs_LaserEnableStart_Cur=8917
+,gWs_LaserEnableStart_Old=8918
+,gWs_LaserDisableStart_Cur=8919
+,gWs_LaserDisableStart_Old=8920
+,gWs_LaserTestCrossStart_Cur=8921
+,gWs_LaserTestCrossStart_Old=8922
+,gWs_LaserTestCrossAbort_Cur=8923
+,gWs_LaserTestCrossAbort_Old=8924
+,gWs_LaserTestLineStart_Cur=8925
+,gWs_LaserTestLineStart_Old=8926
+,gWs_LaserTestLineAbort_Cur=8927
+,gWs_LaserTestLineAbort_Old=8928
+,gWs_PowerCheckStart_Cur=8929
+,gWs_PowerCheckStart_Old=8930
+,gWs_PowerCheckAbort_Cur=8931
+,gWs_PowerCheckAbort_Old=8932
+,gVs_ServoOn_Cur=8933
+,gVs_ServoOn_Old=8934
+,gVs_ServoOff_Cur=8935
+,gVs_ServoOff_Old=8936
+,gVs_HomeStart_Cur=8937
+,gVs_HomeStart_Old=8938
+,gVs_HomeAbort_Cur=8939
+,gVs_HomeAbort_Old=8940
+,gVs_AlarmReset_Cur=8941
+,gVs_AlarmReset_Old=8942
+,gVs_AlarmRetry_Cur=8943
+,gVs_AlarmRetry_Old=8944
+,gVs_AlarmAbort_Cur=8945
+,gVs_AlarmAbort_Old=8946
+,gVs_TestShot_Cur=8947
+,gVs_TestShot_Old=8948
+,gSc_ServoOn_Cur=8949
+,gSc_ServoOn_Old=8950
+,gSc_ServoOff_Cur=8951
+,gSc_ServoOff_Old=8952
+,gSc_HomeStart_Cur=8953
+,gSc_HomeStart_Old=8954
+,gSc_HomeAbort_Cur=8955
+,gSc_HomeAbort_Old=8956
+,gSc_AlarmReset_Cur=8957
+,gSc_AlarmReset_Old=8958
+,gWs_LdStart_Cur=8959
+,gWs_LdAbort_Cur=8960
+,gWs_LdStart_Old=8961
+,gWs_LdAbort_Old=8962
+,gWs_RdStart_Cur=8963
+,gWs_RdAbort_Cur=8964
+,gWs_RdStart_Old=8965
+,gWs_RdAbort_Old=8966
+,gWs_WdStart_Cur=8967
+,gWs_WdAbort_Cur=8968
+,gWs_WdStart_Old=8969
+,gWs_WdAbort_Old=8970
+,gWs_WtStart_Cur=8971
+,gWs_WtAbort_Cur=8972
+,gWs_WtStart_Old=8973
+,gWs_WtAbort_Old=8974
+,gWs_UdStart_Cur=8975
+,gWs_UdAbort_Cur=8976
+,gWs_UdStart_Old=8977
+,gWs_UdAbort_Old=8978
+,gWs_RjStart_Cur=8979
+,gWs_RjAbort_Cur=8980
+,gWs_RjStart_Old=8981
+,gWs_RjAbort_Old=8982
+,gVs_LdStart_Cur=8983
+,gVs_LdAbort_Cur=8984
+,gVs_LdStart_Old=8985
+,gVs_LdAbort_Old=8986
+,gVs_RdStart_Cur=8987
+,gVs_RdAbort_Cur=8988
+,gVs_RdStart_Old=8989
+,gVs_RdAbort_Old=8990
+,gVs_VnStart_Cur=8991
+,gVs_VnAbort_Cur=8992
+,gVs_VnStart_Old=8993
+,gVs_VnAbort_Old=8994
+,gVs_WtStart_Cur=8995
+,gVs_WtAbort_Cur=8996
+,gVs_WtStart_Old=8997
+,gVs_WtAbort_Old=8998
+,gVs_UdStart_Cur=8999
+,gVs_UdAbort_Cur=9000
+,gVs_UdStart_Old=9001
+,gVs_UdAbort_Old=9002
+,gVs_RjStart_Cur=9003
+,gVs_RjAbort_Cur=9004
+,gVs_RjStart_Old=9005
+,gVs_RjAbort_Old=9006
+,gWs_PdtStaChange_Cur=9007
+,gVs_PdtStaChange_Cur=9008
+,gTr_PdtStaChange_Cur=9009
+,gWs_PdtStaChange_Old=9010
+,gVs_PdtStaChange_Old=9011
+,gTr_PdtStaChange_Old=9012
+,gWs_Error=9013
+,gVs_Error=9014
+,gWs_ErrCode=9015
+,gVs_ErrCode=9016
+,gWs_Error_Cur=9017
+,gWs_Error_Old=9018
+,gVs_Error_Cur=9019
+,gVs_Error_Old=9020
+,gSc_Com_Sta=9021
+,gEc_WdTimer=9022
+,gMc_DistX_Cur=9023
+,gMc_DistX_Err=9024
+,gWs_Safety_Sta=9025
+,gVs_Safety_Sta=9026
+,gWs_Safety_Err=9027
+,gVs_Safety_Err=9028
+,gMc_AlarmReset_Ena=9029
+,gWs_AlarmReset_Ena=9030
+,gVs_AlarmReset_Ena=9031
+,gSc_AlarmReset_Ena=9032
+,gWs_AlarmRetry_Ena=9033
+,gVs_AlarmRetry_Ena=9034
+,gWs_AlarmAbort_Ena=9035
+,gVs_AlarmAbort_Ena=9036
+,gEc_Con_Start=9069
+,gEc_Con_Abort=9070
+,gEc_Con_Ena=9071
+,gEc_Con_Sta=9072
+,gEc_Con_Seq=9073
+,gEc_Con_Buf=9074
+,gEc_Con_Tmr=9075
+,gMt_Home_Idx=9076
+,gMc_Home_Start=9365
+,gMc_Home_Abort=9366
+,gMc_Home_Ena=9367
+,gMc_Home_Sta=9368
+,gMc_Home_Seq=9369
+,gMc_Home_Buf=9370
+,gMc_Home_Tmr=9371
+,gMc_Home_Err=9372
+,gWs_Home_Start=9373
+,gWs_Home_Abort=9374
+,gWs_Home_Ena=9375
+,gWs_Home_Sta=9376
+,gWs_Home_Seq=9377
+,gWs_Home_Buf=9378
+,gWs_Home_Tmr=9379
+,gWs_Home_Err=9380
+,gVs_Home_Start=9381
+,gVs_Home_Abort=9382
+,gVs_Home_Ena=9383
+,gVs_Home_Sta=9384
+,gVs_Home_Seq=9385
+,gVs_Home_Buf=9386
+,gVs_Home_Tmr=9387
+,gVs_Home_Err=9388
+,gSc_Home_Start=9389
+,gSc_Home_Abort=9390
+,gSc_Home_Ena=9391
+,gSc_Home_Sta=9392
+,gSc_Home_Seq=9393
+,gSc_Home_Buf=9394
+,gSc_Home_Tmr=9395
+,gSc_Home_Err=9396
+,gSc_InitSta=9397
+,gJog_Idx=9398
+,gMc_ServoOn_Ena=9463
+,gMc_ServoOff_Ena=9464
+,gWs_ServoOn_Ena=9465
+,gWs_ServoOff_Ena=9466
+,gVs_ServoOn_Ena=9467
+,gVs_ServoOff_Ena=9468
+,gSc_ServoOn_Ena=9469
+,gSc_ServoOff_Ena=9470
+,gWd_Mdi_Start=9631
+,gWd_Mdi_Abort=9632
+,gWd_Mdi_Ena=9633
+,gWd_Mdi_Sta=9634
+,gWd_Mdi_Seq=9635
+,gWd_Mdi_Buf=9636
+,gWd_Mdi_Tmr=9637
+,gWd_Mdi_Stp=9638
+,gWd_Mdi_PosX=9639
+,gWd_Mdi_PosY=9640
+,gWd_Mdi_PosC=9641
+,cMachineID=111
+,gWs_PdtNo=9642
+,gVs_PdtNo=9643
+,gTr_PdtNo=9644
+,gWs_LdDir=9645
+,gMc_AutoRun_Start=9646
+,gMc_AutoRun_Abort=9647
+,gMc_AutoRun_Pause=9648
+,gMc_Cycle_Start=9649
+,gMc_Step_Start=9650
+,gMc_AutoRun_Ena=9651
+,gMc_AutoRun_Sta=9652
+,gMc_AutoRun_Seq=9653
+,gMc_AutoRun_Buf=9654
+,gMc_AutoRun_Tmr=9655
+,gMc_AutoRun_Err=9656
+,gWs_Loop_Start=9657
+,gWs_Loop_Abort=9658
+,gWs_Loop_Pause=9659
+,gWs_Loop_Ena=9660
+,gWs_Loop_Sta=9661
+,gWs_Loop_Seq=9662
+,gWs_Loop_Buf=9663
+,gWs_Loop_Tmr=9664
+,gWs_Loop_Err=9665
+,gWs_Loop_Time=9666
+,gWs_Loop_TimeBuf=9667
+,gWs_Seq_Cur=9668
+,gWs_Seq_Old=9669
+,gWs_Seq_Err=9670
+,gVs_Loop_Start=9671
+,gVs_Loop_Abort=9672
+,gVs_Loop_Pause=9673
+,gVs_Loop_Ena=9674
+,gVs_Loop_Sta=9675
+,gVs_Loop_Seq=9676
+,gVs_Loop_Buf=9677
+,gVs_Loop_Tmr=9678
+,gVs_Loop_Err=9679
+,gVs_Loop_Time=9680
+,gVs_Loop_TimeBuf=9681
+,gVs_Seq_Cur=9682
+,gVs_Seq_Old=9683
+,gVs_Seq_Err=9684
+,gWs_Sta_Pdt=9685
+,gVs_Sta_Pdt=9686
+,gTr_Sta_Pdt=9687
+,gWs_Sta_PdtBuf=9688
+,gVs_Sta_PdtBuf=9689
+,gTr_Sta_PdtBuf=9690
+,gWs_Sta_Stg=9691
+,gVs_Sta_Stg=9692
+,gWs_Pos_Pdt=9693
+,gVs_Pos_Pdt=9694
+,gWs_Pos_Stg=9695
+,gVs_Pos_Stg=9696
+,gWs_PdtStaChange_Ena=9697
+,gVs_PdtStaChange_Ena=9698
+,gTr_PdtStaChange_Ena=9699
+,gWs_Load_Start=9700
+,gWs_Load_Abort=9701
+,gWs_Load_Ena=9702
+,gWs_Load_Sta=9703
+,gWs_Load_Seq=9704
+,gWs_Load_Buf=9705
+,gWs_Load_Tmr=9706
+,gWs_Load_Err=9707
+,gWs_Load_VelX=9708
+,gWs_Load_VelY=9709
+,gWs_Load_VelC=9710
+,gWs_Load_PosX=9711
+,gWs_Load_PosY=9712
+,gWs_Load_PosC=9713
+,gWs_Load_Time=9714
+,gWs_Load_TimeBuf=9715
+,gWs_Ready_Start=9716
+,gWs_Ready_Abort=9717
+,gWs_Ready_Ena=9718
+,gWs_Ready_Sta=9719
+,gWs_Ready_Seq=9720
+,gWs_Ready_Buf=9721
+,gWs_Ready_Tmr=9722
+,gWs_Ready_Err=9723
+,gWs_Ready_VelX=9724
+,gWs_Ready_VelY=9725
+,gWs_Ready_VelC=9726
+,gWs_Ready_PosX=9727
+,gWs_Ready_PosY=9728
+,gWs_Ready_PosC=9729
+,gWs_Ready_Time=9730
+,gWs_Ready_TimeBuf=9731
+,gWs_Ready_VsnJudge=9732
+,gWs_Welding_Start=9733
+,gWs_Welding_Abort=9734
+,gWs_Welding_Ena=9735
+,gWs_Welding_Sta=9736
+,gWs_Welding_Seq=9737
+,gWs_Welding_Buf=9738
+,gWs_Welding_Tmr=9739
+,gWs_Welding_Err=9740
+,gWs_Welding_VelX=9741
+,gWs_Welding_VelY=9742
+,gWs_Welding_VelC=9743
+,gWs_Welding_PosX=9744
+,gWs_Welding_PosY=9745
+,gWs_Welding_PosC=9746
+,gWs_Welding_Time=9747
+,gWs_Welding_TimeBuf=9748
+,gWs_Prog_Dist=9749
+,gWs_Prog_Time=9750
+,gWs_Prog_TimeBuf=9751
+,gWs_File_Prog_Time=9752
+,gWs_File_Prog_TimeBuf=9753
+,gWs_Wait_Start=9754
+,gWs_Wait_Abort=9755
+,gWs_Wait_Ena=9756
+,gWs_Wait_Sta=9757
+,gWs_Wait_Seq=9758
+,gWs_Wait_Buf=9759
+,gWs_Wait_Tmr=9760
+,gWs_Wait_Err=9761
+,gWs_Wait_VelX=9762
+,gWs_Wait_VelY=9763
+,gWs_Wait_VelC=9764
+,gWs_Wait_PosX=9765
+,gWs_Wait_PosY=9766
+,gWs_Wait_PosC=9767
+,gWs_Wait_Time=9768
+,gWs_Wait_TimeBuf=9769
+,gWs_Unload_Start=9770
+,gWs_Unload_Abort=9771
+,gWs_Unload_Ena=9772
+,gWs_Unload_Sta=9773
+,gWs_Unload_Seq=9774
+,gWs_Unload_Buf=9775
+,gWs_Unload_Tmr=9776
+,gWs_Unload_Err=9777
+,gWs_Unload_VelX=9778
+,gWs_Unload_VelY=9779
+,gWs_Unload_VelC=9780
+,gWs_Unload_PosX=9781
+,gWs_Unload_PosY=9782
+,gWs_Unload_PosC=9783
+,gWs_Unload_Time=9784
+,gWs_Unload_TimeBuf=9785
+,gWs_Reject_Start=9786
+,gWs_Reject_Abort=9787
+,gWs_Reject_Ena=9788
+,gWs_Reject_Sta=9789
+,gWs_Reject_Seq=9790
+,gWs_Reject_Buf=9791
+,gWs_Reject_Tmr=9792
+,gWs_Reject_Err=9793
+,gWs_Reject_VelX=9794
+,gWs_Reject_VelY=9795
+,gWs_Reject_VelC=9796
+,gWs_Reject_PosX=9797
+,gWs_Reject_PosY=9798
+,gWs_Reject_PosC=9799
+,gWs_Reject_Time=9800
+,gWs_Reject_TimeBuf=9801
+,gVs_Load_Start=9802
+,gVs_Load_Abort=9803
+,gVs_Load_Ena=9804
+,gVs_Load_Sta=9805
+,gVs_Load_Seq=9806
+,gVs_Load_Buf=9807
+,gVs_Load_Tmr=9808
+,gVs_Load_Err=9809
+,gVs_Load_VelX=9810
+,gVs_Load_VelY=9811
+,gVs_Load_VelC=9812
+,gVs_Load_PosX=9813
+,gVs_Load_PosY=9814
+,gVs_Load_PosC=9815
+,gVs_Load_Time=9816
+,gVs_Load_TimeBuf=9817
+,gVs_Ready_Start=9818
+,gVs_Ready_Abort=9819
+,gVs_Ready_Ena=9820
+,gVs_Ready_Sta=9821
+,gVs_Ready_Seq=9822
+,gVs_Ready_Buf=9823
+,gVs_Ready_Tmr=9824
+,gVs_Ready_Err=9825
+,gVs_Ready_VelX=9826
+,gVs_Ready_VelY=9827
+,gVs_Ready_VelC=9828
+,gVs_Ready_PosX=9829
+,gVs_Ready_PosY=9830
+,gVs_Ready_PosC=9831
+,gVs_Ready_Time=9832
+,gVs_Ready_TimeBuf=9833
+,gVs_Ready_VsnJudge=9834
+,gVs_Vision_Start=9835
+,gVs_Vision_Abort=9836
+,gVs_Vision_Ena=9837
+,gVs_Vision_Sta=9838
+,gVs_Vision_Seq=9839
+,gVs_Vision_Buf=9840
+,gVs_Vision_Tmr=9841
+,gVs_Vision_Err=9842
+,gVs_Vision_VelX=9843
+,gVs_Vision_VelY=9844
+,gVs_Vision_VelC=9845
+,gVs_Vision_PosX=9846
+,gVs_Vision_PosY=9847
+,gVs_Vision_PosC=9848
+,gVs_Vision_Time=9849
+,gVs_Vision_TimeBuf=9850
+,gVs_Prog_Dist=9851
+,gVs_Prog_Time=9852
+,gVs_Prog_TimeBuf=9853
+,gVs_Vision_VsnJudge=9854
+,gVs_Wait_Start=9855
+,gVs_Wait_Abort=9856
+,gVs_Wait_Ena=9857
+,gVs_Wait_Sta=9858
+,gVs_Wait_Seq=9859
+,gVs_Wait_Buf=9860
+,gVs_Wait_Tmr=9861
+,gVs_Wait_Err=9862
+,gVs_Wait_VelX=9863
+,gVs_Wait_VelY=9864
+,gVs_Wait_VelC=9865
+,gVs_Wait_PosX=9866
+,gVs_Wait_PosY=9867
+,gVs_Wait_PosC=9868
+,gVs_Wait_Time=9869
+,gVs_Wait_TimeBuf=9870
+,gVs_Unload_Start=9871
+,gVs_Unload_Abort=9872
+,gVs_Unload_Ena=9873
+,gVs_Unload_Sta=9874
+,gVs_Unload_Seq=9875
+,gVs_Unload_Buf=9876
+,gVs_Unload_Tmr=9877
+,gVs_Unload_Err=9878
+,gVs_Unload_VelX=9879
+,gVs_Unload_VelY=9880
+,gVs_Unload_VelC=9881
+,gVs_Unload_PosX=9882
+,gVs_Unload_PosY=9883
+,gVs_Unload_PosC=9884
+,gVs_Unload_Time=9885
+,gVs_Unload_TimeBuf=9886
+,gVs_Reject_Start=9887
+,gVs_Reject_Abort=9888
+,gVs_Reject_Ena=9889
+,gVs_Reject_Sta=9890
+,gVs_Reject_Seq=9891
+,gVs_Reject_Buf=9892
+,gVs_Reject_Tmr=9893
+,gVs_Reject_Err=9894
+,gVs_Reject_VelX=9895
+,gVs_Reject_VelY=9896
+,gVs_Reject_VelC=9897
+,gVs_Reject_PosX=9898
+,gVs_Reject_PosY=9899
+,gVs_Reject_PosC=9900
+,gVs_Reject_Time=9901
+,gVs_Reject_TimeBuf=9902
+,gWs_CldInpos_Delay=9903
+,gVs_CldInpos_Delay=9904
+,gWs_CldIn_CoverUD=9905
+,gWs_CldIn_CoverFB=9906
+,gWs_CldIn_TempFB=9907
+,gWs_CldIn_ShtrOC=9908
+,gVs_CldIn_CoverUD=9909
+,gVs_CldIn_CoverFB=9910
+,gTr_CldIn_PickerUD=9911
+,gTr_CldIn_PickerOC=9912
+,gWs_Epr_OutVdc=9913
+,gWs_EcldHome_Start=9914
+,gWs_EcldHome_Abort=9915
+,gWs_EcldHome_Ena=9916
+,gWs_EcldHome_Sta=9917
+,gWs_EcldHome_Seq=9918
+,gWs_EcldHome_Buf=9919
+,gWs_EcldHome_Tmr=9920
+,gWs_EcldHome_Err=9921
+,gWs_EcldHome_Try=9922
+,gWs_EcldHome_Fin=9923
+,gWs_EcldFwd_Start=9924
+,gWs_EcldFwd_Abort=9925
+,gWs_EcldFwd_Ena=9926
+,gWs_EcldFwd_Sta=9927
+,gWs_EcldFwd_Seq=9928
+,gWs_EcldFwd_Buf=9929
+,gWs_EcldFwd_Tmr=9930
+,gWs_EcldFwd_Err=9931
+,gWs_EcldFwd_Try=9932
+,gWs_EcldBwd_Start=9933
+,gWs_EcldBwd_Abort=9934
+,gWs_EcldBwd_Ena=9935
+,gWs_EcldBwd_Sta=9936
+,gWs_EcldBwd_Seq=9937
+,gWs_EcldBwd_Buf=9938
+,gWs_EcldBwd_Tmr=9939
+,gWs_EcldBwd_Err=9940
+,gWs_EcldBwd_Try=9941
+,gWs_EcldCmdFwd_Cur=9942
+,gWs_EcldCmdFwd_Old=9943
+,gWs_EcldCmdBwd_Cur=9944
+,gWs_EcldCmdBwd_Old=9945
+,gWs_TestShot_Ena=9946
+,gWs_TestShot_Time=9947
+,gVs_TestShot_Ena=9948
+,gVs_TestShot_Time=9949
+,gVs_TestShot_TimeBuf=9950
+,gVs_TestShot_Seq=9951
+,gVs_TestShot_Tmr=9952
+,gWs_LaserSta_Ready=9953
+,gWs_LaserSta_Enable=9954
+,gWs_LaserSta_CorePower=9955
+,gWs_LaserSta_RingPower=9956
+,gWs_LaserEnable_Start=9957
+,gWs_LaserEnable_Abort=9958
+,gWs_LaserEnable_Ena=9959
+,gWs_LaserEnable_Sta=9960
+,gWs_LaserEnable_Seq=9961
+,gWs_LaserEnable_Buf=9962
+,gWs_LaserEnable_Tmr=9963
+,gWs_LaserEnable_Err=9964
+,gWs_LaserDisable_Start=9965
+,gWs_LaserDisable_Abort=9966
+,gWs_LaserDisable_Ena=9967
+,gWs_LaserDisable_Sta=9968
+,gWs_LaserDisable_Seq=9969
+,gWs_LaserDisable_Buf=9970
+,gWs_LaserDisable_Tmr=9971
+,gWs_LaserDisable_Err=9972
+,gWs_LaserTestCross_Start=9973
+,gWs_LaserTestCross_Abort=9974
+,gWs_LaserTestCross_Ena=9975
+,gWs_LaserTestCross_Sta=9976
+,gWs_LaserTestCross_Seq=9977
+,gWs_LaserTestCross_Buf=9978
+,gWs_LaserTestCross_Tmr=9979
+,gWs_LaserTestCross_Err=9980
+,gWs_LaserTestLine_Start=9981
+,gWs_LaserTestLine_Abort=9982
+,gWs_LaserTestLine_Ena=9983
+,gWs_LaserTestLine_Sta=9984
+,gWs_LaserTestLine_Seq=9985
+,gWs_LaserTestLine_Buf=9986
+,gWs_LaserTestLine_Tmr=9987
+,gWs_LaserTestLine_Err=9988
+,gWs_TgtMov_Start=9989
+,gWs_TgtMov_Abort=9990
+,gWs_TgtMov_Ena=9991
+,gWs_TgtMov_Sta=9992
+,gWs_TgtMov_Seq=9993
+,gWs_TgtMov_Buf=9994
+,gWs_TgtMov_Tmr=9995
+,gWs_TgtMov_Err=9996
+,gVs_TgtMov_Start=9997
+,gVs_TgtMov_Abort=9998
+,gVs_TgtMov_Ena=9999
+,gVs_TgtMov_Sta=10000
+,gVs_TgtMov_Seq=10001
+,gVs_TgtMov_Buf=10002
+,gVs_TgtMov_Tmr=10003
+,gVs_TgtMov_Err=10004
+,gWs_TgtMov_VelX=10005
+,gWs_TgtMov_VelY=10006
+,gWs_TgtMov_VelC=10007
+,gWs_TgtMov_PosX=10008
+,gWs_TgtMov_PosY=10009
+,gWs_TgtMov_PosC=10010
+,gVs_TgtMov_VelX=10011
+,gVs_TgtMov_VelY=10012
+,gVs_TgtMov_VelC=10013
+,gVs_TgtMov_PosX=10014
+,gVs_TgtMov_PosY=10015
+,gVs_TgtMov_PosC=10016
+,gWs_CoverOpn_TgtAng=10017
+,gWs_CoverOpn_Start=10018
+,gWs_CoverOpn_Abort=10019
+,gWs_CoverOpn_Ena=10020
+,gWs_CoverOpn_Sta=10021
+,gWs_CoverOpn_Seq=10022
+,gWs_CoverOpn_Buf=10023
+,gWs_CoverOpn_Tmr=10024
+,gWs_CoverOpn_Err=10025
+,gWs_CoverCls_Start=10026
+,gWs_CoverCls_Abort=10027
+,gWs_CoverCls_Ena=10028
+,gWs_CoverCls_Sta=10029
+,gWs_CoverCls_Seq=10030
+,gWs_CoverCls_Buf=10031
+,gWs_CoverCls_Tmr=10032
+,gWs_CoverCls_Err=10033
+,gWsV_CoverOpn_Start=10034
+,gWsV_CoverOpn_Abort=10035
+,gWsV_CoverOpn_Ena=10036
+,gWsV_CoverOpn_Sta=10037
+,gWsV_CoverOpn_Seq=10038
+,gWsV_CoverOpn_Buf=10039
+,gWsV_CoverOpn_Tmr=10040
+,gWsV_CoverOpn_Err=10041
+,gWsV_CoverCls_Start=10042
+,gWsV_CoverCls_Abort=10043
+,gWsV_CoverCls_Ena=10044
+,gWsV_CoverCls_Sta=10045
+,gWsV_CoverCls_Seq=10046
+,gWsV_CoverCls_Buf=10047
+,gWsV_CoverCls_Tmr=10048
+,gWsV_CoverCls_Err=10049
+,gWsV_Cover_Cur=10050
+,gVs_CoverOpn_Start=10051
+,gVs_CoverOpn_Abort=10052
+,gVs_CoverOpn_Ena=10053
+,gVs_CoverOpn_Sta=10054
+,gVs_CoverOpn_Seq=10055
+,gVs_CoverOpn_Buf=10056
+,gVs_CoverOpn_Tmr=10057
+,gVs_CoverOpn_Err=10058
+,gVs_CoverCls_Start=10059
+,gVs_CoverCls_Abort=10060
+,gVs_CoverCls_Ena=10061
+,gVs_CoverCls_Sta=10062
+,gVs_CoverCls_Seq=10063
+,gVs_CoverCls_Buf=10064
+,gVs_CoverCls_Tmr=10065
+,gVs_CoverCls_Err=10066
+,gWs_ThCoverPos_Old=10067
+,gVs_ThCoverPos_Old=10068
+,gWs_ThTargetPos_Old=10069
+,gVs_ThTargetPos_Old=10070
+,gWs_CoverMoving_Sta=10071
+,gVs_CoverMoving_Sta=10072
+,gBlow_Time=10073
+,gWs_PowerCheck_Shot_Start=10074
+,gWs_PowerCheck_Shot_Abort=10075
+,gWs_PowerCheck_Shot_Ena=10076
+,gWs_PowerCheck_Shot_Sta=10077
+,gWs_PowerCheck_Shot_Seq=10078
+,gWs_PowerCheck_Shot_Buf=10079
+,gWs_PowerCheck_Shot_Tmr=10080
+,gWs_PowerCheck_Shot_Err=10081
+,gWs_PowerCheck_Shot_Time=10082
+,gWs_PowerCheck_Shot_TimeBuf=10083
+,gWs_PowerCheck_Stop_Start=10084
+,gWs_PowerCheck_Stop_Abort=10085
+,gWs_PowerCheck_Stop_Ena=10086
+,gWs_PowerCheck_Stop_Sta=10087
+,gWs_PowerCheck_Stop_Seq=10088
+,gWs_PowerCheck_Stop_Buf=10089
+,gWs_PowerCheck_Stop_Tmr=10090
+,gWs_PowerCheck_Stop_Err=10091
+,gVs_PostVisionST_Start=10092
+,gVs_PostVisionST_Abort=10093
+,gVs_PostVisionST_Ena=10094
+,gVs_PostVisionST_Sta=10095
+,gVs_PostVisionST_Seq=10096
+,gVs_PostVisionST_Buf=10097
+,gVs_PostVisionST_Tmr=10098
+,gVs_PostVisionST_Err=10099
+,gVs_PostVisionED_Start=10100
+,gVs_PostVisionED_Abort=10101
+,gVs_PostVisionED_Ena=10102
+,gVs_PostVisionED_Sta=10103
+,gVs_PostVisionED_Seq=10104
+,gVs_PostVisionED_Buf=10105
+,gVs_PostVisionED_Tmr=10106
+,gVs_PostVisionED_Err=10107
+,gWs_Skip_N2=10108
+,gN2BlowState=10109
+,gN2BlowOld=10110
+,gN2BlowTime=10111
+,gIsWsCoverComplete=10112
+,gIsVsCoverComplete=10113
+,gIsWStationReady=10114
+,gIsVStationReady=10115
+,gKin_Len1=10180
+,gKin_Len2=10181
+,gKin_GalvoSfX=10182
+,gKin_GalvoSfY=10183
+,gMc_SeqBuf_Idx=10184
+,gWs_SeqBuf_Cur=10185
+,gWs_SeqBuf_Old=10186
+,gVs_SeqBuf_Cur=10187
+,gVs_SeqBuf_Old=10188
+,gScMon_GalvoAngX=10189
+,gScMon_GalvoAngY=10190
+,gCoreVoltMin=10191
+,gCoreVoltMax=10192
+,gCorePowerMin=10193
+,gCorePowerMax=10194
+,gRingVoltMin=10195
+,gRingVoltMax=10196
+,gRingPowerMin=10197
+,gRingPowerMax=10198
+,gTempRawMin=10199
+,gTempRawMax=10200
+,gSensorTempMin=10201
+,gSensorTempMax=10202
+,Len_X=10203
+,Len_Y=10204
+,Len_R=10205
+,gWs_Error_Cur2=10206
+,gWs_Error_Old2=10207
+,gVs_Error_Cur2=10208
+,gVs_Error_Old2=10209
+,gMc_TransTest_Start=10210
+,gMc_TransTest_Abort=10211
+,gMc_TransTest_Ena=10212
+,gMc_TransTest_Sta=10213
+,gMc_TransTest_Seq=10214
+,gMc_TransTest_Buf=10215
+,gMc_TransTest_Tmr=10216
+,gMc_TransTest_Err=10217
+,gMc_TransTest_Vel=10218
+,gRspSim_PdtNo=10219
+,gRspSim_LdAlignX=10220
+,gRspSim_LdAlignY=10221
+,gRspSim_LdAlignC=10222
+,gRspSim_LdDirRep=10223
+,gRspSim_2dVsnRsp=10224
+,gRspSim_3dVsnRsp=10225
+,gRspSim_LdDirJug=10226
+,gRspSim_2dVsnJug=10227
+,gRspSim_3dVsnJug=10228
+,gRspSim_LdDirRat=10229
+,gRspSim_2dVsnRat=10230
+,gRspSim_3dVsnRat=10231};
 enum globalParray {_globalParray_=-1
-,gMt_HomeStart_Cur=8281
-,gMt_HomeStart_Old=8313
-,gMt_HomeAbort_Cur=8345
-,gMt_HomeAbort_Old=8377
-,gMt_ServoOn_Cur=8409
-,gMt_ServoOn_Old=8441
-,gMt_ServoOff_Cur=8473
-,gMt_ServoOff_Old=8505
-,gMt_Jog_Stop_Cur=8537
-,gMt_Jog_Stop_Old=8569
-,gMt_Jog_ContPlus_Cur=8601
-,gMt_Jog_ContPlus_Old=8633
-,gMt_Jog_ContMinus_Cur=8665
-,gMt_Jog_ContMinus_Old=8697
-,gMt_Jog_AbsMove_Cur=8729
-,gMt_Jog_AbsMove_Old=8761
-,gMt_Jog_IncMove_Cur=8793
-,gMt_Jog_IncMove_Old=8825
-,gEc_Com_Sta=9015
-,gMt_Home_Start=9055
-,gMt_Home_Abort=9087
-,gMt_Home_Ena=9119
-,gMt_Home_Sta=9151
-,gMt_Home_Seq=9183
-,gMt_Home_Buf=9215
-,gMt_Home_Tmr=9247
-,gMt_Home_Err=9279
-,gMt_Home_Pos=9311
-,gMt_ServoOn_Ena=9377
-,gMt_ServoOff_Ena=9409
-,gJog_Stop_Ena=9449
-,gJog_ContPlus_Ena=9481
-,gJog_ContMinus_Ena=9513
-,gJog_AbsMove_Ena=9545
-,gJog_IncMove_Ena=9577
-,gKin_Sf=10072
-,gKin_RotOffset=10104};
+,gMt_HomeStart_Cur=8299
+,gMt_HomeStart_Old=8331
+,gMt_HomeAbort_Cur=8363
+,gMt_HomeAbort_Old=8395
+,gMt_ServoOn_Cur=8427
+,gMt_ServoOn_Old=8459
+,gMt_ServoOff_Cur=8491
+,gMt_ServoOff_Old=8523
+,gMt_Jog_Stop_Cur=8555
+,gMt_Jog_Stop_Old=8587
+,gMt_Jog_ContPlus_Cur=8619
+,gMt_Jog_ContPlus_Old=8651
+,gMt_Jog_ContMinus_Cur=8683
+,gMt_Jog_ContMinus_Old=8715
+,gMt_Jog_AbsMove_Cur=8747
+,gMt_Jog_AbsMove_Old=8779
+,gMt_Jog_IncMove_Cur=8811
+,gMt_Jog_IncMove_Old=8843
+,gEc_Com_Sta=9037
+,gMt_Home_Start=9077
+,gMt_Home_Abort=9109
+,gMt_Home_Ena=9141
+,gMt_Home_Sta=9173
+,gMt_Home_Seq=9205
+,gMt_Home_Buf=9237
+,gMt_Home_Tmr=9269
+,gMt_Home_Err=9301
+,gMt_Home_Pos=9333
+,gMt_ServoOn_Ena=9399
+,gMt_ServoOff_Ena=9431
+,gJog_Stop_Ena=9471
+,gJog_ContPlus_Ena=9503
+,gJog_ContMinus_Ena=9535
+,gJog_AbsMove_Ena=9567
+,gJog_IncMove_Ena=9599
+,gKin_Sf=10116
+,gKin_RotOffset=10148};
 enum csglobalQ {_csglobalQ_=-1};
 enum csglobalQarray {_csglobalQarray_=-1};
 enum ptrM {_ptrM_=-1
@@ -4851,11 +4983,11 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Sta_Ws_LaserRingPower=9267
 ,pUmem_Sta_Ws_PdtNo=9268
 ,pUmem_Sta_TBD_3ED8=9269
-,pUmem_Sta_TBD_3EDC=9270
-,pUmem_Sta_TBD_3EE0=9271
-,pUmem_Sta_TBD_3EE4=9272
-,pUmem_Sta_TBD_3EE8=9273
-,pUmem_Sta_TBD_3EEC=9274
+,pUmem_Sta_Ws_LaserActCorePower=9270
+,pUmem_Sta_Ws_LaserActRingPower=9271
+,pUmem_Sta_Ws_LaserActCoreVolt=9272
+,pUmem_Sta_Ws_LaserActRingVolt=9273
+,pUmem_Cmd_Ws_PowerCheckSta=9274
 ,pUmem_Sta_TBD_3EF0=9275
 ,pUmem_Sta_TBD_3EF4=9276
 ,pUmem_Sta_Ws_LdSeq=9277
@@ -5715,16 +5847,16 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_Ws_LaserTestLineStart=10131
 ,pUmem_Cmd_Ws_LaserTestLineAbort=10132
 ,pUmem_Cmd_TBD_65DC=10133
-,pUmem_Cmd_TBD_65E0=10134
-,pUmem_Cmd_TBD_65E4=10135
-,pUmem_Cmd_TBD_65E8=10136
+,pUmem_Cmd_Ws_ReadyPowerCheck=10134
+,pUmem_Cmd_Ws_PowerCheckStart=10135
+,pUmem_Cmd_Ws_PowerCheckAbort=10136
 ,pUmem_Cmd_TBD_65EC=10137
 ,pUmem_Cmd_TBD_65F0=10138
-,pUmem_Cmd_TBD_65F4=10139
-,pUmem_Cmd_TBD_65F8=10140
-,pUmem_Cmd_TBD_65FC=10141
-,pUmem_Cmd_TBD_6600=10142
-,pUmem_Cmd_TBD_6604=10143
+,pUmem_Cmd_Wd_MdiStart=10139
+,pUmem_Cmd_Wd_MdiAbort=10140
+,pUmem_Cmd_Wd_MdiPosX=10141
+,pUmem_Cmd_Wd_MdiPosY=10142
+,pUmem_Cmd_Wd_MdiPosC=10143
 ,pUmem_Cmd_Ws_LdStart=10144
 ,pUmem_Cmd_Ws_LdAbort=10145
 ,pUmem_Cmd_Ws_LdHold=10146
@@ -5763,7 +5895,7 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_TBD_6694=10179
 ,pUmem_Cmd_TBD_6698=10180
 ,pUmem_Cmd_TBD_669C=10181
-,pUmem_Cmd_TBD_66A0=10182
+,pUmem_Cmd_Ws_WeldingSkip=10182
 ,pUmem_Cmd_Ws_RspSkipOpt=10183
 ,pUmem_Cmd_Ws_2ndTransLdAlignX=10184
 ,pUmem_Cmd_Ws_2ndTransLdAlignY=10185
@@ -5792,8 +5924,8 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_Ws_RefVel=10208
 ,pUmem_Cmd_Ws_RotOffsetX=10209
 ,pUmem_Cmd_Ws_RotOffsetY=10210
-,pUmem_Cmd_Ws_TbVacBlow=10211
-,pUmem_Cmd_TBD_6718=10212
+,pUmem_Cmd_Ws_RefVel_2=10211
+,pUmem_Cmd_Ws_OutMode_2=10212
 ,pUmem_Cmd_TBD_671C=10213
 ,pUmem_Cmd_Ws_OutMode=10214
 ,pUmem_Cmd_Ws_PfmPeriod=10215
@@ -5808,12 +5940,12 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_Ws_RingRefPower=10224
 ,pUmem_Cmd_Ws_RingMinPower=10225
 ,pUmem_Cmd_Ws_RingMaxPower=10226
-,pUmem_Cmd_TBD_6754=10227
-,pUmem_Cmd_TBD_6758=10228
-,pUmem_Cmd_TBD_675C=10229
-,pUmem_Cmd_TBD_6760=10230
-,pUmem_Cmd_TBD_6764=10231
-,pUmem_Cmd_TBD_6768=10232
+,pUmem_Cmd_Ws_PfmPeriod_2=10227
+,pUmem_Cmd_Ws_PfmOnTime_2=10228
+,pUmem_Cmd_Ws_CorePfmEna_2=10229
+,pUmem_Cmd_Ws_RingPfmEna_2=10230
+,pUmem_Cmd_Ws_CoreRefPower_2=10231
+,pUmem_Cmd_Ws_RingRefPower_2=10232
 ,pUmem_Cmd_TBD_676C=10233
 ,pUmem_Cmd_Ws_ShotTime=10234
 ,pUmem_Cmd_Ws_EprOut=10235
@@ -5823,9 +5955,9 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_Ws_CoverFwdPos=10239
 ,pUmem_Cmd_Ws_CoverBwdPos=10240
 ,pUmem_Cmd_Ws_TempOffset2=10241
-,pUmem_Cmd_TBD_6790=10242
-,pUmem_Cmd_TBD_6794=10243
-,pUmem_Cmd_TBD_6798=10244
+,pUmem_Cmd_Ws_PowerCheck_CorePower=10242
+,pUmem_Cmd_Ws_PowerCheck_RingPower=10243
+,pUmem_Cmd_Ws_TbVacBlow=10244
 ,pUmem_Cmd_TBD_679C=10245
 ,pUmem_Cmd_TBD_67A0=10246
 ,pUmem_Cmd_TBD_67A4=10247
@@ -5953,7 +6085,7 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_TBD_6A7C=10369
 ,pUmem_Cmd_TBD_6A80=10370
 ,pUmem_Cmd_TBD_6A84=10371
-,pUmem_Cmd_TBD_6A88=10372
+,pUmem_Cmd_Vs_VisionSkip=10372
 ,pUmem_Cmd_Vs_RspSkipOpt=10373
 ,pUmem_Cmd_TBD_6A90=10374
 ,pUmem_Cmd_TBD_6A94=10375
@@ -6089,114 +6221,124 @@ enum ptrM {_ptrM_=-1
 ,pUmem_Cmd_Sc_WblRatioL=10505
 ,pUmem_Cmd_Sc_WblOffsetX=10506
 ,pUmem_Cmd_Sc_WblOffsetY=10507
-,pUmem_Di00=10604
-,pUmem_Di01_LaserReady=10605
-,pUmem_Di02_LaserReqResp=10606
-,pUmem_Di03_LaserPowerOn=10607
-,pUmem_Di04_LaserAdMode=10608
-,pUmem_Di05_LaserProgRun=10609
-,pUmem_Di06_LaserWarning=10610
-,pUmem_Di07_LaserAbnormal=10611
-,pUmem_Di08=10612
-,pUmem_Di09=10613
-,pUmem_Di0A=10614
-,pUmem_Di0B=10615
-,pUmem_Di0C=10616
-,pUmem_Di0D=10617
-,pUmem_Di0E=10618
-,pUmem_Di0F=10619
-,pUmem_Di10_WsLtFixUp=10620
-,pUmem_Di11_WsVsLtStrCls=10621
-,pUmem_Di12_WsLtFixDn=10622
-,pUmem_Di13_WsVsLtStrOpn=10623
-,pUmem_Di14_WsRtFixUp=10624
-,pUmem_Di15_WsVsRtStrCls=10625
-,pUmem_Di16_WsRtFixDn=10626
-,pUmem_Di17_WsVsRtStrOpn=10627
-,pUmem_Di18_WsTempBwd=10628
-,pUmem_Di19_TrPickUp=10629
-,pUmem_Di1A_WsTempFwd=10630
-,pUmem_Di1B_TrPickDn=10631
-,pUmem_Di1C_WsTbDet=10632
-,pUmem_Di1D_TrGripCls=10633
-,pUmem_Di1E=10634
-,pUmem_Di1F_TrGripOpn=10635
-,pUmem_Di20_VsTbFixBwd=10636
-,pUmem_Di21_WsAirCurtain=10637
-,pUmem_Di22_VsTbFixFwd=10638
-,pUmem_Di23_WsN2Blow=10639
-,pUmem_Di24_VsTbFixUp=10640
-,pUmem_Di25=10641
-,pUmem_Di26_VsTbFixDn=10642
-,pUmem_Di27=10643
-,pUmem_Di28=10644
-,pUmem_Di29=10645
-,pUmem_Di2A=10646
-,pUmem_Di2B=10647
-,pUmem_Di2C_VsTbDet=10648
-,pUmem_Di2D=10649
-,pUmem_Di2E=10650
-,pUmem_Di2F=10651
-,pUmem_Di30_EcldFwd=10652
-,pUmem_Di31_EcldBwd=10653
-,pUmem_Do00_LaserEmission=10654
-,pUmem_Do01_LaserReset=10655
-,pUmem_Do02_LaserRequest=10656
-,pUmem_Do03_LaserPowerOn=10657
-,pUmem_Do04_LaserAdInEna=10658
-,pUmem_Do05_LaserGuideEna=10659
-,pUmem_Do06_LaserProgEna=10660
-,pUmem_Do07_LaserProgStop=10661
-,pUmem_Do08=10662
-,pUmem_Do09=10663
-,pUmem_Do0A=10664
-,pUmem_Do0B=10665
-,pUmem_Do0C=10666
-,pUmem_Do0D=10667
-,pUmem_Do0E=10668
-,pUmem_Do0F=10669
-,pUmem_Do10_WsTbFixUp=10670
-,pUmem_Do11_WsTempBwd=10671
-,pUmem_Do12_WsTbFixDn=10672
-,pUmem_Do13_WsTempFwd=10673
-,pUmem_Do14_TrGripCls=10674
-,pUmem_Do15_VsTbFixBwd=10675
-,pUmem_Do16_TrGripOpn=10676
-,pUmem_Do17_VsTbFixFwd=10677
-,pUmem_Do18_TrPickUp=10678
-,pUmem_Do19_VsTbFixUp=10679
-,pUmem_Do1A_TrPickDn=10680
-,pUmem_Do1B_VsTbFixDn=10681
-,pUmem_Do1C_WsVsStrCls=10682
-,pUmem_Do1D_WsCoolAir=10683
-,pUmem_Do1E_WsVsStrOpn=10684
-,pUmem_Do1F=10685
-,pUmem_Do20_WsTbVacm=10686
-,pUmem_Do21_WsAirCurtain=10687
-,pUmem_Do22_WsTbBlow=10688
-,pUmem_Do23_WsN2Blow=10689
-,pUmem_Do24=10690
-,pUmem_Do25_WsTbVacmValve=10691
-,pUmem_Do26=10692
-,pUmem_Do27=10693
-,pUmem_Do28=10694
-,pUmem_Do29=10695
-,pUmem_Do2A=10696
-,pUmem_Do2B=10697
-,pUmem_Do2C=10698
-,pUmem_Do2D=10699
-,pUmem_Do2E=10700
-,pUmem_Do2F=10701
-,pUmem_Do30_EcldFwd=10702
-,pUmem_Do31_EcldBwd=10703
-,pUmem_Ai00_WsLoadCell=10704
-,pUmem_Ai01=10705
-,pUmem_Ti00_WsTempSen1=10706
-,pUmem_Ti01_WsTempSen2=10707
-,pUmem_Sta_Mc_BufIdx=10708
-,pWs_Vect_Dlt=12101
-,pVs_Vect_Dlt=12102
-,pWs_Epr_OutVdc=12103};
+,pUmem_Cmd_Sc_WblEna_2=10508
+,pUmem_Cmd_Sc_WblLen_2=10509
+,pUmem_Cmd_Sc_WblDist_2=10510
+,pUmem_Cmd_Sc_WblType_2=10511
+,pUmem_Cmd_Sc_WblRatioW_2=10512
+,pUmem_Cmd_Sc_WblRatioL_2=10513
+,pUmem_Cmd_Sc_WblOffsetX_2=10514
+,pUmem_Cmd_Sc_WblOffsetY_2=10515
+,pUmem_Di00=10612
+,pUmem_Di01_LaserReady=10613
+,pUmem_Di02_LaserReqResp=10614
+,pUmem_Di03_LaserPowerOn=10615
+,pUmem_Di04_LaserAdMode=10616
+,pUmem_Di05_LaserProgRun=10617
+,pUmem_Di06_LaserWarning=10618
+,pUmem_Di07_LaserAbnormal=10619
+,pUmem_Di08=10620
+,pUmem_Di09=10621
+,pUmem_Di0A=10622
+,pUmem_Di0B=10623
+,pUmem_Di0C=10624
+,pUmem_Di0D=10625
+,pUmem_Di0E=10626
+,pUmem_Di0F=10627
+,pUmem_Di10_WsLtFixUp=10628
+,pUmem_Di11_WsVsLtStrCls=10629
+,pUmem_Di12_WsLtFixDn=10630
+,pUmem_Di13_WsVsLtStrOpn=10631
+,pUmem_Di14_WsRtFixUp=10632
+,pUmem_Di15_WsVsRtStrCls=10633
+,pUmem_Di16_WsRtFixDn=10634
+,pUmem_Di17_WsVsRtStrOpn=10635
+,pUmem_Di18_WsTempBwd=10636
+,pUmem_Di19_TrPickUp=10637
+,pUmem_Di1A_WsTempFwd=10638
+,pUmem_Di1B_TrPickDn=10639
+,pUmem_Di1C_WsTbOutOfRange=10640
+,pUmem_Di1D_TrGripCls=10641
+,pUmem_Di1E=10642
+,pUmem_Di1F_TrGripOpn=10643
+,pUmem_Di20_VsTbFixBwd=10644
+,pUmem_Di21_WsAirCurtain=10645
+,pUmem_Di22_VsTbFixFwd=10646
+,pUmem_Di23_WsN2Blow=10647
+,pUmem_Di24_VsTbFixUp=10648
+,pUmem_Di25=10649
+,pUmem_Di26_VsTbFixDn=10650
+,pUmem_Di27=10651
+,pUmem_Di28_WsTbDet=10652
+,pUmem_Di29=10653
+,pUmem_Di2A_VsTbDet=10654
+,pUmem_Di2B=10655
+,pUmem_Di2C_VsTbOutOfRange=10656
+,pUmem_Di2D=10657
+,pUmem_Di2E=10658
+,pUmem_Di2F=10659
+,pUmem_Di30_EcldFwd=10660
+,pUmem_Di31_EcldBwd=10661
+,pUmem_Do00_LaserEmission=10662
+,pUmem_Do01_LaserReset=10663
+,pUmem_Do02_LaserRequest=10664
+,pUmem_Do03_LaserPowerOn=10665
+,pUmem_Do04_LaserAdInEna=10666
+,pUmem_Do05_LaserGuideEna=10667
+,pUmem_Do06_LaserProgEna=10668
+,pUmem_Do07_LaserProgStop=10669
+,pUmem_Do08=10670
+,pUmem_Do09=10671
+,pUmem_Do0A=10672
+,pUmem_Do0B=10673
+,pUmem_Do0C=10674
+,pUmem_Do0D=10675
+,pUmem_Do0E=10676
+,pUmem_Do0F=10677
+,pUmem_Do10_WsTbFixUp=10678
+,pUmem_Do11_WsTempBwd=10679
+,pUmem_Do12_WsTbFixDn=10680
+,pUmem_Do13_WsTempFwd=10681
+,pUmem_Do14_TrGripCls=10682
+,pUmem_Do15_VsTbFixBwd=10683
+,pUmem_Do16_TrGripOpn=10684
+,pUmem_Do17_VsTbFixFwd=10685
+,pUmem_Do18_TrPickUp=10686
+,pUmem_Do19_VsTbFixUp=10687
+,pUmem_Do1A_TrPickDn=10688
+,pUmem_Do1B_VsTbFixDn=10689
+,pUmem_Do1C_WsVsStrCls=10690
+,pUmem_Do1D_WsCoolAir=10691
+,pUmem_Do1E_WsVsStrOpn=10692
+,pUmem_Do1F=10693
+,pUmem_Do20_WsTbVacm=10694
+,pUmem_Do21_WsAirCurtain=10695
+,pUmem_Do22_WsTbBlow=10696
+,pUmem_Do23_WsN2Blow=10697
+,pUmem_Do24=10698
+,pUmem_Do25_WsTbVacmValve=10699
+,pUmem_Do26=10700
+,pUmem_Do27=10701
+,pUmem_Do28=10702
+,pUmem_Do29=10703
+,pUmem_Do2A=10704
+,pUmem_Do2B=10705
+,pUmem_Do2C=10706
+,pUmem_Do2D=10707
+,pUmem_Do2E=10708
+,pUmem_Do2F=10709
+,pUmem_Do30_EcldFwd=10710
+,pUmem_Do31_EcldBwd=10711
+,pUmem_Ai00_WsLoadCell=10712
+,pUmem_Ai01=10713
+,pUmem_Ai03_WsCorePower=10714
+,pUmem_Ai04_WsRingPower=10715
+,pUmem_Ti00_WsTempSen1=10716
+,pUmem_Ti01_WsTempSen2=10717
+,pUmem_Sta_Mc_BufIdx=10718
+,pWs_Vect_Dlt=12111
+,pVs_Vect_Dlt=12112
+,pWs_Epr_OutVdc=12113};
 enum ptrMarray {_ptrMarray_=-1
 ,pEcat_Di_Md01=8231
 ,pEcat_Di_Md02=8247
@@ -6209,51 +6351,51 @@ enum ptrMarray {_ptrMarray_=-1
 ,pEcat_AlarmReset=8494
 ,pGpio_Di_Md00=8526
 ,pGpio_Do_Md00=8542
-,pUmem_Di_Md00=10508
-,pUmem_Di_Md01=10524
-,pUmem_Di_Md02=10540
-,pUmem_Do_Md00=10556
-,pUmem_Do_Md01=10572
-,pUmem_Do_Md02=10588
-,pUmem_Sta_Mc_SeqCur=10709
-,pUmem_Sta_Mc_SeqOld=10759
-,pUmem_Sta_Mc_Pdt=10809
-,pUmem_Sta_Mc_Time_L=10859
-,pUmem_Sta_Mc_Time_H=10909
-,pUmem_Sta_Mc_Time_BufD=10959
-,pUmem_Sta_Mc_Time_BufL=11009
-,pUmem_Sta_Mc_Time_BufH=11059
-,pUmem_Sta_CmdPos=11109
-,pUmem_Sta_ActPos=11141
-,pUmem_Sta_Velocity=11173
-,pUmem_Sta_Load=11205
-,pUmem_Sta_AmpEna=11237
-,pUmem_Sta_CloseLoop=11269
-,pUmem_Sta_InPos=11301
-,pUmem_Sta_HomeFin=11333
-,pUmem_Sta_HomeIng=11365
-,pUmem_Sta_LimitMinus=11397
-,pUmem_Sta_LimitPlus=11429
-,pUmem_Sta_FollowingErr=11461
-,pUmem_Sta_AmpFault=11493
-,pUmem_Sta_EncLoss=11525
-,pUmem_Sta_I2tErr=11557
-,pUmem_Sta_ProgPos=11589
-,pUmem_Cmd_ServoOn=11621
-,pUmem_Cmd_ServoOff=11653
-,pUmem_Cmd_HomeStart=11685
-,pUmem_Cmd_HomeAbort=11717
-,pUmem_Cmd_HomeOffset=11749
-,pUmem_Cmd_JogStop=11781
-,pUmem_Cmd_JogContPlus=11813
-,pUmem_Cmd_JogContMinus=11845
-,pUmem_Cmd_JogAbsMove=11877
-,pUmem_Cmd_JogIncMove=11909
-,pUmem_Cmd_JogAbsPos=11941
-,pUmem_Cmd_JogIncDist=11973
-,pUmem_Cmd_JogSpeed=12005
-,pUmem_Cmd_JogTa=12037
-,pUmem_Cmd_JogTs=12069};
+,pUmem_Di_Md00=10516
+,pUmem_Di_Md01=10532
+,pUmem_Di_Md02=10548
+,pUmem_Do_Md00=10564
+,pUmem_Do_Md01=10580
+,pUmem_Do_Md02=10596
+,pUmem_Sta_Mc_SeqCur=10719
+,pUmem_Sta_Mc_SeqOld=10769
+,pUmem_Sta_Mc_Pdt=10819
+,pUmem_Sta_Mc_Time_L=10869
+,pUmem_Sta_Mc_Time_H=10919
+,pUmem_Sta_Mc_Time_BufD=10969
+,pUmem_Sta_Mc_Time_BufL=11019
+,pUmem_Sta_Mc_Time_BufH=11069
+,pUmem_Sta_CmdPos=11119
+,pUmem_Sta_ActPos=11151
+,pUmem_Sta_Velocity=11183
+,pUmem_Sta_Load=11215
+,pUmem_Sta_AmpEna=11247
+,pUmem_Sta_CloseLoop=11279
+,pUmem_Sta_InPos=11311
+,pUmem_Sta_HomeFin=11343
+,pUmem_Sta_HomeIng=11375
+,pUmem_Sta_LimitMinus=11407
+,pUmem_Sta_LimitPlus=11439
+,pUmem_Sta_FollowingErr=11471
+,pUmem_Sta_AmpFault=11503
+,pUmem_Sta_EncLoss=11535
+,pUmem_Sta_I2tErr=11567
+,pUmem_Sta_ProgPos=11599
+,pUmem_Cmd_ServoOn=11631
+,pUmem_Cmd_ServoOff=11663
+,pUmem_Cmd_HomeStart=11695
+,pUmem_Cmd_HomeAbort=11727
+,pUmem_Cmd_HomeOffset=11759
+,pUmem_Cmd_JogStop=11791
+,pUmem_Cmd_JogContPlus=11823
+,pUmem_Cmd_JogContMinus=11855
+,pUmem_Cmd_JogAbsMove=11887
+,pUmem_Cmd_JogIncMove=11919
+,pUmem_Cmd_JogAbsPos=11951
+,pUmem_Cmd_JogIncDist=11983
+,pUmem_Cmd_JogSpeed=12015
+,pUmem_Cmd_JogTa=12047
+,pUmem_Cmd_JogTs=12079};
 #ifndef _PP_PROJ_HDR_
   void SetEnumGlobalVar(enum globalP var, double data)
   {
@@ -7202,11 +7344,11 @@ enum ptrMarray {_ptrMarray_=-1
 #define pUmem_Sta_Ws_LaserRingPower 9267
 #define pUmem_Sta_Ws_PdtNo 9268
 #define pUmem_Sta_TBD_3ED8 9269
-#define pUmem_Sta_TBD_3EDC 9270
-#define pUmem_Sta_TBD_3EE0 9271
-#define pUmem_Sta_TBD_3EE4 9272
-#define pUmem_Sta_TBD_3EE8 9273
-#define pUmem_Sta_TBD_3EEC 9274
+#define pUmem_Sta_Ws_LaserActCorePower 9270
+#define pUmem_Sta_Ws_LaserActRingPower 9271
+#define pUmem_Sta_Ws_LaserActCoreVolt 9272
+#define pUmem_Sta_Ws_LaserActRingVolt 9273
+#define pUmem_Cmd_Ws_PowerCheckSta 9274
 #define pUmem_Sta_TBD_3EF0 9275
 #define pUmem_Sta_TBD_3EF4 9276
 #define pUmem_Sta_Ws_LdSeq 9277
@@ -8066,16 +8208,16 @@ enum ptrMarray {_ptrMarray_=-1
 #define pUmem_Cmd_Ws_LaserTestLineStart 10131
 #define pUmem_Cmd_Ws_LaserTestLineAbort 10132
 #define pUmem_Cmd_TBD_65DC 10133
-#define pUmem_Cmd_TBD_65E0 10134
-#define pUmem_Cmd_TBD_65E4 10135
-#define pUmem_Cmd_TBD_65E8 10136
+#define pUmem_Cmd_Ws_ReadyPowerCheck 10134
+#define pUmem_Cmd_Ws_PowerCheckStart 10135
+#define pUmem_Cmd_Ws_PowerCheckAbort 10136
 #define pUmem_Cmd_TBD_65EC 10137
 #define pUmem_Cmd_TBD_65F0 10138
-#define pUmem_Cmd_TBD_65F4 10139
-#define pUmem_Cmd_TBD_65F8 10140
-#define pUmem_Cmd_TBD_65FC 10141
-#define pUmem_Cmd_TBD_6600 10142
-#define pUmem_Cmd_TBD_6604 10143
+#define pUmem_Cmd_Wd_MdiStart 10139
+#define pUmem_Cmd_Wd_MdiAbort 10140
+#define pUmem_Cmd_Wd_MdiPosX 10141
+#define pUmem_Cmd_Wd_MdiPosY 10142
+#define pUmem_Cmd_Wd_MdiPosC 10143
 #define pUmem_Cmd_Ws_LdStart 10144
 #define pUmem_Cmd_Ws_LdAbort 10145
 #define pUmem_Cmd_Ws_LdHold 10146
@@ -8114,7 +8256,7 @@ enum ptrMarray {_ptrMarray_=-1
 #define pUmem_Cmd_TBD_6694 10179
 #define pUmem_Cmd_TBD_6698 10180
 #define pUmem_Cmd_TBD_669C 10181
-#define pUmem_Cmd_TBD_66A0 10182
+#define pUmem_Cmd_Ws_WeldingSkip 10182
 #define pUmem_Cmd_Ws_RspSkipOpt 10183
 #define pUmem_Cmd_Ws_2ndTransLdAlignX 10184
 #define pUmem_Cmd_Ws_2ndTransLdAlignY 10185
@@ -8143,8 +8285,8 @@ enum ptrMarray {_ptrMarray_=-1
 #define pUmem_Cmd_Ws_RefVel 10208
 #define pUmem_Cmd_Ws_RotOffsetX 10209
 #define pUmem_Cmd_Ws_RotOffsetY 10210
-#define pUmem_Cmd_Ws_TbVacBlow 10211
-#define pUmem_Cmd_TBD_6718 10212
+#define pUmem_Cmd_Ws_RefVel_2 10211
+#define pUmem_Cmd_Ws_OutMode_2 10212
 #define pUmem_Cmd_TBD_671C 10213
 #define pUmem_Cmd_Ws_OutMode 10214
 #define pUmem_Cmd_Ws_PfmPeriod 10215
@@ -8159,12 +8301,12 @@ enum ptrMarray {_ptrMarray_=-1
 #define pUmem_Cmd_Ws_RingRefPower 10224
 #define pUmem_Cmd_Ws_RingMinPower 10225
 #define pUmem_Cmd_Ws_RingMaxPower 10226
-#define pUmem_Cmd_TBD_6754 10227
-#define pUmem_Cmd_TBD_6758 10228
-#define pUmem_Cmd_TBD_675C 10229
-#define pUmem_Cmd_TBD_6760 10230
-#define pUmem_Cmd_TBD_6764 10231
-#define pUmem_Cmd_TBD_6768 10232
+#define pUmem_Cmd_Ws_PfmPeriod_2 10227
+#define pUmem_Cmd_Ws_PfmOnTime_2 10228
+#define pUmem_Cmd_Ws_CorePfmEna_2 10229
+#define pUmem_Cmd_Ws_RingPfmEna_2 10230
+#define pUmem_Cmd_Ws_CoreRefPower_2 10231
+#define pUmem_Cmd_Ws_RingRefPower_2 10232
 #define pUmem_Cmd_TBD_676C 10233
 #define pUmem_Cmd_Ws_ShotTime 10234
 #define pUmem_Cmd_Ws_EprOut 10235
@@ -8174,9 +8316,9 @@ enum ptrMarray {_ptrMarray_=-1
 #define pUmem_Cmd_Ws_CoverFwdPos 10239
 #define pUmem_Cmd_Ws_CoverBwdPos 10240
 #define pUmem_Cmd_Ws_TempOffset2 10241
-#define pUmem_Cmd_TBD_6790 10242
-#define pUmem_Cmd_TBD_6794 10243
-#define pUmem_Cmd_TBD_6798 10244
+#define pUmem_Cmd_Ws_PowerCheck_CorePower 10242
+#define pUmem_Cmd_Ws_PowerCheck_RingPower 10243
+#define pUmem_Cmd_Ws_TbVacBlow 10244
 #define pUmem_Cmd_TBD_679C 10245
 #define pUmem_Cmd_TBD_67A0 10246
 #define pUmem_Cmd_TBD_67A4 10247
@@ -8304,7 +8446,7 @@ enum ptrMarray {_ptrMarray_=-1
 #define pUmem_Cmd_TBD_6A7C 10369
 #define pUmem_Cmd_TBD_6A80 10370
 #define pUmem_Cmd_TBD_6A84 10371
-#define pUmem_Cmd_TBD_6A88 10372
+#define pUmem_Cmd_Vs_VisionSkip 10372
 #define pUmem_Cmd_Vs_RspSkipOpt 10373
 #define pUmem_Cmd_TBD_6A90 10374
 #define pUmem_Cmd_TBD_6A94 10375
@@ -8440,156 +8582,166 @@ enum ptrMarray {_ptrMarray_=-1
 #define pUmem_Cmd_Sc_WblRatioL 10505
 #define pUmem_Cmd_Sc_WblOffsetX 10506
 #define pUmem_Cmd_Sc_WblOffsetY 10507
-#define pUmem_Di_Md00 10508
-#define pUmem_Di_Md01 10524
-#define pUmem_Di_Md02 10540
-#define pUmem_Do_Md00 10556
-#define pUmem_Do_Md01 10572
-#define pUmem_Do_Md02 10588
-#define pUmem_Di00 10604
-#define pUmem_Di01_LaserReady 10605
-#define pUmem_Di02_LaserReqResp 10606
-#define pUmem_Di03_LaserPowerOn 10607
-#define pUmem_Di04_LaserAdMode 10608
-#define pUmem_Di05_LaserProgRun 10609
-#define pUmem_Di06_LaserWarning 10610
-#define pUmem_Di07_LaserAbnormal 10611
-#define pUmem_Di08 10612
-#define pUmem_Di09 10613
-#define pUmem_Di0A 10614
-#define pUmem_Di0B 10615
-#define pUmem_Di0C 10616
-#define pUmem_Di0D 10617
-#define pUmem_Di0E 10618
-#define pUmem_Di0F 10619
-#define pUmem_Di10_WsLtFixUp 10620
-#define pUmem_Di11_WsVsLtStrCls 10621
-#define pUmem_Di12_WsLtFixDn 10622
-#define pUmem_Di13_WsVsLtStrOpn 10623
-#define pUmem_Di14_WsRtFixUp 10624
-#define pUmem_Di15_WsVsRtStrCls 10625
-#define pUmem_Di16_WsRtFixDn 10626
-#define pUmem_Di17_WsVsRtStrOpn 10627
-#define pUmem_Di18_WsTempBwd 10628
-#define pUmem_Di19_TrPickUp 10629
-#define pUmem_Di1A_WsTempFwd 10630
-#define pUmem_Di1B_TrPickDn 10631
-#define pUmem_Di1C_WsTbDet 10632
-#define pUmem_Di1D_TrGripCls 10633
-#define pUmem_Di1E 10634
-#define pUmem_Di1F_TrGripOpn 10635
-#define pUmem_Di20_VsTbFixBwd 10636
-#define pUmem_Di21_WsAirCurtain 10637
-#define pUmem_Di22_VsTbFixFwd 10638
-#define pUmem_Di23_WsN2Blow 10639
-#define pUmem_Di24_VsTbFixUp 10640
-#define pUmem_Di25 10641
-#define pUmem_Di26_VsTbFixDn 10642
-#define pUmem_Di27 10643
-#define pUmem_Di28 10644
-#define pUmem_Di29 10645
-#define pUmem_Di2A 10646
-#define pUmem_Di2B 10647
-#define pUmem_Di2C_VsTbDet 10648
-#define pUmem_Di2D 10649
-#define pUmem_Di2E 10650
-#define pUmem_Di2F 10651
-#define pUmem_Di30_EcldFwd 10652
-#define pUmem_Di31_EcldBwd 10653
-#define pUmem_Do00_LaserEmission 10654
-#define pUmem_Do01_LaserReset 10655
-#define pUmem_Do02_LaserRequest 10656
-#define pUmem_Do03_LaserPowerOn 10657
-#define pUmem_Do04_LaserAdInEna 10658
-#define pUmem_Do05_LaserGuideEna 10659
-#define pUmem_Do06_LaserProgEna 10660
-#define pUmem_Do07_LaserProgStop 10661
-#define pUmem_Do08 10662
-#define pUmem_Do09 10663
-#define pUmem_Do0A 10664
-#define pUmem_Do0B 10665
-#define pUmem_Do0C 10666
-#define pUmem_Do0D 10667
-#define pUmem_Do0E 10668
-#define pUmem_Do0F 10669
-#define pUmem_Do10_WsTbFixUp 10670
-#define pUmem_Do11_WsTempBwd 10671
-#define pUmem_Do12_WsTbFixDn 10672
-#define pUmem_Do13_WsTempFwd 10673
-#define pUmem_Do14_TrGripCls 10674
-#define pUmem_Do15_VsTbFixBwd 10675
-#define pUmem_Do16_TrGripOpn 10676
-#define pUmem_Do17_VsTbFixFwd 10677
-#define pUmem_Do18_TrPickUp 10678
-#define pUmem_Do19_VsTbFixUp 10679
-#define pUmem_Do1A_TrPickDn 10680
-#define pUmem_Do1B_VsTbFixDn 10681
-#define pUmem_Do1C_WsVsStrCls 10682
-#define pUmem_Do1D_WsCoolAir 10683
-#define pUmem_Do1E_WsVsStrOpn 10684
-#define pUmem_Do1F 10685
-#define pUmem_Do20_WsTbVacm 10686
-#define pUmem_Do21_WsAirCurtain 10687
-#define pUmem_Do22_WsTbBlow 10688
-#define pUmem_Do23_WsN2Blow 10689
-#define pUmem_Do24 10690
-#define pUmem_Do25_WsTbVacmValve 10691
-#define pUmem_Do26 10692
-#define pUmem_Do27 10693
-#define pUmem_Do28 10694
-#define pUmem_Do29 10695
-#define pUmem_Do2A 10696
-#define pUmem_Do2B 10697
-#define pUmem_Do2C 10698
-#define pUmem_Do2D 10699
-#define pUmem_Do2E 10700
-#define pUmem_Do2F 10701
-#define pUmem_Do30_EcldFwd 10702
-#define pUmem_Do31_EcldBwd 10703
-#define pUmem_Ai00_WsLoadCell 10704
-#define pUmem_Ai01 10705
-#define pUmem_Ti00_WsTempSen1 10706
-#define pUmem_Ti01_WsTempSen2 10707
-#define pUmem_Sta_Mc_BufIdx 10708
-#define pUmem_Sta_Mc_SeqCur 10709
-#define pUmem_Sta_Mc_SeqOld 10759
-#define pUmem_Sta_Mc_Pdt 10809
-#define pUmem_Sta_Mc_Time_L 10859
-#define pUmem_Sta_Mc_Time_H 10909
-#define pUmem_Sta_Mc_Time_BufD 10959
-#define pUmem_Sta_Mc_Time_BufL 11009
-#define pUmem_Sta_Mc_Time_BufH 11059
-#define pUmem_Sta_CmdPos 11109
-#define pUmem_Sta_ActPos 11141
-#define pUmem_Sta_Velocity 11173
-#define pUmem_Sta_Load 11205
-#define pUmem_Sta_AmpEna 11237
-#define pUmem_Sta_CloseLoop 11269
-#define pUmem_Sta_InPos 11301
-#define pUmem_Sta_HomeFin 11333
-#define pUmem_Sta_HomeIng 11365
-#define pUmem_Sta_LimitMinus 11397
-#define pUmem_Sta_LimitPlus 11429
-#define pUmem_Sta_FollowingErr 11461
-#define pUmem_Sta_AmpFault 11493
-#define pUmem_Sta_EncLoss 11525
-#define pUmem_Sta_I2tErr 11557
-#define pUmem_Sta_ProgPos 11589
-#define pUmem_Cmd_ServoOn 11621
-#define pUmem_Cmd_ServoOff 11653
-#define pUmem_Cmd_HomeStart 11685
-#define pUmem_Cmd_HomeAbort 11717
-#define pUmem_Cmd_HomeOffset 11749
-#define pUmem_Cmd_JogStop 11781
-#define pUmem_Cmd_JogContPlus 11813
-#define pUmem_Cmd_JogContMinus 11845
-#define pUmem_Cmd_JogAbsMove 11877
-#define pUmem_Cmd_JogIncMove 11909
-#define pUmem_Cmd_JogAbsPos 11941
-#define pUmem_Cmd_JogIncDist 11973
-#define pUmem_Cmd_JogSpeed 12005
-#define pUmem_Cmd_JogTa 12037
-#define pUmem_Cmd_JogTs 12069
+#define pUmem_Cmd_Sc_WblEna_2 10508
+#define pUmem_Cmd_Sc_WblLen_2 10509
+#define pUmem_Cmd_Sc_WblDist_2 10510
+#define pUmem_Cmd_Sc_WblType_2 10511
+#define pUmem_Cmd_Sc_WblRatioW_2 10512
+#define pUmem_Cmd_Sc_WblRatioL_2 10513
+#define pUmem_Cmd_Sc_WblOffsetX_2 10514
+#define pUmem_Cmd_Sc_WblOffsetY_2 10515
+#define pUmem_Di_Md00 10516
+#define pUmem_Di_Md01 10532
+#define pUmem_Di_Md02 10548
+#define pUmem_Do_Md00 10564
+#define pUmem_Do_Md01 10580
+#define pUmem_Do_Md02 10596
+#define pUmem_Di00 10612
+#define pUmem_Di01_LaserReady 10613
+#define pUmem_Di02_LaserReqResp 10614
+#define pUmem_Di03_LaserPowerOn 10615
+#define pUmem_Di04_LaserAdMode 10616
+#define pUmem_Di05_LaserProgRun 10617
+#define pUmem_Di06_LaserWarning 10618
+#define pUmem_Di07_LaserAbnormal 10619
+#define pUmem_Di08 10620
+#define pUmem_Di09 10621
+#define pUmem_Di0A 10622
+#define pUmem_Di0B 10623
+#define pUmem_Di0C 10624
+#define pUmem_Di0D 10625
+#define pUmem_Di0E 10626
+#define pUmem_Di0F 10627
+#define pUmem_Di10_WsLtFixUp 10628
+#define pUmem_Di11_WsVsLtStrCls 10629
+#define pUmem_Di12_WsLtFixDn 10630
+#define pUmem_Di13_WsVsLtStrOpn 10631
+#define pUmem_Di14_WsRtFixUp 10632
+#define pUmem_Di15_WsVsRtStrCls 10633
+#define pUmem_Di16_WsRtFixDn 10634
+#define pUmem_Di17_WsVsRtStrOpn 10635
+#define pUmem_Di18_WsTempBwd 10636
+#define pUmem_Di19_TrPickUp 10637
+#define pUmem_Di1A_WsTempFwd 10638
+#define pUmem_Di1B_TrPickDn 10639
+#define pUmem_Di1C_WsTbOutOfRange 10640
+#define pUmem_Di1D_TrGripCls 10641
+#define pUmem_Di1E 10642
+#define pUmem_Di1F_TrGripOpn 10643
+#define pUmem_Di20_VsTbFixBwd 10644
+#define pUmem_Di21_WsAirCurtain 10645
+#define pUmem_Di22_VsTbFixFwd 10646
+#define pUmem_Di23_WsN2Blow 10647
+#define pUmem_Di24_VsTbFixUp 10648
+#define pUmem_Di25 10649
+#define pUmem_Di26_VsTbFixDn 10650
+#define pUmem_Di27 10651
+#define pUmem_Di28_WsTbDet 10652
+#define pUmem_Di29 10653
+#define pUmem_Di2A_VsTbDet 10654
+#define pUmem_Di2B 10655
+#define pUmem_Di2C_VsTbOutOfRange 10656
+#define pUmem_Di2D 10657
+#define pUmem_Di2E 10658
+#define pUmem_Di2F 10659
+#define pUmem_Di30_EcldFwd 10660
+#define pUmem_Di31_EcldBwd 10661
+#define pUmem_Do00_LaserEmission 10662
+#define pUmem_Do01_LaserReset 10663
+#define pUmem_Do02_LaserRequest 10664
+#define pUmem_Do03_LaserPowerOn 10665
+#define pUmem_Do04_LaserAdInEna 10666
+#define pUmem_Do05_LaserGuideEna 10667
+#define pUmem_Do06_LaserProgEna 10668
+#define pUmem_Do07_LaserProgStop 10669
+#define pUmem_Do08 10670
+#define pUmem_Do09 10671
+#define pUmem_Do0A 10672
+#define pUmem_Do0B 10673
+#define pUmem_Do0C 10674
+#define pUmem_Do0D 10675
+#define pUmem_Do0E 10676
+#define pUmem_Do0F 10677
+#define pUmem_Do10_WsTbFixUp 10678
+#define pUmem_Do11_WsTempBwd 10679
+#define pUmem_Do12_WsTbFixDn 10680
+#define pUmem_Do13_WsTempFwd 10681
+#define pUmem_Do14_TrGripCls 10682
+#define pUmem_Do15_VsTbFixBwd 10683
+#define pUmem_Do16_TrGripOpn 10684
+#define pUmem_Do17_VsTbFixFwd 10685
+#define pUmem_Do18_TrPickUp 10686
+#define pUmem_Do19_VsTbFixUp 10687
+#define pUmem_Do1A_TrPickDn 10688
+#define pUmem_Do1B_VsTbFixDn 10689
+#define pUmem_Do1C_WsVsStrCls 10690
+#define pUmem_Do1D_WsCoolAir 10691
+#define pUmem_Do1E_WsVsStrOpn 10692
+#define pUmem_Do1F 10693
+#define pUmem_Do20_WsTbVacm 10694
+#define pUmem_Do21_WsAirCurtain 10695
+#define pUmem_Do22_WsTbBlow 10696
+#define pUmem_Do23_WsN2Blow 10697
+#define pUmem_Do24 10698
+#define pUmem_Do25_WsTbVacmValve 10699
+#define pUmem_Do26 10700
+#define pUmem_Do27 10701
+#define pUmem_Do28 10702
+#define pUmem_Do29 10703
+#define pUmem_Do2A 10704
+#define pUmem_Do2B 10705
+#define pUmem_Do2C 10706
+#define pUmem_Do2D 10707
+#define pUmem_Do2E 10708
+#define pUmem_Do2F 10709
+#define pUmem_Do30_EcldFwd 10710
+#define pUmem_Do31_EcldBwd 10711
+#define pUmem_Ai00_WsLoadCell 10712
+#define pUmem_Ai01 10713
+#define pUmem_Ai03_WsCorePower 10714
+#define pUmem_Ai04_WsRingPower 10715
+#define pUmem_Ti00_WsTempSen1 10716
+#define pUmem_Ti01_WsTempSen2 10717
+#define pUmem_Sta_Mc_BufIdx 10718
+#define pUmem_Sta_Mc_SeqCur 10719
+#define pUmem_Sta_Mc_SeqOld 10769
+#define pUmem_Sta_Mc_Pdt 10819
+#define pUmem_Sta_Mc_Time_L 10869
+#define pUmem_Sta_Mc_Time_H 10919
+#define pUmem_Sta_Mc_Time_BufD 10969
+#define pUmem_Sta_Mc_Time_BufL 11019
+#define pUmem_Sta_Mc_Time_BufH 11069
+#define pUmem_Sta_CmdPos 11119
+#define pUmem_Sta_ActPos 11151
+#define pUmem_Sta_Velocity 11183
+#define pUmem_Sta_Load 11215
+#define pUmem_Sta_AmpEna 11247
+#define pUmem_Sta_CloseLoop 11279
+#define pUmem_Sta_InPos 11311
+#define pUmem_Sta_HomeFin 11343
+#define pUmem_Sta_HomeIng 11375
+#define pUmem_Sta_LimitMinus 11407
+#define pUmem_Sta_LimitPlus 11439
+#define pUmem_Sta_FollowingErr 11471
+#define pUmem_Sta_AmpFault 11503
+#define pUmem_Sta_EncLoss 11535
+#define pUmem_Sta_I2tErr 11567
+#define pUmem_Sta_ProgPos 11599
+#define pUmem_Cmd_ServoOn 11631
+#define pUmem_Cmd_ServoOff 11663
+#define pUmem_Cmd_HomeStart 11695
+#define pUmem_Cmd_HomeAbort 11727
+#define pUmem_Cmd_HomeOffset 11759
+#define pUmem_Cmd_JogStop 11791
+#define pUmem_Cmd_JogContPlus 11823
+#define pUmem_Cmd_JogContMinus 11855
+#define pUmem_Cmd_JogAbsMove 11887
+#define pUmem_Cmd_JogIncMove 11919
+#define pUmem_Cmd_JogAbsPos 11951
+#define pUmem_Cmd_JogIncDist 11983
+#define pUmem_Cmd_JogSpeed 12015
+#define pUmem_Cmd_JogTa 12047
+#define pUmem_Cmd_JogTs 12079
 #define gKey_RunMod 8197
 #define gMc_RunMod 8198
 #define gMc_RunOpt 8199
@@ -8616,811 +8768,872 @@ enum ptrMarray {_ptrMarray_=-1
 #define gWs_PosV_Dlt 8220
 #define gWs_Vect_Vel 8221
 #define gWs_Vect_Sum 8222
-#define pWs_Vect_Dlt 12101
+#define pWs_Vect_Dlt 12111
 #define gWs_OutMode 8223
 #define gWs_RefVel 8224
 #define gWs_VelRatio 8225
 #define gWs_LaserEna 8226
-#define gWs_CorePowSf 8227
-#define gWs_CoreRefPow 8228
-#define gWs_CoreMinPow 8229
-#define gWs_CoreMaxPow 8230
-#define gWs_CoreOutPow 8231
-#define gWs_CoreOutVdc 8232
-#define gWs_CorePfmEna 8233
-#define gWs_RingPowSf 8234
-#define gWs_RingRefPow 8235
-#define gWs_RingMinPow 8236
-#define gWs_RingMaxPow 8237
-#define gWs_RingOutPow 8238
-#define gWs_RingOutVdc 8239
-#define gWs_RingPfmEna 8240
-#define gWs_PfmRtiCnt 8241
-#define gWs_PfmPeriod 8242
-#define gWs_PfmOnTime 8243
-#define gWs_PfmOnCnt 8244
-#define gWs_PfmOut 8245
-#define gWs_PfmBuf 8246
-#define gWs_PfmCnt 8247
-#define gWs_WblEna 8248
-#define gWs_WblLen 8249
-#define gWs_WblDst 8250
-#define gWs_WblCnt 8251
-#define gWs_WblType 8252
-#define gWs_WblRatW 8253
-#define gWs_WblRatL 8254
-#define gWs_WblOfsX 8255
-#define gWs_WblOfsY 8256
-#define gVs_AccLimitX 8257
-#define gVs_AccLimitY 8258
-#define gVs_AccLimitC 8259
-#define gVs_VelLimitC 8260
-#define gVs_PosX_Cur 8261
-#define gVs_PosY_Cur 8262
-#define gVs_PosX_Old 8263
-#define gVs_PosY_Old 8264
-#define gVs_PosX_Dlt 8265
-#define gVs_PosY_Dlt 8266
-#define gVs_PosV_Dlt 8267
-#define gVs_Vect_Vel 8268
-#define gVs_Vect_Sum 8269
-#define pVs_Vect_Dlt 12102
-#define gVs_RefVel 8270
-#define gVs_PfmPeriod 8271
-#define gVs_PfmDuty 8272
-#define gVs_EquEna 8273
-#define gVs_EquCnt 8274
-#define gVs_EquSta_Cur 8275
-#define gVs_EquSta_Old 8276
-#define gSc_PosX_Cur 8277
-#define gSc_PosY_Cur 8278
-#define gSta_Idx 8279
-#define gCmd_Idx 8280
-#define gMt_HomeStart_Cur 8281
-#define gMt_HomeStart_Old 8313
-#define gMt_HomeAbort_Cur 8345
-#define gMt_HomeAbort_Old 8377
-#define gMt_ServoOn_Cur 8409
-#define gMt_ServoOn_Old 8441
-#define gMt_ServoOff_Cur 8473
-#define gMt_ServoOff_Old 8505
-#define gMt_Jog_Stop_Cur 8537
-#define gMt_Jog_Stop_Old 8569
-#define gMt_Jog_ContPlus_Cur 8601
-#define gMt_Jog_ContPlus_Old 8633
-#define gMt_Jog_ContMinus_Cur 8665
-#define gMt_Jog_ContMinus_Old 8697
-#define gMt_Jog_AbsMove_Cur 8729
-#define gMt_Jog_AbsMove_Old 8761
-#define gMt_Jog_IncMove_Cur 8793
-#define gMt_Jog_IncMove_Old 8825
-#define gMc_ServoOn_Cur 8857
-#define gMc_ServoOn_Old 8858
-#define gMc_ServoOff_Cur 8859
-#define gMc_ServoOff_Old 8860
-#define gMc_HomeStart_Cur 8861
-#define gMc_HomeStart_Old 8862
-#define gMc_HomeAbort_Cur 8863
-#define gMc_HomeAbort_Old 8864
-#define gMc_AlarmReset_Cur 8865
-#define gMc_AlarmReset_Old 8866
-#define gMc_RunMod_Cur 8867
-#define gMc_RunMod_Old 8868
-#define gMc_AutoStart_Cur 8869
-#define gMc_AutoStart_Old 8870
-#define gMc_AutoAbort_Cur 8871
-#define gMc_AutoAbort_Old 8872
-#define gMc_AutoPause_Cur 8873
-#define gMc_AutoPause_Old 8874
-#define gMc_CycleStart_Cur 8875
-#define gMc_CycleStart_Old 8876
-#define gMc_StepStart_Cur 8877
-#define gMc_StepStart_Old 8878
-#define gMc_Fsave_Cur 8879
-#define gMc_Fsave_Old 8880
-#define gWs_ServoOn_Cur 8881
-#define gWs_ServoOn_Old 8882
-#define gWs_ServoOff_Cur 8883
-#define gWs_ServoOff_Old 8884
-#define gWs_HomeStart_Cur 8885
-#define gWs_HomeStart_Old 8886
-#define gWs_HomeAbort_Cur 8887
-#define gWs_HomeAbort_Old 8888
-#define gWs_AlarmReset_Cur 8889
-#define gWs_AlarmReset_Old 8890
-#define gWs_AlarmRetry_Cur 8891
-#define gWs_AlarmRetry_Old 8892
-#define gWs_AlarmAbort_Cur 8893
-#define gWs_AlarmAbort_Old 8894
-#define gWs_PowerCheck_Cur 8895
-#define gWs_PowerCheck_Old 8896
-#define gWs_TestShot_Cur 8897
-#define gWs_TestShot_Old 8898
-#define gWs_LaserEnableStart_Cur 8899
-#define gWs_LaserEnableStart_Old 8900
-#define gWs_LaserDisableStart_Cur 8901
-#define gWs_LaserDisableStart_Old 8902
-#define gWs_LaserTestCrossStart_Cur 8903
-#define gWs_LaserTestCrossStart_Old 8904
-#define gWs_LaserTestCrossAbort_Cur 8905
-#define gWs_LaserTestCrossAbort_Old 8906
-#define gWs_LaserTestLineStart_Cur 8907
-#define gWs_LaserTestLineStart_Old 8908
-#define gWs_LaserTestLineAbort_Cur 8909
-#define gWs_LaserTestLineAbort_Old 8910
-#define gVs_ServoOn_Cur 8911
-#define gVs_ServoOn_Old 8912
-#define gVs_ServoOff_Cur 8913
-#define gVs_ServoOff_Old 8914
-#define gVs_HomeStart_Cur 8915
-#define gVs_HomeStart_Old 8916
-#define gVs_HomeAbort_Cur 8917
-#define gVs_HomeAbort_Old 8918
-#define gVs_AlarmReset_Cur 8919
-#define gVs_AlarmReset_Old 8920
-#define gVs_AlarmRetry_Cur 8921
-#define gVs_AlarmRetry_Old 8922
-#define gVs_AlarmAbort_Cur 8923
-#define gVs_AlarmAbort_Old 8924
-#define gVs_TestShot_Cur 8925
-#define gVs_TestShot_Old 8926
-#define gSc_ServoOn_Cur 8927
-#define gSc_ServoOn_Old 8928
-#define gSc_ServoOff_Cur 8929
-#define gSc_ServoOff_Old 8930
-#define gSc_HomeStart_Cur 8931
-#define gSc_HomeStart_Old 8932
-#define gSc_HomeAbort_Cur 8933
-#define gSc_HomeAbort_Old 8934
-#define gSc_AlarmReset_Cur 8935
-#define gSc_AlarmReset_Old 8936
-#define gWs_LdStart_Cur 8937
-#define gWs_LdAbort_Cur 8938
-#define gWs_LdStart_Old 8939
-#define gWs_LdAbort_Old 8940
-#define gWs_RdStart_Cur 8941
-#define gWs_RdAbort_Cur 8942
-#define gWs_RdStart_Old 8943
-#define gWs_RdAbort_Old 8944
-#define gWs_WdStart_Cur 8945
-#define gWs_WdAbort_Cur 8946
-#define gWs_WdStart_Old 8947
-#define gWs_WdAbort_Old 8948
-#define gWs_WtStart_Cur 8949
-#define gWs_WtAbort_Cur 8950
-#define gWs_WtStart_Old 8951
-#define gWs_WtAbort_Old 8952
-#define gWs_UdStart_Cur 8953
-#define gWs_UdAbort_Cur 8954
-#define gWs_UdStart_Old 8955
-#define gWs_UdAbort_Old 8956
-#define gWs_RjStart_Cur 8957
-#define gWs_RjAbort_Cur 8958
-#define gWs_RjStart_Old 8959
-#define gWs_RjAbort_Old 8960
-#define gVs_LdStart_Cur 8961
-#define gVs_LdAbort_Cur 8962
-#define gVs_LdStart_Old 8963
-#define gVs_LdAbort_Old 8964
-#define gVs_RdStart_Cur 8965
-#define gVs_RdAbort_Cur 8966
-#define gVs_RdStart_Old 8967
-#define gVs_RdAbort_Old 8968
-#define gVs_VnStart_Cur 8969
-#define gVs_VnAbort_Cur 8970
-#define gVs_VnStart_Old 8971
-#define gVs_VnAbort_Old 8972
-#define gVs_WtStart_Cur 8973
-#define gVs_WtAbort_Cur 8974
-#define gVs_WtStart_Old 8975
-#define gVs_WtAbort_Old 8976
-#define gVs_UdStart_Cur 8977
-#define gVs_UdAbort_Cur 8978
-#define gVs_UdStart_Old 8979
-#define gVs_UdAbort_Old 8980
-#define gVs_RjStart_Cur 8981
-#define gVs_RjAbort_Cur 8982
-#define gVs_RjStart_Old 8983
-#define gVs_RjAbort_Old 8984
-#define gWs_PdtStaChange_Cur 8985
-#define gVs_PdtStaChange_Cur 8986
-#define gTr_PdtStaChange_Cur 8987
-#define gWs_PdtStaChange_Old 8988
-#define gVs_PdtStaChange_Old 8989
-#define gTr_PdtStaChange_Old 8990
-#define gWs_Error 8991
-#define gVs_Error 8992
-#define gWs_ErrCode 8993
-#define gVs_ErrCode 8994
-#define gWs_Error_Cur 8995
-#define gWs_Error_Old 8996
-#define gVs_Error_Cur 8997
-#define gVs_Error_Old 8998
-#define gSc_Com_Sta 8999
-#define gEc_WdTimer 9000
-#define gMc_DistX_Cur 9001
-#define gMc_DistX_Err 9002
-#define gWs_Safety_Sta 9003
-#define gVs_Safety_Sta 9004
-#define gWs_Safety_Err 9005
-#define gVs_Safety_Err 9006
-#define gMc_AlarmReset_Ena 9007
-#define gWs_AlarmReset_Ena 9008
-#define gVs_AlarmReset_Ena 9009
-#define gSc_AlarmReset_Ena 9010
-#define gWs_AlarmRetry_Ena 9011
-#define gVs_AlarmRetry_Ena 9012
-#define gWs_AlarmAbort_Ena 9013
-#define gVs_AlarmAbort_Ena 9014
-#define gEc_Com_Sta 9015
-#define gEc_Con_Start 9047
-#define gEc_Con_Abort 9048
-#define gEc_Con_Ena 9049
-#define gEc_Con_Sta 9050
-#define gEc_Con_Seq 9051
-#define gEc_Con_Buf 9052
-#define gEc_Con_Tmr 9053
-#define gMt_Home_Idx 9054
-#define gMt_Home_Start 9055
-#define gMt_Home_Abort 9087
-#define gMt_Home_Ena 9119
-#define gMt_Home_Sta 9151
-#define gMt_Home_Seq 9183
-#define gMt_Home_Buf 9215
-#define gMt_Home_Tmr 9247
-#define gMt_Home_Err 9279
-#define gMt_Home_Pos 9311
-#define gMc_Home_Start 9343
-#define gMc_Home_Abort 9344
-#define gMc_Home_Ena 9345
-#define gMc_Home_Sta 9346
-#define gMc_Home_Seq 9347
-#define gMc_Home_Buf 9348
-#define gMc_Home_Tmr 9349
-#define gMc_Home_Err 9350
-#define gWs_Home_Start 9351
-#define gWs_Home_Abort 9352
-#define gWs_Home_Ena 9353
-#define gWs_Home_Sta 9354
-#define gWs_Home_Seq 9355
-#define gWs_Home_Buf 9356
-#define gWs_Home_Tmr 9357
-#define gWs_Home_Err 9358
-#define gVs_Home_Start 9359
-#define gVs_Home_Abort 9360
-#define gVs_Home_Ena 9361
-#define gVs_Home_Sta 9362
-#define gVs_Home_Seq 9363
-#define gVs_Home_Buf 9364
-#define gVs_Home_Tmr 9365
-#define gVs_Home_Err 9366
-#define gSc_Home_Start 9367
-#define gSc_Home_Abort 9368
-#define gSc_Home_Ena 9369
-#define gSc_Home_Sta 9370
-#define gSc_Home_Seq 9371
-#define gSc_Home_Buf 9372
-#define gSc_Home_Tmr 9373
-#define gSc_Home_Err 9374
-#define gSc_InitSta 9375
-#define gJog_Idx 9376
-#define gMt_ServoOn_Ena 9377
-#define gMt_ServoOff_Ena 9409
-#define gMc_ServoOn_Ena 9441
-#define gMc_ServoOff_Ena 9442
-#define gWs_ServoOn_Ena 9443
-#define gWs_ServoOff_Ena 9444
-#define gVs_ServoOn_Ena 9445
-#define gVs_ServoOff_Ena 9446
-#define gSc_ServoOn_Ena 9447
-#define gSc_ServoOff_Ena 9448
-#define gJog_Stop_Ena 9449
-#define gJog_ContPlus_Ena 9481
-#define gJog_ContMinus_Ena 9513
-#define gJog_AbsMove_Ena 9545
-#define gJog_IncMove_Ena 9577
-#define gWs_PdtNo 9609
-#define gVs_PdtNo 9610
-#define gTr_PdtNo 9611
-#define gWs_LdDir 9612
-#define gMc_AutoRun_Start 9613
-#define gMc_AutoRun_Abort 9614
-#define gMc_AutoRun_Pause 9615
-#define gMc_Cycle_Start 9616
-#define gMc_Step_Start 9617
-#define gMc_AutoRun_Ena 9618
-#define gMc_AutoRun_Sta 9619
-#define gMc_AutoRun_Seq 9620
-#define gMc_AutoRun_Buf 9621
-#define gMc_AutoRun_Tmr 9622
-#define gMc_AutoRun_Err 9623
-#define gWs_Loop_Start 9624
-#define gWs_Loop_Abort 9625
-#define gWs_Loop_Pause 9626
-#define gWs_Loop_Ena 9627
-#define gWs_Loop_Sta 9628
-#define gWs_Loop_Seq 9629
-#define gWs_Loop_Buf 9630
-#define gWs_Loop_Tmr 9631
-#define gWs_Loop_Err 9632
-#define gWs_Loop_Time 9633
-#define gWs_Loop_TimeBuf 9634
-#define gWs_Seq_Cur 9635
-#define gWs_Seq_Old 9636
-#define gWs_Seq_Err 9637
-#define gVs_Loop_Start 9638
-#define gVs_Loop_Abort 9639
-#define gVs_Loop_Pause 9640
-#define gVs_Loop_Ena 9641
-#define gVs_Loop_Sta 9642
-#define gVs_Loop_Seq 9643
-#define gVs_Loop_Buf 9644
-#define gVs_Loop_Tmr 9645
-#define gVs_Loop_Err 9646
-#define gVs_Loop_Time 9647
-#define gVs_Loop_TimeBuf 9648
-#define gVs_Seq_Cur 9649
-#define gVs_Seq_Old 9650
-#define gVs_Seq_Err 9651
-#define gWs_Sta_Pdt 9652
-#define gVs_Sta_Pdt 9653
-#define gTr_Sta_Pdt 9654
-#define gWs_Sta_PdtBuf 9655
-#define gVs_Sta_PdtBuf 9656
-#define gTr_Sta_PdtBuf 9657
-#define gWs_Sta_Stg 9658
-#define gVs_Sta_Stg 9659
-#define gWs_Pos_Pdt 9660
-#define gVs_Pos_Pdt 9661
-#define gWs_Pos_Stg 9662
-#define gVs_Pos_Stg 9663
-#define gWs_PdtStaChange_Ena 9664
-#define gVs_PdtStaChange_Ena 9665
-#define gTr_PdtStaChange_Ena 9666
-#define gWs_Load_Start 9667
-#define gWs_Load_Abort 9668
-#define gWs_Load_Ena 9669
-#define gWs_Load_Sta 9670
-#define gWs_Load_Seq 9671
-#define gWs_Load_Buf 9672
-#define gWs_Load_Tmr 9673
-#define gWs_Load_Err 9674
-#define gWs_Load_VelX 9675
-#define gWs_Load_VelY 9676
-#define gWs_Load_VelC 9677
-#define gWs_Load_PosX 9678
-#define gWs_Load_PosY 9679
-#define gWs_Load_PosC 9680
-#define gWs_Load_Time 9681
-#define gWs_Load_TimeBuf 9682
-#define gWs_Ready_Start 9683
-#define gWs_Ready_Abort 9684
-#define gWs_Ready_Ena 9685
-#define gWs_Ready_Sta 9686
-#define gWs_Ready_Seq 9687
-#define gWs_Ready_Buf 9688
-#define gWs_Ready_Tmr 9689
-#define gWs_Ready_Err 9690
-#define gWs_Ready_VelX 9691
-#define gWs_Ready_VelY 9692
-#define gWs_Ready_VelC 9693
-#define gWs_Ready_PosX 9694
-#define gWs_Ready_PosY 9695
-#define gWs_Ready_PosC 9696
-#define gWs_Ready_Time 9697
-#define gWs_Ready_TimeBuf 9698
-#define gWs_Ready_VsnJudge 9699
-#define gWs_Welding_Start 9700
-#define gWs_Welding_Abort 9701
-#define gWs_Welding_Ena 9702
-#define gWs_Welding_Sta 9703
-#define gWs_Welding_Seq 9704
-#define gWs_Welding_Buf 9705
-#define gWs_Welding_Tmr 9706
-#define gWs_Welding_Err 9707
-#define gWs_Welding_VelX 9708
-#define gWs_Welding_VelY 9709
-#define gWs_Welding_VelC 9710
-#define gWs_Welding_PosX 9711
-#define gWs_Welding_PosY 9712
-#define gWs_Welding_PosC 9713
-#define gWs_Welding_Time 9714
-#define gWs_Welding_TimeBuf 9715
-#define gWs_Prog_Dist 9716
-#define gWs_Prog_Time 9717
-#define gWs_Prog_TimeBuf 9718
-#define gWs_File_Prog_Time 9719
-#define gWs_File_Prog_TimeBuf 9720
-#define gWs_Wait_Start 9721
-#define gWs_Wait_Abort 9722
-#define gWs_Wait_Ena 9723
-#define gWs_Wait_Sta 9724
-#define gWs_Wait_Seq 9725
-#define gWs_Wait_Buf 9726
-#define gWs_Wait_Tmr 9727
-#define gWs_Wait_Err 9728
-#define gWs_Wait_VelX 9729
-#define gWs_Wait_VelY 9730
-#define gWs_Wait_VelC 9731
-#define gWs_Wait_PosX 9732
-#define gWs_Wait_PosY 9733
-#define gWs_Wait_PosC 9734
-#define gWs_Wait_Time 9735
-#define gWs_Wait_TimeBuf 9736
-#define gWs_Unload_Start 9737
-#define gWs_Unload_Abort 9738
-#define gWs_Unload_Ena 9739
-#define gWs_Unload_Sta 9740
-#define gWs_Unload_Seq 9741
-#define gWs_Unload_Buf 9742
-#define gWs_Unload_Tmr 9743
-#define gWs_Unload_Err 9744
-#define gWs_Unload_VelX 9745
-#define gWs_Unload_VelY 9746
-#define gWs_Unload_VelC 9747
-#define gWs_Unload_PosX 9748
-#define gWs_Unload_PosY 9749
-#define gWs_Unload_PosC 9750
-#define gWs_Unload_Time 9751
-#define gWs_Unload_TimeBuf 9752
-#define gWs_Reject_Start 9753
-#define gWs_Reject_Abort 9754
-#define gWs_Reject_Ena 9755
-#define gWs_Reject_Sta 9756
-#define gWs_Reject_Seq 9757
-#define gWs_Reject_Buf 9758
-#define gWs_Reject_Tmr 9759
-#define gWs_Reject_Err 9760
-#define gWs_Reject_VelX 9761
-#define gWs_Reject_VelY 9762
-#define gWs_Reject_VelC 9763
-#define gWs_Reject_PosX 9764
-#define gWs_Reject_PosY 9765
-#define gWs_Reject_PosC 9766
-#define gWs_Reject_Time 9767
-#define gWs_Reject_TimeBuf 9768
-#define gVs_Load_Start 9769
-#define gVs_Load_Abort 9770
-#define gVs_Load_Ena 9771
-#define gVs_Load_Sta 9772
-#define gVs_Load_Seq 9773
-#define gVs_Load_Buf 9774
-#define gVs_Load_Tmr 9775
-#define gVs_Load_Err 9776
-#define gVs_Load_VelX 9777
-#define gVs_Load_VelY 9778
-#define gVs_Load_VelC 9779
-#define gVs_Load_PosX 9780
-#define gVs_Load_PosY 9781
-#define gVs_Load_PosC 9782
-#define gVs_Load_Time 9783
-#define gVs_Load_TimeBuf 9784
-#define gVs_Ready_Start 9785
-#define gVs_Ready_Abort 9786
-#define gVs_Ready_Ena 9787
-#define gVs_Ready_Sta 9788
-#define gVs_Ready_Seq 9789
-#define gVs_Ready_Buf 9790
-#define gVs_Ready_Tmr 9791
-#define gVs_Ready_Err 9792
-#define gVs_Ready_VelX 9793
-#define gVs_Ready_VelY 9794
-#define gVs_Ready_VelC 9795
-#define gVs_Ready_PosX 9796
-#define gVs_Ready_PosY 9797
-#define gVs_Ready_PosC 9798
-#define gVs_Ready_Time 9799
-#define gVs_Ready_TimeBuf 9800
-#define gVs_Ready_VsnJudge 9801
-#define gVs_Vision_Start 9802
-#define gVs_Vision_Abort 9803
-#define gVs_Vision_Ena 9804
-#define gVs_Vision_Sta 9805
-#define gVs_Vision_Seq 9806
-#define gVs_Vision_Buf 9807
-#define gVs_Vision_Tmr 9808
-#define gVs_Vision_Err 9809
-#define gVs_Vision_VelX 9810
-#define gVs_Vision_VelY 9811
-#define gVs_Vision_VelC 9812
-#define gVs_Vision_PosX 9813
-#define gVs_Vision_PosY 9814
-#define gVs_Vision_PosC 9815
-#define gVs_Vision_Time 9816
-#define gVs_Vision_TimeBuf 9817
-#define gVs_Prog_Dist 9818
-#define gVs_Prog_Time 9819
-#define gVs_Prog_TimeBuf 9820
-#define gVs_Vision_VsnJudge 9821
-#define gVs_Wait_Start 9822
-#define gVs_Wait_Abort 9823
-#define gVs_Wait_Ena 9824
-#define gVs_Wait_Sta 9825
-#define gVs_Wait_Seq 9826
-#define gVs_Wait_Buf 9827
-#define gVs_Wait_Tmr 9828
-#define gVs_Wait_Err 9829
-#define gVs_Wait_VelX 9830
-#define gVs_Wait_VelY 9831
-#define gVs_Wait_VelC 9832
-#define gVs_Wait_PosX 9833
-#define gVs_Wait_PosY 9834
-#define gVs_Wait_PosC 9835
-#define gVs_Wait_Time 9836
-#define gVs_Wait_TimeBuf 9837
-#define gVs_Unload_Start 9838
-#define gVs_Unload_Abort 9839
-#define gVs_Unload_Ena 9840
-#define gVs_Unload_Sta 9841
-#define gVs_Unload_Seq 9842
-#define gVs_Unload_Buf 9843
-#define gVs_Unload_Tmr 9844
-#define gVs_Unload_Err 9845
-#define gVs_Unload_VelX 9846
-#define gVs_Unload_VelY 9847
-#define gVs_Unload_VelC 9848
-#define gVs_Unload_PosX 9849
-#define gVs_Unload_PosY 9850
-#define gVs_Unload_PosC 9851
-#define gVs_Unload_Time 9852
-#define gVs_Unload_TimeBuf 9853
-#define gVs_Reject_Start 9854
-#define gVs_Reject_Abort 9855
-#define gVs_Reject_Ena 9856
-#define gVs_Reject_Sta 9857
-#define gVs_Reject_Seq 9858
-#define gVs_Reject_Buf 9859
-#define gVs_Reject_Tmr 9860
-#define gVs_Reject_Err 9861
-#define gVs_Reject_VelX 9862
-#define gVs_Reject_VelY 9863
-#define gVs_Reject_VelC 9864
-#define gVs_Reject_PosX 9865
-#define gVs_Reject_PosY 9866
-#define gVs_Reject_PosC 9867
-#define gVs_Reject_Time 9868
-#define gVs_Reject_TimeBuf 9869
-#define gWs_CldInpos_Delay 9870
-#define gVs_CldInpos_Delay 9871
-#define gWs_CldIn_CoverUD 9872
-#define gWs_CldIn_CoverFB 9873
-#define gWs_CldIn_TempFB 9874
-#define gWs_CldIn_ShtrOC 9875
-#define gVs_CldIn_CoverUD 9876
-#define gVs_CldIn_CoverFB 9877
-#define gTr_CldIn_PickerUD 9878
-#define gTr_CldIn_PickerOC 9879
-#define gWs_Epr_OutVdc 9880
-#define pWs_Epr_OutVdc 12103
-#define gWs_EcldHome_Start 9881
-#define gWs_EcldHome_Abort 9882
-#define gWs_EcldHome_Ena 9883
-#define gWs_EcldHome_Sta 9884
-#define gWs_EcldHome_Seq 9885
-#define gWs_EcldHome_Buf 9886
-#define gWs_EcldHome_Tmr 9887
-#define gWs_EcldHome_Err 9888
-#define gWs_EcldHome_Try 9889
-#define gWs_EcldHome_Fin 9890
-#define gWs_EcldFwd_Start 9891
-#define gWs_EcldFwd_Abort 9892
-#define gWs_EcldFwd_Ena 9893
-#define gWs_EcldFwd_Sta 9894
-#define gWs_EcldFwd_Seq 9895
-#define gWs_EcldFwd_Buf 9896
-#define gWs_EcldFwd_Tmr 9897
-#define gWs_EcldFwd_Err 9898
-#define gWs_EcldFwd_Try 9899
-#define gWs_EcldBwd_Start 9900
-#define gWs_EcldBwd_Abort 9901
-#define gWs_EcldBwd_Ena 9902
-#define gWs_EcldBwd_Sta 9903
-#define gWs_EcldBwd_Seq 9904
-#define gWs_EcldBwd_Buf 9905
-#define gWs_EcldBwd_Tmr 9906
-#define gWs_EcldBwd_Err 9907
-#define gWs_EcldBwd_Try 9908
-#define gWs_EcldCmdFwd_Cur 9909
-#define gWs_EcldCmdFwd_Old 9910
-#define gWs_EcldCmdBwd_Cur 9911
-#define gWs_EcldCmdBwd_Old 9912
-#define gWs_TestShot_Ena 9913
-#define gWs_TestShot_Time 9914
-#define gVs_TestShot_Ena 9915
-#define gVs_TestShot_Time 9916
-#define gVs_TestShot_TimeBuf 9917
-#define gVs_TestShot_Seq 9918
-#define gVs_TestShot_Tmr 9919
-#define gWs_LaserSta_Ready 9920
-#define gWs_LaserSta_Enable 9921
-#define gWs_LaserSta_CorePower 9922
-#define gWs_LaserSta_RingPower 9923
-#define gWs_LaserEnable_Start 9924
-#define gWs_LaserEnable_Abort 9925
-#define gWs_LaserEnable_Ena 9926
-#define gWs_LaserEnable_Sta 9927
-#define gWs_LaserEnable_Seq 9928
-#define gWs_LaserEnable_Buf 9929
-#define gWs_LaserEnable_Tmr 9930
-#define gWs_LaserEnable_Err 9931
-#define gWs_LaserDisable_Start 9932
-#define gWs_LaserDisable_Abort 9933
-#define gWs_LaserDisable_Ena 9934
-#define gWs_LaserDisable_Sta 9935
-#define gWs_LaserDisable_Seq 9936
-#define gWs_LaserDisable_Buf 9937
-#define gWs_LaserDisable_Tmr 9938
-#define gWs_LaserDisable_Err 9939
-#define gWs_LaserTestCross_Start 9940
-#define gWs_LaserTestCross_Abort 9941
-#define gWs_LaserTestCross_Ena 9942
-#define gWs_LaserTestCross_Sta 9943
-#define gWs_LaserTestCross_Seq 9944
-#define gWs_LaserTestCross_Buf 9945
-#define gWs_LaserTestCross_Tmr 9946
-#define gWs_LaserTestCross_Err 9947
-#define gWs_LaserTestLine_Start 9948
-#define gWs_LaserTestLine_Abort 9949
-#define gWs_LaserTestLine_Ena 9950
-#define gWs_LaserTestLine_Sta 9951
-#define gWs_LaserTestLine_Seq 9952
-#define gWs_LaserTestLine_Buf 9953
-#define gWs_LaserTestLine_Tmr 9954
-#define gWs_LaserTestLine_Err 9955
-#define gWs_TgtMov_Start 9956
-#define gWs_TgtMov_Abort 9957
-#define gWs_TgtMov_Ena 9958
-#define gWs_TgtMov_Sta 9959
-#define gWs_TgtMov_Seq 9960
-#define gWs_TgtMov_Buf 9961
-#define gWs_TgtMov_Tmr 9962
-#define gWs_TgtMov_Err 9963
-#define gVs_TgtMov_Start 9964
-#define gVs_TgtMov_Abort 9965
-#define gVs_TgtMov_Ena 9966
-#define gVs_TgtMov_Sta 9967
-#define gVs_TgtMov_Seq 9968
-#define gVs_TgtMov_Buf 9969
-#define gVs_TgtMov_Tmr 9970
-#define gVs_TgtMov_Err 9971
-#define gWs_TgtMov_VelX 9972
-#define gWs_TgtMov_VelY 9973
-#define gWs_TgtMov_VelC 9974
-#define gWs_TgtMov_PosX 9975
-#define gWs_TgtMov_PosY 9976
-#define gWs_TgtMov_PosC 9977
-#define gVs_TgtMov_VelX 9978
-#define gVs_TgtMov_VelY 9979
-#define gVs_TgtMov_VelC 9980
-#define gVs_TgtMov_PosX 9981
-#define gVs_TgtMov_PosY 9982
-#define gVs_TgtMov_PosC 9983
-#define gWs_CoverOpn_TgtAng 9984
-#define gWs_CoverOpn_Start 9985
-#define gWs_CoverOpn_Abort 9986
-#define gWs_CoverOpn_Ena 9987
-#define gWs_CoverOpn_Sta 9988
-#define gWs_CoverOpn_Seq 9989
-#define gWs_CoverOpn_Buf 9990
-#define gWs_CoverOpn_Tmr 9991
-#define gWs_CoverOpn_Err 9992
-#define gWs_CoverCls_Start 9993
-#define gWs_CoverCls_Abort 9994
-#define gWs_CoverCls_Ena 9995
-#define gWs_CoverCls_Sta 9996
-#define gWs_CoverCls_Seq 9997
-#define gWs_CoverCls_Buf 9998
-#define gWs_CoverCls_Tmr 9999
-#define gWs_CoverCls_Err 10000
-#define gWsV_CoverOpn_Start 10001
-#define gWsV_CoverOpn_Abort 10002
-#define gWsV_CoverOpn_Ena 10003
-#define gWsV_CoverOpn_Sta 10004
-#define gWsV_CoverOpn_Seq 10005
-#define gWsV_CoverOpn_Buf 10006
-#define gWsV_CoverOpn_Tmr 10007
-#define gWsV_CoverOpn_Err 10008
-#define gWsV_CoverCls_Start 10009
-#define gWsV_CoverCls_Abort 10010
-#define gWsV_CoverCls_Ena 10011
-#define gWsV_CoverCls_Sta 10012
-#define gWsV_CoverCls_Seq 10013
-#define gWsV_CoverCls_Buf 10014
-#define gWsV_CoverCls_Tmr 10015
-#define gWsV_CoverCls_Err 10016
-#define gWsV_Cover_Cur 10017
-#define gVs_CoverOpn_Start 10018
-#define gVs_CoverOpn_Abort 10019
-#define gVs_CoverOpn_Ena 10020
-#define gVs_CoverOpn_Sta 10021
-#define gVs_CoverOpn_Seq 10022
-#define gVs_CoverOpn_Buf 10023
-#define gVs_CoverOpn_Tmr 10024
-#define gVs_CoverOpn_Err 10025
-#define gVs_CoverCls_Start 10026
-#define gVs_CoverCls_Abort 10027
-#define gVs_CoverCls_Ena 10028
-#define gVs_CoverCls_Sta 10029
-#define gVs_CoverCls_Seq 10030
-#define gVs_CoverCls_Buf 10031
-#define gVs_CoverCls_Tmr 10032
-#define gVs_CoverCls_Err 10033
-#define gWs_ThCoverPos_Old 10034
-#define gVs_ThCoverPos_Old 10035
-#define gWs_ThTargetPos_Old 10036
-#define gVs_ThTargetPos_Old 10037
-#define gWs_CoverMoving_Sta 10038
-#define gVs_CoverMoving_Sta 10039
-#define gBlow_Time 10040
-#define gWs_PowerCheck_Start 10041
-#define gWs_PowerCheck_Abort 10042
-#define gWs_PowerCheck_Ena 10043
-#define gWs_PowerCheck_Time 10044
-#define gWs_PowerCheck_TimeBuf 10045
-#define gWs_PowerCheck_Seq 10046
-#define gWs_PowerCheck_Tmr 10047
-#define gVs_PostVisionST_Start 10048
-#define gVs_PostVisionST_Abort 10049
-#define gVs_PostVisionST_Ena 10050
-#define gVs_PostVisionST_Sta 10051
-#define gVs_PostVisionST_Seq 10052
-#define gVs_PostVisionST_Buf 10053
-#define gVs_PostVisionST_Tmr 10054
-#define gVs_PostVisionST_Err 10055
-#define gVs_PostVisionED_Start 10056
-#define gVs_PostVisionED_Abort 10057
-#define gVs_PostVisionED_Ena 10058
-#define gVs_PostVisionED_Sta 10059
-#define gVs_PostVisionED_Seq 10060
-#define gVs_PostVisionED_Buf 10061
-#define gVs_PostVisionED_Tmr 10062
-#define gVs_PostVisionED_Err 10063
-#define gWs_Skip_N2 10064
-#define gN2BlowState 10065
-#define gN2BlowOld 10066
-#define gN2BlowTime 10067
-#define gIsWsCoverComplete 10068
-#define gIsVsCoverComplete 10069
-#define gIsWStationReady 10070
-#define gIsVStationReady 10071
-#define gKin_Sf 10072
-#define gKin_RotOffset 10104
-#define gKin_Len1 10136
-#define gKin_Len2 10137
-#define gKin_GalvoSfX 10138
-#define gKin_GalvoSfY 10139
-#define gMc_SeqBuf_Idx 10140
-#define gWs_SeqBuf_Cur 10141
-#define gWs_SeqBuf_Old 10142
-#define gVs_SeqBuf_Cur 10143
-#define gVs_SeqBuf_Old 10144
-#define gScMon_GalvoAngX 10145
-#define gScMon_GalvoAngY 10146
-#define Len_X 10147
-#define Len_Y 10148
-#define Len_R 10149
-#define gMc_TransTest_Start 10150
-#define gMc_TransTest_Abort 10151
-#define gMc_TransTest_Ena 10152
-#define gMc_TransTest_Sta 10153
-#define gMc_TransTest_Seq 10154
-#define gMc_TransTest_Buf 10155
-#define gMc_TransTest_Tmr 10156
-#define gMc_TransTest_Err 10157
-#define gMc_TransTest_Vel 10158
-#define gRspSim_PdtNo 10159
-#define gRspSim_LdAlignX 10160
-#define gRspSim_LdAlignY 10161
-#define gRspSim_LdAlignC 10162
-#define gRspSim_LdDirRep 10163
-#define gRspSim_2dVsnRsp 10164
-#define gRspSim_3dVsnRsp 10165
-#define gRspSim_LdDirJug 10166
-#define gRspSim_2dVsnJug 10167
-#define gRspSim_3dVsnJug 10168
-#define gRspSim_LdDirRat 10169
-#define gRspSim_2dVsnRat 10170
-#define gRspSim_3dVsnRat 10171
+#define gWs_OutMode_2 8227
+#define gWs_RefVel_2 8228
+#define gWs_CorePowSf 8229
+#define gWs_CoreRefPow 8230
+#define gWs_CoreMinPow 8231
+#define gWs_CoreMaxPow 8232
+#define gWs_CoreOutPow 8233
+#define gWs_CoreOutVdc 8234
+#define gWs_CorePfmEna 8235
+#define gWs_CoreRefPow_2 8236
+#define gWs_CorePfmEna_2 8237
+#define gWs_RingPowSf 8238
+#define gWs_RingRefPow 8239
+#define gWs_RingMinPow 8240
+#define gWs_RingMaxPow 8241
+#define gWs_RingOutPow 8242
+#define gWs_RingOutVdc 8243
+#define gWs_RingPfmEna 8244
+#define gWs_RingRefPow_2 8245
+#define gWs_RingPfmEna_2 8246
+#define gWs_PfmRtiCnt 8247
+#define gWs_PfmPeriod 8248
+#define gWs_PfmOnTime 8249
+#define gWs_PfmOnCnt 8250
+#define gWs_PfmPeriod_2 8251
+#define gWs_PfmOnTime_2 8252
+#define gWs_PfmOut 8253
+#define gWs_PfmBuf 8254
+#define gWs_PfmCnt 8255
+#define gWs_PfmOut_2 8256
+#define gWs_WblEna 8257
+#define gWs_WblLen 8258
+#define gWs_WblDst 8259
+#define gWs_WblCnt 8260
+#define gWs_WblType 8261
+#define gWs_WblRatW 8262
+#define gWs_WblRatL 8263
+#define gWs_WblOfsX 8264
+#define gWs_WblOfsY 8265
+#define gWs_WblEna_2 8266
+#define gWs_WblLen_2 8267
+#define gWs_WblDst_2 8268
+#define gWs_WblCnt_2 8269
+#define gWs_WblType_2 8270
+#define gWs_WblRatW_2 8271
+#define gWs_WblRatL_2 8272
+#define gWs_WblOfsX_2 8273
+#define gWs_WblOfsY_2 8274
+#define gVs_AccLimitX 8275
+#define gVs_AccLimitY 8276
+#define gVs_AccLimitC 8277
+#define gVs_VelLimitC 8278
+#define gVs_PosX_Cur 8279
+#define gVs_PosY_Cur 8280
+#define gVs_PosX_Old 8281
+#define gVs_PosY_Old 8282
+#define gVs_PosX_Dlt 8283
+#define gVs_PosY_Dlt 8284
+#define gVs_PosV_Dlt 8285
+#define gVs_Vect_Vel 8286
+#define gVs_Vect_Sum 8287
+#define pVs_Vect_Dlt 12112
+#define gVs_RefVel 8288
+#define gVs_PfmPeriod 8289
+#define gVs_PfmDuty 8290
+#define gVs_EquEna 8291
+#define gVs_EquCnt 8292
+#define gVs_EquSta_Cur 8293
+#define gVs_EquSta_Old 8294
+#define gSc_PosX_Cur 8295
+#define gSc_PosY_Cur 8296
+#define gSta_Idx 8297
+#define gCmd_Idx 8298
+#define gMt_HomeStart_Cur 8299
+#define gMt_HomeStart_Old 8331
+#define gMt_HomeAbort_Cur 8363
+#define gMt_HomeAbort_Old 8395
+#define gMt_ServoOn_Cur 8427
+#define gMt_ServoOn_Old 8459
+#define gMt_ServoOff_Cur 8491
+#define gMt_ServoOff_Old 8523
+#define gMt_Jog_Stop_Cur 8555
+#define gMt_Jog_Stop_Old 8587
+#define gMt_Jog_ContPlus_Cur 8619
+#define gMt_Jog_ContPlus_Old 8651
+#define gMt_Jog_ContMinus_Cur 8683
+#define gMt_Jog_ContMinus_Old 8715
+#define gMt_Jog_AbsMove_Cur 8747
+#define gMt_Jog_AbsMove_Old 8779
+#define gMt_Jog_IncMove_Cur 8811
+#define gMt_Jog_IncMove_Old 8843
+#define gMc_ServoOn_Cur 8875
+#define gMc_ServoOn_Old 8876
+#define gMc_ServoOff_Cur 8877
+#define gMc_ServoOff_Old 8878
+#define gMc_HomeStart_Cur 8879
+#define gMc_HomeStart_Old 8880
+#define gMc_HomeAbort_Cur 8881
+#define gMc_HomeAbort_Old 8882
+#define gMc_AlarmReset_Cur 8883
+#define gMc_AlarmReset_Old 8884
+#define gMc_RunMod_Cur 8885
+#define gMc_RunMod_Old 8886
+#define gMc_AutoStart_Cur 8887
+#define gMc_AutoStart_Old 8888
+#define gMc_AutoAbort_Cur 8889
+#define gMc_AutoAbort_Old 8890
+#define gMc_AutoPause_Cur 8891
+#define gMc_AutoPause_Old 8892
+#define gMc_CycleStart_Cur 8893
+#define gMc_CycleStart_Old 8894
+#define gMc_StepStart_Cur 8895
+#define gMc_StepStart_Old 8896
+#define gMc_Fsave_Cur 8897
+#define gMc_Fsave_Old 8898
+#define gWs_ServoOn_Cur 8899
+#define gWs_ServoOn_Old 8900
+#define gWs_ServoOff_Cur 8901
+#define gWs_ServoOff_Old 8902
+#define gWs_HomeStart_Cur 8903
+#define gWs_HomeStart_Old 8904
+#define gWs_HomeAbort_Cur 8905
+#define gWs_HomeAbort_Old 8906
+#define gWs_AlarmReset_Cur 8907
+#define gWs_AlarmReset_Old 8908
+#define gWs_AlarmRetry_Cur 8909
+#define gWs_AlarmRetry_Old 8910
+#define gWs_AlarmAbort_Cur 8911
+#define gWs_AlarmAbort_Old 8912
+#define gWs_PowerCheck_Cur 8913
+#define gWs_PowerCheck_Old 8914
+#define gWs_TestShot_Cur 8915
+#define gWs_TestShot_Old 8916
+#define gWs_LaserEnableStart_Cur 8917
+#define gWs_LaserEnableStart_Old 8918
+#define gWs_LaserDisableStart_Cur 8919
+#define gWs_LaserDisableStart_Old 8920
+#define gWs_LaserTestCrossStart_Cur 8921
+#define gWs_LaserTestCrossStart_Old 8922
+#define gWs_LaserTestCrossAbort_Cur 8923
+#define gWs_LaserTestCrossAbort_Old 8924
+#define gWs_LaserTestLineStart_Cur 8925
+#define gWs_LaserTestLineStart_Old 8926
+#define gWs_LaserTestLineAbort_Cur 8927
+#define gWs_LaserTestLineAbort_Old 8928
+#define gWs_PowerCheckStart_Cur 8929
+#define gWs_PowerCheckStart_Old 8930
+#define gWs_PowerCheckAbort_Cur 8931
+#define gWs_PowerCheckAbort_Old 8932
+#define gVs_ServoOn_Cur 8933
+#define gVs_ServoOn_Old 8934
+#define gVs_ServoOff_Cur 8935
+#define gVs_ServoOff_Old 8936
+#define gVs_HomeStart_Cur 8937
+#define gVs_HomeStart_Old 8938
+#define gVs_HomeAbort_Cur 8939
+#define gVs_HomeAbort_Old 8940
+#define gVs_AlarmReset_Cur 8941
+#define gVs_AlarmReset_Old 8942
+#define gVs_AlarmRetry_Cur 8943
+#define gVs_AlarmRetry_Old 8944
+#define gVs_AlarmAbort_Cur 8945
+#define gVs_AlarmAbort_Old 8946
+#define gVs_TestShot_Cur 8947
+#define gVs_TestShot_Old 8948
+#define gSc_ServoOn_Cur 8949
+#define gSc_ServoOn_Old 8950
+#define gSc_ServoOff_Cur 8951
+#define gSc_ServoOff_Old 8952
+#define gSc_HomeStart_Cur 8953
+#define gSc_HomeStart_Old 8954
+#define gSc_HomeAbort_Cur 8955
+#define gSc_HomeAbort_Old 8956
+#define gSc_AlarmReset_Cur 8957
+#define gSc_AlarmReset_Old 8958
+#define gWs_LdStart_Cur 8959
+#define gWs_LdAbort_Cur 8960
+#define gWs_LdStart_Old 8961
+#define gWs_LdAbort_Old 8962
+#define gWs_RdStart_Cur 8963
+#define gWs_RdAbort_Cur 8964
+#define gWs_RdStart_Old 8965
+#define gWs_RdAbort_Old 8966
+#define gWs_WdStart_Cur 8967
+#define gWs_WdAbort_Cur 8968
+#define gWs_WdStart_Old 8969
+#define gWs_WdAbort_Old 8970
+#define gWs_WtStart_Cur 8971
+#define gWs_WtAbort_Cur 8972
+#define gWs_WtStart_Old 8973
+#define gWs_WtAbort_Old 8974
+#define gWs_UdStart_Cur 8975
+#define gWs_UdAbort_Cur 8976
+#define gWs_UdStart_Old 8977
+#define gWs_UdAbort_Old 8978
+#define gWs_RjStart_Cur 8979
+#define gWs_RjAbort_Cur 8980
+#define gWs_RjStart_Old 8981
+#define gWs_RjAbort_Old 8982
+#define gVs_LdStart_Cur 8983
+#define gVs_LdAbort_Cur 8984
+#define gVs_LdStart_Old 8985
+#define gVs_LdAbort_Old 8986
+#define gVs_RdStart_Cur 8987
+#define gVs_RdAbort_Cur 8988
+#define gVs_RdStart_Old 8989
+#define gVs_RdAbort_Old 8990
+#define gVs_VnStart_Cur 8991
+#define gVs_VnAbort_Cur 8992
+#define gVs_VnStart_Old 8993
+#define gVs_VnAbort_Old 8994
+#define gVs_WtStart_Cur 8995
+#define gVs_WtAbort_Cur 8996
+#define gVs_WtStart_Old 8997
+#define gVs_WtAbort_Old 8998
+#define gVs_UdStart_Cur 8999
+#define gVs_UdAbort_Cur 9000
+#define gVs_UdStart_Old 9001
+#define gVs_UdAbort_Old 9002
+#define gVs_RjStart_Cur 9003
+#define gVs_RjAbort_Cur 9004
+#define gVs_RjStart_Old 9005
+#define gVs_RjAbort_Old 9006
+#define gWs_PdtStaChange_Cur 9007
+#define gVs_PdtStaChange_Cur 9008
+#define gTr_PdtStaChange_Cur 9009
+#define gWs_PdtStaChange_Old 9010
+#define gVs_PdtStaChange_Old 9011
+#define gTr_PdtStaChange_Old 9012
+#define gWs_Error 9013
+#define gVs_Error 9014
+#define gWs_ErrCode 9015
+#define gVs_ErrCode 9016
+#define gWs_Error_Cur 9017
+#define gWs_Error_Old 9018
+#define gVs_Error_Cur 9019
+#define gVs_Error_Old 9020
+#define gSc_Com_Sta 9021
+#define gEc_WdTimer 9022
+#define gMc_DistX_Cur 9023
+#define gMc_DistX_Err 9024
+#define gWs_Safety_Sta 9025
+#define gVs_Safety_Sta 9026
+#define gWs_Safety_Err 9027
+#define gVs_Safety_Err 9028
+#define gMc_AlarmReset_Ena 9029
+#define gWs_AlarmReset_Ena 9030
+#define gVs_AlarmReset_Ena 9031
+#define gSc_AlarmReset_Ena 9032
+#define gWs_AlarmRetry_Ena 9033
+#define gVs_AlarmRetry_Ena 9034
+#define gWs_AlarmAbort_Ena 9035
+#define gVs_AlarmAbort_Ena 9036
+#define gEc_Com_Sta 9037
+#define gEc_Con_Start 9069
+#define gEc_Con_Abort 9070
+#define gEc_Con_Ena 9071
+#define gEc_Con_Sta 9072
+#define gEc_Con_Seq 9073
+#define gEc_Con_Buf 9074
+#define gEc_Con_Tmr 9075
+#define gMt_Home_Idx 9076
+#define gMt_Home_Start 9077
+#define gMt_Home_Abort 9109
+#define gMt_Home_Ena 9141
+#define gMt_Home_Sta 9173
+#define gMt_Home_Seq 9205
+#define gMt_Home_Buf 9237
+#define gMt_Home_Tmr 9269
+#define gMt_Home_Err 9301
+#define gMt_Home_Pos 9333
+#define gMc_Home_Start 9365
+#define gMc_Home_Abort 9366
+#define gMc_Home_Ena 9367
+#define gMc_Home_Sta 9368
+#define gMc_Home_Seq 9369
+#define gMc_Home_Buf 9370
+#define gMc_Home_Tmr 9371
+#define gMc_Home_Err 9372
+#define gWs_Home_Start 9373
+#define gWs_Home_Abort 9374
+#define gWs_Home_Ena 9375
+#define gWs_Home_Sta 9376
+#define gWs_Home_Seq 9377
+#define gWs_Home_Buf 9378
+#define gWs_Home_Tmr 9379
+#define gWs_Home_Err 9380
+#define gVs_Home_Start 9381
+#define gVs_Home_Abort 9382
+#define gVs_Home_Ena 9383
+#define gVs_Home_Sta 9384
+#define gVs_Home_Seq 9385
+#define gVs_Home_Buf 9386
+#define gVs_Home_Tmr 9387
+#define gVs_Home_Err 9388
+#define gSc_Home_Start 9389
+#define gSc_Home_Abort 9390
+#define gSc_Home_Ena 9391
+#define gSc_Home_Sta 9392
+#define gSc_Home_Seq 9393
+#define gSc_Home_Buf 9394
+#define gSc_Home_Tmr 9395
+#define gSc_Home_Err 9396
+#define gSc_InitSta 9397
+#define gJog_Idx 9398
+#define gMt_ServoOn_Ena 9399
+#define gMt_ServoOff_Ena 9431
+#define gMc_ServoOn_Ena 9463
+#define gMc_ServoOff_Ena 9464
+#define gWs_ServoOn_Ena 9465
+#define gWs_ServoOff_Ena 9466
+#define gVs_ServoOn_Ena 9467
+#define gVs_ServoOff_Ena 9468
+#define gSc_ServoOn_Ena 9469
+#define gSc_ServoOff_Ena 9470
+#define gJog_Stop_Ena 9471
+#define gJog_ContPlus_Ena 9503
+#define gJog_ContMinus_Ena 9535
+#define gJog_AbsMove_Ena 9567
+#define gJog_IncMove_Ena 9599
+#define gWd_Mdi_Start 9631
+#define gWd_Mdi_Abort 9632
+#define gWd_Mdi_Ena 9633
+#define gWd_Mdi_Sta 9634
+#define gWd_Mdi_Seq 9635
+#define gWd_Mdi_Buf 9636
+#define gWd_Mdi_Tmr 9637
+#define gWd_Mdi_Stp 9638
+#define gWd_Mdi_PosX 9639
+#define gWd_Mdi_PosY 9640
+#define gWd_Mdi_PosC 9641
+#define cMachineID 111
+#define gWs_PdtNo 9642
+#define gVs_PdtNo 9643
+#define gTr_PdtNo 9644
+#define gWs_LdDir 9645
+#define gMc_AutoRun_Start 9646
+#define gMc_AutoRun_Abort 9647
+#define gMc_AutoRun_Pause 9648
+#define gMc_Cycle_Start 9649
+#define gMc_Step_Start 9650
+#define gMc_AutoRun_Ena 9651
+#define gMc_AutoRun_Sta 9652
+#define gMc_AutoRun_Seq 9653
+#define gMc_AutoRun_Buf 9654
+#define gMc_AutoRun_Tmr 9655
+#define gMc_AutoRun_Err 9656
+#define gWs_Loop_Start 9657
+#define gWs_Loop_Abort 9658
+#define gWs_Loop_Pause 9659
+#define gWs_Loop_Ena 9660
+#define gWs_Loop_Sta 9661
+#define gWs_Loop_Seq 9662
+#define gWs_Loop_Buf 9663
+#define gWs_Loop_Tmr 9664
+#define gWs_Loop_Err 9665
+#define gWs_Loop_Time 9666
+#define gWs_Loop_TimeBuf 9667
+#define gWs_Seq_Cur 9668
+#define gWs_Seq_Old 9669
+#define gWs_Seq_Err 9670
+#define gVs_Loop_Start 9671
+#define gVs_Loop_Abort 9672
+#define gVs_Loop_Pause 9673
+#define gVs_Loop_Ena 9674
+#define gVs_Loop_Sta 9675
+#define gVs_Loop_Seq 9676
+#define gVs_Loop_Buf 9677
+#define gVs_Loop_Tmr 9678
+#define gVs_Loop_Err 9679
+#define gVs_Loop_Time 9680
+#define gVs_Loop_TimeBuf 9681
+#define gVs_Seq_Cur 9682
+#define gVs_Seq_Old 9683
+#define gVs_Seq_Err 9684
+#define gWs_Sta_Pdt 9685
+#define gVs_Sta_Pdt 9686
+#define gTr_Sta_Pdt 9687
+#define gWs_Sta_PdtBuf 9688
+#define gVs_Sta_PdtBuf 9689
+#define gTr_Sta_PdtBuf 9690
+#define gWs_Sta_Stg 9691
+#define gVs_Sta_Stg 9692
+#define gWs_Pos_Pdt 9693
+#define gVs_Pos_Pdt 9694
+#define gWs_Pos_Stg 9695
+#define gVs_Pos_Stg 9696
+#define gWs_PdtStaChange_Ena 9697
+#define gVs_PdtStaChange_Ena 9698
+#define gTr_PdtStaChange_Ena 9699
+#define gWs_Load_Start 9700
+#define gWs_Load_Abort 9701
+#define gWs_Load_Ena 9702
+#define gWs_Load_Sta 9703
+#define gWs_Load_Seq 9704
+#define gWs_Load_Buf 9705
+#define gWs_Load_Tmr 9706
+#define gWs_Load_Err 9707
+#define gWs_Load_VelX 9708
+#define gWs_Load_VelY 9709
+#define gWs_Load_VelC 9710
+#define gWs_Load_PosX 9711
+#define gWs_Load_PosY 9712
+#define gWs_Load_PosC 9713
+#define gWs_Load_Time 9714
+#define gWs_Load_TimeBuf 9715
+#define gWs_Ready_Start 9716
+#define gWs_Ready_Abort 9717
+#define gWs_Ready_Ena 9718
+#define gWs_Ready_Sta 9719
+#define gWs_Ready_Seq 9720
+#define gWs_Ready_Buf 9721
+#define gWs_Ready_Tmr 9722
+#define gWs_Ready_Err 9723
+#define gWs_Ready_VelX 9724
+#define gWs_Ready_VelY 9725
+#define gWs_Ready_VelC 9726
+#define gWs_Ready_PosX 9727
+#define gWs_Ready_PosY 9728
+#define gWs_Ready_PosC 9729
+#define gWs_Ready_Time 9730
+#define gWs_Ready_TimeBuf 9731
+#define gWs_Ready_VsnJudge 9732
+#define gWs_Welding_Start 9733
+#define gWs_Welding_Abort 9734
+#define gWs_Welding_Ena 9735
+#define gWs_Welding_Sta 9736
+#define gWs_Welding_Seq 9737
+#define gWs_Welding_Buf 9738
+#define gWs_Welding_Tmr 9739
+#define gWs_Welding_Err 9740
+#define gWs_Welding_VelX 9741
+#define gWs_Welding_VelY 9742
+#define gWs_Welding_VelC 9743
+#define gWs_Welding_PosX 9744
+#define gWs_Welding_PosY 9745
+#define gWs_Welding_PosC 9746
+#define gWs_Welding_Time 9747
+#define gWs_Welding_TimeBuf 9748
+#define gWs_Prog_Dist 9749
+#define gWs_Prog_Time 9750
+#define gWs_Prog_TimeBuf 9751
+#define gWs_File_Prog_Time 9752
+#define gWs_File_Prog_TimeBuf 9753
+#define gWs_Wait_Start 9754
+#define gWs_Wait_Abort 9755
+#define gWs_Wait_Ena 9756
+#define gWs_Wait_Sta 9757
+#define gWs_Wait_Seq 9758
+#define gWs_Wait_Buf 9759
+#define gWs_Wait_Tmr 9760
+#define gWs_Wait_Err 9761
+#define gWs_Wait_VelX 9762
+#define gWs_Wait_VelY 9763
+#define gWs_Wait_VelC 9764
+#define gWs_Wait_PosX 9765
+#define gWs_Wait_PosY 9766
+#define gWs_Wait_PosC 9767
+#define gWs_Wait_Time 9768
+#define gWs_Wait_TimeBuf 9769
+#define gWs_Unload_Start 9770
+#define gWs_Unload_Abort 9771
+#define gWs_Unload_Ena 9772
+#define gWs_Unload_Sta 9773
+#define gWs_Unload_Seq 9774
+#define gWs_Unload_Buf 9775
+#define gWs_Unload_Tmr 9776
+#define gWs_Unload_Err 9777
+#define gWs_Unload_VelX 9778
+#define gWs_Unload_VelY 9779
+#define gWs_Unload_VelC 9780
+#define gWs_Unload_PosX 9781
+#define gWs_Unload_PosY 9782
+#define gWs_Unload_PosC 9783
+#define gWs_Unload_Time 9784
+#define gWs_Unload_TimeBuf 9785
+#define gWs_Reject_Start 9786
+#define gWs_Reject_Abort 9787
+#define gWs_Reject_Ena 9788
+#define gWs_Reject_Sta 9789
+#define gWs_Reject_Seq 9790
+#define gWs_Reject_Buf 9791
+#define gWs_Reject_Tmr 9792
+#define gWs_Reject_Err 9793
+#define gWs_Reject_VelX 9794
+#define gWs_Reject_VelY 9795
+#define gWs_Reject_VelC 9796
+#define gWs_Reject_PosX 9797
+#define gWs_Reject_PosY 9798
+#define gWs_Reject_PosC 9799
+#define gWs_Reject_Time 9800
+#define gWs_Reject_TimeBuf 9801
+#define gVs_Load_Start 9802
+#define gVs_Load_Abort 9803
+#define gVs_Load_Ena 9804
+#define gVs_Load_Sta 9805
+#define gVs_Load_Seq 9806
+#define gVs_Load_Buf 9807
+#define gVs_Load_Tmr 9808
+#define gVs_Load_Err 9809
+#define gVs_Load_VelX 9810
+#define gVs_Load_VelY 9811
+#define gVs_Load_VelC 9812
+#define gVs_Load_PosX 9813
+#define gVs_Load_PosY 9814
+#define gVs_Load_PosC 9815
+#define gVs_Load_Time 9816
+#define gVs_Load_TimeBuf 9817
+#define gVs_Ready_Start 9818
+#define gVs_Ready_Abort 9819
+#define gVs_Ready_Ena 9820
+#define gVs_Ready_Sta 9821
+#define gVs_Ready_Seq 9822
+#define gVs_Ready_Buf 9823
+#define gVs_Ready_Tmr 9824
+#define gVs_Ready_Err 9825
+#define gVs_Ready_VelX 9826
+#define gVs_Ready_VelY 9827
+#define gVs_Ready_VelC 9828
+#define gVs_Ready_PosX 9829
+#define gVs_Ready_PosY 9830
+#define gVs_Ready_PosC 9831
+#define gVs_Ready_Time 9832
+#define gVs_Ready_TimeBuf 9833
+#define gVs_Ready_VsnJudge 9834
+#define gVs_Vision_Start 9835
+#define gVs_Vision_Abort 9836
+#define gVs_Vision_Ena 9837
+#define gVs_Vision_Sta 9838
+#define gVs_Vision_Seq 9839
+#define gVs_Vision_Buf 9840
+#define gVs_Vision_Tmr 9841
+#define gVs_Vision_Err 9842
+#define gVs_Vision_VelX 9843
+#define gVs_Vision_VelY 9844
+#define gVs_Vision_VelC 9845
+#define gVs_Vision_PosX 9846
+#define gVs_Vision_PosY 9847
+#define gVs_Vision_PosC 9848
+#define gVs_Vision_Time 9849
+#define gVs_Vision_TimeBuf 9850
+#define gVs_Prog_Dist 9851
+#define gVs_Prog_Time 9852
+#define gVs_Prog_TimeBuf 9853
+#define gVs_Vision_VsnJudge 9854
+#define gVs_Wait_Start 9855
+#define gVs_Wait_Abort 9856
+#define gVs_Wait_Ena 9857
+#define gVs_Wait_Sta 9858
+#define gVs_Wait_Seq 9859
+#define gVs_Wait_Buf 9860
+#define gVs_Wait_Tmr 9861
+#define gVs_Wait_Err 9862
+#define gVs_Wait_VelX 9863
+#define gVs_Wait_VelY 9864
+#define gVs_Wait_VelC 9865
+#define gVs_Wait_PosX 9866
+#define gVs_Wait_PosY 9867
+#define gVs_Wait_PosC 9868
+#define gVs_Wait_Time 9869
+#define gVs_Wait_TimeBuf 9870
+#define gVs_Unload_Start 9871
+#define gVs_Unload_Abort 9872
+#define gVs_Unload_Ena 9873
+#define gVs_Unload_Sta 9874
+#define gVs_Unload_Seq 9875
+#define gVs_Unload_Buf 9876
+#define gVs_Unload_Tmr 9877
+#define gVs_Unload_Err 9878
+#define gVs_Unload_VelX 9879
+#define gVs_Unload_VelY 9880
+#define gVs_Unload_VelC 9881
+#define gVs_Unload_PosX 9882
+#define gVs_Unload_PosY 9883
+#define gVs_Unload_PosC 9884
+#define gVs_Unload_Time 9885
+#define gVs_Unload_TimeBuf 9886
+#define gVs_Reject_Start 9887
+#define gVs_Reject_Abort 9888
+#define gVs_Reject_Ena 9889
+#define gVs_Reject_Sta 9890
+#define gVs_Reject_Seq 9891
+#define gVs_Reject_Buf 9892
+#define gVs_Reject_Tmr 9893
+#define gVs_Reject_Err 9894
+#define gVs_Reject_VelX 9895
+#define gVs_Reject_VelY 9896
+#define gVs_Reject_VelC 9897
+#define gVs_Reject_PosX 9898
+#define gVs_Reject_PosY 9899
+#define gVs_Reject_PosC 9900
+#define gVs_Reject_Time 9901
+#define gVs_Reject_TimeBuf 9902
+#define gWs_CldInpos_Delay 9903
+#define gVs_CldInpos_Delay 9904
+#define gWs_CldIn_CoverUD 9905
+#define gWs_CldIn_CoverFB 9906
+#define gWs_CldIn_TempFB 9907
+#define gWs_CldIn_ShtrOC 9908
+#define gVs_CldIn_CoverUD 9909
+#define gVs_CldIn_CoverFB 9910
+#define gTr_CldIn_PickerUD 9911
+#define gTr_CldIn_PickerOC 9912
+#define gWs_Epr_OutVdc 9913
+#define pWs_Epr_OutVdc 12113
+#define gWs_EcldHome_Start 9914
+#define gWs_EcldHome_Abort 9915
+#define gWs_EcldHome_Ena 9916
+#define gWs_EcldHome_Sta 9917
+#define gWs_EcldHome_Seq 9918
+#define gWs_EcldHome_Buf 9919
+#define gWs_EcldHome_Tmr 9920
+#define gWs_EcldHome_Err 9921
+#define gWs_EcldHome_Try 9922
+#define gWs_EcldHome_Fin 9923
+#define gWs_EcldFwd_Start 9924
+#define gWs_EcldFwd_Abort 9925
+#define gWs_EcldFwd_Ena 9926
+#define gWs_EcldFwd_Sta 9927
+#define gWs_EcldFwd_Seq 9928
+#define gWs_EcldFwd_Buf 9929
+#define gWs_EcldFwd_Tmr 9930
+#define gWs_EcldFwd_Err 9931
+#define gWs_EcldFwd_Try 9932
+#define gWs_EcldBwd_Start 9933
+#define gWs_EcldBwd_Abort 9934
+#define gWs_EcldBwd_Ena 9935
+#define gWs_EcldBwd_Sta 9936
+#define gWs_EcldBwd_Seq 9937
+#define gWs_EcldBwd_Buf 9938
+#define gWs_EcldBwd_Tmr 9939
+#define gWs_EcldBwd_Err 9940
+#define gWs_EcldBwd_Try 9941
+#define gWs_EcldCmdFwd_Cur 9942
+#define gWs_EcldCmdFwd_Old 9943
+#define gWs_EcldCmdBwd_Cur 9944
+#define gWs_EcldCmdBwd_Old 9945
+#define gWs_TestShot_Ena 9946
+#define gWs_TestShot_Time 9947
+#define gVs_TestShot_Ena 9948
+#define gVs_TestShot_Time 9949
+#define gVs_TestShot_TimeBuf 9950
+#define gVs_TestShot_Seq 9951
+#define gVs_TestShot_Tmr 9952
+#define gWs_LaserSta_Ready 9953
+#define gWs_LaserSta_Enable 9954
+#define gWs_LaserSta_CorePower 9955
+#define gWs_LaserSta_RingPower 9956
+#define gWs_LaserEnable_Start 9957
+#define gWs_LaserEnable_Abort 9958
+#define gWs_LaserEnable_Ena 9959
+#define gWs_LaserEnable_Sta 9960
+#define gWs_LaserEnable_Seq 9961
+#define gWs_LaserEnable_Buf 9962
+#define gWs_LaserEnable_Tmr 9963
+#define gWs_LaserEnable_Err 9964
+#define gWs_LaserDisable_Start 9965
+#define gWs_LaserDisable_Abort 9966
+#define gWs_LaserDisable_Ena 9967
+#define gWs_LaserDisable_Sta 9968
+#define gWs_LaserDisable_Seq 9969
+#define gWs_LaserDisable_Buf 9970
+#define gWs_LaserDisable_Tmr 9971
+#define gWs_LaserDisable_Err 9972
+#define gWs_LaserTestCross_Start 9973
+#define gWs_LaserTestCross_Abort 9974
+#define gWs_LaserTestCross_Ena 9975
+#define gWs_LaserTestCross_Sta 9976
+#define gWs_LaserTestCross_Seq 9977
+#define gWs_LaserTestCross_Buf 9978
+#define gWs_LaserTestCross_Tmr 9979
+#define gWs_LaserTestCross_Err 9980
+#define gWs_LaserTestLine_Start 9981
+#define gWs_LaserTestLine_Abort 9982
+#define gWs_LaserTestLine_Ena 9983
+#define gWs_LaserTestLine_Sta 9984
+#define gWs_LaserTestLine_Seq 9985
+#define gWs_LaserTestLine_Buf 9986
+#define gWs_LaserTestLine_Tmr 9987
+#define gWs_LaserTestLine_Err 9988
+#define gWs_TgtMov_Start 9989
+#define gWs_TgtMov_Abort 9990
+#define gWs_TgtMov_Ena 9991
+#define gWs_TgtMov_Sta 9992
+#define gWs_TgtMov_Seq 9993
+#define gWs_TgtMov_Buf 9994
+#define gWs_TgtMov_Tmr 9995
+#define gWs_TgtMov_Err 9996
+#define gVs_TgtMov_Start 9997
+#define gVs_TgtMov_Abort 9998
+#define gVs_TgtMov_Ena 9999
+#define gVs_TgtMov_Sta 10000
+#define gVs_TgtMov_Seq 10001
+#define gVs_TgtMov_Buf 10002
+#define gVs_TgtMov_Tmr 10003
+#define gVs_TgtMov_Err 10004
+#define gWs_TgtMov_VelX 10005
+#define gWs_TgtMov_VelY 10006
+#define gWs_TgtMov_VelC 10007
+#define gWs_TgtMov_PosX 10008
+#define gWs_TgtMov_PosY 10009
+#define gWs_TgtMov_PosC 10010
+#define gVs_TgtMov_VelX 10011
+#define gVs_TgtMov_VelY 10012
+#define gVs_TgtMov_VelC 10013
+#define gVs_TgtMov_PosX 10014
+#define gVs_TgtMov_PosY 10015
+#define gVs_TgtMov_PosC 10016
+#define gWs_CoverOpn_TgtAng 10017
+#define gWs_CoverOpn_Start 10018
+#define gWs_CoverOpn_Abort 10019
+#define gWs_CoverOpn_Ena 10020
+#define gWs_CoverOpn_Sta 10021
+#define gWs_CoverOpn_Seq 10022
+#define gWs_CoverOpn_Buf 10023
+#define gWs_CoverOpn_Tmr 10024
+#define gWs_CoverOpn_Err 10025
+#define gWs_CoverCls_Start 10026
+#define gWs_CoverCls_Abort 10027
+#define gWs_CoverCls_Ena 10028
+#define gWs_CoverCls_Sta 10029
+#define gWs_CoverCls_Seq 10030
+#define gWs_CoverCls_Buf 10031
+#define gWs_CoverCls_Tmr 10032
+#define gWs_CoverCls_Err 10033
+#define gWsV_CoverOpn_Start 10034
+#define gWsV_CoverOpn_Abort 10035
+#define gWsV_CoverOpn_Ena 10036
+#define gWsV_CoverOpn_Sta 10037
+#define gWsV_CoverOpn_Seq 10038
+#define gWsV_CoverOpn_Buf 10039
+#define gWsV_CoverOpn_Tmr 10040
+#define gWsV_CoverOpn_Err 10041
+#define gWsV_CoverCls_Start 10042
+#define gWsV_CoverCls_Abort 10043
+#define gWsV_CoverCls_Ena 10044
+#define gWsV_CoverCls_Sta 10045
+#define gWsV_CoverCls_Seq 10046
+#define gWsV_CoverCls_Buf 10047
+#define gWsV_CoverCls_Tmr 10048
+#define gWsV_CoverCls_Err 10049
+#define gWsV_Cover_Cur 10050
+#define gVs_CoverOpn_Start 10051
+#define gVs_CoverOpn_Abort 10052
+#define gVs_CoverOpn_Ena 10053
+#define gVs_CoverOpn_Sta 10054
+#define gVs_CoverOpn_Seq 10055
+#define gVs_CoverOpn_Buf 10056
+#define gVs_CoverOpn_Tmr 10057
+#define gVs_CoverOpn_Err 10058
+#define gVs_CoverCls_Start 10059
+#define gVs_CoverCls_Abort 10060
+#define gVs_CoverCls_Ena 10061
+#define gVs_CoverCls_Sta 10062
+#define gVs_CoverCls_Seq 10063
+#define gVs_CoverCls_Buf 10064
+#define gVs_CoverCls_Tmr 10065
+#define gVs_CoverCls_Err 10066
+#define gWs_ThCoverPos_Old 10067
+#define gVs_ThCoverPos_Old 10068
+#define gWs_ThTargetPos_Old 10069
+#define gVs_ThTargetPos_Old 10070
+#define gWs_CoverMoving_Sta 10071
+#define gVs_CoverMoving_Sta 10072
+#define gBlow_Time 10073
+#define gWs_PowerCheck_Shot_Start 10074
+#define gWs_PowerCheck_Shot_Abort 10075
+#define gWs_PowerCheck_Shot_Ena 10076
+#define gWs_PowerCheck_Shot_Sta 10077
+#define gWs_PowerCheck_Shot_Seq 10078
+#define gWs_PowerCheck_Shot_Buf 10079
+#define gWs_PowerCheck_Shot_Tmr 10080
+#define gWs_PowerCheck_Shot_Err 10081
+#define gWs_PowerCheck_Shot_Time 10082
+#define gWs_PowerCheck_Shot_TimeBuf 10083
+#define gWs_PowerCheck_Stop_Start 10084
+#define gWs_PowerCheck_Stop_Abort 10085
+#define gWs_PowerCheck_Stop_Ena 10086
+#define gWs_PowerCheck_Stop_Sta 10087
+#define gWs_PowerCheck_Stop_Seq 10088
+#define gWs_PowerCheck_Stop_Buf 10089
+#define gWs_PowerCheck_Stop_Tmr 10090
+#define gWs_PowerCheck_Stop_Err 10091
+#define gVs_PostVisionST_Start 10092
+#define gVs_PostVisionST_Abort 10093
+#define gVs_PostVisionST_Ena 10094
+#define gVs_PostVisionST_Sta 10095
+#define gVs_PostVisionST_Seq 10096
+#define gVs_PostVisionST_Buf 10097
+#define gVs_PostVisionST_Tmr 10098
+#define gVs_PostVisionST_Err 10099
+#define gVs_PostVisionED_Start 10100
+#define gVs_PostVisionED_Abort 10101
+#define gVs_PostVisionED_Ena 10102
+#define gVs_PostVisionED_Sta 10103
+#define gVs_PostVisionED_Seq 10104
+#define gVs_PostVisionED_Buf 10105
+#define gVs_PostVisionED_Tmr 10106
+#define gVs_PostVisionED_Err 10107
+#define gWs_Skip_N2 10108
+#define gN2BlowState 10109
+#define gN2BlowOld 10110
+#define gN2BlowTime 10111
+#define gIsWsCoverComplete 10112
+#define gIsVsCoverComplete 10113
+#define gIsWStationReady 10114
+#define gIsVStationReady 10115
+#define gKin_Sf 10116
+#define gKin_RotOffset 10148
+#define gKin_Len1 10180
+#define gKin_Len2 10181
+#define gKin_GalvoSfX 10182
+#define gKin_GalvoSfY 10183
+#define gMc_SeqBuf_Idx 10184
+#define gWs_SeqBuf_Cur 10185
+#define gWs_SeqBuf_Old 10186
+#define gVs_SeqBuf_Cur 10187
+#define gVs_SeqBuf_Old 10188
+#define gScMon_GalvoAngX 10189
+#define gScMon_GalvoAngY 10190
+#define gCoreVoltMin 10191
+#define gCoreVoltMax 10192
+#define gCorePowerMin 10193
+#define gCorePowerMax 10194
+#define gRingVoltMin 10195
+#define gRingVoltMax 10196
+#define gRingPowerMin 10197
+#define gRingPowerMax 10198
+#define gTempRawMin 10199
+#define gTempRawMax 10200
+#define gSensorTempMin 10201
+#define gSensorTempMax 10202
+#define Len_X 10203
+#define Len_Y 10204
+#define Len_R 10205
+#define gWs_Error_Cur2 10206
+#define gWs_Error_Old2 10207
+#define gVs_Error_Cur2 10208
+#define gVs_Error_Old2 10209
+#define gMc_TransTest_Start 10210
+#define gMc_TransTest_Abort 10211
+#define gMc_TransTest_Ena 10212
+#define gMc_TransTest_Sta 10213
+#define gMc_TransTest_Seq 10214
+#define gMc_TransTest_Buf 10215
+#define gMc_TransTest_Tmr 10216
+#define gMc_TransTest_Err 10217
+#define gMc_TransTest_Vel 10218
+#define gRspSim_PdtNo 10219
+#define gRspSim_LdAlignX 10220
+#define gRspSim_LdAlignY 10221
+#define gRspSim_LdAlignC 10222
+#define gRspSim_LdDirRep 10223
+#define gRspSim_2dVsnRsp 10224
+#define gRspSim_3dVsnRsp 10225
+#define gRspSim_LdDirJug 10226
+#define gRspSim_2dVsnJug 10227
+#define gRspSim_3dVsnJug 10228
+#define gRspSim_LdDirRat 10229
+#define gRspSim_2dVsnRat 10230
+#define gRspSim_3dVsnRat 10231
 #endif
 #endif
 #endif //_PP_PROJ_H_
