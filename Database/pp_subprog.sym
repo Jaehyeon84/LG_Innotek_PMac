@@ -19,3 +19,9 @@ SUBPROG	spSetWsWtParam	100024	1	0	2	1
 SUBPROG	spReadScPos	100025	4	0	1	1	1	1	1	2	2	1	3	2	1
 SUBPROG	spReadWsThPos	100028	3	0	1	1	1	1	1	2	2	1
 SUBPROG	spReadVsThPos	100029	3	0	1	1	1	1	1	2	2	1
+SUBPROG	spConvertRingPowerToVolt	100030	2	0	1	1	1	2	1
+SUBPROG	spConvertVoltToRingPower	100031	2	0	1	1	1	2	1
+SUBPROG	spConvertCorePowerToVolt	100032	2	0	1	1	1	2	1
+SUBPROG	spConvertVoltToCorePower	100033	2	0	1	1	1	2	1
+SUBPROG	spConvertVoltScaled	100034	2	0	1	1	1	2	1
+SUBPROG	spConvertTempScaled	100035	2	0	1	1	1	2	1

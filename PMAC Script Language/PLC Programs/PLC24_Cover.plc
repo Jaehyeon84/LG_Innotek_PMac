@@ -44,7 +44,12 @@ open plc 24
 				}
 				else
 				{
-					gWs_CoverOpn_Seq = 10;
+					#ifdef CE
+						gWs_ThCoverPos_Old = pUmem_Sta_CmdPos(nwC);
+						gWs_CoverOpn_Seq = 20;
+					#elif TG
+						gWs_CoverOpn_Seq = 10;
+					#endif
 				}
 			break;
 		//------------------------------------------------------//
@@ -275,7 +280,13 @@ open plc 24
 				}
 				else
 				{
-					gWs_CoverCls_Seq = 10;
+					#ifdef CE
+						gWs_ThCoverPos_Old = pUmem_Sta_CmdPos(nwC);
+						gWs_CoverCls_Seq = 20;
+					#elif TG
+						gWs_CoverCls_Seq = 10;
+					#endif
+					//gWs_CoverCls_Seq = 10;
 				}
 			break;
 		//------------------------------------------------------//
@@ -700,7 +711,14 @@ open plc 24
 				}
 				else
 				{
-					gVs_CoverOpn_Seq = 11;
+					#ifdef CE
+						gVs_ThCoverPos_Old = pUmem_Sta_CmdPos(nvC);
+						gVs_CoverOpn_Seq = 20;
+					#elif TG
+						gVs_ThCoverPos_Old = pUmem_Sta_CmdPos(nvC);
+						gVs_CoverOpn_Seq = 20;
+					#endif
+					//gVs_CoverOpn_Seq = 11;
 				}
 			break;
 		//------------------------------------------------------//
@@ -907,7 +925,14 @@ open plc 24
 				}
 				else
 				{
-					gVs_CoverCls_Seq = 11;
+					#ifdef CE
+						gVs_ThCoverPos_Old = pUmem_Sta_CmdPos(nvC);
+						gVs_CoverCls_Seq = 20;
+					#elif TG
+						gVs_ThCoverPos_Old = pUmem_Sta_CmdPos(nvC);
+						gVs_CoverCls_Seq = 20;
+					#endif
+					//gVs_CoverCls_Seq = 11;
 				}
 			break;
 		//------------------------------------------------------//

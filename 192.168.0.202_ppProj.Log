@@ -68,6 +68,7 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
@@ -83,6 +84,7 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Pr
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
@@ -109,8 +111,22 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Progr
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
 Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
-3641 Project Symbols were created for gpascii -2 communication
+3747 Project Symbols were created for gpascii -2 communication
 Status: Successful load of preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
 [PMAC_PROJECT]
 Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
 Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
@@ -164,6 +180,7 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
@@ -179,6 +196,7 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Pr
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
@@ -205,13 +223,13 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Progr
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
 Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
-3641 Project Symbols were created for gpascii -2 communication
+3745 Project Symbols were created for gpascii -2 communication
 [PMAC_PROJECT]
 Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
 Success: Loading usralgo.ko
 Success: Loading RT Address of CfromScript
 Success: Loading RT Address of CaptCompISR
-LoadRTUserCode() Delta Time (sec) = 0.518772
+LoadRTUserCode() Delta Time (sec) = 0.596398
 Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
@@ -263,6 +281,7 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
@@ -278,6 +297,7 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Pr
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
@@ -304,11 +324,1502 @@ Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Progr
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
 Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
 Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
-Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.322776
-Status: Pass 2 Verify prog calls, local stack & labels, Time (sec)  = 0.127237
-3641 Project Symbols were created for gpascii -2 communication
-Status: Create PPMAC Symbol Table & Run CPP Time (sec) = 0.829221
+Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.401034
+Status: Pass 2 Verify prog calls, local stack & labels, Time (sec)  = 0.177649
+3745 Project Symbols were created for gpascii -2 communication
+Status: Create PPMAC Symbol Table & Run CPP Time (sec) = 1.056186
 Status: Successful load of preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
-Status: Download to PPMAC Command Processor, Time (sec) = 0.155357
-Status: Final pp_proj.h & Run Background C Apps, Time (sec) = 0.060832
-Project Preprocessing & Load Total Time (sec) = 2.014265
+Status: Download to PPMAC Command Processor, Time (sec) = 0.124435
+Status: Final pp_proj.h & Run Background C Apps, Time (sec) = 0.076443
+Project Preprocessing & Load Total Time (sec) = 2.432206
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC25_BlowOff.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC27_PickAndPlace.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC28_VisionTrigger.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_ReqSim.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
+3745 Project Symbols were created for gpascii -2 communication
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Success: Loading usralgo.ko
+Success: Loading RT Address of CfromScript
+Success: Loading RT Address of CaptCompISR
+LoadRTUserCode() Delta Time (sec) = 0.608664
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC25_BlowOff.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC27_PickAndPlace.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC28_VisionTrigger.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_ReqSim.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
+Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.402145
+Status: Pass 2 Verify prog calls, local stack & labels, Time (sec)  = 0.161088
+3745 Project Symbols were created for gpascii -2 communication
+Status: Create PPMAC Symbol Table & Run CPP Time (sec) = 1.066251
+Status: Successful load of preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+Status: Download to PPMAC Command Processor, Time (sec) = 0.136726
+Status: Final pp_proj.h & Run Background C Apps, Time (sec) = 0.090390
+Project Preprocessing & Load Total Time (sec) = 2.465360
+[PMAC_CONFIG]
+Successful: SaveConfiguration using /var/ftp/usrflash/Project/Configuration/pp_save.cfg
+Successful: SaveCustomConfiguration using template /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC25_BlowOff.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC27_PickAndPlace.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC28_VisionTrigger.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_ReqSim.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
+3745 Project Symbols were created for gpascii -2 communication
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Success: Loading usralgo.ko
+Success: Loading RT Address of CfromScript
+Success: Loading RT Address of CaptCompISR
+LoadRTUserCode() Delta Time (sec) = 0.611465
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC25_BlowOff.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC27_PickAndPlace.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC28_VisionTrigger.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_ReqSim.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
+Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.450194
+Status: Pass 2 Verify prog calls, local stack & labels, Time (sec)  = 0.177417
+3745 Project Symbols were created for gpascii -2 communication
+Status: Create PPMAC Symbol Table & Run CPP Time (sec) = 1.104916
+Status: Successful load of preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+Status: Download to PPMAC Command Processor, Time (sec) = 0.125882
+Status: Final pp_proj.h & Run Background C Apps, Time (sec) = 0.090076
+Project Preprocessing & Load Total Time (sec) = 2.560017
+[PMAC_CONFIG]
+Successful: SaveConfiguration using /var/ftp/usrflash/Project/Configuration/pp_save.cfg
+Successful: SaveCustomConfiguration using template /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC25_BlowOff.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC27_PickAndPlace.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC28_VisionTrigger.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_ReqSim.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
+3745 Project Symbols were created for gpascii -2 communication
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Success: Loading usralgo.ko
+Success: Loading RT Address of CfromScript
+Success: Loading RT Address of CaptCompISR
+LoadRTUserCode() Delta Time (sec) = 0.627800
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC25_BlowOff.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC27_PickAndPlace.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC28_VisionTrigger.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_ReqSim.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
+Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.394246
+Status: Pass 2 Verify prog calls, local stack & labels, Time (sec)  = 0.196985
+3745 Project Symbols were created for gpascii -2 communication
+Status: Create PPMAC Symbol Table & Run CPP Time (sec) = 1.051888
+Status: Successful load of preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+Status: Download to PPMAC Command Processor, Time (sec) = 0.141001
+Status: Final pp_proj.h & Run Background C Apps, Time (sec) = 0.084737
+Project Preprocessing & Load Total Time (sec) = 2.496718
+[PMAC_CONFIG]
+Successful: SaveConfiguration using /var/ftp/usrflash/Project/Configuration/pp_save.cfg
+Successful: SaveCustomConfiguration using template /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_CONFIG]
+Successful: FastSave using /var/ftp/usrflash/Project/Configuration/pp_custom_save.tpl
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+/var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc:1149:1: Preprocessing Error: Missing Close: on string:""
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Success: Loading usralgo.ko
+Success: Loading RT Address of CfromScript
+Success: Loading RT Address of CaptCompISR
+LoadRTUserCode() Delta Time (sec) = 0.618146
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+/var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc:1149:1: Preprocessing Error: Missing Close: on string:""
+Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.436054
+Status: Final pp_proj.h & Run Background C Apps, Time (sec) = 0.056218
+Project Preprocessing & Load Total Time (sec) = 1.110479
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+/var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc:1149:1: Preprocessing Error: Missing Close: on string:""
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Success: Loading usralgo.ko
+Success: Loading RT Address of CfromScript
+Success: Loading RT Address of CaptCompISR
+LoadRTUserCode() Delta Time (sec) = 0.681517
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+/var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc:1149:1: Preprocessing Error: Missing Close: on string:""
+Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.464617
+Status: Final pp_proj.h & Run Background C Apps, Time (sec) = 0.067753
+Project Preprocessing & Load Total Time (sec) = 1.213967
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC25_BlowOff.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC27_PickAndPlace.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC28_VisionTrigger.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_ReqSim.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
+3745 Project Symbols were created for gpascii -2 communication
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Success: Loading usralgo.ko
+Success: Loading RT Address of CfromScript
+Success: Loading RT Address of CaptCompISR
+LoadRTUserCode() Delta Time (sec) = 0.583764
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC25_BlowOff.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC27_PickAndPlace.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC28_VisionTrigger.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_ReqSim.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
+Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.442833
+Status: Pass 2 Verify prog calls, local stack & labels, Time (sec)  = 0.165109
+3745 Project Symbols were created for gpascii -2 communication
+Status: Create PPMAC Symbol Table & Run CPP Time (sec) = 1.106924
+Error: downloading preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+Status: Download to PPMAC Command Processor, Time (sec) = 0.000854
+Project Preprocessing & Load Total Time (sec) = 2.299607
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC25_BlowOff.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC27_PickAndPlace.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC28_VisionTrigger.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_ReqSim.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
+3745 Project Symbols were created for gpascii -2 communication
+[PMAC_PROJECT]
+Start of Project Loading using INI File: "/var/ftp/usrflash/Project/Configuration/pp_proj.ini"
+Success: Loading usralgo.ko
+Success: Loading RT Address of CfromScript
+Success: Loading RT Address of CaptCompISR
+LoadRTUserCode() Delta Time (sec) = 0.421548
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_disable.txt 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/ECATMap.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/AX1515_Mapping.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H00_Setup_System.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H01_Setup_EncTable.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H02_Setup_Motor.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H03_Setup_Coord.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H04_Setup_Ecat.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H05_Setup_Gpio.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H06_Variable_Umem.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H07_Variable_UmemArray.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H08_Variable_Prog.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H09_Kinematics.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Global Includes/H10_Nc.pmh 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse1.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse2.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Forward3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Kinematic Routines/Inverse3.kin 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/timer.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Gcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_Mcode.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortVsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsHome.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_AbortWsLoop.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitCommand.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitECylinder.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitMotor.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitScanner.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_InitSeqParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetDefaultParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetEquOut.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetSeqBufQ.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsVnParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetVsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsLdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsRjParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsUdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWdParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_SetWsWtParam.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadScPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetVsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ResetWsAlarm.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ReadThPos.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG01_Test1.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG02_Test2.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG03_Test3.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG04_Test4.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG05_Test5.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG19_Zero.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG20_Welding.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG21_Circle.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG22_SnowMan.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG23_ButterFly.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG24_Column.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG25_Row.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG30_Vision.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG50_LaserTest_Cross.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG51_LaserTest_Line.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/Motion Programs/PRG18_ProgMove.pmc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC00_RTI.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC01_Init.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC03_Cmd.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC04_Safety.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC05_Ecat.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC06_IoCom.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC10_Home.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC11_Jog.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC12_SeqMc.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC13_SeqWs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC14_SeqVs.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC20_Cylinder.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC21_TestShot.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC22_LaserCtrl.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC23_TargetMove.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC24_Cover.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC25_BlowOff.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC27_PickAndPlace.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC28_VisionTrigger.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC29_Buf.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC30_Test.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC31_ReqSim.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC26_PowerCheck.plc 
+Including Project File: /var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC32_VisionSeq.plc 
+Including Project File: /var/ftp/usrflash/Project/Configuration/pp_startup.txt 
+Status: Pass 1 Create debug file, #defines, *.h & .sym files, Time (sec) = 0.306395
+Status: Pass 2 Verify prog calls, local stack & labels, Time (sec)  = 0.146645
+3745 Project Symbols were created for gpascii -2 communication
+Status: Create PPMAC Symbol Table & Run CPP Time (sec) = 0.713901
+Status: Successful load of preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+Status: Download to PPMAC Command Processor, Time (sec) = 0.135989
+Status: Final pp_proj.h & Run Background C Apps, Time (sec) = 0.091720
+Project Preprocessing & Load Total Time (sec) = 1.816259

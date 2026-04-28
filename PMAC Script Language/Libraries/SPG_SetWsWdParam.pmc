@@ -82,26 +82,41 @@ open subprog spSetWsWdParam(&ret)
 			return
 		}
 	}
-	gWs_OutMode		= pUmem_Cmd_Ws_OutMode;			// Set Output Mode
-	gWs_RefVel		= pUmem_Cmd_Ws_RefVel;			// Set Vector Velocity
+	gWs_OutMode			= pUmem_Cmd_Ws_OutMode;			// Set Output Mode
+	gWs_RefVel			= pUmem_Cmd_Ws_RefVel;			// Set Vector Velocity
+
+	gWs_OutMode_2		= pUmem_Cmd_Ws_OutMode_2;			// Set Output Mode
+	gWs_RefVel_2		= pUmem_Cmd_Ws_RefVel_2;			// Set Vector Velocity
 
 	// Set Core Laser Parameters
-	gWs_CorePowSf	= pUmem_Cmd_Ws_CorePowerSf;
-	gWs_CoreRefPow	= pUmem_Cmd_Ws_CoreRefPower;
-	gWs_CoreMinPow	= pUmem_Cmd_Ws_CoreMinPower;
-	gWs_CoreMaxPow	= pUmem_Cmd_Ws_CoreMaxPower;
+	gWs_CorePowSf		= pUmem_Cmd_Ws_CorePowerSf;
+	gWs_CoreRefPow		= pUmem_Cmd_Ws_CoreRefPower;
+	gWs_CoreMinPow		= pUmem_Cmd_Ws_CoreMinPower;
+	gWs_CoreMaxPow		= pUmem_Cmd_Ws_CoreMaxPower;
+
+	gWs_CoreRefPow_2	= pUmem_Cmd_Ws_CoreRefPower_2;
 
 	// Set Ring Laser Parameters
-	gWs_RingPowSf	= pUmem_Cmd_Ws_RingPowerSf;
-	gWs_RingRefPow	= pUmem_Cmd_Ws_RingRefPower;
-	gWs_RingMinPow	= pUmem_Cmd_Ws_RingMinPower;
-	gWs_RingMaxPow	= pUmem_Cmd_Ws_RingMaxPower;
+	gWs_RingPowSf		= pUmem_Cmd_Ws_RingPowerSf;
+	gWs_RingRefPow		= pUmem_Cmd_Ws_RingRefPower;
+	gWs_RingMinPow		= pUmem_Cmd_Ws_RingMinPower;
+	gWs_RingMaxPow		= pUmem_Cmd_Ws_RingMaxPower;
+
+	gWs_RingRefPow_2	= pUmem_Cmd_Ws_RingRefPower_2;
 
 	// Set Laser Pfm Parameters
-	gWs_CorePfmEna	= pUmem_Cmd_Ws_CorePfmEna;
-	gWs_RingPfmEna	= pUmem_Cmd_Ws_RingPfmEna;
-	gWs_PfmPeriod	= pUmem_Cmd_Ws_PfmPeriod;
-	gWs_PfmOnTime	= pUmem_Cmd_Ws_PfmOnTime;
+	gWs_CorePfmEna		= pUmem_Cmd_Ws_CorePfmEna;
+	gWs_RingPfmEna		= pUmem_Cmd_Ws_RingPfmEna;
+	gWs_PfmPeriod		= pUmem_Cmd_Ws_PfmPeriod;
+	gWs_PfmOnTime		= pUmem_Cmd_Ws_PfmOnTime;
+
+	// Set Laser Pfm Parameters
+	gWs_CorePfmEna_2	= pUmem_Cmd_Ws_CorePfmEna_2;
+	gWs_RingPfmEna_2	= pUmem_Cmd_Ws_RingPfmEna_2;
+	gWs_PfmPeriod_2		= pUmem_Cmd_Ws_PfmPeriod_2;
+	gWs_PfmOnTime_2		= pUmem_Cmd_Ws_PfmOnTime_2;
+
+
 	//--------------------------------------------------------//
 	if(pUmem_Cmd_Sc_WblEna==1)
 	{
@@ -117,15 +132,38 @@ open subprog spSetWsWdParam(&ret)
 		}
 	}
 
+	if(pUmem_Cmd_Sc_WblEna_2==1)
+	{
+		if(pUmem_Cmd_Sc_WblLen_2 <= 0)		// Wobble Length Config Error
+		{
+			ret = -30;
+			return
+		}
+		if(pUmem_Cmd_Sc_WblDist_2 <= 0)		// Wobble Distance Config Error
+		{
+			ret = -31;
+			return
+		}
+	}
+
 	// Set Wobble Pfm Parameters
-	gWs_WblEna		= pUmem_Cmd_Sc_WblEna;
-	gWs_WblLen		= pUmem_Cmd_Sc_WblLen;
-	gWs_WblDst		= pUmem_Cmd_Sc_WblDist;
-	gWs_WblType		= pUmem_Cmd_Sc_WblType;
-	gWs_WblRatW		= pUmem_Cmd_Sc_WblRatioW;
-	gWs_WblRatL		= pUmem_Cmd_Sc_WblRatioL;
-	gWs_WblOfsX		= pUmem_Cmd_Sc_WblOffsetX;
-	gWs_WblOfsY		= pUmem_Cmd_Sc_WblOffsetY;
+	gWs_WblEna			= pUmem_Cmd_Sc_WblEna;
+	gWs_WblLen			= pUmem_Cmd_Sc_WblLen;
+	gWs_WblDst			= pUmem_Cmd_Sc_WblDist;
+	gWs_WblType			= pUmem_Cmd_Sc_WblType;
+	gWs_WblRatW			= pUmem_Cmd_Sc_WblRatioW;
+	gWs_WblRatL			= pUmem_Cmd_Sc_WblRatioL;
+	gWs_WblOfsX			= pUmem_Cmd_Sc_WblOffsetX;
+	gWs_WblOfsY			= pUmem_Cmd_Sc_WblOffsetY;
+
+	gWs_WblEna_2		= pUmem_Cmd_Sc_WblEna_2;
+	gWs_WblLen_2		= pUmem_Cmd_Sc_WblLen_2;
+	gWs_WblDst_2		= pUmem_Cmd_Sc_WblDist_2;
+	gWs_WblType_2		= pUmem_Cmd_Sc_WblType_2;
+	gWs_WblRatW_2		= pUmem_Cmd_Sc_WblRatioW_2;
+	gWs_WblRatL_2		= pUmem_Cmd_Sc_WblRatioL_2;
+	gWs_WblOfsX_2		= pUmem_Cmd_Sc_WblOffsetX_2;
+	gWs_WblOfsY_2		= pUmem_Cmd_Sc_WblOffsetY_2;
 
 	ret = 0;
 close

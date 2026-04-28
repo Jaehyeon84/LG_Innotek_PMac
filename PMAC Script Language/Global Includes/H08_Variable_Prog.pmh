@@ -91,6 +91,9 @@ global gWs_RefVel	= 10;
 global gWs_VelRatio = 0;
 global gWs_LaserEna = 0;
 
+global gWs_OutMode_2 = 0;
+global gWs_RefVel_2	= 10;
+
 //----------------------------------------------------------------------//
 // Core Laser Parameters
 //----------------------------------------------------------------------//
@@ -102,6 +105,8 @@ global gWs_CoreMaxPow = 0;		// [W]
 global gWs_CoreOutPow = 0;
 global gWs_CoreOutVdc = 0;
 global gWs_CorePfmEna = 0;
+global gWs_CoreRefPow_2 = 0;
+global gWs_CorePfmEna_2 = 0;
 
 //----------------------------------------------------------------------//
 // Ring Laser Parameters
@@ -114,6 +119,8 @@ global gWs_RingMaxPow = 0;		// [W]
 global gWs_RingOutPow = 0;
 global gWs_RingOutVdc = 0;
 global gWs_RingPfmEna = 0;
+global gWs_RingRefPow_2 = 0;
+global gWs_RingPfmEna_2 = 0;
 
 //----------------------------------------------------------------------//
 // Pfm Out Parameters
@@ -123,10 +130,14 @@ global gWs_PfmPeriod = 0;
 global gWs_PfmOnTime = 0;
 global gWs_PfmOnCnt = 0;
 
+global gWs_PfmPeriod_2 = 0;
+global gWs_PfmOnTime_2 = 0;
+
 global gWs_PfmOut = 0;
 global gWs_PfmBuf = 0;
 global gWs_PfmCnt = 0;
 
+global gWs_PfmOut_2 = 0;
 //----------------------------------------------------------------------//
 // Wobble Parameters
 //----------------------------------------------------------------------//
@@ -140,6 +151,17 @@ global gWs_WblRatW = 100;
 global gWs_WblRatL = 100;
 global gWs_WblOfsX = 0;
 global gWs_WblOfsY = 0;
+
+global gWs_WblEna_2 = 0;
+global gWs_WblLen_2 = 0;
+global gWs_WblDst_2 = 0;
+global gWs_WblCnt_2 = 0;
+
+global gWs_WblType_2 = 0;
+global gWs_WblRatW_2 = 100;
+global gWs_WblRatL_2 = 100;
+global gWs_WblOfsX_2 = 0;
+global gWs_WblOfsY_2 = 0;
 
 //----------------------------------------------------------------------//
 // Vision Acceleration,Velocity,Position Parameters
@@ -295,6 +317,10 @@ global gWs_LaserTestLineStart_Cur = 0;
 global gWs_LaserTestLineStart_Old = 0;
 global gWs_LaserTestLineAbort_Cur = 0;
 global gWs_LaserTestLineAbort_Old = 0;
+global gWs_PowerCheckStart_Cur = 0;
+global gWs_PowerCheckStart_Old = 0;
+global gWs_PowerCheckAbort_Cur = 0;
+global gWs_PowerCheckAbort_Old = 0;
 
 global gVs_ServoOn_Cur = 0;
 global gVs_ServoOn_Old = 0;
@@ -434,7 +460,8 @@ global gTr_PdtStaChange_Old = 0;
 #define cErrCode_WsLdAlignRangeY        	029
 #define cErrCode_WsLdAlignRangeC        	030
 #define cErrCode_WsN2Blw			       	030
-	
+#define cErrCode_WsLdCell			       	031
+
 #define cErrCode_VsServo					051
 #define cErrCode_VsMoveTime                 052
 #define cErrCode_VsHome                     053
@@ -472,7 +499,8 @@ global gTr_PdtStaChange_Old = 0;
 #define cErrCode_EtRunMode					115
 #define cErrCode_EtRunIng					116
 #define cErrCode_EtErrEx					117
-
+#define cErrCode_LsEnaTimeOut				118
+#define cErrCode_WsStgPos					119
 global gWs_Error = 0;
 global gVs_Error = 0;
 global gWs_ErrCode = 0;
@@ -641,6 +669,28 @@ gJog_ContMinus_Ena(0),32 = 0;
 gJog_AbsMove_Ena(0),32 = 0;
 gJog_IncMove_Ena(0),32 = 0;
 
+// Mdi Move PLC
+#define cMdiSta_Idl				0
+#define cMdiSta_Ing				1
+#define cMdiSta_Fin				2
+#define cMdiSta_Err				-1
+
+#define cMdi_TimeOut			30
+
+global gWd_Mdi_Start = 0;
+global gWd_Mdi_Abort = 0;
+
+global gWd_Mdi_Ena = 0;
+global gWd_Mdi_Sta = 0;
+global gWd_Mdi_Seq = 0;
+global gWd_Mdi_Buf = 0;
+global gWd_Mdi_Tmr = 0;
+global gWd_Mdi_Stp = 0;
+
+global gWd_Mdi_PosX = 0;
+global gWd_Mdi_PosY = 0;
+global gWd_Mdi_PosC = 0;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // PLC 12 : Sequence Control
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -715,8 +765,9 @@ gJog_IncMove_Ena(0),32 = 0;
 #define cSeq_PrgTimeOut		120
 #define cSeq_MtrTimeOut		60
 #define cSeq_CldTimeOut		10
-#define cSeq_VsnTimeOut		10
+#define cSeq_VsnTimeOut		15
 #define cSeq_LwmTimeOut		10
+#define CSeq_LdCellTimeOut	5
 
 #define cVsnJudge_Ok		1
 #define cVsnJudge_Ng		-1
@@ -1264,7 +1315,7 @@ global gVs_TgtMov_PosC = 0;
 // PLC 24 : Cover
 //-----------------------------------------------------------------------------------------------------//
 //#define cWs_Cover_MoveAng	0		//20260304 KJH - 상부 지그 교체
-#define cWs_Cover_MoveAng	90000
+#define cWs_Cover_MoveAng	0
 #define cVs_Cover_MoveAng	-90000
 
 global gWs_CoverOpn_TgtAng = 0;
@@ -1350,15 +1401,36 @@ global gBlow_Time = 500;
 //-----------------------------------------------------------------------------------------------------//
 // PLC 26 : Power Check
 //-----------------------------------------------------------------------------------------------------//
-global gWs_PowerCheck_Start = 0;
-global gWs_PowerCheck_Abort = 0;
+#define cPowerCheckSta_Idl			0
+#define cPowerCheckSta_Ing			1
+#define cPowerCheckSta_Fin			2
+#define cPowerCheckSta_Err			-1
 
-global gWs_PowerCheck_Ena = 0;
-global gWs_PowerCheck_Time = 0;
-global gWs_PowerCheck_TimeBuf = 0;
+//#define cLaser_EnaTimeOut		5
+//#define cLaser_TestTimeOut		20
 
-global gWs_PowerCheck_Seq = 0;
-global gWs_PowerCheck_Tmr = 0;
+global gWs_PowerCheck_Shot_Start = 0;
+global gWs_PowerCheck_Shot_Abort = 0;
+
+global gWs_PowerCheck_Shot_Ena = 0;
+global gWs_PowerCheck_Shot_Sta = 0;
+global gWs_PowerCheck_Shot_Seq = 0;
+global gWs_PowerCheck_Shot_Buf = 0;
+global gWs_PowerCheck_Shot_Tmr = 0;
+global gWs_PowerCheck_Shot_Err = 0;
+
+global gWs_PowerCheck_Shot_Time = 0;
+global gWs_PowerCheck_Shot_TimeBuf = 0;
+
+global gWs_PowerCheck_Stop_Start = 0;
+global gWs_PowerCheck_Stop_Abort = 0;
+
+global gWs_PowerCheck_Stop_Ena = 0;
+global gWs_PowerCheck_Stop_Sta = 0;
+global gWs_PowerCheck_Stop_Seq = 0;
+global gWs_PowerCheck_Stop_Buf = 0;
+global gWs_PowerCheck_Stop_Tmr = 0;
+global gWs_PowerCheck_Stop_Err = 0;
 
 //-----------------------------------------------------------------------------------------------------//
 // PLC 32 : Vision Seq

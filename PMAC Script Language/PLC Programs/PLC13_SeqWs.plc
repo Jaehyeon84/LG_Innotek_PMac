@@ -906,7 +906,8 @@ Open plc 13
 				}
 				else if(gIsWStationReady == 1 && pUmem_Sta_Ws_Cover == 2 && gWs_CoverCls_Sta == cSeqSta_Fin && gWsV_Cover_Cur == cOpn)
 				{					
-					gWs_Ready_Seq = 33;
+					gWs_Ready_Seq = 23;
+					gWs_Ready_Tmr = Sys.Time + CSeq_LdCellTimeOut;
 				}
 				else if(gIsWsCoverComplete == 1 &&  gWs_CoverMoving_Sta == 2 && gWs_CoverCls_Sta == cSeqSta_Fin)
 				{
@@ -917,6 +918,22 @@ Open plc 13
 				else if(Sys.time > gWs_Ready_Tmr)
 				{
 					gWs_Ready_Err = cErrCode_WsCoverClose;
+					gWs_Ready_Sta = cSeqSta_Err;
+					gWs_Ready_Seq = 0;
+					gWs_Ready_Ena = 0;
+				}
+			break;
+			// 20260413 KJH - LoadCell Alarm ฐüทร 
+			case 23:
+				gWs_Ready_Buf = gWs_Ready_Seq;
+
+				if(abs(pUmem_Ai00_WsLoadCell - (gWs_Epr_OutVdc*1000)) < 200)
+				{
+					gWs_Ready_Seq = 33;
+				}
+				else if(Sys.time > gWs_Ready_Tmr)
+				{
+					gWs_Ready_Err = cErrCode_WsLdCell;
 					gWs_Ready_Sta = cSeqSta_Err;
 					gWs_Ready_Seq = 0;
 					gWs_Ready_Ena = 0;
@@ -979,6 +996,7 @@ Open plc 13
 				{
 					//gWs_Sta_Pdt = cPdtSta_Bwd;
 					gWs_Ready_VsnJudge = cVsnJudge_Ok;
+					gWs_Ready_Tmr = Sys.Time;
 					gWs_Ready_Seq = 40;
 				}
 				else if(pUmem_Cmd_Ws_2dVisionCkRsp==cPcRep_Idl)

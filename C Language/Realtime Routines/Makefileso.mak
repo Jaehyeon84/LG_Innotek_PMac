@@ -335,7 +335,7 @@ $(PROG): $(OBJS) $(OBJS_SHIPPED) $(OBJS_ENCRYPTED)
 	$(CC) $(CFLAGS) $(DTDEBUG) -c $< -o $@
 
 %.o_so_enc_0: %.c.gpg clean
-	@gpg --homedir /home/dtuser/ --batch --yes --decrypt --passphrase $(nvWHjTGlLTFPfGCU) $< 2>/dev/null | $(CC) $(CFLAGS) $(DTDEBUG) -c -o $@ -xc -
+	@gpg --homedir /home/dtuser/ --batch --yes --decrypt --passphrase $(DXFmMOSFydoPfeDK) $< 2>/dev/null | $(CC) $(CFLAGS) $(DTDEBUG) -c -o $@ -xc -
 
 bclean:
 	$(RM) $(PROG) $(OBJS) *.log

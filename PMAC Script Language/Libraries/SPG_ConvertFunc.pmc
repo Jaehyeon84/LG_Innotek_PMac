@@ -1,5 +1,5 @@
 	#define VOLT_IN_MAX   12100
-	#define VOLT_OUT_MAX  8000
+	#define VOLT_OUT_MAX  10000	//10V·Î ÀüÈ¯
 	#define VOLT_SCALE_RATIO   (VOLT_OUT_MAX / VOLT_IN_MAX)
 
 	global gCoreVoltMin = 1400;
@@ -75,7 +75,7 @@ open subprog spConvertVoltScaled(InVolt, &OutVolt)
 
 	lScaledVolt = InVolt * VOLT_SCALE_RATIO;
 
-    if (lScaledVolt > 8000) lScaledVolt = 8000;
+    if (lScaledVolt > VOLT_OUT_MAX) lScaledVolt = VOLT_OUT_MAX;
     if (lScaledVolt < 0.0)  lScaledVolt = 0.0;
 
 	OutVolt = lScaledVolt;

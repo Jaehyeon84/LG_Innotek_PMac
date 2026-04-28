@@ -673,10 +673,12 @@ open plc 12
 
 			case 24:	// Unloading Crash Judge
 				gWs_Loop_Buf = gWs_Loop_Seq;
-				if(gTr_Sta_Pdt==cPdtSta_Blk && gVs_Seq_Cur!=cPos_Ld && gVs_Seq_Cur!=cPos_Vn)
+				//if(gTr_Sta_Pdt==cPdtSta_Blk && gVs_Seq_Cur!=cPos_Ld && gVs_Seq_Cur!=cPos_Vn)
+				if(gTr_Sta_Pdt==cPdtSta_Blk && gVs_Seq_Cur!=cPos_Ld)
 				{
-					if(pUmem_Sta_CmdPos(nvX)>=pUmem_Cmd_Vs_WtPosX)	gWs_Loop_Seq = 40;
-					else											gWs_Loop_Seq = 30;
+					//if(pUmem_Sta_CmdPos(nvX)>=pUmem_Cmd_Vs_WtPosX)	gWs_Loop_Seq = 40;
+					if(pUmem_Sta_CmdPos(nvX)>=pUmem_Cmd_Vs_VnPosX - 29)	gWs_Loop_Seq = 40;
+					else												gWs_Loop_Seq = 30;
 				}
 				else
 				{
@@ -740,9 +742,12 @@ open plc 12
 			case 34:	// Unloading Crash Judge
 				gWs_Loop_Buf = gWs_Loop_Seq;
 
-				if(gTr_Sta_Pdt==cPdtSta_Blk && gVs_Seq_Cur!=cPos_Ld && gVs_Seq_Cur!=cPos_Vn)
+				// 20260320 KJH Vision 검사 도중 Welding Stage Unload 진입을 위한 설비 개조 대응.
+				//if(gTr_Sta_Pdt==cPdtSta_Blk && gVs_Seq_Cur!=cPos_Ld && gVs_Seq_Cur!=cPos_Vn)
+				if(gTr_Sta_Pdt==cPdtSta_Blk && gVs_Seq_Cur!=cPos_Ld)
 				{
-					if(pUmem_Sta_CmdPos(nvX)>=pUmem_Cmd_Vs_WtPosX)
+					//if(pUmem_Sta_CmdPos(nvX)>=pUmem_Cmd_Vs_WtPosX)
+					if(pUmem_Sta_CmdPos(nvX)>=pUmem_Cmd_Vs_VnPosX - 29) //// 20260320 KJH 제품 사이즈 24mm, Vision 검사시 움직이는 영역 계산을 위함.
 					{
 						gWs_Loop_Seq = 40;
 					}

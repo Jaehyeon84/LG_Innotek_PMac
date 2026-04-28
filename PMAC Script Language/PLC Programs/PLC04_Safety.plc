@@ -385,7 +385,7 @@ open plc 4
 // Interlock
 //-------------------------------------------------------------//
 	// Laser Gate Interlock
-	if(Coord[1].ProgActive!=1 && gWs_TestShot_Ena!=1 && gWs_LaserTest_Ena!=1)
+	if(Coord[1].ProgActive!=1 && gWs_TestShot_Ena!=1 && gWs_LaserTest_Ena!=1 && gWs_PowerCheck_Shot_Sta != 2 && gWs_PowerCheck_Shot_Sta != 1)
 	{
 		pGpio_Do00_LaserEmission = 0;
 	}
