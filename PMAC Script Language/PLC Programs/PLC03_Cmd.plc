@@ -447,7 +447,6 @@ open plc 3
 		gWs_PowerCheckStart_Old = gWs_PowerCheckStart_Cur;
 		if(gWs_PowerCheckStart_Cur == 1)
 		{
-			enable plc 26;
 			gWs_PowerCheck_Shot_Start = 1;
 			pUmem_Cmd_Ws_PowerCheckStart = 0;
 		}

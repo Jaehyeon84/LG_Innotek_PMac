@@ -48,7 +48,7 @@ open plc 1
 		cMachineID = 0
 
 	// Enable PLC
-	enable plc 0,2..25
+	enable plc 0,2..26
 	call Timer.msec(100)
 	if(gMach_Type==0) enable plc 31		// 251230 Ãß°¡
 

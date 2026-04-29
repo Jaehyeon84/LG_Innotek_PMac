@@ -193,7 +193,7 @@ int Rti_Loop(int wx, int wy, int wc, int vx, int vy, int vc)
 				WeldingGate3->Chan[3].Dac[1] = 0;
 			}
 		}
-		else if(gWs_LaserTest_Ena==1 || gWs_TestShot_Ena==1 || gWs_PowerCheck_Shot_Sta == 2 || gWs_PowerCheck_Shot_Sta == 1)
+		else if(gWs_LaserTest_Ena==1 || gWs_TestShot_Ena==1 || gWs_PowerCheck_Shot_Ena == 1)
 		{
 			if(gWs_LaserEna==1)
 			{
