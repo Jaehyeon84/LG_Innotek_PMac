@@ -1,7 +1,7 @@
 open prog 20
 	abs
 	linear
-	f(400) ta(0.1) ts(0)
+	f(150) ta(0.1) ts(0)
 	frax(c, x, y)
 
 	//Laser & wobble off ///////////////////////
@@ -10,7 +10,7 @@ open prog 20
 	M21 // wobble off
 
 	//Move to start pos. And Speed ///////////////////////
-	//f(300) // Pos-init speed
+	//f(150) // Pos-init speed
 	x-18.550		y24.697		c(-1.683) // start pos
 	dwell 0
 
@@ -2619,7 +2619,7 @@ sg
 
 
 	//Move to start pos. And Speed ///////////////////////
-	f(300) // Pos-init speed
+	f(100) // Pos-init speed
 	x-18.550		y24.697		c(-1.683) // start pos
 	dwell 0
 	f(40) // Pos-init speed

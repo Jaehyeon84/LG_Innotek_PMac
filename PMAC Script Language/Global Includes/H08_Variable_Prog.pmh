@@ -459,8 +459,8 @@ global gTr_PdtStaChange_Old = 0;
 #define cErrCode_WsLdAlignRangeX        	028
 #define cErrCode_WsLdAlignRangeY        	029
 #define cErrCode_WsLdAlignRangeC        	030
-#define cErrCode_WsN2Blw			       	030
-#define cErrCode_WsLdCell			       	031
+#define cErrCode_WsN2Blw			       	031
+#define cErrCode_WsLdCell			       	032
 
 #define cErrCode_VsServo					051
 #define cErrCode_VsMoveTime                 052
@@ -1314,7 +1314,7 @@ global gVs_TgtMov_PosC = 0;
 //-----------------------------------------------------------------------------------------------------//
 // PLC 24 : Cover
 //-----------------------------------------------------------------------------------------------------//
-//#define cWs_Cover_MoveAng	0		//20260304 KJH - 상부 지그 교체
+//#define cWs_Cover_MoveAng	90000		//20260304 KJH - 상부 지그 교체
 #define cWs_Cover_MoveAng	0
 #define cVs_Cover_MoveAng	-90000
 

@@ -548,7 +548,8 @@ open plc 12
 
 			case 5:
 				gWs_Loop_Buf = gWs_Loop_Seq;
-				if(gWs_LdDir==cLdDir_Wd)			gWs_Loop_Seq = cWsSeqNo_Rd;
+				if(pUmem_Cmd_Ws_WeldingSkip == 1)	gWs_Loop_Seq = 22;
+				else if(gWs_LdDir==cLdDir_Wd)		gWs_Loop_Seq = cWsSeqNo_Rd;
 				else if(gWs_LdDir==cLdDir_Rj)		gWs_Loop_Seq = cWsSeqNo_Rj;
 			break;
 		//------------------------------------------------------------//

@@ -416,7 +416,22 @@ Open plc 14
 				gVs_Load_Buf = gVs_Load_Seq;
 				if(gTr_CldIn_PickerUD==cUp)
 				{
-					if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
+					//Vision Skip 기능 사용시 바로 Unload 진행 하기 위함.
+					if(pUmem_Cmd_Vs_VisionSkip == 1)
+					{
+						gVs_PdtNo = gTr_PdtNo;
+						gTr_PdtNo = 0;
+
+						if(gTr_Sta_Pdt==cPdtSta_Awd)	gVs_Sta_Pdt = cPdtSta_Avn;
+						else							gVs_Sta_Pdt = cPdtSta_Err;
+						gTr_Sta_Pdt = cPdtSta_Blk;
+
+						pUmem_Sta_Vs_PdtNo = gVs_PdtNo;
+
+						gVs_Load_Tmr = Sys.Time + 2;
+						gVs_Load_Seq = 90;
+					}
+					else if(gVs_RunOpt&cRunOpt_SkipVsPdSen!=0)
 					{
 						gVs_PdtNo = gTr_PdtNo;
 						gTr_PdtNo = 0;

@@ -1,7 +1,7 @@
 open prog 30
 	abs
 	linear
-	f(500) ta(0.1) ts(0)
+	f(150) ta(0.1) ts(0)
 	frax(c, x, y)
 
 	//Triggert off ///////////////////////

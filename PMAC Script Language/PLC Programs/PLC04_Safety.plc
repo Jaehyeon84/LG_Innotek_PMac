@@ -90,6 +90,8 @@ open plc 4
 			StopD_nwX = (V_nwX * AccelTime / 2.0) + (V_nwX * RespTime);
 			gMc_SafeDist = StopD_nvX + StopD_nwX + SafetyMargin;
 
+			//Amp가 Disable 상태에서 충돌 발생 위험이 있어 Amp 상태 추가.
+			//if (RealGap < gMc_SafeDist || Motor[nwX].AmpEna != 1 || Motor[nvX].AmpEna != 1)
 			if (RealGap < gMc_SafeDist)
 			{
 				gMc_DistX_Err = 1;
