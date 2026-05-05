@@ -459,8 +459,8 @@ global gTr_PdtStaChange_Old = 0;
 #define cErrCode_WsLdAlignRangeX        	028
 #define cErrCode_WsLdAlignRangeY        	029
 #define cErrCode_WsLdAlignRangeC        	030
-#define cErrCode_WsN2Blw			       	030
-#define cErrCode_WsLdCell			       	031
+#define cErrCode_WsN2Blw			       	031
+#define cErrCode_WsLdCell			       	032
 
 #define cErrCode_VsServo					051
 #define cErrCode_VsMoveTime                 052

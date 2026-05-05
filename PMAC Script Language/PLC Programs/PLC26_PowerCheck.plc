@@ -28,8 +28,6 @@ open plc 26
 		gWs_PowerCheck_Shot_Ena = 0;
 
 		gWs_PowerCheck_Shot_Sta = cPowerCheckSta_Idl;
-
-		disable plc 26;
 	}
 
 	if(gWs_PowerCheck_Shot_Ena==1)

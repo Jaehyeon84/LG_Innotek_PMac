@@ -157,5 +157,101 @@ open plc 11
 		Ldata.motor = jog_idx;
 		jog:*
 	}
+
+//--------------------------------------------------------------------------------------------//
+// Welding Part Mdi Move
+//--------------------------------------------------------------------------------------------//
+	if(gWd_Mdi_Start==1)
+	{
+		gWd_Mdi_Start = 0;
+		gWd_Mdi_Seq = 1;
+		gWd_Mdi_Ena = 1;
+	}
+
+	if(gWd_Mdi_Abort==1)
+	{
+		gWd_Mdi_Abort = 0;
+		gWd_Mdi_Seq = 0;
+		gWd_Mdi_Ena = 0;
+		abort 1
+	}
+
+	if(gWd_Mdi_Ena==1)
+	{
+		switch(gWd_Mdi_Seq)
+		{
+			case 1:
+				gWd_Mdi_Buf = gWd_Mdi_Seq;
+				if(Coord[1].AmpEna!=1)
+				{
+					gWd_Mdi_Sta = cMdiSta_Err;
+					gWd_Mdi_Seq = 0;
+					gWd_Mdi_Ena = 0;
+				}
+				else if(Coord[1].InPos!=1)
+				{
+					gWd_Mdi_Sta = cMdiSta_Err;
+					gWd_Mdi_Seq = 0;
+					gWd_Mdi_Ena = 0;	
+				}
+				else if(Coord[1].HomeComplete!=1)
+				{
+					gWd_Mdi_Sta = cMdiSta_Err;
+					gWd_Mdi_Seq = 0;
+					gWd_Mdi_Ena = 0;	
+				}
+				else
+				{
+					gWd_Mdi_Sta = cMdiSta_Ing;
+					gWd_Mdi_PosX = pUmem_Cmd_Wd_MdiPosX/1000;
+					gWd_Mdi_PosY = pUmem_Cmd_Wd_MdiPosY/1000;
+					gWd_Mdi_PosC = pUmem_Cmd_Wd_MdiPosC/1000;
+					
+					start 1:18
+					gWd_Mdi_Tmr = Sys.Time + 0.1;
+					gWd_Mdi_Seq = 2;
+				}
+			break;
+
+			case 2:
+				gWd_Mdi_Buf = gWd_Mdi_Seq;
+				if(Sys.time > gWd_Mdi_Tmr)
+				{
+					gWd_Mdi_Tmr = Sys.Time + cMdi_TimeOut;
+					gWd_Mdi_Seq = 3;
+				}
+			break;
+
+			case 3:
+				gWd_Mdi_Buf = gWd_Mdi_Seq;
+				if(Coord[1].ProgRunning==0)
+				{
+					gWd_Mdi_Sta = cMdiSta_Fin;
+					gWd_Mdi_Seq = 0;
+					gWd_Mdi_Ena = 0;				
+				}
+
+				if(Sys.time > gWd_Mdi_Tmr)
+				{
+					gWd_Mdi_Sta = cMdiSta_Err;
+					gWd_Mdi_Seq = 0;
+					gWd_Mdi_Ena = 0;
+				}
+
+				if(Coord[1].ErrorStatus!=0)
+				{
+					gWd_Mdi_Sta = cMdiSta_Err;
+					gWd_Mdi_Seq = 0;
+					gWd_Mdi_Ena = 0;
+				}
+			break;
+
+			default:
+				gWd_Mdi_Sta = cMdiSta_Err;
+				gWd_Mdi_Seq = 0;
+				gWd_Mdi_Ena = 0;
+			break;
+		}
+	}
 close
 

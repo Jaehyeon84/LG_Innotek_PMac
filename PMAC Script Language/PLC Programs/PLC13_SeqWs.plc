@@ -522,20 +522,26 @@ Open plc 13
 				gWs_Load_Buf = gWs_Load_Seq;
 				if(gWs_RunOpt&cRunOpt_SkipWsPdSen!=0)
 				{
-					if(gWs_Sta_Pdt == cPdtSta_Blk)
+					//Welding Skip 기능 사용시 바로 Unload 진행 하기 위함.
+					if(pUmem_Cmd_Ws_WeldingSkip == 1)
+						gWs_Sta_Pdt = cPdtSta_Awd;
+					else if(gWs_Sta_Pdt == cPdtSta_Blk)
 						gWs_Sta_Pdt = cPdtSta_Bwd;
 
-					if(gWs_CoverMoving_Sta != 2 && gWs_CldIn_TempFB==cBwd)
+					if(gWs_CoverMoving_Sta != 2 && gWs_CldIn_TempFB==cBwd && pUmem_Cmd_Ws_WeldingSkip == 0)
 						gWs_CoverCls_Start = 1;
 
 					gWs_Load_Seq = 47;
 				}
 				else if(pUmem_Di28_WsTbDet == cDet_On && pUmem_Di1C_WsTbOutOfRange == cDet_Off) //20260108 KJH - Detect Sensor -> 이탈 감지 센서.
 				{
-					if(gWs_Sta_Pdt == cPdtSta_Blk)
+					//Welding Skip 기능 사용시 바로 Unload 진행 하기 위함.
+					if(pUmem_Cmd_Ws_WeldingSkip == 1)
+						gWs_Sta_Pdt = cPdtSta_Awd;
+					else if(gWs_Sta_Pdt == cPdtSta_Blk)
 						gWs_Sta_Pdt = cPdtSta_Bwd;
-
-					if(gWs_CoverMoving_Sta != 2 && gWs_CldIn_TempFB==cBwd)
+					
+					if(gWs_CoverMoving_Sta != 2 && gWs_CldIn_TempFB==cBwd && pUmem_Cmd_Ws_WeldingSkip == 0)
 						gWs_CoverCls_Start = 1;
 
 					gWs_Load_Seq = 47;

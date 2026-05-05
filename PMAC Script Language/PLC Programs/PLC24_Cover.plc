@@ -45,8 +45,9 @@ open plc 24
 				else
 				{
 					#ifdef CE
+						gWs_ThCoverPos_Old = pUmem_Sta_CmdPos(nwC);
 						gWs_CoverOpn_Seq = 20;
-					#ifdef TG
+					#elif TG
 						gWs_CoverOpn_Seq = 10;
 					#endif
 				}
@@ -280,8 +281,9 @@ open plc 24
 				else
 				{
 					#ifdef CE
+						gWs_ThCoverPos_Old = pUmem_Sta_CmdPos(nwC);
 						gWs_CoverCls_Seq = 20;
-					#ifdef TG
+					#elif TG
 						gWs_CoverCls_Seq = 10;
 					#endif
 					//gWs_CoverCls_Seq = 10;
@@ -710,8 +712,10 @@ open plc 24
 				else
 				{
 					#ifdef CE
+						gVs_ThCoverPos_Old = pUmem_Sta_CmdPos(nvC);
 						gVs_CoverOpn_Seq = 20;
-					#ifdef TG
+					#elif TG
+						gVs_ThCoverPos_Old = pUmem_Sta_CmdPos(nvC);
 						gVs_CoverOpn_Seq = 20;
 					#endif
 					//gVs_CoverOpn_Seq = 11;
@@ -922,8 +926,10 @@ open plc 24
 				else
 				{
 					#ifdef CE
+						gVs_ThCoverPos_Old = pUmem_Sta_CmdPos(nvC);
 						gVs_CoverCls_Seq = 20;
-					#ifdef TG
+					#elif TG
+						gVs_ThCoverPos_Old = pUmem_Sta_CmdPos(nvC);
 						gVs_CoverCls_Seq = 20;
 					#endif
 					//gVs_CoverCls_Seq = 11;

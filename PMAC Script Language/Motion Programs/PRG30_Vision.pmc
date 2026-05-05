@@ -1,8 +1,9 @@
 open prog 30
 	abs
 	linear
+	f(150) ta(0.1) ts(0)
 	frax(c, x, y)
-	f(400) ta(0.1) ts(0)
+
 	//Triggert off ///////////////////////
 	M41 
 	//Move to start pos. And Speed ///////////////////////
