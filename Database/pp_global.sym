@@ -2763,8 +2763,8 @@
 2763	UserDefine	cErrCode_WsLdAlignRangeX	028	1
 2764	UserDefine	cErrCode_WsLdAlignRangeY	029	1
 2765	UserDefine	cErrCode_WsLdAlignRangeC	030	1
-2766	UserDefine	cErrCode_WsN2Blw	030	1
-2767	UserDefine	cErrCode_WsLdCell	031	1
+2766	UserDefine	cErrCode_WsN2Blw	031	1
+2767	UserDefine	cErrCode_WsLdCell	032	1
 2768	UserDefine	cErrCode_VsServo	051	1
 2769	UserDefine	cErrCode_VsMoveTime	052	1
 2770	UserDefine	cErrCode_VsHome	053	1

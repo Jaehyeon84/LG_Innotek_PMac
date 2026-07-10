@@ -461,6 +461,8 @@ global gTr_PdtStaChange_Old = 0;
 #define cErrCode_WsLdAlignRangeC        	030
 #define cErrCode_WsN2Blw			       	031
 #define cErrCode_WsLdCell			       	032
+#define cErrCode_WsNotWelding		       	033
+#define cErrCode_WsPdtOutDetect            	034
 
 #define cErrCode_VsServo					051
 #define cErrCode_VsMoveTime                 052
@@ -481,6 +483,7 @@ global gTr_PdtStaChange_Old = 0;
 #define cErrCode_Vs3DVnStStartRsp           067
 #define cErrCode_Vs3DVnEdReadyRsp           068
 #define cErrCode_Vs3DVnEdStartRsp           069
+#define cErrCode_VsPdtOutDetect            	070
 
 #define cErrCode_EtEtherCat					101
 #define cErrCode_EtWdZServo                 102
@@ -768,6 +771,7 @@ global gWd_Mdi_PosC = 0;
 #define cSeq_VsnTimeOut		15
 #define cSeq_LwmTimeOut		10
 #define CSeq_LdCellTimeOut	5
+#define cSeq_CldTimeOut		10
 
 #define cVsnJudge_Ok		1
 #define cVsnJudge_Ng		-1
@@ -917,6 +921,7 @@ global gWs_Welding_PosC = 0;
 
 global gWs_Welding_Time = 0;
 global gWs_Welding_TimeBuf = 0;
+global gWs_Welding_wasLaserUsed = 0;
 
 global gWs_Prog_Dist = 0;
 global gWs_Prog_Time = 0;

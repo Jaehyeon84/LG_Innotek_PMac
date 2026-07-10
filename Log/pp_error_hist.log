@@ -7,5 +7,47 @@
 [PMAC_CONFIG]
 [PMAC_CONFIG]
 [PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_CONFIG]
+[PMAC_PROJECT]
+[PMAC_PROJECT]
+/var/ftp/usrflash/Project/PMAC Script Language/PLC Programs/PLC02_Sta.plc:349:1: Preprocessing Error: SubProgram not found: on string:" call spConvertTempScaled(pBuf_Ti00_Ws_TempSen1, &gTi00_Ws_TempSen1) "
+[PMAC_PROJECT]
+[PMAC_PROJECT]
+/var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc:87:14: error #20: ILLEGAL CMD: P10201 = 26.4.0
+Error: downloading preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+[PMAC_PROJECT]
+[PMAC_PROJECT]
+/var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc:100:1: error #31: invalid function in equation:  L2 = (P10202 - P10201) / (gTemp1RawMax - gTemp1RawMin)
+Error: downloading preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+[PMAC_PROJECT]
+[PMAC_PROJECT]
+/var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc:103:1: error #31: invalid function in equation:  L1 = ((L0 - gTempRaw1Min) * L2) + P10201
+Error: downloading preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+[PMAC_PROJECT]
+[PMAC_PROJECT]
+/var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc:103:1: error #31: invalid function in equation:  L1 = ((L0 - gTempRaw1Min) * L2) + P10201
+Error: downloading preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+[PMAC_PROJECT]
+[PMAC_PROJECT]
+/var/ftp/usrflash/Project/PMAC Script Language/Libraries/SPG_ConvertFunc.pmc:103:1: error #31: invalid function in equation:  L1 = ((L0 - gTemp1Raw1Min) * L2) + P10201
+Error: downloading preprocessed File: "/var/ftp/usrflash/Temp/pp_proj.pma"
+[PMAC_PROJECT]
+[PMAC_PROJECT]
+[PMAC_PROJECT]
+[PMAC_PROJECT]
+[PMAC_PROJECT]
+[PMAC_PROJECT]
 [PMAC_PROJECT]
 [PMAC_PROJECT]

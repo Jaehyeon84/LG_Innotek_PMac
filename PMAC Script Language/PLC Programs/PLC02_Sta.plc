@@ -143,27 +143,10 @@ open plc 2
 	else if(gWs_CldIn_CoverFB==cBwd)						pUmem_Sta_Ws_Cover = 1;		// Cover Open
 	else													pUmem_Sta_Ws_Cover = 0;		// Cover Unknown
 
-//	if(gWs_CoverOpn_Ena == 1)								gWs_CoverMoving_Sta = 1;	// Cover Open
-//	else if(gWs_CoverCls_Ena == 2)							gWs_CoverMoving_Sta = 2;	// Cover Close
-
 	//20260201 KJH -
 	//X, Y축이 움직이면서 Theta 축 동작시 Inpos 늦게 켜지는 현상 관련 동작 완료 확인 관련 Status.
 	if(Motor[nwX].InPos == 1 && Motor[nwY].InPos == 1 && pUmem_Sta_CmdPos(nwC) == gWs_ThTargetPos_Old)	gIsWStationReady = 1;
 	else	gIsWStationReady = 0;
-
-//	if(cWs_Cover_MoveAng < 0)
-//	{
-//		if(Motor[nwC].InPos == 1 && (pUmem_Sta_ActPos(nwC) % 360000) == (360000 + cWs_Cover_MoveAng))		gIsWsCoverComplete = 1;
-//		else	gIsWsCoverComplete = 0;
-//	}
-//	else
-//	{
-//		if(Motor[nwC].InPos == 1 && (pUmem_Sta_ActPos(nwC) % 360000) == cWs_Cover_MoveAng)		gIsWsCoverComplete = 1;
-//		else	gIsWsCoverComplete = 0;
-//	}
-
-//	if(Motor[nwC].InPos == 1 && gWs_ThPos_Old == pUmem_Sta_ActPos(nwC))		gIsWsCoverComplete = 1;
-//	else	gIsWsCoverComplete = 0;
 
 	//20260201 KJH -
 	//Cover Open/Close 동작 완료 여부 확인을 위한 Status
@@ -173,11 +156,22 @@ open plc 2
 	if(Motor[nwC].InPos == 1 && abs(gWs_ThCoverPos_Old - pUmem_Sta_CmdPos(nwC)) < 1000)		gIsWsCoverComplete = 1;
 	else	gIsWsCoverComplete = 0;
 
-	call spConvertVoltToCorePower(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCorePower);
-	call spConvertVoltToRingPower(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingPower);
+	if(pUmem_Sta_Ws_LaserReady == 1)
+	{
+		call spConvertVoltToCorePower(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCorePower);
+		call spConvertVoltToRingPower(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingPower);
 
-	call spConvertVoltScaled(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCoreVolt);
-	call spConvertVoltScaled(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingVolt);
+		call spConvertVoltScaled(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCoreVolt);
+		call spConvertVoltScaled(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingVolt);
+	}
+	else
+	{
+		pUmem_Sta_Ws_LaserActCorePower = 0;
+		pUmem_Sta_Ws_LaserActRingPower = 0;
+
+		pUmem_Sta_Ws_LaserActCoreVolt = 0;
+		pUmem_Sta_Ws_LaserActRingVolt = 0;
+	}
 
 	//20260209 KJH - N2 Blow Skip 기능 추가.
 	if(pUmem_Di05_LaserProgRun == 0)
@@ -224,6 +218,9 @@ open plc 2
 	pUmem_Sta_Ws_LaserCorePower	= gWs_LaserSta_CorePower*10;
 	pUmem_Sta_Ws_LaserRingPower	= gWs_LaserSta_RingPower*10;
 
+	if(gWs_Welding_Ena == 1)
+		gWs_Welding_wasLaserUsed += gWs_LaserSta_Enable;
+
 //------------------------------------------------------------------------------------------------------------//
 	// Update Vision Stage Status
 	pUmem_Sta_Vs_AmpEna = Coord[3].AmpEna;
@@ -260,27 +257,10 @@ open plc 2
 	else if(gVs_CldIn_CoverFB==cBwd)						pUmem_Sta_Vs_Cover = 1;		// Cover Open
 	else													pUmem_Sta_Vs_Cover = 0;		// Cover Unknown
 
-//	if(gVs_CoverOpn_Ena == 1)								gVs_CoverMoving_Sta = 1;	// Cover Open
-//	else if(gVs_CoverCls_Ena == 2)							gVs_CoverMoving_Sta = 2;	// Cover Close
-
 	//20260201 KJH -
 	//X, Y축이 움직이면서 Theta 축 동작시 Inpos 늦게 켜지는 현상 관련 동작 완료 확인 관련 Status.
 	if(Motor[nvX].InPos == 1 && Motor[nvY].InPos == 1 && pUmem_Sta_CmdPos(nvC) == gVs_ThTargetPos_Old)	gIsVStationReady = 1;
 	else	gIsVStationReady = 0;
-
-//	if(cVs_Cover_MoveAng < 0)
-//	{
-//		if(Motor[nvC].InPos == 1 && (pUmem_Sta_ActPos(nvC) % 360000) == (360000 + cVs_Cover_MoveAng))		gIsVsCoverComplete = 1;
-//		else	gIsVsCoverComplete = 0;
-//	}	
-//	else
-//	{
-//		if(Motor[nvC].InPos == 1 && (pUmem_Sta_ActPos(nvC) % 360000) == cVs_Cover_MoveAng)		gIsVsCoverComplete = 1;
-//		else	gIsVsCoverComplete = 0;
-//	}
-
-//	if(Motor[nvC].InPos == 1 && gVs_ThPos_Old == pUmem_Sta_ActPos(nvC))		gIsVsCoverComplete = 1;
-//	else	gIsVsCoverComplete = 0;
 
 	//20260201 KJH -
 	//Cover Open/Close 동작 완료 여부 확인을 위한 Status
@@ -339,6 +319,7 @@ open plc 2
 	pUmem_Ai03_WsCorePower = pBuf_Ai03_WsCorePower;
 	pUmem_Ai04_WsRingPower = pBuf_Ai04_WsRingPower;
 
+	//Temp1 : Jig, Temp2 : Product
 	pBuf_Ti00_Ws_TempSen1 = pEcat_Ti00_Ws_TempSen1;
 	pBuf_Ti01_Ws_TempSen2 = pEcat_Ti01_Ws_TempSen2;
 	gTi00_Ws_TempSen1 = (pBuf_Ti00_Ws_TempSen1 / 10) + pUmem_Cmd_Ws_TempOffset1;

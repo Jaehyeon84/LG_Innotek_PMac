@@ -82,10 +82,10 @@ open subprog spConvertVoltScaled(InVolt, &OutVolt)
 close
 
 // 스펙에 따른 변수 (보통 초기화 단계나 헤더에 상수로 선언합니다)
-global gTempRawMin = -72;
-global gTempRawMax = 22; // 16비트 모듈 기준
-global gSensorTempMin = 30.0;     // 센서의 최소 온도 (예: 0℃)
-global gSensorTempMax = 42.0;   // 센서의 최대 온도 (예: 100℃)
+global gTempRawMin = -125;
+global gTempRawMax = 730; // 16비트 모듈 기준
+global gSensorTempMin = 21.4;     // 센서의 최소 온도 (예: 0℃)
+global gSensorTempMax = 100.0;   // 센서의 최대 온도 (예: 100℃)
 
 open subprog spConvertTempScaled(InSensor, &OutTemp) 
 	
@@ -97,3 +97,35 @@ open subprog spConvertTempScaled(InSensor, &OutTemp)
 	// 실제 온도 변환
 	OutTemp = ((InSensor - gTempRawMin) * lCalcSlope) + gSensorTempMin;
 close
+
+//global gTemp1RawMin = -130;
+//global gTemp1RawMax = 730; // 16비트 모듈 기준
+//global gSensorTemp1Min = 21.4;     // 센서의 최소 온도 (예: 0℃)
+//global gSensorTemp1Max = 100.0;   // 센서의 최대 온도 (예: 100℃)
+
+//global gTemp2RawMin = -125;
+//global gTemp2RawMax = 730; // 16비트 모듈 기준
+//global gSensorTemp2Min = 21.8;     // 센서의 최소 온도 (예: 0℃)
+//global gSensorTemp2Max = 100.0;   // 센서의 최대 온도 (예: 100℃)
+
+//open subprog spConvertTemp1Scaled(InSensor, &OutTemp) 
+
+//	local lCalcSlope;
+
+//	// 기울기 계산: (온도 변화량) / (Raw 값 변화량)
+//	lCalcSlope = (gSensorTemp1Max - gSensorTemp1Min) / (gTemp1RawMax - gTemp1RawMin);
+
+//	// 실제 온도 변환
+//	OutTemp = ((InSensor - gTemp1RawMin) * lCalcSlope) + gSensorTemp1Min;
+//close
+
+//open subprog spConvertTemp2Scaled(InSensor, &OutTemp) 
+
+//	local lCalcSlope;
+
+//	// 기울기 계산: (온도 변화량) / (Raw 값 변화량)
+//	lCalcSlope = (gSensorTemp2Max - gSensorTemp2Min) / (gTemp2RawMax - gTemp2RawMin);
+
+//	// 실제 온도 변환
+//	OutTemp = ((InSensor - gTemp2RawMin) * lCalcSlope) + gSensorTemp2Min;
+//close

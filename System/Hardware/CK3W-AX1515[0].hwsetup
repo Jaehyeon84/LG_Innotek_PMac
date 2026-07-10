@@ -3,7 +3,7 @@
   <FirmwareVersion>2.8.2.0</FirmwareVersion>
   <PhaseServoDir>0</PhaseServoDir>
   <ServoClockDiv>0</ServoClockDiv>
-  <PhaseFrequency>10.000169277191162</PhaseFrequency>
+  <PhaseFrequency>10.002404451370239</PhaseFrequency>
   <AdcAmpClockDiv>5</AdcAmpClockDiv>
   <AdcAmpCtrl>$fffffc02</AdcAmpCtrl>
   <AdcAmpDelay>0</AdcAmpDelay>
@@ -43,8 +43,8 @@
   <PfmClockDiv>2</PfmClockDiv>
   <PhaseClockDiv>0</PhaseClockDiv>
   <PhaseClockMult>0</PhaseClockMult>
-  <PhaseFreq>10000.169277191162</PhaseFreq>
-  <PhaseServoClockCtrl>$817a0000</PhaseServoClockCtrl>
+  <PhaseFreq>10002.404451370239</PhaseFreq>
+  <PhaseServoClockCtrl>$817b0000</PhaseServoClockCtrl>
   <ResolverCtrl>$0</ResolverCtrl>
   <SerialEncCtrl>$f400000</SerialEncCtrl>
   <Channels>
@@ -164,7 +164,7 @@
       <CaptFlagSel>0</CaptFlagSel>
       <EncCtrl>8</EncCtrl>
       <Equ1Ena>0</Equ1Ena>
-      <EquOutMask>8</EquOutMask>
+      <EquOutMask>0</EquOutMask>
       <EquOutPol>0</EquOutPol>
       <FlagFilt2Ena>0</FlagFilt2Ena>
       <GatedIndexSel>0</GatedIndexSel>

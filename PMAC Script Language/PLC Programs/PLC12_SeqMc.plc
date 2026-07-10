@@ -613,7 +613,7 @@ open plc 12
 				}
 				else
 				{
-					if(gWs_RunOpt&cRunOpt_SkipWsRjReq==0)
+					if(gWs_RunOpt&cRunOpt_SkipWsRjReq!=0)
 						gWs_Loop_Seq = 20;		// To Welding
 					else
 						gWs_Loop_Seq = 50;		// To Reject
@@ -1157,20 +1157,39 @@ open plc 12
 				gVs_Loop_Buf = gVs_Loop_Seq;
 				//20260102 KJH - 제품이 있을때만 움직이도록 하면 Vision Stage에 제품 있을 경우 처리 하지 못하는 경우가 발생 되어 수정.
 				//if(gTr_Sta_Pdt!=cPdtSta_Blk && gWs_Seq_Cur!=cPos_Ud && Motor[nwX].DesVel<=0)
-				if(gWs_Seq_Cur!=cPos_Ud && Motor[nwX].DesVel<=0)
-				{
-					if(abs(Motor[nwX].DesVel) > abs(Motor[nvX].DesVel))
+				#ifdef CE
+					if(gWs_Seq_Cur!=cPos_Ud && Motor[nwX].DesVel<=0)
 					{
-						if(Motor[nwX].JogSpeed >= Motor[nvX].JogSpeed)
+						if(abs(Motor[nwX].DesVel) > abs(Motor[nvX].DesVel))
+						{
+							if(Motor[nwX].JogSpeed >= Motor[nvX].JogSpeed)
+							{
+								gVs_Loop_Seq = 30;
+							}
+						}
+						//else if(pUmem_Sta_CmdPos(nwX)<=pUmem_Cmd_Ws_LdPosX)
+						else if(pUmem_Sta_CmdPos(nwX)<=pUmem_Cmd_Ws_WtPosX)
 						{
 							gVs_Loop_Seq = 30;
 						}
 					}
-					else if(pUmem_Sta_CmdPos(nwX)<=pUmem_Cmd_Ws_WtPosX)
+				#elif TG
+					if(gWs_Seq_Cur!=cPos_Ud && Motor[nwX].DesVel<=0)
 					{
-						gVs_Loop_Seq = 30;
+						if(abs(Motor[nwX].DesVel) > abs(Motor[nvX].DesVel))
+						{
+							if(Motor[nwX].JogSpeed >= Motor[nvX].JogSpeed)
+							{
+								gVs_Loop_Seq = 30;
+							}
+						}
+						else if(pUmem_Sta_CmdPos(nwX)<=pUmem_Cmd_Ws_LdPosX)
+						{
+							gVs_Loop_Seq = 30;
+						}
 					}
-				}
+				#endif
+
 			break;
 		//------------------------------------------------------------//
 		// Ready
