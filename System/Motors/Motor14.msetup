@@ -1,7 +1,7 @@
 <MotorDataStructure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0" GenerateSystemSetupConfiguration="true" Motor="14" Topology="4">
   <CpuName>arm,LS1043A</CpuName>
   <FirmwareVersion>2.8.2.0</FirmwareVersion>
-  <ConfiguredViews>EtherCatSlaveSetupView|HardwareInterface</ConfiguredViews>
+  <ConfiguredViews>EtherCatSlaveSetupView</ConfiguredViews>
   <InterfaceData>
     <AmpMfg>1647</AmpMfg>
     <AmpPartNumber>#x60540005</AmpPartNumber>
@@ -18,7 +18,7 @@
   <TuningData>
     <CurrentLoopTuning />
     <PositionLoopTuning />
-    <AreFiltersInitialized>true</AreFiltersInitialized>
+    <AreFiltersInitialized>false</AreFiltersInitialized>
     <PositionFilter>
       <PositionLowPassFilter>
         <Frequency>0</Frequency>
@@ -71,22 +71,22 @@
     </TrajectoryPrefilter>
   </TuningData>
   <Addressing>
-    <AmpEnableBit>0</AmpEnableBit>
-    <AmpFaultBit>3</AmpFaultBit>
+    <AmpEnableBit>22</AmpEnableBit>
+    <AmpFaultBit>23</AmpFaultBit>
     <BrakeOutBit>9</BrakeOutBit>
     <CaptFlagBit>19</CaptFlagBit>
     <EncLossBit>0</EncLossBit>
     <LimitBits>25</LimitBits>
     <MotorNodeOffset>0</MotorNodeOffset>
     <pAbsPos>0</pAbsPos>
-    <pAmpEnable>Slave_1006_MADLN15BL_6040_0_Controlword.a</pAmpEnable>
-    <pAmpFault>Slave_1006_MADLN15BL_6041_0_Statusword.a</pAmpFault>
+    <pAmpEnable>Sys.pushm</pAmpEnable>
+    <pAmpFault>0</pAmpFault>
     <pBrakeOut>0</pBrakeOut>
     <pCaptFlag>Sys.pushm</pCaptFlag>
     <pCaptPos>Sys.pushm</pCaptPos>
-    <pDac>Slave_1006_MADLN15BL_607A_0_Targetposition.a</pDac>
-    <pEnc>EncTable[13].a</pEnc>
-    <pEnc2>EncTable[13].a</pEnc2>
+    <pDac>Sys.pushm</pDac>
+    <pEnc>EncTable[14].a</pEnc>
+    <pEnc2>EncTable[14].a</pEnc2>
     <pEncCtrl>Sys.pushm</pEncCtrl>
     <pEncLoss>0</pEncLoss>
     <pEncStatus>Sys.pushm</pEncStatus>
@@ -144,12 +144,12 @@
   </Commutation>
   <Functionality>
     <CmdMotor>0</CmdMotor>
-    <Ctrl>Sys.PosCtrl</Ctrl>
+    <Ctrl>Sys.ServoCtrl</Ctrl>
     <MasterCtrl>0</MasterCtrl>
     <MotorMode>0</MotorMode>
     <PhaseCtrl>0</PhaseCtrl>
     <PowerOnMode>0</PowerOnMode>
-    <ServoCtrl>1</ServoCtrl>
+    <ServoCtrl>0</ServoCtrl>
     <Stime>0</Stime>
     <ExtraMotors>0</ExtraMotors>
   </Functionality>
@@ -160,7 +160,7 @@
     <BlSize>0</BlSize>
     <BlSlewRate>0</BlSlewRate>
     <CaptureMode>0</CaptureMode>
-    <Control>$10000f00</Control>
+    <Control>$c00</Control>
     <Control>$0</Control>
     <DacBias>0</DacBias>
     <EncType>0</EncType>
@@ -184,7 +184,7 @@
   <SafetyLimit>
     <AbortTa>-2</AbortTa>
     <AbortTs>0</AbortTs>
-    <AmpFaultLevel>3</AmpFaultLevel>
+    <AmpFaultLevel>0</AmpFaultLevel>
     <BrakeOffDelay>0</BrakeOffDelay>
     <BrakeOnDelay>0</BrakeOnDelay>
     <EncLossLevel>0</EncLossLevel>

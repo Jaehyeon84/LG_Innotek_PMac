@@ -49,20 +49,46 @@ open plc 4
 		// 오른쪽 스테이지(nwX) 원점 기준으로, 왼쪽 스테이지(nvX) 원점이 얼마나 더 왼쪽(+)에 있는지 거리
 		// 추후 파라미터 값으로 작업 예정.... 
 		local OriginOffset = 0.0;
-		switch(cMachineID)
-		{
-		case 1:
-			OriginOffset = -1865948; //OriginOffset = (nwX_ActPos+Homoffset + 190) - (nvX\_ActPos+Homeoffset - 150) // 1Line
+		#ifdef CE
+			switch(cMachineID)
+			{
+			case 1:
+				OriginOffset = -1865948; //OriginOffset = (nwX_ActPos+Homoffset + 190) - (nvX\_ActPos+Homeoffset - 150) // 1Line
+				break;
+			case 2:
+				OriginOffset = -1872811; //OriginOffset = (nwX_ActPos+Homoffset + 190) - (nvX\_ActPos+Homeoffset - 150) // 2Line
+				break;
+			default:
 			break;
-		case 2:
-			OriginOffset = -1872811; //OriginOffset = (nwX_ActPos+Homoffset + 190) - (nvX\_ActPos+Homeoffset - 150) // 2Line
+			}
+			
+			// 각 스테이지 원점에서 마주보는 끝단(센서/도그 끝)까지의 돌출 거리 (mm)
+			local nvX_HalfSize = 150;  // 왼쪽 스테이지(nvX)의 우측 끝단(센서) 돌출량
+			local nwX_HalfSize = 190;  // 오른쪽 스테이지(nwX)의 좌측 끝단(도그) 돌출량
+		#elif TG				
+			switch(cMachineID)
+			{
+			case 1:
+				OriginOffset = -1562414; //OriginOffset = (nwX_ActPos+Homoffset + 230) - (nvX\_ActPos+Homeoffset - 190) // 3Line
+				break;
+			case 2:
+				OriginOffset = -1245243; //OriginOffset = (nwX_ActPos+Homoffset + 230) - (nvX\_ActPos+Homeoffset - 190) // 1Line
+				break;
+			case 3:
+				OriginOffset = -1246101; //OriginOffset = (nwX_ActPos+Homoffset + 230) - (nvX\_ActPos+Homeoffset - 190) // 2Line
+				break;
+			default:
 			break;
-		default:
-		break;
-		}
+			}
+			
+			// 각 스테이지 원점에서 마주보는 끝단(센서/도그 끝)까지의 돌출 거리 (mm)
+			local nvX_HalfSize = 190;  // 왼쪽 스테이지(nvX)의 우측 끝단(센서) 돌출량
+			local nwX_HalfSize = 230;  // 오른쪽 스테이지(nwX)의 좌측 끝단(도그) 돌출량
+		#endif
+
 		// 각 스테이지 원점에서 마주보는 끝단(센서/도그 끝)까지의 돌출 거리 (mm)
-		local nvX_HalfSize = 150;  // 왼쪽 스테이지(nvX)의 우측 끝단(센서) 돌출량
-		local nwX_HalfSize = 190;  // 오른쪽 스테이지(nwX)의 좌측 끝단(도그) 돌출량
+		//local nvX_HalfSize = 150;  // 왼쪽 스테이지(nvX)의 우측 끝단(센서) 돌출량
+		//local nwX_HalfSize = 190;  // 오른쪽 스테이지(nwX)의 좌측 끝단(도그) 돌출량
 
 		local AccelTime = 0.1;      // 가감속 시간 (sec)
 		local RespTime = 0.05;      // 시스템 반응 시간 (sec)

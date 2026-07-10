@@ -156,11 +156,22 @@ open plc 2
 	if(Motor[nwC].InPos == 1 && abs(gWs_ThCoverPos_Old - pUmem_Sta_CmdPos(nwC)) < 1000)		gIsWsCoverComplete = 1;
 	else	gIsWsCoverComplete = 0;
 
-//	call spConvertVoltToCorePower(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCorePower);
-//	call spConvertVoltToRingPower(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingPower);
+	if(pUmem_Sta_Ws_LaserReady == 1)
+	{
+		call spConvertVoltToCorePower(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCorePower);
+		call spConvertVoltToRingPower(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingPower);
 
-//	call spConvertVoltScaled(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCoreVolt);
-//	call spConvertVoltScaled(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingVolt);
+		call spConvertVoltScaled(pEcat_Ai03_WsCorePower, &pUmem_Sta_Ws_LaserActCoreVolt);
+		call spConvertVoltScaled(pEcat_Ai04_WsRingPower, &pUmem_Sta_Ws_LaserActRingVolt);
+	}
+	else
+	{
+		pUmem_Sta_Ws_LaserActCorePower = 0;
+		pUmem_Sta_Ws_LaserActRingPower = 0;
+
+		pUmem_Sta_Ws_LaserActCoreVolt = 0;
+		pUmem_Sta_Ws_LaserActRingVolt = 0;
+	}
 
 	//20260209 KJH - N2 Blow Skip 기능 추가.
 	if(pUmem_Di05_LaserProgRun == 0)
@@ -206,6 +217,9 @@ open plc 2
 	pUmem_Sta_Ws_LaserEnable	= gWs_LaserSta_Enable;
 	pUmem_Sta_Ws_LaserCorePower	= gWs_LaserSta_CorePower*10;
 	pUmem_Sta_Ws_LaserRingPower	= gWs_LaserSta_RingPower*10;
+
+	if(gWs_Welding_Ena == 1)
+		gWs_Welding_wasLaserUsed += gWs_LaserSta_Enable;
 
 //------------------------------------------------------------------------------------------------------------//
 	// Update Vision Stage Status
@@ -297,15 +311,15 @@ open plc 2
 //------------------------------------------------------------------------------------------------------------//
 	// Update Analog Input
 	pBuf_Ai00_WsLoadCell = pEcat_Ai00_WsLoadCell;
-	//gAi00_WsLoadCell = pBuf_Ai00_WsLoadCell/15000*50;
-	gAi00_WsLoadCell = pBuf_Ai00_WsLoadCell/9000*50;
+	gAi00_WsLoadCell = pBuf_Ai00_WsLoadCell/15000*50;
 	pUmem_Ai00_WsLoadCell = gAi00_WsLoadCell*100;
 
-//	pBuf_Ai03_WsCorePower = pEcat_Ai03_WsCorePower;
-//	pBuf_Ai04_WsRingPower = pEcat_Ai04_WsRingPower;
-//	pUmem_Ai03_WsCorePower = pBuf_Ai03_WsCorePower;
-//	pUmem_Ai04_WsRingPower = pBuf_Ai04_WsRingPower;
+	pBuf_Ai03_WsCorePower = pEcat_Ai03_WsCorePower;
+	pBuf_Ai04_WsRingPower = pEcat_Ai04_WsRingPower;
+	pUmem_Ai03_WsCorePower = pBuf_Ai03_WsCorePower;
+	pUmem_Ai04_WsRingPower = pBuf_Ai04_WsRingPower;
 
+	//Temp1 : Jig, Temp2 : Product
 	pBuf_Ti00_Ws_TempSen1 = pEcat_Ti00_Ws_TempSen1;
 	pBuf_Ti01_Ws_TempSen2 = pEcat_Ti01_Ws_TempSen2;
 	gTi00_Ws_TempSen1 = (pBuf_Ti00_Ws_TempSen1 / 10) + pUmem_Cmd_Ws_TempOffset1;

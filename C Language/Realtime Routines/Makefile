@@ -328,7 +328,7 @@ Makefile_decrypt_cmds: $(SRCS_ENCRYPTED_PLACEHOLDERS)
 
 .PHONY: 
 %.substitute_phony_0: Makefile_decrypt_cmds
-	sed -ri "s@.*?; ($(CC)[^;]*? -o ([^;]*?)$(@:.substitute_phony_0=.o)) (\2)$(@:.substitute_phony_0=.c);.*@	gpg --homedir /home/dtuser/ --batch --yes --quiet --decrypt --passphrase $$\\(CZyEtDvksYilyEpE\\) $(PWD)/$(@:.substitute_phony_0=.c.gpg) | \1_shipped -I$(PWD) -xc -;@g" Makefile_decrypt_cmds
+	sed -ri "s@.*?; ($(CC)[^;]*? -o ([^;]*?)$(@:.substitute_phony_0=.o)) (\2)$(@:.substitute_phony_0=.c);.*@	gpg --homedir /home/dtuser/ --batch --yes --quiet --decrypt --passphrase $$\\(yhjNXEHGIythKFJD\\) $(PWD)/$(@:.substitute_phony_0=.c.gpg) | \1_shipped -I$(PWD) -xc -;@g" Makefile_decrypt_cmds
 
 Makefile_decrypt: Makefile_decrypt_cmds $(SRCS_SUBSTITUTE_PHONY_0)
 	echo ".SILENT: all" >> $@

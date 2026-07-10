@@ -19,7 +19,7 @@
   <ClockPol>0</ClockPol>
   <DacClockDiv>5</DacClockDiv>
   <DacStrobe>$ffff0000</DacStrobe>
-  <EncClockDiv>2</EncClockDiv>
+  <EncClockDiv>5</EncClockDiv>
   <EncLatchDelay>0</EncLatchDelay>
   <FiltClockDiv>4</FiltClockDiv>
   <GpioCtrl>$0</GpioCtrl>
@@ -35,12 +35,12 @@
     <string>$0</string>
     <string>$0</string>
   </GpioPol>
-  <HardwareClockCtrl>$55522400</HardwareClockCtrl>
+  <HardwareClockCtrl>$55555400</HardwareClockCtrl>
   <MacroEnableA>$0</MacroEnableA>
   <MacroEnableB>$0</MacroEnableB>
   <MacroModeA>$0</MacroModeA>
   <MacroModeB>$0</MacroModeB>
-  <PfmClockDiv>2</PfmClockDiv>
+  <PfmClockDiv>5</PfmClockDiv>
   <PhaseClockDiv>0</PhaseClockDiv>
   <PhaseClockMult>0</PhaseClockMult>
   <PhaseFreq>10000.169277191162</PhaseFreq>
@@ -162,31 +162,31 @@
       <CaptCtrl>1</CaptCtrl>
       <CaptFlagChan>3</CaptFlagChan>
       <CaptFlagSel>0</CaptFlagSel>
-      <EncCtrl>8</EncCtrl>
+      <EncCtrl>7</EncCtrl>
       <Equ1Ena>0</Equ1Ena>
-      <EquOutMask>0</EquOutMask>
+      <EquOutMask>8</EquOutMask>
       <EquOutPol>0</EquOutPol>
       <FlagFilt2Ena>0</FlagFilt2Ena>
       <GatedIndexSel>0</GatedIndexSel>
-      <InCtrl>$3048</InCtrl>
+      <InCtrl>$403047</InCtrl>
       <IndexDemuxEna>0</IndexDemuxEna>
       <IndexGateState>0</IndexGateState>
-      <OutFlagD>1</OutFlagD>
-      <OutputMode>15</OutputMode>
+      <OutFlagD>0</OutFlagD>
+      <OutputMode>0</OutputMode>
       <OutputPol>0</OutputPol>
-      <PackInData>0</PackInData>
-      <PackOutData>0</PackOutData>
+      <PackInData>2</PackInData>
+      <PackOutData>1</PackOutData>
       <Pfm>0</Pfm>
       <PfmDirPol>0</PfmDirPol>
       <PfmFormat>0</PfmFormat>
-      <PfmWidth>$3</PfmWidth>
+      <PfmWidth>$f</PfmWidth>
       <PwmDeadTime>15</PwmDeadTime>
       <PwmFreqMult>0</PwmFreqMult>
       <SerialEncCmd>$0</SerialEncCmd>
       <SerialEncEna>0</SerialEncEna>
       <TimerMode>0</TimerMode>
-      <CompA>375136240</CompA>
-      <CompB>375156720</CompB>
+      <CompA>0</CompA>
+      <CompB>0</CompB>
     </Gate3ChannelDataStructure>
   </Channels>
   <Ck3WGcData SelectedFrequency="0" BurstContinuousType="Burst" ServoPhaseType="Servo" DutyCycle="0" Delay="0" DelayUnit="0" Pulses="0" />

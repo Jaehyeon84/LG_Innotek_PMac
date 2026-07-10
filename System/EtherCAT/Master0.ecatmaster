@@ -1,1 +1,8 @@
-<EthercatMasterSettingsDataStructure Version="1.0" GenerateSystemSetupConfiguration="false"/>
+<EthercatMasterSettingsDataStructure xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0" GenerateSystemSetupConfiguration="true">
+  <SDOTimeout>0</SDOTimeout>
+  <IoctlSemTimeout>0</IoctlSemTimeout>
+  <Redundancy>1</Redundancy>
+  <TaskID1Ext>0</TaskID1Ext>
+  <SyncLimit>0</SyncLimit>
+  <TransitionTimeout>0</TransitionTimeout>
+</EthercatMasterSettingsDataStructure>

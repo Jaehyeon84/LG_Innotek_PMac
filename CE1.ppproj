@@ -454,92 +454,169 @@
       <SubType>Content</SubType>
       <DisplayOrder>23</DisplayOrder>
     </Content>
-    <Content Include="System\EtherCAT\383.ecatslave">
+    <Content Include="System\EtherCAT\777.ecatslave">
       <SubType>Content</SubType>
       <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
       <AssignedMotorNumber>-1</AssignedMotorNumber>
       <IsSlaveDriveTypeChecked>true</IsSlaveDriveTypeChecked>
       <IsSlaveDriveType>false</IsSlaveDriveType>
     </Content>
-    <Content Include="System\EtherCAT\383{001 Module 1 %28NX-ID5342%29.ecatmodule">
+    <Content Include="System\EtherCAT\777{001 Module 1 %28NX-ID5342%29.ecatmodule">
       <SubType>Content</SubType>
-      <DependentUpon>System\EtherCAT\383.ecatslave</DependentUpon>
+      <DependentUpon>System\EtherCAT\777.ecatslave</DependentUpon>
     </Content>
-    <Content Include="System\EtherCAT\383{002 Module 2 %28NX-ID5342%29.ecatmodule">
+    <Content Include="System\EtherCAT\777{002 Module 2 %28NX-ID5342%29.ecatmodule">
       <SubType>Content</SubType>
-      <DependentUpon>System\EtherCAT\383.ecatslave</DependentUpon>
+      <DependentUpon>System\EtherCAT\777.ecatslave</DependentUpon>
     </Content>
-    <Content Include="System\EtherCAT\383{003 Module 3 %28NX-OD5121%29.ecatmodule">
+    <Content Include="System\EtherCAT\777{003 Module 3 %28NX-OD5121%29.ecatmodule">
       <SubType>Content</SubType>
-      <DependentUpon>System\EtherCAT\383.ecatslave</DependentUpon>
+      <DependentUpon>System\EtherCAT\777.ecatslave</DependentUpon>
     </Content>
-    <Content Include="System\EtherCAT\383{004 Module 4 %28NX-OD5121%29.ecatmodule">
+    <Content Include="System\EtherCAT\777{004 Module 4 %28NX-OD5121%29.ecatmodule">
       <SubType>Content</SubType>
-      <DependentUpon>System\EtherCAT\383.ecatslave</DependentUpon>
+      <DependentUpon>System\EtherCAT\777.ecatslave</DependentUpon>
     </Content>
-    <Content Include="System\EtherCAT\383{005 Module 5 %28NX-AD2608%29.ecatmodule">
+    <Content Include="System\EtherCAT\777{005 Module 5 %28NX-AD2608%29.ecatmodule">
       <SubType>Content</SubType>
-      <DependentUpon>System\EtherCAT\383.ecatslave</DependentUpon>
+      <DependentUpon>System\EtherCAT\777.ecatslave</DependentUpon>
     </Content>
-    <Content Include="System\EtherCAT\383{006 Module 6 %28NX-TS2101%29.ecatmodule">
+    <Content Include="System\EtherCAT\777{006 Module 6 %28NX-AD2608%29.ecatmodule">
       <SubType>Content</SubType>
-      <DependentUpon>System\EtherCAT\383.ecatslave</DependentUpon>
+      <DependentUpon>System\EtherCAT\777.ecatslave</DependentUpon>
     </Content>
-    <Content Include="System\EtherCAT\384.ecatslave">
+    <Content Include="System\EtherCAT\777{007 Module 7 %28NX-TS2101%29.ecatmodule">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\777.ecatslave</DependentUpon>
+    </Content>
+    <Content Include="System\EtherCAT\778.ecatslave">
       <SubType>Content</SubType>
       <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
       <AssignedMotorNumber>10</AssignedMotorNumber>
       <IsSlaveDriveTypeChecked>true</IsSlaveDriveTypeChecked>
       <IsSlaveDriveType>true</IsSlaveDriveType>
     </Content>
-    <Content Include="System\EtherCAT\385.ecatslave">
+    <Content Include="System\EtherCAT\779.ecatslave">
       <SubType>Content</SubType>
       <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
       <AssignedMotorNumber>11</AssignedMotorNumber>
       <IsSlaveDriveTypeChecked>true</IsSlaveDriveTypeChecked>
       <IsSlaveDriveType>true</IsSlaveDriveType>
     </Content>
-    <Content Include="System\EtherCAT\386.ecatslave">
+    <Content Include="System\EtherCAT\780.ecatslave">
       <SubType>Content</SubType>
       <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
       <AssignedMotorNumber>9</AssignedMotorNumber>
       <IsSlaveDriveTypeChecked>true</IsSlaveDriveTypeChecked>
       <IsSlaveDriveType>true</IsSlaveDriveType>
     </Content>
-    <Content Include="System\EtherCAT\387.ecatslave">
+    <Content Include="System\EtherCAT\781.ecatslave">
       <SubType>Content</SubType>
       <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
       <AssignedMotorNumber>17</AssignedMotorNumber>
       <IsSlaveDriveTypeChecked>true</IsSlaveDriveTypeChecked>
       <IsSlaveDriveType>true</IsSlaveDriveType>
     </Content>
-    <Content Include="System\EtherCAT\388.ecatslave">
+    <Content Include="System\EtherCAT\782.ecatslave">
       <SubType>Content</SubType>
       <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
       <AssignedMotorNumber>14</AssignedMotorNumber>
       <IsSlaveDriveTypeChecked>true</IsSlaveDriveTypeChecked>
       <IsSlaveDriveType>true</IsSlaveDriveType>
     </Content>
-    <Content Include="System\EtherCAT\389.ecatslave">
+    <Content Include="System\EtherCAT\783.ecatslave">
       <SubType>Content</SubType>
       <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
       <AssignedMotorNumber>15</AssignedMotorNumber>
       <IsSlaveDriveTypeChecked>true</IsSlaveDriveTypeChecked>
       <IsSlaveDriveType>true</IsSlaveDriveType>
     </Content>
-    <Content Include="System\EtherCAT\390.ecatslave">
+    <Content Include="System\EtherCAT\784.ecatslave">
       <SubType>Content</SubType>
       <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
       <AssignedMotorNumber>13</AssignedMotorNumber>
       <IsSlaveDriveTypeChecked>true</IsSlaveDriveTypeChecked>
       <IsSlaveDriveType>true</IsSlaveDriveType>
     </Content>
-    <Content Include="System\EtherCAT\391.ecatslave">
+    <Content Include="System\EtherCAT\785.ecatslave">
       <SubType>Content</SubType>
       <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
       <AssignedMotorNumber>-1</AssignedMotorNumber>
       <IsSlaveDriveTypeChecked>true</IsSlaveDriveTypeChecked>
       <IsSlaveDriveType>false</IsSlaveDriveType>
+    </Content>
+    <Content Include="System\EtherCAT\808.ecatslave">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
+      <AssignedMotorNumber>-1</AssignedMotorNumber>
+    </Content>
+    <Content Include="System\EtherCAT\808{001 Module 1 %28NX-ID5342%29.ecatmodule">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\808.ecatslave</DependentUpon>
+    </Content>
+    <Content Include="System\EtherCAT\808{002 Module 2 %28NX-ID5342%29.ecatmodule">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\808.ecatslave</DependentUpon>
+    </Content>
+    <Content Include="System\EtherCAT\808{003 Module 3 %28NX-OD5121%29.ecatmodule">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\808.ecatslave</DependentUpon>
+    </Content>
+    <Content Include="System\EtherCAT\808{004 Module 4 %28NX-OD5121%29.ecatmodule">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\808.ecatslave</DependentUpon>
+    </Content>
+    <Content Include="System\EtherCAT\808{005 Module 5 %28NX-AD2608%29.ecatmodule">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\808.ecatslave</DependentUpon>
+    </Content>
+    <Content Include="System\EtherCAT\808{006 Module 6 %28NX-AD2608%29.ecatmodule">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\808.ecatslave</DependentUpon>
+    </Content>
+    <Content Include="System\EtherCAT\808{007 Module 7 %28NX-TS2101%29.ecatmodule">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\808.ecatslave</DependentUpon>
+    </Content>
+    <Content Include="System\EtherCAT\809.ecatslave">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
+      <AssignedMotorNumber>10</AssignedMotorNumber>
+    </Content>
+    <Content Include="System\EtherCAT\810.ecatslave">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
+      <AssignedMotorNumber>11</AssignedMotorNumber>
+    </Content>
+    <Content Include="System\EtherCAT\811.ecatslave">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
+      <AssignedMotorNumber>9</AssignedMotorNumber>
+    </Content>
+    <Content Include="System\EtherCAT\812.ecatslave">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
+      <AssignedMotorNumber>17</AssignedMotorNumber>
+    </Content>
+    <Content Include="System\EtherCAT\813.ecatslave">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
+      <AssignedMotorNumber>14</AssignedMotorNumber>
+    </Content>
+    <Content Include="System\EtherCAT\814.ecatslave">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
+      <AssignedMotorNumber>15</AssignedMotorNumber>
+    </Content>
+    <Content Include="System\EtherCAT\815.ecatslave">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
+      <AssignedMotorNumber>13</AssignedMotorNumber>
+    </Content>
+    <Content Include="System\EtherCAT\816.ecatslave">
+      <SubType>Content</SubType>
+      <DependentUpon>System\EtherCAT\Master0.ecatmaster</DependentUpon>
+      <AssignedMotorNumber>-1</AssignedMotorNumber>
     </Content>
     <Content Include="System\Motors\Motor10.msetup">
       <SubType>Content</SubType>

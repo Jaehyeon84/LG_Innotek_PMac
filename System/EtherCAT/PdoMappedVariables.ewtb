@@ -5,7 +5,7 @@
       <PdoWatchEntries>
         <ArrayMappedPdoWatchEntry>
           <Request>Slave_1001_NX_ECC203_3003_3_NXUnitRegistrationStatus63</Request>
-          <Response />
+          <Response>00 00 00 00 00 00 00 00</Response>
           <IsCommand>false</IsCommand>
           <Comment />
           <IsResponseHavingError>false</IsResponseHavingError>
@@ -26,7 +26,7 @@
         </ArrayMappedPdoWatchEntry>
         <ArrayMappedPdoWatchEntry>
           <Request>Slave_1001_NX_ECC203_3006_3_NXUnitIODataActiveStatus63</Request>
-          <Response />
+          <Response>00 00 00 00 00 00 00 00</Response>
           <IsCommand>false</IsCommand>
           <Comment />
           <IsResponseHavingError>false</IsResponseHavingError>
@@ -47,10 +47,10 @@
         </ArrayMappedPdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1001_NX_ECC203_2002_1_SysmacErrorStatus</Request>
-          <Response />
+          <Response>stdin:10874:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_2002_1_SysmacErrorStatus</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -66,10 +66,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1001_NX_ECC203_6002_1_InputBit16bits</Request>
-          <Response />
+          <Response>stdin:10875:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_6002_1_InputBit16bits</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -85,10 +85,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1001_NX_ECC203_6022_1_InputBit16bits</Request>
-          <Response />
+          <Response>stdin:10876:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_6022_1_InputBit16bits</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -104,10 +104,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1001_NX_ECC203_6080_1_Ch1AnalogInputValue</Request>
-          <Response />
+          <Response>stdin:10877:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_6080_1_Ch1AnalogInputValue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -123,10 +123,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1001_NX_ECC203_6080_2_Ch2AnalogInputValue</Request>
-          <Response />
+          <Response>stdin:10878:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_6080_2_Ch2AnalogInputValue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -141,11 +141,11 @@
           <DataType>INT</DataType>
         </PdoWatchEntry>
         <PdoWatchEntry>
-          <Request>Slave_1001_NX_ECC203_60A1_1_Ch1MeasuredValueINT</Request>
-          <Response />
+          <Request>Slave_1001_NX_ECC203_60A0_1_Ch1AnalogInputValue</Request>
+          <Response>stdin:10879:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_60A0_1_Ch1AnalogInputValue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -160,11 +160,49 @@
           <DataType>INT</DataType>
         </PdoWatchEntry>
         <PdoWatchEntry>
-          <Request>Slave_1001_NX_ECC203_60A1_2_Ch2MeasuredValueINT</Request>
-          <Response />
+          <Request>Slave_1001_NX_ECC203_60A0_2_Ch2AnalogInputValue</Request>
+          <Response>stdin:10880:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_60A0_2_Ch2AnalogInputValue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_60C1_1_Ch1MeasuredValueINT</Request>
+          <Response>stdin:10881:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_60C1_1_Ch1MeasuredValueINT</Response>
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>true</IsResponseHavingError>
+          <FormatSettings>
+            <Type>None</Type>
+            <Scale>1</Scale>
+            <DecimalPlaces>3</DecimalPlaces>
+            <MaskString>0xFFFFFFFF</MaskString>
+            <BitCount>32</BitCount>
+            <StartingBitIndex>0</StartingBitIndex>
+            <IsAddingCommaAfterEvery4Bits>false</IsAddingCommaAfterEvery4Bits>
+          </FormatSettings>
+          <IsInput>true</IsInput>
+          <BitLength>16</BitLength>
+          <DataType>INT</DataType>
+        </PdoWatchEntry>
+        <PdoWatchEntry>
+          <Request>Slave_1001_NX_ECC203_60C1_2_Ch2MeasuredValueINT</Request>
+          <Response>stdin:10882:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_60C1_2_Ch2MeasuredValueINT</Response>
+          <IsCommand>false</IsCommand>
+          <Comment />
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -180,10 +218,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1001_NX_ECC203_7042_1_OutputBit16bits</Request>
-          <Response />
+          <Response>stdin:10883:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_7042_1_OutputBit16bits</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -199,10 +237,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1001_NX_ECC203_7062_1_OutputBit16bits</Request>
-          <Response />
+          <Response>stdin:10884:2: error #20: ILLEGAL CMD: Slave_1001_NX_ECC203_7062_1_OutputBit16bits</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -223,10 +261,10 @@
       <PdoWatchEntries>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_603F_0_Errorcode</Request>
-          <Response />
+          <Response>stdin:10885:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_603F_0_Errorcode</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -242,10 +280,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_6041_0_Statusword</Request>
-          <Response />
+          <Response>stdin:10886:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_6041_0_Statusword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -261,10 +299,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_6061_0_Modesofoperationdisplay</Request>
-          <Response />
+          <Response>stdin:10887:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_6061_0_Modesofoperationdisplay</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -280,10 +318,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_6064_0_Positionactualvalue</Request>
-          <Response />
+          <Response>stdin:10888:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_6064_0_Positionactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -299,10 +337,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_606C_0_Velocityactualvalue</Request>
-          <Response />
+          <Response>stdin:10889:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_606C_0_Velocityactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -318,10 +356,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_6077_0_Torqueactualvalue</Request>
-          <Response />
+          <Response>stdin:10890:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_6077_0_Torqueactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -337,10 +375,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_60B9_0_Touchprobestatus</Request>
-          <Response />
+          <Response>stdin:10891:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_60B9_0_Touchprobestatus</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -356,10 +394,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_60BA_0_Touchprobepos1posvalue</Request>
-          <Response />
+          <Response>stdin:10892:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_60BA_0_Touchprobepos1posvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -375,10 +413,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_60FD_0_Digitalinputs</Request>
-          <Response />
+          <Response>stdin:10893:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_60FD_0_Digitalinputs</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -394,10 +432,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_6040_0_Controlword</Request>
-          <Response />
+          <Response>stdin:10894:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_6040_0_Controlword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -413,10 +451,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_6060_0_Modesofoperation</Request>
-          <Response />
+          <Response>stdin:10895:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_6060_0_Modesofoperation</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -432,10 +470,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_607A_0_Targetposition</Request>
-          <Response />
+          <Response>stdin:10896:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_607A_0_Targetposition</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -451,10 +489,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1002_MADLN15BL_60B8_0_Touchprobefunction</Request>
-          <Response />
+          <Response>stdin:10897:2: error #20: ILLEGAL CMD: Slave_1002_MADLN15BL_60B8_0_Touchprobefunction</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -475,10 +513,10 @@
       <PdoWatchEntries>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_603F_0_Errorcode</Request>
-          <Response />
+          <Response>stdin:10898:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_603F_0_Errorcode</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -494,10 +532,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_6041_0_Statusword</Request>
-          <Response />
+          <Response>stdin:10899:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_6041_0_Statusword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -513,10 +551,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_6061_0_Modesofoperationdisplay</Request>
-          <Response />
+          <Response>stdin:10900:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_6061_0_Modesofoperationdisplay</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -532,10 +570,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_6064_0_Positionactualvalue</Request>
-          <Response />
+          <Response>stdin:10901:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_6064_0_Positionactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -551,10 +589,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_606C_0_Velocityactualvalue</Request>
-          <Response />
+          <Response>stdin:10902:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_606C_0_Velocityactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -570,10 +608,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_6077_0_Torqueactualvalue</Request>
-          <Response />
+          <Response>stdin:10903:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_6077_0_Torqueactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -589,10 +627,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_60B9_0_Touchprobestatus</Request>
-          <Response />
+          <Response>stdin:10904:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_60B9_0_Touchprobestatus</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -608,10 +646,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_60BA_0_Touchprobepos1posvalue</Request>
-          <Response />
+          <Response>stdin:10905:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_60BA_0_Touchprobepos1posvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -627,10 +665,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_60FD_0_Digitalinputs</Request>
-          <Response />
+          <Response>stdin:10906:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_60FD_0_Digitalinputs</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -646,10 +684,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_6040_0_Controlword</Request>
-          <Response />
+          <Response>stdin:10907:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_6040_0_Controlword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -665,10 +703,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_6060_0_Modesofoperation</Request>
-          <Response />
+          <Response>stdin:10908:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_6060_0_Modesofoperation</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -684,10 +722,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_607A_0_Targetposition</Request>
-          <Response />
+          <Response>stdin:10909:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_607A_0_Targetposition</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -703,10 +741,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1003_MADLN15BL_60B8_0_Touchprobefunction</Request>
-          <Response />
+          <Response>stdin:10910:2: error #20: ILLEGAL CMD: Slave_1003_MADLN15BL_60B8_0_Touchprobefunction</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -727,10 +765,10 @@
       <PdoWatchEntries>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_603F_0_Errorcode</Request>
-          <Response />
+          <Response>stdin:10911:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_603F_0_Errorcode</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -746,10 +784,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_6041_0_Statusword</Request>
-          <Response />
+          <Response>stdin:10912:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_6041_0_Statusword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -765,10 +803,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_6061_0_Modesofoperationdisplay</Request>
-          <Response />
+          <Response>stdin:10913:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_6061_0_Modesofoperationdisplay</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -784,10 +822,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_6064_0_Positionactualvalue</Request>
-          <Response />
+          <Response>stdin:10914:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_6064_0_Positionactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -803,10 +841,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_606C_0_Velocityactualvalue</Request>
-          <Response />
+          <Response>stdin:10915:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_606C_0_Velocityactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -822,10 +860,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_6077_0_Torqueactualvalue</Request>
-          <Response />
+          <Response>stdin:10916:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_6077_0_Torqueactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -841,10 +879,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_60B9_0_Touchprobestatus</Request>
-          <Response />
+          <Response>stdin:10917:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_60B9_0_Touchprobestatus</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -860,10 +898,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_60BA_0_Touchprobepos1posvalue</Request>
-          <Response />
+          <Response>stdin:10918:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_60BA_0_Touchprobepos1posvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -879,10 +917,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_60FD_0_Digitalinputs</Request>
-          <Response />
+          <Response>stdin:10919:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_60FD_0_Digitalinputs</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -898,10 +936,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_6040_0_Controlword</Request>
-          <Response />
+          <Response>stdin:10920:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_6040_0_Controlword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -917,10 +955,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_6060_0_Modesofoperation</Request>
-          <Response />
+          <Response>stdin:10921:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_6060_0_Modesofoperation</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -936,10 +974,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_607A_0_Targetposition</Request>
-          <Response />
+          <Response>stdin:10922:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_607A_0_Targetposition</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -955,10 +993,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1004_MCDLN35BL_60B8_0_Touchprobefunction</Request>
-          <Response />
+          <Response>stdin:10923:2: error #20: ILLEGAL CMD: Slave_1004_MCDLN35BL_60B8_0_Touchprobefunction</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -979,10 +1017,10 @@
       <PdoWatchEntries>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_603F_0_Errorcode</Request>
-          <Response />
+          <Response>stdin:10924:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_603F_0_Errorcode</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -998,10 +1036,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_6041_0_Statusword</Request>
-          <Response />
+          <Response>stdin:10925:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_6041_0_Statusword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1017,10 +1055,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_6061_0_Modesofoperationdisplay</Request>
-          <Response />
+          <Response>stdin:10926:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_6061_0_Modesofoperationdisplay</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1036,10 +1074,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_6064_0_Positionactualvalue</Request>
-          <Response />
+          <Response>stdin:10927:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_6064_0_Positionactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1055,10 +1093,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_606C_0_Velocityactualvalue</Request>
-          <Response />
+          <Response>stdin:10928:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_606C_0_Velocityactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1074,10 +1112,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_6077_0_Torqueactualvalue</Request>
-          <Response />
+          <Response>stdin:10929:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_6077_0_Torqueactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1093,10 +1131,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_60B9_0_Touchprobestatus</Request>
-          <Response />
+          <Response>stdin:10930:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_60B9_0_Touchprobestatus</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1112,10 +1150,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_60BA_0_Touchprobepos1posvalue</Request>
-          <Response />
+          <Response>stdin:10931:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_60BA_0_Touchprobepos1posvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1131,10 +1169,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_60FD_0_Digitalinputs</Request>
-          <Response />
+          <Response>stdin:10932:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_60FD_0_Digitalinputs</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1150,10 +1188,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_6040_0_Controlword</Request>
-          <Response />
+          <Response>stdin:10933:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_6040_0_Controlword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1169,10 +1207,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_6060_0_Modesofoperation</Request>
-          <Response />
+          <Response>stdin:10934:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_6060_0_Modesofoperation</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1188,10 +1226,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_607A_0_Targetposition</Request>
-          <Response />
+          <Response>stdin:10935:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_607A_0_Targetposition</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1207,10 +1245,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1005_MBDLN25BE_60B8_0_Touchprobefunction</Request>
-          <Response />
+          <Response>stdin:10936:2: error #20: ILLEGAL CMD: Slave_1005_MBDLN25BE_60B8_0_Touchprobefunction</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1231,10 +1269,10 @@
       <PdoWatchEntries>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_603F_0_Errorcode</Request>
-          <Response />
+          <Response>stdin:10937:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_603F_0_Errorcode</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1250,10 +1288,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_6041_0_Statusword</Request>
-          <Response />
+          <Response>stdin:10938:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_6041_0_Statusword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1269,10 +1307,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_6061_0_Modesofoperationdisplay</Request>
-          <Response />
+          <Response>stdin:10939:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_6061_0_Modesofoperationdisplay</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1288,10 +1326,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_6064_0_Positionactualvalue</Request>
-          <Response />
+          <Response>stdin:10940:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_6064_0_Positionactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1307,10 +1345,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_606C_0_Velocityactualvalue</Request>
-          <Response />
+          <Response>stdin:10941:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_606C_0_Velocityactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1326,10 +1364,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_6077_0_Torqueactualvalue</Request>
-          <Response />
+          <Response>stdin:10942:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_6077_0_Torqueactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1345,10 +1383,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_60B9_0_Touchprobestatus</Request>
-          <Response />
+          <Response>stdin:10943:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_60B9_0_Touchprobestatus</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1364,10 +1402,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_60BA_0_Touchprobepos1posvalue</Request>
-          <Response />
+          <Response>stdin:10944:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_60BA_0_Touchprobepos1posvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1383,10 +1421,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_60FD_0_Digitalinputs</Request>
-          <Response />
+          <Response>stdin:10945:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_60FD_0_Digitalinputs</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1402,10 +1440,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_6040_0_Controlword</Request>
-          <Response />
+          <Response>stdin:10946:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_6040_0_Controlword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1421,10 +1459,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_6060_0_Modesofoperation</Request>
-          <Response />
+          <Response>stdin:10947:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_6060_0_Modesofoperation</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1440,10 +1478,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_607A_0_Targetposition</Request>
-          <Response />
+          <Response>stdin:10948:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_607A_0_Targetposition</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1459,10 +1497,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1006_MADLN15BL_60B8_0_Touchprobefunction</Request>
-          <Response />
+          <Response>stdin:10949:2: error #20: ILLEGAL CMD: Slave_1006_MADLN15BL_60B8_0_Touchprobefunction</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1483,10 +1521,10 @@
       <PdoWatchEntries>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_603F_0_Errorcode</Request>
-          <Response />
+          <Response>stdin:10950:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_603F_0_Errorcode</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1502,10 +1540,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_6041_0_Statusword</Request>
-          <Response />
+          <Response>stdin:10951:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_6041_0_Statusword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1521,10 +1559,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_6061_0_Modesofoperationdisplay</Request>
-          <Response />
+          <Response>stdin:10952:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_6061_0_Modesofoperationdisplay</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1540,10 +1578,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_6064_0_Positionactualvalue</Request>
-          <Response />
+          <Response>stdin:10953:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_6064_0_Positionactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1559,10 +1597,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_606C_0_Velocityactualvalue</Request>
-          <Response />
+          <Response>stdin:10954:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_606C_0_Velocityactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1578,10 +1616,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_6077_0_Torqueactualvalue</Request>
-          <Response />
+          <Response>stdin:10955:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_6077_0_Torqueactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1597,10 +1635,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_60B9_0_Touchprobestatus</Request>
-          <Response />
+          <Response>stdin:10956:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_60B9_0_Touchprobestatus</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1616,10 +1654,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_60BA_0_Touchprobepos1posvalue</Request>
-          <Response />
+          <Response>stdin:10957:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_60BA_0_Touchprobepos1posvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1635,10 +1673,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_60FD_0_Digitalinputs</Request>
-          <Response />
+          <Response>stdin:10958:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_60FD_0_Digitalinputs</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1654,10 +1692,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_6040_0_Controlword</Request>
-          <Response />
+          <Response>stdin:10959:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_6040_0_Controlword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1673,10 +1711,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_6060_0_Modesofoperation</Request>
-          <Response />
+          <Response>stdin:10960:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_6060_0_Modesofoperation</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1692,10 +1730,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_607A_0_Targetposition</Request>
-          <Response />
+          <Response>stdin:10961:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_607A_0_Targetposition</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1711,10 +1749,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1007_MADLN15BL_60B8_0_Touchprobefunction</Request>
-          <Response />
+          <Response>stdin:10962:2: error #20: ILLEGAL CMD: Slave_1007_MADLN15BL_60B8_0_Touchprobefunction</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1735,10 +1773,10 @@
       <PdoWatchEntries>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_603F_0_Errorcode</Request>
-          <Response />
+          <Response>stdin:10963:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_603F_0_Errorcode</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1754,10 +1792,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_6041_0_Statusword</Request>
-          <Response />
+          <Response>stdin:10964:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_6041_0_Statusword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1773,10 +1811,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_6061_0_Modesofoperationdisplay</Request>
-          <Response />
+          <Response>stdin:10965:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_6061_0_Modesofoperationdisplay</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1792,10 +1830,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_6064_0_Positionactualvalue</Request>
-          <Response />
+          <Response>stdin:10966:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_6064_0_Positionactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1811,10 +1849,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_606C_0_Velocityactualvalue</Request>
-          <Response />
+          <Response>stdin:10967:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_606C_0_Velocityactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1830,10 +1868,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_6077_0_Torqueactualvalue</Request>
-          <Response />
+          <Response>stdin:10968:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_6077_0_Torqueactualvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1849,10 +1887,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_60B9_0_Touchprobestatus</Request>
-          <Response />
+          <Response>stdin:10969:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_60B9_0_Touchprobestatus</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1868,10 +1906,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_60BA_0_Touchprobepos1posvalue</Request>
-          <Response />
+          <Response>stdin:10970:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_60BA_0_Touchprobepos1posvalue</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1887,10 +1925,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_60FD_0_Digitalinputs</Request>
-          <Response />
+          <Response>stdin:10971:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_60FD_0_Digitalinputs</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1906,10 +1944,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_6040_0_Controlword</Request>
-          <Response />
+          <Response>stdin:10972:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_6040_0_Controlword</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1925,10 +1963,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_6060_0_Modesofoperation</Request>
-          <Response />
+          <Response>stdin:10973:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_6060_0_Modesofoperation</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1944,10 +1982,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_607A_0_Targetposition</Request>
-          <Response />
+          <Response>stdin:10974:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_607A_0_Targetposition</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1963,10 +2001,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1008_MCDLN35BL_60B8_0_Touchprobefunction</Request>
-          <Response />
+          <Response>stdin:10975:2: error #20: ILLEGAL CMD: Slave_1008_MCDLN35BL_60B8_0_Touchprobefunction</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -1987,10 +2025,10 @@
       <PdoWatchEntries>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport</Request>
-          <Response />
+          <Response>stdin:10976:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2006,10 +2044,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_6011_0_Controllerinformationflag</Request>
-          <Response />
+          <Response>stdin:10977:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_6011_0_Controllerinformationflag</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2025,10 +2063,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_6020_0_Currentposition</Request>
-          <Response />
+          <Response>stdin:10978:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_6020_0_Currentposition</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2044,10 +2082,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_6021_0_Currentspeed</Request>
-          <Response />
+          <Response>stdin:10979:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_6021_0_Currentspeed</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2063,10 +2101,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_6022_0_Currentpushingforce</Request>
-          <Response />
+          <Response>stdin:10980:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_6022_0_Currentpushingforce</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2082,10 +2120,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_6023_0_Targetposition</Request>
-          <Response />
+          <Response>stdin:10981:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_6023_0_Targetposition</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2101,10 +2139,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_6030_1_Alarm1</Request>
-          <Response />
+          <Response>stdin:10982:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_6030_1_Alarm1</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2120,10 +2158,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_6030_2_Alarm2</Request>
-          <Response />
+          <Response>stdin:10983:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_6030_2_Alarm2</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2139,10 +2177,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_6030_3_Alarm3</Request>
-          <Response />
+          <Response>stdin:10984:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_6030_3_Alarm3</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2158,10 +2196,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_6030_4_Alarm4</Request>
-          <Response />
+          <Response>stdin:10985:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_6030_4_Alarm4</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2177,10 +2215,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated</Request>
-          <Response />
+          <Response>stdin:10986:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7010_0_Outputporttowhichsignalsareallocated</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2196,10 +2234,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7011_0_Controllingofthenumericaldataflag</Request>
-          <Response />
+          <Response>stdin:10987:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7011_0_Controllingofthenumericaldataflag</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2215,10 +2253,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7012_0_Startflag</Request>
-          <Response />
+          <Response>stdin:10988:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7012_0_Startflag</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2234,10 +2272,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7020_0_OperationMethod</Request>
-          <Response />
+          <Response>stdin:10989:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7020_0_OperationMethod</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2253,10 +2291,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7021_0_Speed</Request>
-          <Response />
+          <Response>stdin:10990:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7021_0_Speed</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2272,10 +2310,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7022_0_Targetposition</Request>
-          <Response />
+          <Response>stdin:10991:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7022_0_Targetposition</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2291,10 +2329,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7023_0_Acceleration</Request>
-          <Response />
+          <Response>stdin:10992:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7023_0_Acceleration</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2310,10 +2348,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7024_0_Deceleration</Request>
-          <Response />
+          <Response>stdin:10993:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7024_0_Deceleration</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2329,10 +2367,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7025_0_Pushingforce</Request>
-          <Response />
+          <Response>stdin:10994:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7025_0_Pushingforce</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2348,10 +2386,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7026_0_TriggerLV</Request>
-          <Response />
+          <Response>stdin:10995:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7026_0_TriggerLV</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2367,10 +2405,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7027_0_Pushingspeed</Request>
-          <Response />
+          <Response>stdin:10996:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7027_0_Pushingspeed</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2386,10 +2424,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7028_0_Pushingforceforpositioning</Request>
-          <Response />
+          <Response>stdin:10997:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7028_0_Pushingforceforpositioning</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2405,10 +2443,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_7029_0_AREA1</Request>
-          <Response />
+          <Response>stdin:10998:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_7029_0_AREA1</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2424,10 +2462,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_702A_0_AREA2</Request>
-          <Response />
+          <Response>stdin:10999:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_702A_0_AREA2</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2443,10 +2481,10 @@
         </PdoWatchEntry>
         <PdoWatchEntry>
           <Request>Slave_1009_JXCE1_702B_0_Positioningwidth</Request>
-          <Response />
+          <Response>stdin:11000:2: error #20: ILLEGAL CMD: Slave_1009_JXCE1_702B_0_Positioningwidth</Response>
           <IsCommand>false</IsCommand>
           <Comment />
-          <IsResponseHavingError>false</IsResponseHavingError>
+          <IsResponseHavingError>true</IsResponseHavingError>
           <FormatSettings>
             <Type>None</Type>
             <Scale>1</Scale>
@@ -2468,7 +2506,7 @@
     <EchoMode>7</EchoMode>
     <IsShowingResponseTime>true</IsShowingResponseTime>
     <IsDisplayingComment>false</IsDisplayingComment>
-    <IsPrependFormatting>false</IsPrependFormatting>
+    <IsPrependFormatting>true</IsPrependFormatting>
     <IsWatchLocked>false</IsWatchLocked>
   </Settings>
 </EtherCatWatchTable>

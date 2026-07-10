@@ -133,7 +133,7 @@ open plc 20
 // E-Cylinder
 //////////////////////////////////////////////////////////////////////////////////////
 	if(abs(pEcat_Ecldr_ActPos-pUmem_Cmd_Ws_CoverFwdPos) < 100)			gWs_CldIn_CoverFB = cFwd;
-	else if(abs(pEcat_Ecldr_ActPos-pUmem_Cmd_Ws_CoverBwdPos) < 4000)		gWs_CldIn_CoverFB = cBwd;
+	else if(abs(pEcat_Ecldr_ActPos-pUmem_Cmd_Ws_CoverBwdPos) < 4000)	gWs_CldIn_CoverFB = cBwd;
 	else																gWs_CldIn_CoverFB = cUkn;
 
 	if(gWs_CldIn_CoverFB==cFwd)

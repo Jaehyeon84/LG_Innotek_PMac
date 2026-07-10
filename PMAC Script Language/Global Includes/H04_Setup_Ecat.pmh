@@ -228,16 +228,24 @@ Motor[nwZ].EcatAmpFaultLimit = 40000;
 	global gAi00_WsLoadCell;
 
 	ptr pEcat_Ai01					->Slave_1001_NX_ECC203_6080_2_Ch2AnalogInputValue
-//	ptr pEcat_Ai03_WsCorePower		->Slave_1001_NX_ECC203_6080_3_Ch3AnalogInputValue
-//	ptr pBuf_Ai03_WsCorePower		->*i.16
-//	ptr pEcat_Ai04_WsRingPower		->Slave_1001_NX_ECC203_6080_4_Ch4AnalogInputValue
-//	ptr pBuf_Ai04_WsRingPower		->*i.16
+	
+	#ifdef CE
+		ptr pEcat_Ai03_WsCorePower		->Slave_1001_NX_ECC203_60A0_1_Ch1AnalogInputValue
+		ptr pBuf_Ai03_WsCorePower		->*i.16
+		ptr pEcat_Ai04_WsRingPower		->Slave_1001_NX_ECC203_60A0_2_Ch2AnalogInputValue
+		ptr pBuf_Ai04_WsRingPower		->*i.16
+	#elif TG
+		ptr pEcat_Ai03_WsCorePower		->Slave_1001_NX_ECC203_6080_3_Ch3AnalogInputValue
+		ptr pBuf_Ai03_WsCorePower		->*i.16
+		ptr pEcat_Ai04_WsRingPower		->Slave_1001_NX_ECC203_6080_4_Ch4AnalogInputValue
+		ptr pBuf_Ai04_WsRingPower		->*i.16
+	#endif
 
 	//------------------------------------------------------------------------------------------------//
 	// Ethercat Temperature Input (TS2101)
 	//------------------------------------------------------------------------------------------------//
-	ptr pEcat_Ti00_Ws_TempSen1		->Slave_1001_NX_ECC203_60A1_1_Ch1MeasuredValueINT
-	ptr pEcat_Ti01_Ws_TempSen2		->Slave_1001_NX_ECC203_60A1_2_Ch2MeasuredValueINT
+	ptr pEcat_Ti00_Ws_TempSen1		->Slave_1001_NX_ECC203_60C1_1_Ch1MeasuredValueINT
+	ptr pEcat_Ti01_Ws_TempSen2		->Slave_1001_NX_ECC203_60C1_2_Ch2MeasuredValueINT
 	ptr pBuf_Ti00_Ws_TempSen1		->*i.16
 	ptr pBuf_Ti01_Ws_TempSen2		->*i.16
 	global gTi00_Ws_TempSen1;

@@ -91,7 +91,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1001_NX_ECC203_60A1_1_Ch1MeasuredValueINT</Name>
+			<Name name="local:ps1">Slave_1001_NX_ECC203_60A0_1_Ch1AnalogInputValue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4103].Data</Description>
 			<Parameter ParameterId="4103" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -101,7 +101,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1001_NX_ECC203_60A1_2_Ch2MeasuredValueINT</Name>
+			<Name name="local:ps1">Slave_1001_NX_ECC203_60A0_2_Ch2AnalogInputValue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4104].Data</Description>
 			<Parameter ParameterId="4104" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -111,7 +111,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1002_MADLN15BL_603F_0_Errorcode</Name>
+			<Name name="local:ps1">Slave_1001_NX_ECC203_60C1_1_Ch1MeasuredValueINT</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4105].Data</Description>
 			<Parameter ParameterId="4105" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -121,7 +121,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1002_MADLN15BL_6041_0_Statusword</Name>
+			<Name name="local:ps1">Slave_1001_NX_ECC203_60C1_2_Ch2MeasuredValueINT</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4106].Data</Description>
 			<Parameter ParameterId="4106" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -131,7 +131,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1002_MADLN15BL_6061_0_Modesofoperationdisplay</Name>
+			<Name name="local:ps1">Slave_1002_MADLN15BL_603F_0_Errorcode</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4107].Data</Description>
 			<Parameter ParameterId="4107" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -141,7 +141,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1002_MADLN15BL_6064_0_Positionactualvalue</Name>
+			<Name name="local:ps1">Slave_1002_MADLN15BL_6041_0_Statusword</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4108].Data</Description>
 			<Parameter ParameterId="4108" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -151,7 +151,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1002_MADLN15BL_606C_0_Velocityactualvalue</Name>
+			<Name name="local:ps1">Slave_1002_MADLN15BL_6061_0_Modesofoperationdisplay</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4109].Data</Description>
 			<Parameter ParameterId="4109" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -161,7 +161,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1002_MADLN15BL_6077_0_Torqueactualvalue</Name>
+			<Name name="local:ps1">Slave_1002_MADLN15BL_6064_0_Positionactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4110].Data</Description>
 			<Parameter ParameterId="4110" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -171,7 +171,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1002_MADLN15BL_60B9_0_Touchprobestatus</Name>
+			<Name name="local:ps1">Slave_1002_MADLN15BL_606C_0_Velocityactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4111].Data</Description>
 			<Parameter ParameterId="4111" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -181,7 +181,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1002_MADLN15BL_60BA_0_Touchprobepos1posvalue</Name>
+			<Name name="local:ps1">Slave_1002_MADLN15BL_6077_0_Torqueactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4112].Data</Description>
 			<Parameter ParameterId="4112" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -191,7 +191,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1002_MADLN15BL_60FD_0_Digitalinputs</Name>
+			<Name name="local:ps1">Slave_1002_MADLN15BL_60B9_0_Touchprobestatus</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4113].Data</Description>
 			<Parameter ParameterId="4113" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -201,7 +201,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1003_MADLN15BL_603F_0_Errorcode</Name>
+			<Name name="local:ps1">Slave_1002_MADLN15BL_60BA_0_Touchprobepos1posvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4114].Data</Description>
 			<Parameter ParameterId="4114" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -211,7 +211,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1003_MADLN15BL_6041_0_Statusword</Name>
+			<Name name="local:ps1">Slave_1002_MADLN15BL_60FD_0_Digitalinputs</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4115].Data</Description>
 			<Parameter ParameterId="4115" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -221,7 +221,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1003_MADLN15BL_6061_0_Modesofoperationdisplay</Name>
+			<Name name="local:ps1">Slave_1003_MADLN15BL_603F_0_Errorcode</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4116].Data</Description>
 			<Parameter ParameterId="4116" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -231,7 +231,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1003_MADLN15BL_6064_0_Positionactualvalue</Name>
+			<Name name="local:ps1">Slave_1003_MADLN15BL_6041_0_Statusword</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4117].Data</Description>
 			<Parameter ParameterId="4117" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -241,7 +241,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1003_MADLN15BL_606C_0_Velocityactualvalue</Name>
+			<Name name="local:ps1">Slave_1003_MADLN15BL_6061_0_Modesofoperationdisplay</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4118].Data</Description>
 			<Parameter ParameterId="4118" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -251,7 +251,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1003_MADLN15BL_6077_0_Torqueactualvalue</Name>
+			<Name name="local:ps1">Slave_1003_MADLN15BL_6064_0_Positionactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4119].Data</Description>
 			<Parameter ParameterId="4119" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -261,7 +261,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1003_MADLN15BL_60B9_0_Touchprobestatus</Name>
+			<Name name="local:ps1">Slave_1003_MADLN15BL_606C_0_Velocityactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4120].Data</Description>
 			<Parameter ParameterId="4120" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -271,7 +271,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1003_MADLN15BL_60BA_0_Touchprobepos1posvalue</Name>
+			<Name name="local:ps1">Slave_1003_MADLN15BL_6077_0_Torqueactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4121].Data</Description>
 			<Parameter ParameterId="4121" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -281,7 +281,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1003_MADLN15BL_60FD_0_Digitalinputs</Name>
+			<Name name="local:ps1">Slave_1003_MADLN15BL_60B9_0_Touchprobestatus</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4122].Data</Description>
 			<Parameter ParameterId="4122" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -291,7 +291,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1004_MCDLN35BL_603F_0_Errorcode</Name>
+			<Name name="local:ps1">Slave_1003_MADLN15BL_60BA_0_Touchprobepos1posvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4123].Data</Description>
 			<Parameter ParameterId="4123" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -301,7 +301,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1004_MCDLN35BL_6041_0_Statusword</Name>
+			<Name name="local:ps1">Slave_1003_MADLN15BL_60FD_0_Digitalinputs</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4124].Data</Description>
 			<Parameter ParameterId="4124" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -311,7 +311,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1004_MCDLN35BL_6061_0_Modesofoperationdisplay</Name>
+			<Name name="local:ps1">Slave_1004_MCDLN35BL_603F_0_Errorcode</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4125].Data</Description>
 			<Parameter ParameterId="4125" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -321,7 +321,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1004_MCDLN35BL_6064_0_Positionactualvalue</Name>
+			<Name name="local:ps1">Slave_1004_MCDLN35BL_6041_0_Statusword</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4126].Data</Description>
 			<Parameter ParameterId="4126" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -331,7 +331,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1004_MCDLN35BL_606C_0_Velocityactualvalue</Name>
+			<Name name="local:ps1">Slave_1004_MCDLN35BL_6061_0_Modesofoperationdisplay</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4127].Data</Description>
 			<Parameter ParameterId="4127" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -341,7 +341,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1004_MCDLN35BL_6077_0_Torqueactualvalue</Name>
+			<Name name="local:ps1">Slave_1004_MCDLN35BL_6064_0_Positionactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4128].Data</Description>
 			<Parameter ParameterId="4128" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -351,7 +351,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1004_MCDLN35BL_60B9_0_Touchprobestatus</Name>
+			<Name name="local:ps1">Slave_1004_MCDLN35BL_606C_0_Velocityactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4129].Data</Description>
 			<Parameter ParameterId="4129" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -361,7 +361,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1004_MCDLN35BL_60BA_0_Touchprobepos1posvalue</Name>
+			<Name name="local:ps1">Slave_1004_MCDLN35BL_6077_0_Torqueactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4130].Data</Description>
 			<Parameter ParameterId="4130" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -371,7 +371,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1004_MCDLN35BL_60FD_0_Digitalinputs</Name>
+			<Name name="local:ps1">Slave_1004_MCDLN35BL_60B9_0_Touchprobestatus</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4131].Data</Description>
 			<Parameter ParameterId="4131" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -381,7 +381,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1005_MBDLN25BE_603F_0_Errorcode</Name>
+			<Name name="local:ps1">Slave_1004_MCDLN35BL_60BA_0_Touchprobepos1posvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4132].Data</Description>
 			<Parameter ParameterId="4132" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -391,7 +391,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1005_MBDLN25BE_6041_0_Statusword</Name>
+			<Name name="local:ps1">Slave_1004_MCDLN35BL_60FD_0_Digitalinputs</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4133].Data</Description>
 			<Parameter ParameterId="4133" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -401,7 +401,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1005_MBDLN25BE_6061_0_Modesofoperationdisplay</Name>
+			<Name name="local:ps1">Slave_1005_MBDLN25BE_603F_0_Errorcode</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4134].Data</Description>
 			<Parameter ParameterId="4134" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -411,7 +411,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1005_MBDLN25BE_6064_0_Positionactualvalue</Name>
+			<Name name="local:ps1">Slave_1005_MBDLN25BE_6041_0_Statusword</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4135].Data</Description>
 			<Parameter ParameterId="4135" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -421,7 +421,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1005_MBDLN25BE_606C_0_Velocityactualvalue</Name>
+			<Name name="local:ps1">Slave_1005_MBDLN25BE_6061_0_Modesofoperationdisplay</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4136].Data</Description>
 			<Parameter ParameterId="4136" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -431,7 +431,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1005_MBDLN25BE_6077_0_Torqueactualvalue</Name>
+			<Name name="local:ps1">Slave_1005_MBDLN25BE_6064_0_Positionactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4137].Data</Description>
 			<Parameter ParameterId="4137" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -441,7 +441,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1005_MBDLN25BE_60B9_0_Touchprobestatus</Name>
+			<Name name="local:ps1">Slave_1005_MBDLN25BE_606C_0_Velocityactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4138].Data</Description>
 			<Parameter ParameterId="4138" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -451,7 +451,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1005_MBDLN25BE_60BA_0_Touchprobepos1posvalue</Name>
+			<Name name="local:ps1">Slave_1005_MBDLN25BE_6077_0_Torqueactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4139].Data</Description>
 			<Parameter ParameterId="4139" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -461,7 +461,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1005_MBDLN25BE_60FD_0_Digitalinputs</Name>
+			<Name name="local:ps1">Slave_1005_MBDLN25BE_60B9_0_Touchprobestatus</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4140].Data</Description>
 			<Parameter ParameterId="4140" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -471,7 +471,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1006_MADLN15BL_603F_0_Errorcode</Name>
+			<Name name="local:ps1">Slave_1005_MBDLN25BE_60BA_0_Touchprobepos1posvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4141].Data</Description>
 			<Parameter ParameterId="4141" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -481,7 +481,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1006_MADLN15BL_6041_0_Statusword</Name>
+			<Name name="local:ps1">Slave_1005_MBDLN25BE_60FD_0_Digitalinputs</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4142].Data</Description>
 			<Parameter ParameterId="4142" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -491,7 +491,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1006_MADLN15BL_6061_0_Modesofoperationdisplay</Name>
+			<Name name="local:ps1">Slave_1006_MADLN15BL_603F_0_Errorcode</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4143].Data</Description>
 			<Parameter ParameterId="4143" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -501,7 +501,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1006_MADLN15BL_6064_0_Positionactualvalue</Name>
+			<Name name="local:ps1">Slave_1006_MADLN15BL_6041_0_Statusword</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4144].Data</Description>
 			<Parameter ParameterId="4144" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -511,7 +511,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1006_MADLN15BL_606C_0_Velocityactualvalue</Name>
+			<Name name="local:ps1">Slave_1006_MADLN15BL_6061_0_Modesofoperationdisplay</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4145].Data</Description>
 			<Parameter ParameterId="4145" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -521,7 +521,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1006_MADLN15BL_6077_0_Torqueactualvalue</Name>
+			<Name name="local:ps1">Slave_1006_MADLN15BL_6064_0_Positionactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4146].Data</Description>
 			<Parameter ParameterId="4146" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -531,7 +531,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1006_MADLN15BL_60B9_0_Touchprobestatus</Name>
+			<Name name="local:ps1">Slave_1006_MADLN15BL_606C_0_Velocityactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4147].Data</Description>
 			<Parameter ParameterId="4147" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -541,7 +541,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1006_MADLN15BL_60BA_0_Touchprobepos1posvalue</Name>
+			<Name name="local:ps1">Slave_1006_MADLN15BL_6077_0_Torqueactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4148].Data</Description>
 			<Parameter ParameterId="4148" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -551,7 +551,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1006_MADLN15BL_60FD_0_Digitalinputs</Name>
+			<Name name="local:ps1">Slave_1006_MADLN15BL_60B9_0_Touchprobestatus</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4149].Data</Description>
 			<Parameter ParameterId="4149" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -561,7 +561,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1007_MADLN15BL_603F_0_Errorcode</Name>
+			<Name name="local:ps1">Slave_1006_MADLN15BL_60BA_0_Touchprobepos1posvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4150].Data</Description>
 			<Parameter ParameterId="4150" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -571,7 +571,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1007_MADLN15BL_6041_0_Statusword</Name>
+			<Name name="local:ps1">Slave_1006_MADLN15BL_60FD_0_Digitalinputs</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4151].Data</Description>
 			<Parameter ParameterId="4151" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -581,7 +581,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1007_MADLN15BL_6061_0_Modesofoperationdisplay</Name>
+			<Name name="local:ps1">Slave_1007_MADLN15BL_603F_0_Errorcode</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4152].Data</Description>
 			<Parameter ParameterId="4152" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -591,7 +591,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1007_MADLN15BL_6064_0_Positionactualvalue</Name>
+			<Name name="local:ps1">Slave_1007_MADLN15BL_6041_0_Statusword</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4153].Data</Description>
 			<Parameter ParameterId="4153" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -601,7 +601,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1007_MADLN15BL_606C_0_Velocityactualvalue</Name>
+			<Name name="local:ps1">Slave_1007_MADLN15BL_6061_0_Modesofoperationdisplay</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4154].Data</Description>
 			<Parameter ParameterId="4154" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -611,7 +611,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1007_MADLN15BL_6077_0_Torqueactualvalue</Name>
+			<Name name="local:ps1">Slave_1007_MADLN15BL_6064_0_Positionactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4155].Data</Description>
 			<Parameter ParameterId="4155" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -621,7 +621,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1007_MADLN15BL_60B9_0_Touchprobestatus</Name>
+			<Name name="local:ps1">Slave_1007_MADLN15BL_606C_0_Velocityactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4156].Data</Description>
 			<Parameter ParameterId="4156" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -631,7 +631,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1007_MADLN15BL_60BA_0_Touchprobepos1posvalue</Name>
+			<Name name="local:ps1">Slave_1007_MADLN15BL_6077_0_Torqueactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4157].Data</Description>
 			<Parameter ParameterId="4157" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -641,7 +641,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1007_MADLN15BL_60FD_0_Digitalinputs</Name>
+			<Name name="local:ps1">Slave_1007_MADLN15BL_60B9_0_Touchprobestatus</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4158].Data</Description>
 			<Parameter ParameterId="4158" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -651,7 +651,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1008_MCDLN35BL_603F_0_Errorcode</Name>
+			<Name name="local:ps1">Slave_1007_MADLN15BL_60BA_0_Touchprobepos1posvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4159].Data</Description>
 			<Parameter ParameterId="4159" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -661,7 +661,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1008_MCDLN35BL_6041_0_Statusword</Name>
+			<Name name="local:ps1">Slave_1007_MADLN15BL_60FD_0_Digitalinputs</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4160].Data</Description>
 			<Parameter ParameterId="4160" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -671,7 +671,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1008_MCDLN35BL_6061_0_Modesofoperationdisplay</Name>
+			<Name name="local:ps1">Slave_1008_MCDLN35BL_603F_0_Errorcode</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4161].Data</Description>
 			<Parameter ParameterId="4161" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -681,7 +681,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1008_MCDLN35BL_6064_0_Positionactualvalue</Name>
+			<Name name="local:ps1">Slave_1008_MCDLN35BL_6041_0_Statusword</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4162].Data</Description>
 			<Parameter ParameterId="4162" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -691,7 +691,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1008_MCDLN35BL_606C_0_Velocityactualvalue</Name>
+			<Name name="local:ps1">Slave_1008_MCDLN35BL_6061_0_Modesofoperationdisplay</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4163].Data</Description>
 			<Parameter ParameterId="4163" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -701,7 +701,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1008_MCDLN35BL_6077_0_Torqueactualvalue</Name>
+			<Name name="local:ps1">Slave_1008_MCDLN35BL_6064_0_Positionactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4164].Data</Description>
 			<Parameter ParameterId="4164" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -711,7 +711,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1008_MCDLN35BL_60B9_0_Touchprobestatus</Name>
+			<Name name="local:ps1">Slave_1008_MCDLN35BL_606C_0_Velocityactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4165].Data</Description>
 			<Parameter ParameterId="4165" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -721,7 +721,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1008_MCDLN35BL_60BA_0_Touchprobepos1posvalue</Name>
+			<Name name="local:ps1">Slave_1008_MCDLN35BL_6077_0_Torqueactualvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4166].Data</Description>
 			<Parameter ParameterId="4166" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -731,7 +731,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1008_MCDLN35BL_60FD_0_Digitalinputs</Name>
+			<Name name="local:ps1">Slave_1008_MCDLN35BL_60B9_0_Touchprobestatus</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4167].Data</Description>
 			<Parameter ParameterId="4167" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -741,7 +741,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport</Name>
+			<Name name="local:ps1">Slave_1008_MCDLN35BL_60BA_0_Touchprobepos1posvalue</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4168].Data</Description>
 			<Parameter ParameterId="4168" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -751,7 +751,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1009_JXCE1_6011_0_Controllerinformationflag</Name>
+			<Name name="local:ps1">Slave_1008_MCDLN35BL_60FD_0_Digitalinputs</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4169].Data</Description>
 			<Parameter ParameterId="4169" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -761,7 +761,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1009_JXCE1_6020_0_Currentposition</Name>
+			<Name name="local:ps1">Slave_1009_JXCE1_6010_0_Signalallocatedtotheinputport</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4170].Data</Description>
 			<Parameter ParameterId="4170" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -771,7 +771,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1009_JXCE1_6021_0_Currentspeed</Name>
+			<Name name="local:ps1">Slave_1009_JXCE1_6011_0_Controllerinformationflag</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4171].Data</Description>
 			<Parameter ParameterId="4171" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -781,7 +781,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1009_JXCE1_6022_0_Currentpushingforce</Name>
+			<Name name="local:ps1">Slave_1009_JXCE1_6020_0_Currentposition</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4172].Data</Description>
 			<Parameter ParameterId="4172" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -791,7 +791,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1009_JXCE1_6023_0_Targetposition</Name>
+			<Name name="local:ps1">Slave_1009_JXCE1_6021_0_Currentspeed</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4173].Data</Description>
 			<Parameter ParameterId="4173" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -801,7 +801,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1009_JXCE1_6030_1_Alarm1</Name>
+			<Name name="local:ps1">Slave_1009_JXCE1_6022_0_Currentpushingforce</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4174].Data</Description>
 			<Parameter ParameterId="4174" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -811,7 +811,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1009_JXCE1_6030_2_Alarm2</Name>
+			<Name name="local:ps1">Slave_1009_JXCE1_6023_0_Targetposition</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4175].Data</Description>
 			<Parameter ParameterId="4175" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -821,7 +821,7 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1009_JXCE1_6030_3_Alarm3</Name>
+			<Name name="local:ps1">Slave_1009_JXCE1_6030_1_Alarm1</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4176].Data</Description>
 			<Parameter ParameterId="4176" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
@@ -831,9 +831,29 @@
 			</Parameter>
 			</ParameterSection>
 			<ParameterSection>
-			<Name name="local:ps1">Slave_1009_JXCE1_6030_4_Alarm4</Name>
+			<Name name="local:ps1">Slave_1009_JXCE1_6030_2_Alarm2</Name>
 			<Description name="local:ps1.Desc">ECAT[0].IO[4177].Data</Description>
 			<Parameter ParameterId="4177" type="std:BOOL">
+			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
+			<Default>0</Default>
+			<Name name="local:in">INPUT</Name>
+			<Unit name="local:ps1.Unit">BOOL</Unit>
+			</Parameter>
+			</ParameterSection>
+			<ParameterSection>
+			<Name name="local:ps1">Slave_1009_JXCE1_6030_3_Alarm3</Name>
+			<Description name="local:ps1.Desc">ECAT[0].IO[4178].Data</Description>
+			<Parameter ParameterId="4178" type="std:BOOL">
+			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
+			<Default>0</Default>
+			<Name name="local:in">INPUT</Name>
+			<Unit name="local:ps1.Unit">BOOL</Unit>
+			</Parameter>
+			</ParameterSection>
+			<ParameterSection>
+			<Name name="local:ps1">Slave_1009_JXCE1_6030_4_Alarm4</Name>
+			<Description name="local:ps1.Desc">ECAT[0].IO[4179].Data</Description>
+			<Parameter ParameterId="4179" type="std:BOOL">
 			<Attributes channel="input" download="true" functional="false" offlineaccess="readwrite" onlineaccess="readwrite" driverSpecific="1"/>
 			<Default>0</Default>
 			<Name name="local:in">INPUT</Name>

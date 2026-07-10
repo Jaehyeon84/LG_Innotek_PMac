@@ -46,7 +46,7 @@
   <PhaseFreq>10000.169277191162</PhaseFreq>
   <PhaseServoClockCtrl>$817a0c00</PhaseServoClockCtrl>
   <ResolverCtrl>$0</ResolverCtrl>
-  <SerialEncCtrl>$82800</SerialEncCtrl>
+  <SerialEncCtrl>$0</SerialEncCtrl>
   <Channels>
     <Gate3ChannelDataStructure>
       <AdcOffset>

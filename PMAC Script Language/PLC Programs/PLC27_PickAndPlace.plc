@@ -304,6 +304,9 @@ open plc 27
 				}
 				else if(Sys.time > gMc_TransTest_Tmr)
 				{
+					pUmem_Do18_TrPickUp = 1;
+					pUmem_Do1A_TrPickDn = 0;
+
 					gMc_TransTest_Sta = cSeqSta_Err;
 					gMc_TransTest_Seq = 0;
 					gMc_TransTest_Ena = 0;
@@ -358,6 +361,9 @@ open plc 27
 				}
 				else if(Sys.time > gMc_TransTest_Tmr)
 				{
+					pUmem_Do18_TrPickUp = 1;
+					pUmem_Do1A_TrPickDn = 0;
+
 					gMc_TransTest_Sta = cSeqSta_Err;
 					gMc_TransTest_Seq = 0;
 					gMc_TransTest_Ena = 0;
@@ -576,6 +582,9 @@ open plc 27
 				}
 				else if(Sys.time > gMc_TransTest_Tmr)
 				{
+					pUmem_Do18_TrPickUp = 1;
+					pUmem_Do1A_TrPickDn = 0;
+
 					gMc_TransTest_Sta = cSeqSta_Err;
 					gMc_TransTest_Seq = 0;
 					gMc_TransTest_Ena = 0;
@@ -784,6 +793,9 @@ open plc 27
 				}
 				else if(Sys.time > gMc_TransTest_Tmr)
 				{
+					pUmem_Do18_TrPickUp = 1;
+					pUmem_Do1A_TrPickDn = 0;
+
 					gMc_TransTest_Sta = cSeqSta_Err;
 					gMc_TransTest_Seq = 0;
 					gMc_TransTest_Ena = 0;
@@ -811,6 +823,9 @@ open plc 27
 				}
 				else if(Sys.time > gMc_TransTest_Tmr)
 				{
+					pUmem_Do18_TrPickUp = 1;
+					pUmem_Do1A_TrPickDn = 0;
+
 					gMc_TransTest_Sta = cSeqSta_Err;
 					gMc_TransTest_Seq = 0;
 					gMc_TransTest_Ena = 0;
@@ -838,6 +853,9 @@ open plc 27
 				}
 				else if(Sys.time > gMc_TransTest_Tmr)
 				{
+					pUmem_Do18_TrPickUp = 1;
+					pUmem_Do1A_TrPickDn = 0;
+
 					gMc_TransTest_Sta = cSeqSta_Err;
 					gMc_TransTest_Seq = 0;
 					gMc_TransTest_Ena = 0;
@@ -1054,6 +1072,9 @@ open plc 27
 				}
 				else if(Sys.time > gMc_TransTest_Tmr)
 				{
+					pUmem_Do18_TrPickUp = 1;
+					pUmem_Do1A_TrPickDn = 0;
+
 					gMc_TransTest_Sta = cSeqSta_Err;
 					gMc_TransTest_Seq = 0;
 					gMc_TransTest_Ena = 0;

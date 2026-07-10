@@ -82,10 +82,10 @@ open subprog spConvertVoltScaled(InVolt, &OutVolt)
 close
 
 // 스펙에 따른 변수 (보통 초기화 단계나 헤더에 상수로 선언합니다)
-global gTempRawMin = -72;
-global gTempRawMax = 22; // 16비트 모듈 기준
-global gSensorTempMin = 30.0;     // 센서의 최소 온도 (예: 0℃)
-global gSensorTempMax = 42.0;   // 센서의 최대 온도 (예: 100℃)
+global gTempRawMin = -125;
+global gTempRawMax = 730; // 16비트 모듈 기준
+global gSensorTempMin = 21.4;     // 센서의 최소 온도 (예: 0℃)
+global gSensorTempMax = 100.0;   // 센서의 최대 온도 (예: 100℃)
 
 open subprog spConvertTempScaled(InSensor, &OutTemp) 
 	

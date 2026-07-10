@@ -110,3 +110,58 @@ open subprog spReadVsThPos(inc_idx, inc_pos, &out_pos)
 	Ldata.motor = inc_idx;
 	jog=*
 close
+
+open subprog spReadVsThMoveToTargetViaOffset(inc_idx, inc_pos, &out_pos)
+
+	if(pUmem_Sta_CmdPos(inc_idx) == inc_pos)
+	{
+		out_pos = inc_pos;
+		return;
+	}
+
+	local lVsPosCBuf = 0;
+	local lVsTargetPos = 0;
+	local lVsout_pos = 0;
+
+	//20260126 KJH - 최단 거리 Open과 Close 하기 위함.
+	//lPosCBuf = pUmem_Sta_ActPos(inc_idx) % 360000;
+	//lVsPosCBuf = pUmem_Sta_CmdPos(inc_idx) % 360000;
+	lVsPosCBuf = pUmem_Sta_CmdPos(inc_idx);
+
+	if(lVsPosCBuf < 0)
+		lVsPosCBuf += 360000;
+
+	lVsTargetPos = inc_pos % 360000;
+
+	if(lVsTargetPos < 0)
+		lVsTargetPos += 360000;
+
+	lVsout_pos = lVsTargetPos - lVsPosCBuf;
+
+	if(lVsout_pos > 180000)
+		lVsout_pos -= 360000;
+	else if(lVsout_pos <= -180000)
+		lVsout_pos += 360000;
+
+//	P200 = lVsPosCBuf;
+//	P201 = lVsTargetPos;
+//	P202 = lVsout_pos;
+//	P203 = pUmem_Sta_CmdPos(inc_idx);
+//	P204 = rint(((Motor[inc_idx].DesPos - Motor[inc_idx].HomePos) + lVsout_pos) % 360000);
+//	P205 = (Motor[inc_idx].DesPos - Motor[inc_idx].HomePos) + lVsout_pos;
+	//gVs_ThPos_Old = Motor[inc_idx].ProgJogPos;
+	//Motor[inc_idx].ProgJogPos = pUmem_Sta_CmdPos(inc_idx) + lVsout_pos;
+	Motor[inc_idx].ProgJogPos = (Motor[inc_idx].DesPos - Motor[inc_idx].HomePos) + lVsout_pos;
+	Motor[inc_idx].ProgJogPos += 720000;	//20260626 KJH - Vision Product 위치 안착을 위한 2바퀴 회전 후 목표지점으로 이동을 위함.
+	Motor[inc_idx].InPosBand = cMotor_InPosBand_Point;
+	Motor[inc_idx].JogSpeed = cMotor_ThCoverPosMoveSpeed;
+
+	out_pos = rint(((Motor[inc_idx].DesPos - Motor[inc_idx].HomePos) + lVsout_pos) % 360000);
+	//out_pos = inc_pos;
+
+	if(out_pos < 0)
+		out_pos += 360000;
+
+	Ldata.motor = inc_idx;
+	jog=*
+close

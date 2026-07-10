@@ -18,7 +18,7 @@
   <TuningData>
     <CurrentLoopTuning />
     <PositionLoopTuning />
-    <AreFiltersInitialized>true</AreFiltersInitialized>
+    <AreFiltersInitialized>false</AreFiltersInitialized>
     <PositionFilter>
       <PositionLowPassFilter>
         <Frequency>0</Frequency>
